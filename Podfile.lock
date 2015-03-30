@@ -1,0 +1,16 @@
+PODS:
+  - IQKeyboardManager (3.2.1.1)
+  - QuickBlox (2.1.1)
+  - SVPullToRefresh (0.4.1)
+
+DEPENDENCIES:
+  - IQKeyboardManager
+  - QuickBlox
+  - SVPullToRefresh
+
+SPEC CHECKSUMS:
+  IQKeyboardManager: 4e83eef847c6f5edbd670284e50c7e3d643ebdb5
+  QuickBlox: 6eccb0011a98ee69634da054e1b5ff2a135b231d
+  SVPullToRefresh: d5161ebc833a38b465364412e5e307ca80bbb190
+
+COCOAPODS: 0.35.0

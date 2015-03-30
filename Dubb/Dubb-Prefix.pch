@@ -1,0 +1,47 @@
+//
+//  Dubb-Prefix.pch
+//  Dubb
+//
+//  Created by Oleg Koshkin on 12/03/15.
+//  Copyright (c) 2015 dubb.co. All rights reserved.
+//
+
+#import "BaseViewController.h"
+#import <Quickblox/Quickblox.h>
+#import "UIViewController+RESideMenu.h"
+#import "RESideMenu.h"
+#import "User.h"
+#import "ChatService.h"
+#import "CharactersEscapeService.h"
+
+#ifndef Dubb_Dubb_Prefix_pch
+#define Dubb_Dubb_Prefix_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#endif
+
+#define twitterConsumerKey      @"t0edKd5EQ8Fck7DU9SoQAY36b"
+#define twitterConsumerSecret   @"4OSE2H6mn6ZSeD5nRWuYJeSrdTrhZpBuh6r6RmqE0HviKV2IxZ"
+
+#define kGoogleClientID         @"623939172061-02okbe9jhenmjt396lr6r0nacihilg23.apps.googleusercontent.com"
+#define kGoogleAnalyticsTrackId @"UA-60124659-1"
+
+#define APIURL                  @"http://devd.dubb.co/v1/"
+
+#define kNotificationDidReceiveNewMessage           @"kNotificationDidReceiveNewMessage"
+#define kMessage                                    @"kMessage"
+
+#define qbAppID                 20732
+#define qbServiceKey            @"rFnQPECabCam7aD"
+#define qbServiceSecret         @"pGtKhO3fFQWK3fr"
+#define qbAccountKey            @"hz65Y6mgMKfDG8ysjPPa"
+
+#define qbDefaultPassword       @"dubb@345"
+
+#define kGoogleUser             0
+#define kFacebookUser           1
+#define kEmailUser              2
+
+#define kMenuButton             9876
