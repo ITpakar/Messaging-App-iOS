@@ -131,6 +131,7 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
     
     if( [User currentUser].chatUser ){ //When User is logged
         AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+
         [appDelegate didReceiveMessage: message];
     }
 

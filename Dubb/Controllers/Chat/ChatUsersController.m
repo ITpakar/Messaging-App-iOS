@@ -50,10 +50,16 @@
 
 -(void) viewWillAppear:(BOOL)animated
 {
+    self.navigationController.navigationBarHidden = YES;
     if( [User currentUser].chatUser == nil ) return;
     
     [self showProgress:@"Loading..."];
     [self.paginator fetchFirstPage];
+}
+
+-(void) viewWillDisappear:(BOOL)animated
+{
+    self.navigationController.navigationBarHidden = NO;
 }
 
 - (void)fetchNextPage

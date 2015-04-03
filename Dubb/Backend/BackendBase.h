@@ -25,6 +25,10 @@
 
 /* Common functions for all backends */
 
+- (void) accessAPIbyPost:(NSString *)apiPath
+              Parameters:(NSDictionary *)params
+       CompletionHandler:(void (^)(NSDictionary *result, NSData *data, NSError *error))handler;
+
 - (void) accessAPI:(NSString *)apiPath
         Parameters:(NSDictionary *)params
  CompletionHandler:(void (^)(NSDictionary *result, NSData *data, NSError *error))handler;

@@ -10,7 +10,7 @@
 #import "GAI.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import <GooglePlus/GooglePlus.h>
-
+#import <AWSiOSSDKv2/S3.h>
 #import "DubbRootViewController.h"
 #import "ChatViewController.h"
 #import "ChatHistoryController.h"
@@ -47,6 +47,11 @@
     NSDictionary *remoteNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
     if( remoteNotification )
         [self openMessageFromNotification:remoteNotification];
+    
+    
+    AWSStaticCredentialsProvider *credentialsProvider = [AWSStaticCredentialsProvider credentialsWithAccessKey:awsAccessKey secretKey:awsSecretKey];
+    AWSServiceConfiguration *configuration = [AWSServiceConfiguration configurationWithRegion:AWSRegionUSWest1 credentialsProvider:credentialsProvider];
+    [AWSServiceManager defaultServiceManager].defaultServiceConfiguration = configuration;
     
     return YES;
 }
@@ -151,7 +156,10 @@
     if (currentLocation != nil) {
         User *currentUser = [User currentUser];
         currentUser.longitude = [NSNumber numberWithFloat: currentLocation.coordinate.longitude];
-        currentUser.latitude = [NSNumber numberWithFloat: currentLocation.coordinate.latitude];        
+        currentUser.latitude = [NSNumber numberWithFloat: currentLocation.coordinate.latitude];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidLocationUpdated
+                                                            object:nil userInfo:nil];
     }
     
     [locationManager stopUpdatingLocation];

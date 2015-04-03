@@ -33,6 +33,7 @@
 #define kNotificationDidReceiveNewMessage           @"kNotificationDidReceiveNewMessage"
 #define kMessage                                    @"kMessage"
 
+#define kNotificationDidLocationUpdated             @"kNotificationDidLocationUpdated"
 #define qbAppID                 20732
 #define qbServiceKey            @"rFnQPECabCam7aD"
 #define qbServiceSecret         @"pGtKhO3fFQWK3fr"

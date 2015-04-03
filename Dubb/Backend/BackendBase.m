@@ -30,6 +30,23 @@ static BackendBase   *sharedConnection;
     
 }
 
+- (void) accessAPIbyPost:(NSString *)apiPath
+        Parameters:(NSDictionary *)params
+ CompletionHandler:(void (^)(NSDictionary *result, NSData *data, NSError *error))handler
+{
+    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:apiPath]];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    [manager POST:@"" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
+        id response = [NSJSONSerialization JSONObjectWithData: responseObject options:NSJSONReadingMutableContainers error:nil];
+        handler(response, nil, nil);
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        handler(nil, nil, error);
+    }];
+    
+}
+
 - (void)accessAPIbyPOST:(NSString *)apiPath
              Parameters:(NSDictionary *)params
       CompletionHandler:(void (^)(NSDictionary *result, NSData *data, NSError *error))handler
