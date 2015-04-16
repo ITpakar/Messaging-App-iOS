@@ -109,7 +109,13 @@
         imageView.backgroundColor = [UIColor greenColor];
     
     lblUser.text = recipient.fullName;
-    lblMessage.text = [NSString stringWithFormat:@"%@ %@", chatDialog.lastMessageText, chatDialog.lastMessageDate];
+    if( chatDialog.lastMessageText ){
+        if( chatDialog.lastMessageText.length > 20)
+            lblMessage.text = [NSString stringWithFormat:@"%@...", [chatDialog.lastMessageText substringToIndex:20]];
+        else
+            lblMessage.text = chatDialog.lastMessageText;
+    } else
+        lblMessage.text = @"";
     
     if( chatDialog.unreadMessagesCount == 0 )
         lblUnreadMsg.hidden = YES;

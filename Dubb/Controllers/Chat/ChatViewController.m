@@ -12,13 +12,17 @@
 #import "AsyncImageView.h"
 #import "IQKeyboardManager.h"
 #import "SVPullToRefresh.h"
+#import <MobileCoreServices/MobileCoreServices.h>
+#import "UIImage+fixOrientation.h"
+#import <AVFoundation/AVFoundation.h>
 
-@interface ChatViewController () <UITableViewDelegate, UITableViewDataSource, UITextViewDelegate, QBActionStatusDelegate>{
+@interface ChatViewController () <UITableViewDelegate, UITableViewDataSource, UITextViewDelegate, QBActionStatusDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>{
     
     __weak IBOutlet UITableView *messageTableView;
     __weak IBOutlet UILabel *chatTitle;
     __weak IBOutlet UIActivityIndicatorView *recipientProfileActivityIndicator;
     __weak IBOutlet UIImageView *receiverProfileImageView;
+    __weak IBOutlet UIImageView *recipientStatus;
     __weak IBOutlet NSLayoutConstraint *heightConstraint;
     __weak IBOutlet NSLayoutConstraint *bottomConstraint;
     
@@ -36,6 +40,13 @@
     NSDateFormatter *dateFormatter;
     
     BOOL _wasKeyboardManagerEnabled;
+    NSData *attachment;
+    UIImage *imageAttachment;
+    NSURL *videoAttachment;
+    NSMutableDictionary *attachmentParams;
+    
+    
+    NSTimer *recipientStatusUpdateTimer;
 }
 
 @end
@@ -60,6 +71,7 @@
     
     messageContainerView.layer.borderColor = [[UIColor grayColor] CGColor];
     messageContainerView.layer.borderWidth = 1.0f;
+    recipientStatus.layer.borderColor = [UIColor whiteColor].CGColor;
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
@@ -77,6 +89,94 @@
     
     [self initializeTableView];
     
+    
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    
+    _wasKeyboardManagerEnabled = [[IQKeyboardManager sharedManager] isEnabled];
+    [[IQKeyboardManager sharedManager] setEnable:NO];
+    
+    if( recipientImage == nil ){
+        recipientImage = [[User currentUser].avatarsAsDictionary objectForKey:@(self.dialog.recipientID)];
+        if( recipientImage ){
+            receiverProfileImageView.image = recipientImage;
+            [self setRecipient];
+            
+        } else {
+            [QBRequest userWithID:self.dialog.recipientID successBlock:^(QBResponse *response, QBUUser *user) {
+                
+                [User currentUser].chatUsers = @[user];
+                [self setRecipient];
+                
+                
+                if( user.blobID ){
+                    
+                    [recipientProfileActivityIndicator startAnimating];
+                    [QBRequest TDownloadFileWithBlobID:user.blobID successBlock:^(QBResponse *response, NSData *fileData) {
+                        recipientImage = [UIImage imageWithData:fileData];
+                        receiverProfileImageView.image = recipientImage;
+                        [recipientProfileActivityIndicator stopAnimating];
+                        
+                        [[User currentUser].avatarsAsDictionary setObject:recipientImage forKey:@(user.ID)];
+                        
+                        [messageTableView reloadData];
+                    } statusBlock:nil errorBlock:^(QBResponse *response) {
+                        [recipientProfileActivityIndicator stopAnimating];
+                        recipientImage = [UIImage imageNamed:@"portrait.png"];
+                        receiverProfileImageView.image = recipientImage;
+                        [[User currentUser].avatarsAsDictionary setObject:recipientImage forKey:@(user.ID)];
+                    }];
+                    
+                } else {
+                    recipientImage = [UIImage imageNamed:@"portrait.png"];
+                    receiverProfileImageView.image = recipientImage;
+                    [[User currentUser].avatarsAsDictionary setObject:recipientImage forKey:@(user.ID)];
+                }
+            } errorBlock:^(QBResponse *response) {
+                recipientImage = [UIImage imageNamed:@"portrait.png"];
+                receiverProfileImageView.image = recipientImage;
+                [[User currentUser].avatarsAsDictionary setObject:recipientImage forKey:@(self.dialog.recipientID)];
+            }];
+        }
+    }
+    
+    [self loadMessages];
+    
+}
+
+-(void) setRecipient{
+    QBUUser *user = [User currentUser].usersAsDictionary[@(self.dialog.recipientID)];
+    chatTitle.text = user.fullName == nil ? user.login : user.fullName;
+    receiverProfileImageView.image = recipientImage;
+    
+    NSInteger currentTimeInterval = [[NSDate date] timeIntervalSince1970];
+    NSInteger userLastRequestAtTimeInterval   = [[user lastRequestAt] timeIntervalSince1970];
+    
+    // if user didn't do anything last 1 minute
+    if((currentTimeInterval - userLastRequestAtTimeInterval) <= 65)
+        recipientStatus.backgroundColor = [UIColor greenColor];
+    
+    recipientStatusUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:60
+                                                                  target:self selector:@selector(updateRecipientStatus)
+                                                                userInfo:nil repeats:YES];
+}
+
+-(void) updateRecipientStatus{
+    [QBRequest userWithID:self.dialog.recipientID successBlock:^(QBResponse *response, QBUUser *user) {
+        NSInteger currentTimeInterval = [[NSDate date] timeIntervalSince1970];
+        NSInteger userLastRequestAtTimeInterval   = [[user lastRequestAt] timeIntervalSince1970];
+        
+        // if user didn't do anything last 1 minute
+        if((currentTimeInterval - userLastRequestAtTimeInterval) <= 65)
+            recipientStatus.backgroundColor = [UIColor greenColor];
+        else
+            recipientStatus.backgroundColor = [UIColor lightGrayColor];
+        
+    } errorBlock:nil];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    self.navigationController.navigationBarHidden = YES;
 }
 
 -(void) initializeTableView{
@@ -96,43 +196,6 @@
     
 }
 
--(void) viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    self.navigationController.navigationBarHidden = YES;
-    
-    _wasKeyboardManagerEnabled = [[IQKeyboardManager sharedManager] isEnabled];
-    [[IQKeyboardManager sharedManager] setEnable:NO];
-    
-    if( recipientImage == nil ){
-        [QBRequest userWithID:self.dialog.recipientID successBlock:^(QBResponse *response, QBUUser *user) {
-            
-            chatTitle.text = user.fullName == nil ? user.login : user.fullName;
-            if( user.blobID ){
-                
-                [recipientProfileActivityIndicator startAnimating];
-                [QBRequest TDownloadFileWithBlobID:user.blobID successBlock:^(QBResponse *response, NSData *fileData) {
-                    recipientImage = [UIImage imageWithData:fileData];
-                    receiverProfileImageView.image = recipientImage;
-                    [recipientProfileActivityIndicator stopAnimating];
-                    
-                    [messageTableView reloadData];
-                } statusBlock:nil errorBlock:^(QBResponse *response) {
-                    [recipientProfileActivityIndicator stopAnimating];
-                    receiverProfileImageView.image = [UIImage imageNamed:@"portrait.png"];
-                }];
-                
-            } else {
-                receiverProfileImageView.image = [UIImage imageNamed:@"portrait.png"];
-            }
-        } errorBlock:^(QBResponse *response) {
-            receiverProfileImageView.image = [UIImage imageNamed:@"portrait.png"];
-        }];
-    }
-    
-    [self loadMessages];
-}
 
 -(void) loadMessages{
     
@@ -170,16 +233,23 @@
     int row = 0;
     for(int i = 0; i < indexPath.section; i++)
         row += [sections[sectionTitles[i]] integerValue];
+    row += indexPath.row;
     
-    if( messages.count <= row + indexPath.row ) return 0;
+    if( messages.count <= row ) return 50;
     
     UITextView *textView = [[UITextView alloc] init];
-    textView.font = [UIFont fontWithName:@"HelveticaNeue" size:12.0f];
-    QBChatAbstractMessage *message = messages[row + indexPath.row];
-    textView.text = message.text;
-    CGSize size = [textView sizeThatFits:CGSizeMake(self.view.frame.size.width - 135, FLT_MAX)];
+    textView.font = [UIFont systemFontOfSize:14.0f];
     
-    return MAX(size.height, 35) + 48;
+    QBChatAbstractMessage *message = messages[row];
+    CGSize size;
+    
+    if( [message.customParameters objectForKey:@"type"] )
+        size.height = (self.navigationController.view.frame.size.width - 130) * [message.customParameters[@"height"] integerValue] / [message.customParameters[@"width"] integerValue];
+    else{
+        textView.text = message.text;
+        size = [textView sizeThatFits:CGSizeMake(self.navigationController.view.frame.size.width - 130, FLT_MAX)];
+    }
+    return size.height + 50;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -228,25 +298,23 @@
     int row = 0;
     for(int i = 0; i < indexPath.section; i++)
         row += [sections[sectionTitles[i]] integerValue];
+
+    row += indexPath.row;
+    if( messages.count <= row ) return [UITableViewCell new];
     
-    if( messages.count <= row + indexPath.row ) return [UITableViewCell new];
+    NSString *cellIdentifier = [NSString stringWithFormat:@"Cell%d", row];;
     
     DubbChatCell *cell;
-    QBChatAbstractMessage *message = messages[row + indexPath.row];
+    QBChatMessage *message = messages[row];
     
-    
-    if([User currentUser].chatUser.ID == message.senderID) //Sender
-    {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"senderCell" ];
-    } else {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"receiverCell"];
+    cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if( !cell )
+        cell = [[DubbChatCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier
+                                                      Message:message ProfileImage:recipientImage];
+    else
         cell.profileImage = recipientImage;
-    }
     
-    cell.timestamp = message.datetime;
-    cell.message = message.text;
-    
-    [cell setupCell];
+    [cell setup];
     
     return cell;
     
@@ -291,7 +359,11 @@
     
     bottomConstraint.constant = keyboardBounds.size.height;
     [UIView animateWithDuration:[duration floatValue] animations:^{
-        [self.view layoutIfNeeded];
+        @try{
+            [self.view layoutIfNeeded];
+        }@catch(NSException *e){
+            NSLog(@"%@", e.description);
+        }
     } completion:^(BOOL finished) {
         [self scrollBottomOfTableView:NO];
     }];
@@ -318,6 +390,7 @@
     // commit animations
     [UIView commitAnimations];
 }
+
 
 -(void) scrollBottomOfTableView : (BOOL)animated
 {
@@ -401,6 +474,7 @@
     [self scrollBottomOfTableView:YES];
     
     [QBChat markMessagesAsRead:nil dialogID:self.dialog.ID delegate:nil];
+    [self updateRecipientStatus];
 }
 
 
@@ -433,6 +507,7 @@
                 }
                 
                 [messages insertObject:msg atIndex:0];
+                
             }
             
             [messageTableView reloadData];
@@ -455,18 +530,133 @@
 }
 
 #pragma mark - 
-#pragma mark Navigation
-- (IBAction)onBack:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
+#pragma mark Attachment
+
+- (IBAction)onAttachment:(id)sender {
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Attach Image or Video" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Camera", @"Choose from Gallery", nil];
+        
+        [actionSheet showInView:self.view];
+}
+
+-(void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    
+    if([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Cancel"]) return;
+    
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+    imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    imagePicker.mediaTypes = [[NSArray alloc] initWithObjects:(NSString*)kUTTypeImage, (NSString*)kUTTypeMovie, nil];
+    imagePicker.allowsEditing = YES;
+    imagePicker.delegate = self;
+    imagePicker.videoQuality = UIImagePickerControllerQualityTypeMedium;
+    imagePicker.videoMaximumDuration = 30.0f;
+    
+    if([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Camera"])
+    {
+        if( [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
+            imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;            
+        } else {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Tip" message:@"Your device don't have camera" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alert show];
+            return;
+        }
+    } else if([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Choose from Gallery"]) {
+        imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    }
+    
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        [self presentViewController:imagePicker animated:YES completion:nil];
+    }];
+    
 }
 
 
--(void)viewWillDisappear:(BOOL)animated
+#pragma mark - Attach Image
+
+-(void)imagePickerController:(UIImagePickerController *)picker
+didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    [super viewWillDisappear:animated];
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    
+    NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
+    if ([mediaType isEqualToString:(NSString *)kUTTypeImage])
+    {
+        UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
+        imageAttachment = [image fixOrientation];
+        attachment = UIImageJPEGRepresentation(imageAttachment, 0.7f);
+        
+        attachmentParams = [NSMutableDictionary dictionary];
+        [attachmentParams setObject:@"Photo" forKey:@"type"];
+        [attachmentParams setObject:@(imageAttachment.size.width) forKey:@"width"];
+        [attachmentParams setObject:@(imageAttachment.size.height) forKey:@"height"];
+        [attachmentParams setObject:imageAttachment forKey:@"thumb"];
+        [attachmentParams setObject:attachment forKey:@"attachment"];
+        [attachmentParams setObject:@"1" forKey:@"transfer"];
+        
+    } else {
+        videoAttachment = [info objectForKey:UIImagePickerControllerMediaURL];
+        attachment = [NSData dataWithContentsOfURL:videoAttachment];
+        
+        AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:videoAttachment options:nil];
+        AVAssetImageGenerator *gen = [[AVAssetImageGenerator alloc] initWithAsset:asset];
+        gen.appliesPreferredTrackTransform = YES;
+        CMTime time = CMTimeMakeWithSeconds(0.0, 600);
+        NSError *error = nil;
+        CMTime actualTime;
+        
+        CGImageRef image = [gen copyCGImageAtTime:time actualTime:&actualTime error:&error];
+        UIImage *thumb = [[UIImage alloc] initWithCGImage:image];
+        CGImageRelease(image);
+        
+        attachmentParams = [NSMutableDictionary dictionary];
+        [attachmentParams setObject:@"Video" forKey:@"type"];
+        [attachmentParams setObject:@(thumb.size.width) forKey:@"width"];
+        [attachmentParams setObject:@(thumb.size.height) forKey:@"height"];
+        [attachmentParams setObject:thumb forKey:@"thumb"];
+        [attachmentParams setObject:attachment forKey:@"attachment"];
+        [attachmentParams setObject:videoAttachment forKey:@"videoURL"];
+        [attachmentParams setObject:@"1" forKey:@"transfer"];
+    }
+    
+    [self sendAttachment];
+
+}
+
+-(void) sendAttachment
+{
+    QBChatMessage *message = [[QBChatMessage alloc] init];
+    attachmentParams[@"save_to_history"] = @YES;
+    [message setCustomParameters:attachmentParams];
+    
+    message.text = attachmentParams[@"type"];
+    message.recipientID = [self.dialog recipientID];
+    message.senderID = [User currentUser].chatUser.ID;
+    
+    // save message
+    [messages addObject:message];
+    
+    NSDate *now = [NSDate date];
+    NSString *localTime = [dateFormatter stringFromDate:now];
+    if( sections[localTime] )
+        sections[localTime] = @([sections[localTime] integerValue] + 1);
+    else{
+        [sectionTitles addObject:localTime];
+        sections[localTime] = @1;
+    }
+    
+    [messageTableView reloadData];
+    [self scrollBottomOfTableView:YES];
+}
+
+
+#pragma mark - 
+#pragma mark Navigation
+- (IBAction)onBack:(id)sender {
     self.navigationController.navigationBarHidden = NO;
     [[IQKeyboardManager sharedManager] setEnable:_wasKeyboardManagerEnabled];
+    [recipientStatusUpdateTimer invalidate];
     
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 

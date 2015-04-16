@@ -8,13 +8,22 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum{
+    DubbMessageTypeText    = 0,
+    DubbMessageTypePicture = 1,
+    DubbMessageTypeVideo   = 2
+} DubbMessageType;
+
 @interface DubbChatCell : UITableViewCell
 
-@property NSString* message;
 @property UIImage* profileImage;
-@property (nonatomic, strong) NSDate* timestamp;
-@property (nonatomic, strong) NSString *localTime;
+@property QBChatMessage *message;
+@property DubbMessageType messageType;
 
--(void) setupCell;
+@property BOOL isTransferred;
+
+-(id) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+            Message:(QBChatMessage*) message ProfileImage:(UIImage*)image;
+-(void) setup;
 
 @end

@@ -22,6 +22,9 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    UIImage *image = [UIImage imageNamed:@"receiver_bubble.png"];
+    UIImage *cellBGImage = [image resizableImageWithCapInsets:UIEdgeInsetsMake(40, 25, 15, 25) resizingMode:UIImageResizingModeStretch];
+    bubbleImageView.image = cellBGImage;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -32,11 +35,6 @@
 
 -(void) setupCell
 {
-    UIImage *image = [UIImage imageNamed:@"receiver_bubble.png"];
-    UIImage *cellBGImage = [image resizableImageWithCapInsets:UIEdgeInsetsMake(40, 25, 15, 25) resizingMode:UIImageResizingModeStretch];
-    bubbleImageView.image = cellBGImage;
-    
-    
     profileImageView.showActivityIndicator = YES;
     profileImageView.image = nil;
 
@@ -45,8 +43,7 @@
     else
         profileImageView.image = self.profileImage;
     
-    messageTextView.text = self.message;
-    lblTime.text = lblTime.text = self.localTime;
+    messageTextView.text = self.message.text;
 }
 
 

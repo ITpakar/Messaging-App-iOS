@@ -89,22 +89,33 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
     [[QBChat instance]  requestAllRooms];
 }
 
+#pragma mark -
+#pragma mark Send Presence
+
+-(void) setOnline {
+    [self.presenceTimer invalidate];
+    self.presenceTimer = [NSTimer scheduledTimerWithTimeInterval:60
+                                                          target:[QBChat instance] selector:@selector(sendPresence)
+                                                        userInfo:nil repeats:YES];
+}
+
+-(void) setOffline {
+    [self.presenceTimer invalidate];
+}
 
 #pragma mark
 #pragma mark QBChatDelegate
 
 - (void)chatDidLogin{
     // Start sending presences
-    [self.presenceTimer invalidate];
-    self.presenceTimer = [NSTimer scheduledTimerWithTimeInterval:60
-                                     target:[QBChat instance] selector:@selector(sendPresence)
-                                   userInfo:nil repeats:YES];
+    [self setOnline];
     
     if(self.loginCompletionBlock != nil){
         self.loginCompletionBlock();
         self.loginCompletionBlock = nil;
     }
 }
+
 
 - (void)chatDidFailWithError:(NSInteger)code{
     // relogin here
@@ -135,6 +146,11 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
         [appDelegate didReceiveMessage: message];
     }
 
+}
+
+-(void)chatDidDeliverMessageWithID:(NSString *)messageID
+{
+    
 }
 
 /*

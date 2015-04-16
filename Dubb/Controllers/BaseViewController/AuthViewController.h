@@ -9,10 +9,12 @@
 
 @interface AuthViewController : BaseViewController
 
-//FB, Twitter
+//Google+, Facebook
 -(void) googlePlusLogin;
 -(void) facebookLogin;
 -(void) loginWithUser:(NSMutableDictionary*) params;
 -(void) registerUserWithUsername : (NSDictionary*)params;
+-(void) loginToQuickBlox;
+-(void) onAuthenticationSuccess : (BOOL)chatLogged;
 
 @end

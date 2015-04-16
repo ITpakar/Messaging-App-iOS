@@ -25,6 +25,8 @@
     
     UIButton *menuButton = (UIButton*)[self.view viewWithTag:kMenuButton];
     [menuButton addTarget:self action:@selector(onMenu) forControlEvents:UIControlEventTouchUpInside];
+    
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 }
 
 -(void) onMenu

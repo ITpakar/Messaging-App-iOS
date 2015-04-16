@@ -79,4 +79,8 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (IBAction)onClose:(id)sender {
+    [self onAuthenticationSuccess:NO];
+}
+
 @end

@@ -26,7 +26,8 @@
 @property NSString* fbID;
 @property  NSString* quickbloxID;
 
-@property NSInteger timeZone;
+@property (nonatomic) NSInteger timeZone;
+@property NSDateFormatter *dateFormatter;
 @property NSInteger ageRange;
 
 @property NSNumber* longitude;
@@ -38,6 +39,6 @@
 
 @property (nonatomic, strong) NSArray *chatUsers;
 @property (nonatomic, strong) NSMutableDictionary *usersAsDictionary;
-
+@property (nonatomic, strong) NSMutableDictionary *avatarsAsDictionary;
 
 @end

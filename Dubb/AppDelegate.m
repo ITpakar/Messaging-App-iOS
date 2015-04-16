@@ -32,15 +32,14 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     [User currentUser];
-    
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
     [self enableQuickBlox];
     
     #ifndef DEBUG
-    [QBSettings useProductionEnvironmentForPushNotifications:YES];
-    
+        [QBApplication sharedApplication].productionEnvironmentForPushesEnabled = YES;    
     #endif
+    
 
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
     
@@ -53,6 +52,8 @@
     AWSServiceConfiguration *configuration = [AWSServiceConfiguration configurationWithRegion:AWSRegionUSWest1 credentialsProvider:credentialsProvider];
     [AWSServiceManager defaultServiceManager].defaultServiceConfiguration = configuration;
     
+    [NRLogger setLogLevels:NRLogLevelALL];
+    [NewRelicAgent startWithApplicationToken:kNewRelicToken];
     return YES;
 }
 

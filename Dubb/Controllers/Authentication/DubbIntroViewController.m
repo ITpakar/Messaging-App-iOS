@@ -7,6 +7,7 @@
 //
 
 #import "DubbIntroViewController.h"
+#import "AppDelegate.h"
 
 @interface DubbIntroViewController (){
     
@@ -20,6 +21,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+ 
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    id loggedUser = [defaults objectForKey:@"DubbUser"];
+    if( loggedUser ){
+        [self showProgress:@"Loggin in..."];
+        [User initialize: (NSDictionary*)loggedUser];
+        [self loginToQuickBlox];
+    }
 }
 
 -(void) viewWillAppear:(BOOL)animated

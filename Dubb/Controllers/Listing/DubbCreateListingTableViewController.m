@@ -51,7 +51,7 @@
     [super viewDidLoad];
     
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:48.0f/255.0f green:48.0f/255.0f blue:50.0f/255.0f alpha:1.0f];
-    self.navigationController.navigationBar.translucent = NO;
+    self.navigationController.navigationBar.translucent = NO;    
     
     addOns = [NSMutableArray array];
     selectedLocation = [[SelectedLocation alloc] init];
@@ -107,7 +107,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    //[self.navigationController setNavigationBarHidden:NO];
+    [self.navigationController setNavigationBarHidden:NO];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

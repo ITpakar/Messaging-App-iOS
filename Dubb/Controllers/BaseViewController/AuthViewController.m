@@ -355,7 +355,6 @@
         
     } errorBlock:^(QBResponse *response) {
         [self hideProgress];
-        [self showMessage:@"Error to access chat"];
         [self onAuthenticationSuccess:NO];
     }];
     
@@ -376,13 +375,26 @@
 
 -(void) onAuthenticationSuccess : (BOOL)chatLogged
 {
-    if( chatLogged == NO )
-        [User currentUser].chatUser = nil;
-    else
+    User *user = [User currentUser];
+    if( user.profileImage == nil ) user.profileImage = [UIImage imageNamed:@"portrait.png"];
+    
+    if( chatLogged == NO ) {
+        user.chatUser = nil;
+        [self showMessage:@"Chat is not available"];
+    } else {
         [((AppDelegate*)[[UIApplication sharedApplication] delegate]) registerForRemoteNotifications];
+        
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"id": user.userID, @"twitter_token" : user.quickbloxID, @"email":user.email,
+                                                                                   @"username":user.username, @"first":user.firstName, @"last":user.lastName}];
+                                                                                
+        [defaults setObject:dic forKey:@"DubbUser"];
+        [defaults synchronize];
+    }
     
     UIViewController *rootController = [self.storyboard instantiateViewControllerWithIdentifier:@"rootController"];
     ((AppDelegate*)[[UIApplication sharedApplication] delegate]).window.rootViewController = rootController;
 }
+
 
 @end
