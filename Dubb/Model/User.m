@@ -15,9 +15,10 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         user = [[self alloc] init];
-        user.timeZone = 3;
+        user.timeZone = 8;
         user.longitude = @0;
         user.latitude = @0;
+        [user initialize];
     });
     
     return user;
@@ -25,8 +26,9 @@
 
 -(void) initialize{
     _usersAsDictionary = [NSMutableDictionary dictionary];
+    _avatarsAsDictionary = [NSMutableDictionary dictionary];
     _username = [NSString stringWithFormat:@"%@", @""];
-    _userID = [NSString stringWithFormat:@"%@", @""];;
+    _userID = [NSString stringWithFormat:@"%@", @""];
     _firstName = [NSString stringWithFormat:@"%@", @""];
     _lastName = [NSString stringWithFormat:@"%@", @""];
     _fbID = [NSString stringWithFormat:@"%@", @""];
@@ -34,6 +36,7 @@
     _chatUser = nil;
     _profileImage = nil;
 }
+
 
 +(User*) initialize:(NSDictionary*) dic
 {

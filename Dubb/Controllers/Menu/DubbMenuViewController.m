@@ -13,7 +13,7 @@
 #import "AppDelegate.h"
 
 @interface DubbMenuViewController (){
-    NSArray *menus;
+    NSMutableArray *menus;
     NSString *selectedMenu;
     NSString *unreadMessageCount;
     
@@ -36,8 +36,11 @@
     
     self.sideMenuViewController.delegate = self;
     
-    menus = [[NSArray alloc] initWithObjects:@"Listings", @"Chat",  @"Logout", nil ];
+    menus = [[NSMutableArray alloc] initWithObjects: @"Listings", @"Chat", @"Set Offline",  @"Logout", nil ];
     selectedMenu = @"Listings";
+    
+    if( [[User currentUser].userID isEqualToString:@""] )
+        menus[3] = @"Login";
     
     [self showProfile];
     
@@ -104,10 +107,24 @@
             [contentVC setViewControllers:@[[self.storyboard instantiateViewControllerWithIdentifier:@"listingsController"]] animated:NO];
             break;
         case 1:
+            if( [User currentUser].chatUser == nil ) return;
+            
             [contentVC setViewControllers:@[[self.storyboard instantiateViewControllerWithIdentifier:@"chatNavController"]] animated:NO];
             break;
+        
+        case 2:
+            if( [User currentUser].chatUser == nil ) return;
+            if( [selectedMenu isEqualToString:@"Set Offline"] ){
+                menus[indexPath.row] = @"Set Online";
+                [[ChatService instance] setOffline];
+            } else {
+                menus[indexPath.row] = @"Set Offline";
+                [[ChatService instance] setOnline];
+            }
+            [menuTable reloadData];
             
-        case 2: {
+            break;
+        case 3: {
             
             [[GPPSignIn sharedInstance] signOut];
             [FBSession.activeSession closeAndClearTokenInformation];
@@ -115,6 +132,12 @@
             if([[QBChat instance] isLoggedIn]){
                 [[ChatService instance] logout];
             }
+            
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            [defaults removeObjectForKey:@"DubbUser"];
+            [defaults synchronize];
+            
+            [[User currentUser] initialize];
             
             UIViewController *mainController = [self.storyboard instantiateViewControllerWithIdentifier:@"mainController"];
             ((AppDelegate*)[[UIApplication sharedApplication] delegate]).window.rootViewController = mainController;

@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AuthViewController.h"
 
-@interface DubbIntroViewController : BaseViewController <UIScrollViewDelegate>
+@interface DubbIntroViewController : AuthViewController <UIScrollViewDelegate>
 
 @end

@@ -14,6 +14,8 @@
 #import "ChatService.h"
 #import "CharactersEscapeService.h"
 
+#import <NewRelicAgent/NewRelic.h>
+
 #ifndef Dubb_Dubb_Prefix_pch
 #define Dubb_Dubb_Prefix_pch
 
@@ -27,6 +29,8 @@
 
 #define kGoogleClientID         @"623939172061-02okbe9jhenmjt396lr6r0nacihilg23.apps.googleusercontent.com"
 #define kGoogleAnalyticsTrackId @"UA-60124659-1"
+
+#define kNewRelicToken          @"AA931550a5b1c47c60965612de77ecd35634149874"
 
 #define APIURL                  @"http://devd.dubb.co/v1/"
 
@@ -46,3 +50,5 @@
 #define kEmailUser              2
 
 #define kMenuButton             9876
+
+

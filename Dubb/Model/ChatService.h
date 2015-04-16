@@ -25,4 +25,7 @@
 - (void)leaveRoom:(QBChatRoom *)room;
 - (void)requestRoomsWithCompletionBlock:(void(^)(NSArray *))completionBlock;
 
+- (void)setOnline;
+- (void)setOffline;
+
 @end

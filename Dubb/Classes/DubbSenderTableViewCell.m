@@ -24,6 +24,11 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    UIImage *image = [UIImage imageNamed:@"sender_bubble.png"];
+    UIImage *cellBGImage = [image resizableImageWithCapInsets:UIEdgeInsetsMake(40, 25, 15, 25) resizingMode:UIImageResizingModeStretch];
+    bubbleImageView.image = cellBGImage;
+    profileImageView.image = [User currentUser].profileImage;
+    if(profileImageView.image == nil) profileImageView.image = [UIImage imageNamed:@"portrait.png"];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -34,15 +39,15 @@
 
 -(void) setupCell
 {
-    UIImage *image = [UIImage imageNamed:@"sender_bubble.png"];
-    UIImage *cellBGImage = [image resizableImageWithCapInsets:UIEdgeInsetsMake(40, 25, 15, 25) resizingMode:UIImageResizingModeStretch];
-    bubbleImageView.image = cellBGImage;
+    profileImageView.showActivityIndicator = YES;
+    profileImageView.image = nil;
     
-    profileImageView.image = [User currentUser].profileImage;
-    if(profileImageView.image == nil) profileImageView.image = [UIImage imageNamed:@"portrait.png"];
+    if( self.profileImage == nil  )
+        profileImageView.image = [UIImage imageNamed:@"portrait.png"];
+    else
+        profileImageView.image = self.profileImage;
     
-    messageTextView.text = self.message;
-    lblTime.text = self.localTime;
+    messageTextView.text = self.message.text;
 }
 
 

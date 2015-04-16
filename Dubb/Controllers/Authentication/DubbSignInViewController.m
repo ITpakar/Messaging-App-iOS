@@ -101,6 +101,10 @@
 - (IBAction)onBack:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
+
+- (IBAction)onClose:(id)sender {
+    [self onAuthenticationSuccess:NO];    
+}
 /*
 #pragma mark - Navigation
 
