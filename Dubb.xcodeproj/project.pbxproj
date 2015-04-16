@@ -87,6 +87,9 @@
 		0D1FA6B61ACA23CA00079C79 /* submit_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D1FA6A21ACA23CA00079C79 /* submit_button.png */; };
 		0D1FA6B71ACA23CA00079C79 /* submit_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D1FA6A31ACA23CA00079C79 /* submit_button@2x.png */; };
 		0D1FA6BA1ACA3B9700079C79 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D1FA6B91ACA3B9700079C79 /* AppDelegate.m */; };
+		0D2BC8C01ADF1EA1004880E7 /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D2BC8BF1ADF1EA1004880E7 /* Utility.m */; };
+		0D2BC8C31ADF62C1004880E7 /* btn_prevnavigation_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D2BC8C11ADF62C1004880E7 /* btn_prevnavigation_white.png */; };
+		0D2BC8C41ADF62C1004880E7 /* btn_prevnavigation_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D2BC8C21ADF62C1004880E7 /* btn_prevnavigation_white@2x.png */; };
 		44ADE96B435F087DF53501F7 /* libPods-Dubb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 476BCF1FEECE1BA9CF93C40E /* libPods-Dubb.a */; };
 		7C09A59A1AB1D03B00218127 /* home_background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7C09A5981AB1D03B00218127 /* home_background.jpg */; };
 		7C09A59B1AB1D03B00218127 /* login_background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7C09A5991AB1D03B00218127 /* login_background.jpg */; };
@@ -286,6 +289,10 @@
 		0D1FA6A31ACA23CA00079C79 /* submit_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "submit_button@2x.png"; sourceTree = "<group>"; };
 		0D1FA6B81ACA3B9700079C79 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0D1FA6B91ACA3B9700079C79 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		0D2BC8BE1ADF1EA1004880E7 /* Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utility.h; sourceTree = "<group>"; };
+		0D2BC8BF1ADF1EA1004880E7 /* Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utility.m; sourceTree = "<group>"; };
+		0D2BC8C11ADF62C1004880E7 /* btn_prevnavigation_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_prevnavigation_white.png; sourceTree = "<group>"; };
+		0D2BC8C21ADF62C1004880E7 /* btn_prevnavigation_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_prevnavigation_white@2x.png"; sourceTree = "<group>"; };
 		3FC747553FC9F4473463E4B0 /* Pods-Dubb.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dubb.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dubb/Pods-Dubb.debug.xcconfig"; sourceTree = "<group>"; };
 		476BCF1FEECE1BA9CF93C40E /* libPods-Dubb.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Dubb.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C09A5981AB1D03B00218127 /* home_background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = home_background.jpg; sourceTree = "<group>"; };
@@ -639,6 +646,8 @@
 		7C09A5971AB1CFE200218127 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				0D2BC8C11ADF62C1004880E7 /* btn_prevnavigation_white.png */,
+				0D2BC8C21ADF62C1004880E7 /* btn_prevnavigation_white@2x.png */,
 				0D1FA6901ACA23CA00079C79 /* arrow.png */,
 				0D1FA6911ACA23CA00079C79 /* arrow@2x.png */,
 				0D1FA6921ACA23CA00079C79 /* location_pin.png */,
@@ -717,6 +726,8 @@
 				7CB88E771AC34CCE005195AF /* Notification */,
 				7C09A60B1AB31A1000218127 /* TableViewCells */,
 				7C09A6061AB2EDB100218127 /* TextField */,
+				0D2BC8BE1ADF1EA1004880E7 /* Utility.h */,
+				0D2BC8BF1ADF1EA1004880E7 /* Utility.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -1110,9 +1121,11 @@
 				0D1FA6671ACA183D00079C79 /* monitoring-2010-08-01.json in Resources */,
 				7C09A59D1AB1D20D00218127 /* logo.png in Resources */,
 				0D1FA65F1ACA183D00079C79 /* cognito-identity-2014-06-30.json in Resources */,
+				0D2BC8C41ADF62C1004880E7 /* btn_prevnavigation_white@2x.png in Resources */,
 				0D1FA6AB1ACA23CA00079C79 /* add_button@2x.png in Resources */,
 				0D1FA5AA1ACA183C00079C79 /* Overlay@2x.png in Resources */,
 				0D1FA6AA1ACA23CA00079C79 /* add_button.png in Resources */,
+				0D2BC8C31ADF62C1004880E7 /* btn_prevnavigation_white.png in Resources */,
 				0D1FA6B71ACA23CA00079C79 /* submit_button@2x.png in Resources */,
 				0D1FA6A71ACA23CA00079C79 /* location_pin@2x.png in Resources */,
 				0D1FA6661ACA183D00079C79 /* mobileanalytics-2014-06-30.json in Resources */,
@@ -1239,6 +1252,7 @@
 				7C09A5A11AB1DA0A00218127 /* DubbIntroViewController.m in Sources */,
 				0D1FA59D1ACA183C00079C79 /* AFURLSessionManager.m in Sources */,
 				7C09A5D41AB1FCB600218127 /* DubbSignInViewController.m in Sources */,
+				0D2BC8C01ADF1EA1004880E7 /* Utility.m in Sources */,
 				7C4A0AB31ABFA209007DA690 /* AuthViewController.m in Sources */,
 				7C09A5A61AB1E19000218127 /* DubbSignUpViewController.m in Sources */,
 				0D1FA6591ACA183D00079C79 /* FHSTwitterEngine.m in Sources */,

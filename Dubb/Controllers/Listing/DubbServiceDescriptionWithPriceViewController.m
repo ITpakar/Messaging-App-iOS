@@ -11,6 +11,7 @@
 @interface DubbServiceDescriptionWithPriceViewController ()
 @property (strong, nonatomic) IBOutlet SZTextView *descriptionTextView;
 @property (strong, nonatomic) IBOutlet UITextField *priceTextField;
+@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 
 @end
 
@@ -33,18 +34,26 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
+    
+}
+
+#pragma mark - Navigation View Button Events
+- (IBAction)saveButtonTapped:(id)sender {
+    
     if ([self.delegate respondsToSelector:@selector(completedWithDescription:WithPrice:)]) {
         [self.delegate completedWithDescription:self.descriptionTextView.text WithPrice:self.priceTextField.text];
     }
+    [self.navigationController popViewControllerAnimated:YES];
 }
-
+- (IBAction)backButtonTapped:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 #pragma mark - Custom Methods
 
 - (void)initView {
     if (self.titleString) {
-        self.navigationItem.title = self.titleString;
-        [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
+        self.titleLabel.text = self.titleString;
         [self.descriptionTextView setPlaceholder:self.placeholderString];
     }
 

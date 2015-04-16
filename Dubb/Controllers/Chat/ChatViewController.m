@@ -100,8 +100,7 @@
 {
     [super viewWillAppear:animated];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    self.navigationController.navigationBarHidden = YES;
-    
+     
     _wasKeyboardManagerEnabled = [[IQKeyboardManager sharedManager] isEnabled];
     [[IQKeyboardManager sharedManager] setEnable:NO];
     
@@ -460,14 +459,6 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-
--(void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    self.navigationController.navigationBarHidden = NO;
-    [[IQKeyboardManager sharedManager] setEnable:_wasKeyboardManagerEnabled];
-    
-}
 
 
 - (void)didReceiveMemoryWarning {

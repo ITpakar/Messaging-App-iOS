@@ -51,14 +51,24 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationDidLocationUpdated object:nil];
     
-    if ([self.delegate respondsToSelector:@selector(completedWithRadius:WithLocation:)]) {
-        [self.delegate completedWithRadius:self.radiusTextField.text WithLocation:self.selectedLocation];
-    }
+    
 }
 
 #pragma mark - Notification Observer
 - (void)userLocationUpdated {
     self.selectedLocation.locationCoordinates = CLLocationCoordinate2DMake([[User currentUser].latitude floatValue], [[User currentUser].longitude floatValue]);
+}
+
+#pragma mark - Navigation View Button Events
+- (IBAction)saveButtonTapped:(id)sender {
+    
+    if ([self.delegate respondsToSelector:@selector(completedWithRadius:WithLocation:)]) {
+        [self.delegate completedWithRadius:self.radiusTextField.text WithLocation:self.selectedLocation];
+    }
+    [self.navigationController popViewControllerAnimated:YES];
+}
+- (IBAction)backButtonTapped:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - UITextField Delegate
@@ -108,6 +118,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     [toolbar setItems:[NSArray arrayWithObjects:buttonflexible,buttonDone, nil]];
     
     self.radiusTextField.inputAccessoryView = toolbar;
+    self.searchTextField.inputAccessoryView = toolbar;
     
     NSMutableArray *radiusItems = [NSMutableArray array];
     for (int i = 5; i <= 100; i += 5) {
@@ -126,8 +137,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     [self.locationContainerView.layer setMasksToBounds:YES];
     
     if (self.titleString) {
-        self.navigationItem.title = self.titleString;
-        [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
+        self.titleLabel.text = self.titleString;
     }
     
 }

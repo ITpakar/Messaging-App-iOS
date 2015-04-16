@@ -54,14 +54,9 @@
 
 -(void) viewWillAppear:(BOOL)animated
 {
-    self.navigationController.navigationBarHidden = YES;
     if( [_dialogs count] > 0 ) [self reloadChatHistory];
 }
 
--(void) viewWillDisappear:(BOOL)animated
-{
-    self.navigationController.navigationBarHidden = NO;
-}
 
 -(void) reloadChatHistory
 {

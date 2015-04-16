@@ -32,9 +32,18 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
+}
+
+#pragma mark - Navigation View Button Events
+- (IBAction)saveButtonTapped:(id)sender {
+    
     if ([self.delegate respondsToSelector:@selector(completedWithDescription:)]) {
         [self.delegate completedWithDescription:self.descriptionTextView.text];
     }
+    [self.navigationController popViewControllerAnimated:YES];
+}
+- (IBAction)backButtonTapped:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - Custom Methods

@@ -16,6 +16,7 @@
 
 
 @interface DubbServiceAreaViewController : UIViewController <UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate>
+@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 @property (strong, nonatomic) IBOutlet UIView *locationContainerView;
 @property (strong, nonatomic) IBOutlet UIView *radiusContainerView;
 @property (strong, nonatomic) IBOutlet IQDropDownTextField *radiusTextField;
