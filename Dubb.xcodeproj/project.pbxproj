@@ -87,6 +87,8 @@
 		0D1FA6B61ACA23CA00079C79 /* submit_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D1FA6A21ACA23CA00079C79 /* submit_button.png */; };
 		0D1FA6B71ACA23CA00079C79 /* submit_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D1FA6A31ACA23CA00079C79 /* submit_button@2x.png */; };
 		0D1FA6BA1ACA3B9700079C79 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D1FA6B91ACA3B9700079C79 /* AppDelegate.m */; };
+		0D2BC8C81AE00878004880E7 /* btn_prevnavigation_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D2BC8C51AE00878004880E7 /* btn_prevnavigation_white.png */; };
+		0D2BC8C91AE00878004880E7 /* btn_prevnavigation_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D2BC8C61AE00878004880E7 /* btn_prevnavigation_white@2x.png */; };
 		44ADE96B435F087DF53501F7 /* libPods-Dubb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 476BCF1FEECE1BA9CF93C40E /* libPods-Dubb.a */; };
 		7C09A59A1AB1D03B00218127 /* home_background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7C09A5981AB1D03B00218127 /* home_background.jpg */; };
 		7C09A59B1AB1D03B00218127 /* login_background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7C09A5991AB1D03B00218127 /* login_background.jpg */; };
@@ -295,6 +297,8 @@
 		0D1FA6A31ACA23CA00079C79 /* submit_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "submit_button@2x.png"; sourceTree = "<group>"; };
 		0D1FA6B81ACA3B9700079C79 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0D1FA6B91ACA3B9700079C79 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		0D2BC8C51AE00878004880E7 /* btn_prevnavigation_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_prevnavigation_white.png; sourceTree = "<group>"; };
+		0D2BC8C61AE00878004880E7 /* btn_prevnavigation_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_prevnavigation_white@2x.png"; sourceTree = "<group>"; };
 		3FC747553FC9F4473463E4B0 /* Pods-Dubb.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dubb.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dubb/Pods-Dubb.debug.xcconfig"; sourceTree = "<group>"; };
 		476BCF1FEECE1BA9CF93C40E /* libPods-Dubb.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Dubb.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C09A5981AB1D03B00218127 /* home_background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = home_background.jpg; sourceTree = "<group>"; };
@@ -663,6 +667,8 @@
 		7C09A5971AB1CFE200218127 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				0D2BC8C51AE00878004880E7 /* btn_prevnavigation_white.png */,
+				0D2BC8C61AE00878004880E7 /* btn_prevnavigation_white@2x.png */,
 				DCF2DD7A1ADC9C7900500548 /* close_icon@2x.png */,
 				DC63FC791AD7EE7D00A505B8 /* play@2x.png */,
 				DC63FC7A1AD7EE7D00A505B8 /* refresh@2x.png */,
@@ -1156,6 +1162,7 @@
 			files = (
 				0D1FA6B11ACA23CA00079C79 /* next_button@2x.png in Resources */,
 				7CB88E761AC33A84005195AF /* sound.mp3 in Resources */,
+				0D2BC8C91AE00878004880E7 /* btn_prevnavigation_white@2x.png in Resources */,
 				0D1FA6621ACA183D00079C79 /* ec2-2014-09-01.json in Resources */,
 				0D1FA6B21ACA23CA00079C79 /* placeholder_image.png in Resources */,
 				0D1FA6A61ACA23CA00079C79 /* location_pin.png in Resources */,
@@ -1201,6 +1208,7 @@
 				7C09A59A1AB1D03B00218127 /* home_background.jpg in Resources */,
 				DC63FC7C1AD7EE7D00A505B8 /* refresh@2x.png in Resources */,
 				0D1FA6691ACA183D00079C79 /* sdb-2009-04-15.json in Resources */,
+				0D2BC8C81AE00878004880E7 /* btn_prevnavigation_white.png in Resources */,
 				7CA773B71AB1C2AF00F6D631 /* LaunchScreen.xib in Resources */,
 				0D1FA6B01ACA23CA00079C79 /* next_button.png in Resources */,
 				0D1FA6A51ACA23CA00079C79 /* arrow@2x.png in Resources */,

@@ -491,13 +491,28 @@ Dubb!</string>
                                             <action selector="onBack:" destination="aPB-tq-sYE" eventType="touchUpInside" id="rI5-eN-IcY"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jf8-8y-Tvq">
+                                        <rect key="frame" x="562" y="26" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="BtW-TW-SbR"/>
+                                            <constraint firstAttribute="height" constant="30" id="pcl-HL-xCF"/>
+                                        </constraints>
+                                        <state key="normal" image="close_icon.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="onClose:" destination="aPB-tq-sYE" eventType="touchUpInside" id="kqU-ee-bqe"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="Xqp-69-tm0" firstAttribute="leading" secondItem="E09-Sx-KLC" secondAttribute="leading" id="2F8-Qx-ZKt"/>
                                     <constraint firstAttribute="centerX" secondItem="wIK-LG-DWV" secondAttribute="centerX" id="LjK-Ge-x8R"/>
+                                    <constraint firstAttribute="trailing" secondItem="jf8-8y-Tvq" secondAttribute="trailing" constant="8" id="bKR-XR-tGp"/>
                                     <constraint firstItem="Xqp-69-tm0" firstAttribute="top" secondItem="E09-Sx-KLC" secondAttribute="top" constant="24" id="crg-aM-Rvf"/>
                                     <constraint firstAttribute="height" constant="64" id="cst-Mm-qCX"/>
+                                    <constraint firstItem="jf8-8y-Tvq" firstAttribute="top" secondItem="E09-Sx-KLC" secondAttribute="top" constant="26" id="jfk-Li-d4P"/>
                                     <constraint firstAttribute="bottom" secondItem="wIK-LG-DWV" secondAttribute="bottom" constant="3" id="zWL-Hl-xVf"/>
                                 </constraints>
                             </view>
@@ -775,12 +790,28 @@ Dubb!</string>
                                             <action selector="onBack:" destination="L6S-z9-0ds" eventType="touchUpInside" id="t7O-Os-EHk"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h0P-MP-II2">
+                                        <rect key="frame" x="562" y="26" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="Dxk-e3-8VY"/>
+                                            <constraint firstAttribute="width" constant="30" id="UvD-Z2-eCR"/>
+                                        </constraints>
+                                        <state key="normal" image="close_icon.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="onClose:" destination="L6S-z9-0ds" eventType="touchUpInside" id="8GG-Uv-Lja"/>
+                                            <action selector="onClose:" destination="aPB-tq-sYE" eventType="touchUpInside" id="YIf-oI-7P7"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="centerX" secondItem="nNE-a4-M6J" secondAttribute="centerX" id="5Uf-RS-dIL"/>
                                     <constraint firstItem="fHF-kM-oIH" firstAttribute="top" secondItem="IDi-fz-umI" secondAttribute="top" constant="24" id="7mZ-eK-Prk"/>
+                                    <constraint firstItem="h0P-MP-II2" firstAttribute="top" secondItem="IDi-fz-umI" secondAttribute="top" constant="26" id="8np-vW-CDd"/>
                                     <constraint firstItem="fHF-kM-oIH" firstAttribute="leading" secondItem="IDi-fz-umI" secondAttribute="leading" id="XEL-lZ-8Ci"/>
+                                    <constraint firstAttribute="trailing" secondItem="h0P-MP-II2" secondAttribute="trailing" constant="8" id="lMp-0g-z2B"/>
                                     <constraint firstAttribute="bottom" secondItem="nNE-a4-M6J" secondAttribute="bottom" constant="3" id="naL-BK-pch"/>
                                     <constraint firstAttribute="height" constant="64" id="yUp-yP-a7b"/>
                                 </constraints>
@@ -971,13 +1002,29 @@ Dubb!</string>
                                             <action selector="onBack:" destination="Dad-qT-83G" eventType="touchUpInside" id="d8h-8O-r6e"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mCV-4e-RTi">
+                                        <rect key="frame" x="562" y="26" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="lvb-vQ-ETg"/>
+                                            <constraint firstAttribute="height" constant="30" id="wAx-yD-Db9"/>
+                                        </constraints>
+                                        <state key="normal" image="close_icon.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="onClose:" destination="Dad-qT-83G" eventType="touchUpInside" id="PDD-fv-2Ds"/>
+                                            <action selector="onClose:" destination="aPB-tq-sYE" eventType="touchUpInside" id="xu7-A5-dEl"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="mCV-4e-RTi" secondAttribute="trailing" constant="8" id="0Kp-6n-0P9"/>
                                     <constraint firstAttribute="centerX" secondItem="5SR-bb-ErW" secondAttribute="centerX" id="IdO-yZ-9um"/>
                                     <constraint firstItem="hHc-nG-gUM" firstAttribute="leading" secondItem="UpC-Cq-jXg" secondAttribute="leading" id="MkQ-vo-lvI"/>
                                     <constraint firstItem="hHc-nG-gUM" firstAttribute="top" secondItem="UpC-Cq-jXg" secondAttribute="top" constant="24" id="NSW-GA-uOi"/>
                                     <constraint firstAttribute="bottom" secondItem="5SR-bb-ErW" secondAttribute="bottom" constant="3" id="dde-Qk-WOM"/>
+                                    <constraint firstItem="mCV-4e-RTi" firstAttribute="top" secondItem="UpC-Cq-jXg" secondAttribute="top" constant="26" id="pF9-VG-JF0"/>
                                     <constraint firstAttribute="height" constant="64" id="s31-T0-EUx"/>
                                 </constraints>
                             </view>
@@ -1628,12 +1675,6 @@ Dubb!</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j1D-0X-YZx">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="65"/>
                                 <subviews>
-                                    <button opaque="NO" tag="9876" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RDh-z2-Lrq">
-                                        <rect key="frame" x="14" y="30" width="22" height="22"/>
-                                        <state key="normal" image="icon_menu.png">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                    </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Users" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lPA-Pj-6sO">
                                         <rect key="frame" x="251" y="22" width="99" height="21"/>
                                         <constraints>
@@ -1644,6 +1685,12 @@ Dubb!</string>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" tag="9876" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RDh-z2-Lrq">
+                                        <rect key="frame" x="14" y="30" width="22" height="22"/>
+                                        <state key="normal" image="icon_menu.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.18823529410000001" green="0.18823529410000001" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -1910,14 +1957,30 @@ Dubb!</string>
                                             <action selector="onBack:" destination="eyz-hO-6tM" eventType="touchUpInside" id="e8V-H5-9fO"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hix-O1-PrT">
+                                        <rect key="frame" x="562" y="26" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="EP0-gh-Hru"/>
+                                            <constraint firstAttribute="width" constant="30" id="iiA-5E-41S"/>
+                                        </constraints>
+                                        <state key="normal" image="close_icon.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="onClose:" destination="aPB-tq-sYE" eventType="touchUpInside" id="13q-uO-lzX"/>
+                                            <action selector="onClose:" destination="eyz-hO-6tM" eventType="touchUpInside" id="xJ5-Lq-ZTA"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="Air-aU-UDH" firstAttribute="leading" secondItem="uq7-ue-RDj" secondAttribute="leading" id="BEw-px-VDw"/>
                                     <constraint firstAttribute="bottom" secondItem="tPB-Zq-hO8" secondAttribute="bottom" constant="3" id="FRs-96-fbx"/>
+                                    <constraint firstItem="Hix-O1-PrT" firstAttribute="top" secondItem="uq7-ue-RDj" secondAttribute="top" constant="26" id="RAy-pL-wJG"/>
                                     <constraint firstAttribute="centerX" secondItem="tPB-Zq-hO8" secondAttribute="centerX" id="UXA-Dh-Kcc"/>
                                     <constraint firstAttribute="height" constant="64" id="crS-SU-Uld"/>
                                     <constraint firstItem="Air-aU-UDH" firstAttribute="top" secondItem="uq7-ue-RDj" secondAttribute="top" constant="24" id="rxr-f7-KH1"/>
+                                    <constraint firstAttribute="trailing" secondItem="Hix-O1-PrT" secondAttribute="trailing" constant="8" id="vNM-o2-eaf"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -2591,7 +2654,7 @@ Dubb!</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TDe-EO-DUp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="858" y="817"/>
+            <point key="canvasLocation" x="876" y="817"/>
         </scene>
         <!--Dubb Service Description With Price View Controller-->
         <scene sceneID="4Ce-Q4-blc">
@@ -2618,6 +2681,19 @@ Dubb!</string>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" tag="9876" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KuC-4v-kdS">
+                                        <rect key="frame" x="8" y="32" width="17" height="17"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="17" id="EVj-LY-bRc"/>
+                                            <constraint firstAttribute="width" constant="17" id="lUS-aW-KKj"/>
+                                        </constraints>
+                                        <state key="normal" image="btn_prevnavigation_white.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="backButtonTapped:" destination="xzN-HF-2Nc" eventType="touchUpInside" id="oV3-iz-UaY"/>
+                                        </connections>
+                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5tI-ny-MK4">
                                         <rect key="frame" x="553" y="28" width="39" height="29"/>
                                         <constraints>
@@ -2630,19 +2706,6 @@ Dubb!</string>
                                         </state>
                                         <connections>
                                             <action selector="saveButtonTapped:" destination="xzN-HF-2Nc" eventType="touchUpInside" id="6VT-zh-lH0"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" tag="9876" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KuC-4v-kdS">
-                                        <rect key="frame" x="8" y="32" width="17" height="17"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="17" id="EVj-LY-bRc"/>
-                                            <constraint firstAttribute="width" constant="17" id="lUS-aW-KKj"/>
-                                        </constraints>
-                                        <state key="normal" image="btn_prevnavigation_white.png">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="backButtonTapped:" destination="xzN-HF-2Nc" eventType="touchUpInside" id="oV3-iz-UaY"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -2719,7 +2782,7 @@ Dubb!</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lW6-3A-bZP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1498" y="1295"/>
+            <point key="canvasLocation" x="1526" y="1293"/>
         </scene>
         <!--Dubb Service Description View Controller-->
         <scene sceneID="ecY-bp-4bA">
@@ -2756,7 +2819,7 @@ Dubb!</string>
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="65"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Service Description" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rWm-e3-bBQ">
-                                        <rect key="frame" x="220" y="22" width="160" height="21"/>
+                                        <rect key="frame" x="220" y="30" width="160" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="7zM-g1-gVx"/>
                                             <constraint firstAttribute="width" constant="160" id="uoi-rG-5B7"/>
@@ -2765,20 +2828,6 @@ Dubb!</string>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hqg-ui-0FB">
-                                        <rect key="frame" x="546" y="15" width="46" height="36"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="46" id="F1O-ny-aKB"/>
-                                            <constraint firstAttribute="height" constant="36" id="olX-X3-tkz"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <state key="normal" title="Save">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="saveButtonTapped:" destination="M6f-Bp-Qmt" eventType="touchUpInside" id="6jP-Td-RtT"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" tag="9876" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Skz-Nl-IpG">
                                         <rect key="frame" x="8" y="32" width="17" height="17"/>
                                         <constraints>
@@ -2792,6 +2841,20 @@ Dubb!</string>
                                             <action selector="backButtonTapped:" destination="M6f-Bp-Qmt" eventType="touchUpInside" id="kam-DT-wvR"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hqg-ui-0FB">
+                                        <rect key="frame" x="553" y="28" width="39" height="29"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="39" id="F1O-ny-aKB"/>
+                                            <constraint firstAttribute="height" constant="29" id="olX-X3-tkz"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <state key="normal" title="Save">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="saveButtonTapped:" destination="M6f-Bp-Qmt" eventType="touchUpInside" id="6jP-Td-RtT"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.18823529410000001" green="0.18823529410000001" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -2799,9 +2862,9 @@ Dubb!</string>
                                     <constraint firstAttribute="centerX" secondItem="rWm-e3-bBQ" secondAttribute="centerX" id="61y-op-laY"/>
                                     <constraint firstAttribute="height" constant="65" id="SJH-f3-83b"/>
                                     <constraint firstAttribute="trailing" secondItem="hqg-ui-0FB" secondAttribute="trailing" constant="8" id="WLl-yE-TJb"/>
-                                    <constraint firstItem="rWm-e3-bBQ" firstAttribute="top" secondItem="R9K-1p-fIm" secondAttribute="top" constant="22" id="Wzj-S0-y2y"/>
+                                    <constraint firstItem="rWm-e3-bBQ" firstAttribute="top" secondItem="R9K-1p-fIm" secondAttribute="top" constant="30" id="Wzj-S0-y2y"/>
                                     <constraint firstItem="Skz-Nl-IpG" firstAttribute="top" secondItem="R9K-1p-fIm" secondAttribute="top" constant="32" id="z8t-oc-3fZ"/>
-                                    <constraint firstItem="hqg-ui-0FB" firstAttribute="top" secondItem="R9K-1p-fIm" secondAttribute="top" constant="15" id="zMc-bX-fVG"/>
+                                    <constraint firstItem="hqg-ui-0FB" firstAttribute="top" secondItem="R9K-1p-fIm" secondAttribute="top" constant="28" id="zMc-bX-fVG"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -2821,7 +2884,7 @@ Dubb!</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dct-1F-Kna" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1498" y="1945"/>
+            <point key="canvasLocation" x="1526" y="1953"/>
         </scene>
         <!--Dubb Service Area View Controller-->
         <scene sceneID="C16-Mn-A3h">
@@ -2839,10 +2902,10 @@ Dubb!</string>
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="65"/>
                                 <subviews>
                                     <button opaque="NO" tag="9876" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="arn-WB-fVd">
-                                        <rect key="frame" x="8" y="16" width="34" height="34"/>
+                                        <rect key="frame" x="8" y="32" width="17" height="17"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="34" id="Slo-Hh-j6s"/>
-                                            <constraint firstAttribute="width" constant="34" id="rP1-JJ-z8q"/>
+                                            <constraint firstAttribute="height" constant="17" id="Slo-Hh-j6s"/>
+                                            <constraint firstAttribute="width" constant="17" id="rP1-JJ-z8q"/>
                                         </constraints>
                                         <state key="normal" image="btn_prevnavigation_white.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -2852,7 +2915,7 @@ Dubb!</string>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Service Description" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8aC-cz-C2R">
-                                        <rect key="frame" x="220" y="22" width="160" height="21"/>
+                                        <rect key="frame" x="220" y="30" width="160" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="HlB-ed-T6y"/>
                                             <constraint firstAttribute="width" constant="160" id="R3e-9b-eeS"/>
@@ -2862,10 +2925,10 @@ Dubb!</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cJM-dH-KmJ">
-                                        <rect key="frame" x="546" y="15" width="46" height="36"/>
+                                        <rect key="frame" x="553" y="28" width="39" height="29"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="36" id="JIb-rb-x4h"/>
-                                            <constraint firstAttribute="width" constant="46" id="Vv6-Yy-1ar"/>
+                                            <constraint firstAttribute="height" constant="29" id="JIb-rb-x4h"/>
+                                            <constraint firstAttribute="width" constant="39" id="Vv6-Yy-1ar"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <state key="normal" title="Save">
@@ -2878,11 +2941,11 @@ Dubb!</string>
                                 </subviews>
                                 <color key="backgroundColor" red="0.18823529410000001" green="0.18823529410000001" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="arn-WB-fVd" firstAttribute="top" secondItem="Rdd-mh-CXz" secondAttribute="top" constant="16" id="6v7-uc-1Ig"/>
+                                    <constraint firstItem="arn-WB-fVd" firstAttribute="top" secondItem="Rdd-mh-CXz" secondAttribute="top" constant="32" id="6v7-uc-1Ig"/>
                                     <constraint firstItem="arn-WB-fVd" firstAttribute="leading" secondItem="Rdd-mh-CXz" secondAttribute="leading" constant="8" id="7q5-Xu-Tkx"/>
-                                    <constraint firstItem="cJM-dH-KmJ" firstAttribute="top" secondItem="Rdd-mh-CXz" secondAttribute="top" constant="15" id="CPO-bV-v6n"/>
+                                    <constraint firstItem="cJM-dH-KmJ" firstAttribute="top" secondItem="Rdd-mh-CXz" secondAttribute="top" constant="28" id="CPO-bV-v6n"/>
                                     <constraint firstAttribute="height" constant="65" id="UFq-Ki-BDH"/>
-                                    <constraint firstItem="8aC-cz-C2R" firstAttribute="top" secondItem="Rdd-mh-CXz" secondAttribute="top" constant="22" id="VeC-7Q-XF6"/>
+                                    <constraint firstItem="8aC-cz-C2R" firstAttribute="top" secondItem="Rdd-mh-CXz" secondAttribute="top" constant="30" id="VeC-7Q-XF6"/>
                                     <constraint firstAttribute="centerX" secondItem="8aC-cz-C2R" secondAttribute="centerX" id="hpo-rL-AgB"/>
                                     <constraint firstAttribute="trailing" secondItem="cJM-dH-KmJ" secondAttribute="trailing" constant="8" id="yYl-Qt-355"/>
                                 </constraints>
@@ -3063,6 +3126,7 @@ Dubb!</string>
         <image name="attachment.png" width="19" height="17"/>
         <image name="btn_prevnavigation.png" width="100" height="100"/>
         <image name="btn_prevnavigation_white.png" width="15" height="18"/>
+        <image name="close_icon.png" width="24" height="24"/>
         <image name="home_background.jpg" width="1536" height="2048"/>
         <image name="icon_menu.png" width="22" height="16"/>
         <image name="image_delete_button.png" width="25" height="25"/>

@@ -174,10 +174,6 @@
     } errorBlock:nil];
 }
 
--(void)viewWillAppear:(BOOL)animated
-{
-    self.navigationController.navigationBarHidden = YES;
-}
 
 -(void) initializeTableView{
     
@@ -652,7 +648,6 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 #pragma mark - 
 #pragma mark Navigation
 - (IBAction)onBack:(id)sender {
-    self.navigationController.navigationBarHidden = NO;
     [[IQKeyboardManager sharedManager] setEnable:_wasKeyboardManagerEnabled];
     [recipientStatusUpdateTimer invalidate];
     
