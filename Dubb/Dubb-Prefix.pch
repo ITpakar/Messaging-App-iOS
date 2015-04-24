@@ -32,6 +32,11 @@
 
 #define kNewRelicToken          @"AA931550a5b1c47c60965612de77ecd35634149874"
 
+#define awsAccessKey @"AKIAIG3EJECQJIFIE3LA"
+#define awsSecretKey @"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"
+
+#define googleLocationServiceKey @"AIzaSyBqO1R2q7YGqnEAegFiA4vbHo7oLn8IqV0"
+
 #define APIURL                  @"http://devd.dubb.co/v1/"
 
 #define kNotificationDidReceiveNewMessage           @"kNotificationDidReceiveNewMessage"

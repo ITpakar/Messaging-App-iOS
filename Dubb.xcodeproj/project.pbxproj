@@ -158,6 +158,16 @@
 		DC63FC781AD7BBF900A505B8 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC63FC771AD7BBF900A505B8 /* ImageIO.framework */; };
 		DC63FC7B1AD7EE7D00A505B8 /* play@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC63FC791AD7EE7D00A505B8 /* play@2x.png */; };
 		DC63FC7C1AD7EE7D00A505B8 /* refresh@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC63FC7A1AD7EE7D00A505B8 /* refresh@2x.png */; };
+		DC675A451AE4BEE000E5CBDA /* btn_category@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC675A441AE4BEE000E5CBDA /* btn_category@2x.png */; };
+		DC675A491AE5D16A00E5CBDA /* DubbListingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DC675A481AE5D16A00E5CBDA /* DubbListingCell.m */; };
+		DC675A4B1AE5FAB400E5CBDA /* CountryPicker.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DC675A4A1AE5FAB400E5CBDA /* CountryPicker.bundle */; };
+		DC675A4D1AE5FE0800E5CBDA /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC675A4C1AE5FE0800E5CBDA /* AddressBookUI.framework */; };
+		DC675A531AE69ACE00E5CBDA /* filter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC675A521AE69ACE00E5CBDA /* filter@2x.png */; };
+		DC675A561AE69C3C00E5CBDA /* DubbGigsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC675A551AE69C3C00E5CBDA /* DubbGigsViewController.m */; };
+		DC675A5C1AE7C92300E5CBDA /* search.png in Resources */ = {isa = PBXBuildFile; fileRef = DC675A5B1AE7C92300E5CBDA /* search.png */; };
+		DC675A5E1AE7CB9F00E5CBDA /* pin_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC675A5D1AE7CB9F00E5CBDA /* pin_icon@2x.png */; };
+		DC675A601AE7DAF500E5CBDA /* close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC675A5F1AE7DAF500E5CBDA /* close@2x.png */; };
+		DC675A661AE8163C00E5CBDA /* btn_search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC675A651AE8163C00E5CBDA /* btn_search@2x.png */; };
 		DCF2DD7B1ADC9C7900500548 /* close_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCF2DD7A1ADC9C7900500548 /* close_icon@2x.png */; };
 /* End PBXBuildFile section */
 
@@ -416,6 +426,18 @@
 		DC63FC771AD7BBF900A505B8 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		DC63FC791AD7EE7D00A505B8 /* play@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play@2x.png"; sourceTree = "<group>"; };
 		DC63FC7A1AD7EE7D00A505B8 /* refresh@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "refresh@2x.png"; sourceTree = "<group>"; };
+		DC675A441AE4BEE000E5CBDA /* btn_category@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_category@2x.png"; sourceTree = "<group>"; };
+		DC675A471AE5D16A00E5CBDA /* DubbListingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DubbListingCell.h; sourceTree = "<group>"; };
+		DC675A481AE5D16A00E5CBDA /* DubbListingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DubbListingCell.m; sourceTree = "<group>"; };
+		DC675A4A1AE5FAB400E5CBDA /* CountryPicker.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CountryPicker.bundle; sourceTree = "<group>"; };
+		DC675A4C1AE5FE0800E5CBDA /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
+		DC675A521AE69ACE00E5CBDA /* filter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "filter@2x.png"; sourceTree = "<group>"; };
+		DC675A541AE69C3C00E5CBDA /* DubbGigsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DubbGigsViewController.h; path = Listing/DubbGigsViewController.h; sourceTree = "<group>"; };
+		DC675A551AE69C3C00E5CBDA /* DubbGigsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DubbGigsViewController.m; path = Listing/DubbGigsViewController.m; sourceTree = "<group>"; };
+		DC675A5B1AE7C92300E5CBDA /* search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search.png; sourceTree = "<group>"; };
+		DC675A5D1AE7CB9F00E5CBDA /* pin_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pin_icon@2x.png"; sourceTree = "<group>"; };
+		DC675A5F1AE7DAF500E5CBDA /* close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close@2x.png"; sourceTree = "<group>"; };
+		DC675A651AE8163C00E5CBDA /* btn_search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_search@2x.png"; sourceTree = "<group>"; };
 		DCF2DD7A1ADC9C7900500548 /* close_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close_icon@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -424,6 +446,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC675A4D1AE5FE0800E5CBDA /* AddressBookUI.framework in Frameworks */,
 				DC63FC781AD7BBF900A505B8 /* ImageIO.framework in Frameworks */,
 				7C0E42A31AD62FE2000CF83E /* AVFoundation.framework in Frameworks */,
 				7C0E429D1AD61A42000CF83E /* MobileCoreServices.framework in Frameworks */,
@@ -658,6 +681,7 @@
 		7C09A5961AB1CF8800218127 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				DC675A4A1AE5FAB400E5CBDA /* CountryPicker.bundle */,
 				7CB88E751AC33A84005195AF /* sound.mp3 */,
 				7C09A5971AB1CFE200218127 /* Images */,
 			);
@@ -667,6 +691,12 @@
 		7C09A5971AB1CFE200218127 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				DC675A651AE8163C00E5CBDA /* btn_search@2x.png */,
+				DC675A5F1AE7DAF500E5CBDA /* close@2x.png */,
+				DC675A5D1AE7CB9F00E5CBDA /* pin_icon@2x.png */,
+				DC675A5B1AE7C92300E5CBDA /* search.png */,
+				DC675A521AE69ACE00E5CBDA /* filter@2x.png */,
+				DC675A441AE4BEE000E5CBDA /* btn_category@2x.png */,
 				0D2BC8C51AE00878004880E7 /* btn_prevnavigation_white.png */,
 				0D2BC8C61AE00878004880E7 /* btn_prevnavigation_white@2x.png */,
 				DCF2DD7A1ADC9C7900500548 /* close_icon@2x.png */,
@@ -805,6 +835,8 @@
 				0D1FA40B1ACA17EB00079C79 /* DubbServiceDescriptionWithPriceViewController.m */,
 				7C09A5FD1AB2A2DB00218127 /* DubbListingsViewController.h */,
 				7C09A5FE1AB2A2DB00218127 /* DubbListingsViewController.m */,
+				DC675A541AE69C3C00E5CBDA /* DubbGigsViewController.h */,
+				DC675A551AE69C3C00E5CBDA /* DubbGigsViewController.m */,
 			);
 			name = Listing;
 			sourceTree = "<group>";
@@ -836,6 +868,7 @@
 		7C09A60B1AB31A1000218127 /* TableViewCells */ = {
 			isa = PBXGroup;
 			children = (
+				DC675A461AE57E9C00E5CBDA /* Listings */,
 				7C09A6101AB31C4400218127 /* Chat */,
 			);
 			name = TableViewCells;
@@ -1004,6 +1037,7 @@
 		7CA773D41AB1C40E00F6D631 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DC675A4C1AE5FE0800E5CBDA /* AddressBookUI.framework */,
 				DC63FC771AD7BBF900A505B8 /* ImageIO.framework */,
 				7C0E42A21AD62FE2000CF83E /* AVFoundation.framework */,
 				7C0E429C1AD61A42000CF83E /* MobileCoreServices.framework */,
@@ -1074,6 +1108,15 @@
 				DC63FC751AD7B5EA00A505B8 /* DubbOverlayProgressView.m */,
 			);
 			name = OverlayProgress;
+			sourceTree = "<group>";
+		};
+		DC675A461AE57E9C00E5CBDA /* Listings */ = {
+			isa = PBXGroup;
+			children = (
+				DC675A471AE5D16A00E5CBDA /* DubbListingCell.h */,
+				DC675A481AE5D16A00E5CBDA /* DubbListingCell.m */,
+			);
+			name = Listings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1169,6 +1212,7 @@
 				0D1FA6AC1ACA23CA00079C79 /* category_dropdown.png in Resources */,
 				0D1FA6681ACA183D00079C79 /* s3-2006-03-01.json in Resources */,
 				7C09A59B1AB1D03B00218127 /* login_background.jpg in Resources */,
+				DC675A531AE69ACE00E5CBDA /* filter@2x.png in Resources */,
 				0D1FA6651ACA183D00079C79 /* kinesis-2013-12-02.json in Resources */,
 				0D1FA5A81ACA183C00079C79 /* ELCAssetTablePicker.xib in Resources */,
 				0D1FA6641ACA183D00079C79 /* email-2010-12-01.json in Resources */,
@@ -1177,6 +1221,7 @@
 				0D1FA66A1ACA183D00079C79 /* sns-2010-03-31.json in Resources */,
 				7C09A5A31AB1DD0000218127 /* btn_prevnavigation.png in Resources */,
 				0D1FA5A61ACA183C00079C79 /* ELCAlbumPickerController.xib in Resources */,
+				DC675A601AE7DAF500E5CBDA /* close@2x.png in Resources */,
 				7C09A6051AB2A7E400218127 /* icon_menu@2x.png in Resources */,
 				7CA773B21AB1C2AF00F6D631 /* Main.storyboard in Resources */,
 				7C09A61A1AB331D800218127 /* portrait.png in Resources */,
@@ -1191,6 +1236,7 @@
 				0D1FA5AA1ACA183C00079C79 /* Overlay@2x.png in Resources */,
 				0D1FA6AA1ACA23CA00079C79 /* add_button.png in Resources */,
 				DC63FC7B1AD7EE7D00A505B8 /* play@2x.png in Resources */,
+				DC675A5E1AE7CB9F00E5CBDA /* pin_icon@2x.png in Resources */,
 				0D1FA6B71ACA23CA00079C79 /* submit_button@2x.png in Resources */,
 				DCF2DD7B1ADC9C7900500548 /* close_icon@2x.png in Resources */,
 				0D1FA6A71ACA23CA00079C79 /* location_pin@2x.png in Resources */,
@@ -1200,9 +1246,11 @@
 				0D1FA5A71ACA183C00079C79 /* ELCAssetPicker.xib in Resources */,
 				0D1FA65E1ACA183D00079C79 /* autoscaling-2011-01-01.json in Resources */,
 				7C09A61C1AB33A5300218127 /* attachment@2x.png in Resources */,
+				DC675A451AE4BEE000E5CBDA /* btn_category@2x.png in Resources */,
 				0D1FA66C1ACA183D00079C79 /* sts-2011-06-15.json in Resources */,
 				0D1FA6A41ACA23CA00079C79 /* arrow.png in Resources */,
 				0D1FA6AF1ACA23CA00079C79 /* image_delete_button@2x.png in Resources */,
+				DC675A5C1AE7C92300E5CBDA /* search.png in Resources */,
 				7CA773F31AB1CEC200F6D631 /* images.xcassets in Resources */,
 				0D1FA6611ACA183D00079C79 /* dynamodb-2012-08-10.json in Resources */,
 				7C09A59A1AB1D03B00218127 /* home_background.jpg in Resources */,
@@ -1217,6 +1265,8 @@
 				0D1FA6AE1ACA23CA00079C79 /* image_delete_button.png in Resources */,
 				0D1FA6AD1ACA23CA00079C79 /* category_dropdown@2x.png in Resources */,
 				0D1FA6B41ACA23CA00079C79 /* prev_button@2x.png in Resources */,
+				DC675A4B1AE5FAB400E5CBDA /* CountryPicker.bundle in Resources */,
+				DC675A661AE8163C00E5CBDA /* btn_search@2x.png in Resources */,
 				7C09A6181AB3299500218127 /* receiver_bubble@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1272,7 +1322,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "SCRIPT=`/usr/bin/find \"${SRCROOT}\" -name newrelic_postbuild.sh | head -n 1`\n\n/bin/sh \"${SCRIPT}\" \"AA931550a5b1c47c60965612de77ecd35634149874\"";
+			shellScript = "";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1331,12 +1381,14 @@
 				7C4A0ABD1AC1D2D1007DA690 /* ChatService.m in Sources */,
 				0D1FA6571ACA183D00079C79 /* SZTextView.m in Sources */,
 				0D1FA6551ACA183D00079C79 /* RESideMenu.m in Sources */,
+				DC675A491AE5D16A00E5CBDA /* DubbListingCell.m in Sources */,
 				7C4A0AC71AC1D739007DA690 /* ChatUsersController.m in Sources */,
 				7C09A5A11AB1DA0A00218127 /* DubbIntroViewController.m in Sources */,
 				0D1FA59D1ACA183C00079C79 /* AFURLSessionManager.m in Sources */,
 				7C09A5D41AB1FCB600218127 /* DubbSignInViewController.m in Sources */,
 				7C4A0AB31ABFA209007DA690 /* AuthViewController.m in Sources */,
 				7C09A5A61AB1E19000218127 /* DubbSignUpViewController.m in Sources */,
+				DC675A561AE69C3C00E5CBDA /* DubbGigsViewController.m in Sources */,
 				0D1FA6591ACA183D00079C79 /* FHSTwitterEngine.m in Sources */,
 				DC63FC761AD7B5EA00A505B8 /* DubbOverlayProgressView.m in Sources */,
 				7C09A5FB1AB29E4B00218127 /* DubbRootViewController.m in Sources */,
@@ -1472,7 +1524,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Dubb/ExtraFrameworks/**",
-					"/Users/Oleg/Downloads/google-plus-ios-sdk-1.7.1",
 					"$(PROJECT_DIR)/Dubb",
 					"$(PROJECT_DIR)/Dubb/ExtraFrameworks/FacebookSDK",
 					"$(PROJECT_DIR)/Dubb/ExtraFrameworks/AWS",
@@ -1489,7 +1540,7 @@
 					"$(PROJECT_DIR)/Dubb/ExtraFrameworks/Library",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "02db9c51-93aa-4ca1-ac08-6115a91c1704";
+				PROVISIONING_PROFILE = "af4b14c9-0de6-4556-815e-431729680430";
 			};
 			name = Debug;
 		};
@@ -1502,7 +1553,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Dubb/ExtraFrameworks/**",
-					"/Users/Oleg/Downloads/google-plus-ios-sdk-1.7.1",
 					"$(PROJECT_DIR)/Dubb",
 					"$(PROJECT_DIR)/Dubb/ExtraFrameworks/FacebookSDK",
 					"$(PROJECT_DIR)/Dubb/ExtraFrameworks/AWS",

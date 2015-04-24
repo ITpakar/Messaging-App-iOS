@@ -32,6 +32,13 @@
 
 @property NSNumber* longitude;
 @property NSNumber* latitude;
+@property NSString* zipCode;
+@property NSString* countryCode;
+@property (nonatomic, strong) NSString* street;
+@property (nonatomic, strong) NSString* city;
+@property (nonatomic, strong) NSString* state;
+@property (nonatomic, strong) NSString* country;
+
 
 @property (nonatomic, strong) UIImage *profileImage;
 
