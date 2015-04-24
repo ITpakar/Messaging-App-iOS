@@ -226,7 +226,7 @@ static NSString * const kTextAlignmentKey = @"textAlignment";
 
 - (void)setPlaceholderVisibleForText:(NSString *)text
 {
-    if (text.length < 5) {
+    if (text.length == 0) {
         [self addSubview:self._placeholderTextView];
         [self sendSubviewToBack:self._placeholderTextView];
     } else {

@@ -87,6 +87,15 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     
 }
 
+- (IBAction)textFieldEditingDidBegin:(id)sender {
+    if (sender == self.radiusTextField) {
+        self.tableView.hidden = YES;
+    } else {
+        self.tableView.hidden = NO;
+    }
+}
+
+
 - (BOOL) textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)text
 {
     self.substring = [NSString stringWithString:self.searchTextField.text];
@@ -124,6 +133,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     for (int i = 5; i <= 100; i += 5) {
         [radiusItems addObject:[NSString stringWithFormat:@"%d", i]];
     }
+    [radiusItems addObjectsFromArray:@[@"250", @"500", @"1000", @"2500", @"5000"]];
     [self.radiusTextField setItemList:radiusItems];
     
     [self.radiusContainerView.layer setCornerRadius:10.0f];

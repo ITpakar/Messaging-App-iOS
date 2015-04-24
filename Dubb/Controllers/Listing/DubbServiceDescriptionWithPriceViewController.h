@@ -18,7 +18,8 @@
 
 @property (nonatomic, strong) NSString *titleString;
 @property (nonatomic, strong) NSString *placeholderString;
-
+@property (nonatomic, retain) NSMutableArray *addOns;
+@property (nonatomic)         NSInteger currentIndex;
 @property (nonatomic,strong) id<DubbServiceDescriptionWithPriceViewControllerDelegate> delegate;
 
 @end
