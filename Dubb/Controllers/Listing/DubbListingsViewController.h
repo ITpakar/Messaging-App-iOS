@@ -8,6 +8,6 @@
 
 #import "BaseViewController.h"
 
-@interface DubbListingsViewController : BaseViewController
+@interface DubbListingsViewController : BaseViewController <UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @end

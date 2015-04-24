@@ -57,4 +57,15 @@ static PHPBackend   *sharedConnection;
 }
 
 
+-(void) getSuggestionList : (NSString*) keyword
+         CompletionHandler:(void (^)(NSDictionary *result))handler
+{
+    NSString *apiPath = [NSString stringWithFormat:@"%@%@", APIURL, @"search/suggest"];
+    NSDictionary *params = @{@"q":keyword, @"from":@"tags"};
+    
+    [self accessAPI:apiPath Parameters:params CompletionHandler:^(NSDictionary *result, NSData *data, NSError *error) {
+        handler(result);
+    }];
+}
+
 @end

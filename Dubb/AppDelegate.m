@@ -17,11 +17,13 @@
 #import "MBProgressHUD.h"
 #import "User.h"
 
+#import <AddressBookUI/AddressBookUI.h>
+#import <CoreLocation/CLGeocoder.h>
+#import <CoreLocation/CLPlacemark.h>
+
 @interface AppDelegate (){
     CLLocationManager *locationManager;
-    CLGeocoder *geoCoder;
     CLPlacemark *placeMark;
-
 }
 
 @end
@@ -52,8 +54,8 @@
     AWSServiceConfiguration *configuration = [AWSServiceConfiguration configurationWithRegion:AWSRegionUSWest1 credentialsProvider:credentialsProvider];
     [AWSServiceManager defaultServiceManager].defaultServiceConfiguration = configuration;
     
-    [NRLogger setLogLevels:NRLogLevelALL];
-    [NewRelicAgent startWithApplicationToken:kNewRelicToken];
+    //[NRLogger setLogLevels:NRLogLevelALL];
+    //[NewRelicAgent startWithApplicationToken:kNewRelicToken];
     return YES;
 }
 
@@ -139,9 +141,6 @@
         locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     }
     
-    if( geoCoder == nil ) geoCoder = [[CLGeocoder alloc] init];
-    
-    
     if ([locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
         [locationManager requestWhenInUseAuthorization];
     }
@@ -165,44 +164,24 @@
     
     [locationManager stopUpdatingLocation];
     
-    /*
-     // Reverse Geocoding
-     NSLog(@"Resolving the Address");
-     [geoCoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray *placemarks, NSError *error) {
-     NSLog(@"Found placemarks: %@, error: %@", placemarks, error);
-     if (error == nil && [placemarks count] > 0) {
-     placeMark = [placemarks lastObject];
-     
-     if (placeMark.postalCode)
-     [dicLocation setObject: placeMark.postalCode forKey: @"postalCode"];
-     else
-     [dicLocation setObject: @"" forKey: @"postalCode"];
-     
-     if (placeMark.locality)
-     [dicLocation setObject: placeMark.locality forKey: @"city"];
-     else
-     [dicLocation setObject: @"" forKey: @"city"];
-     
-     if (placeMark.administrativeArea)
-     [dicLocation setObject: placeMark.administrativeArea forKey: @"administrativeArea"];
-     else
-     [dicLocation setObject: @"" forKey: @"administrativeArea"];
-     
-     if (placeMark.country)
-     [dicLocation setObject: placeMark.country forKey: @"country"];
-     else
-     [dicLocation setObject: @"" forKey: @"country"];
-     
-     if (placeMark.ISOcountryCode)
-     [dicLocation setObject: placeMark.ISOcountryCode forKey: @"countryCode"];
-     else
-     [dicLocation setObject: @"" forKey: @"countryCode"];
-     
-     [User currentUser].location = dicLocation;
-     } else {
-     NSLog(@"%@", error.debugDescription);
-     }
-     }];*/
+    
+    CLGeocoder* reverseGeocoder = [[CLGeocoder alloc] init];
+    if (reverseGeocoder) {
+        [reverseGeocoder reverseGeocodeLocation:newLocation completionHandler:^(NSArray *placemarks, NSError *error) {
+            CLPlacemark* placemark = [placemarks firstObject];
+            if (placemark) {
+                //Using blocks, get zip code
+                User *user = [User currentUser];
+                user.zipCode = [placemark.addressDictionary objectForKey:(NSString*)kABPersonAddressZIPKey];
+                user.countryCode = [placemark.addressDictionary objectForKey:(NSString*)kABPersonAddressCountryCodeKey];
+                user.street = [placemark.addressDictionary objectForKey:(NSString*)kABPersonAddressStreetKey];
+                user.city = [placemark.addressDictionary objectForKey:(NSString*)kABPersonAddressCityKey];
+                user.state = [placemark.addressDictionary objectForKey:(NSString*)kABPersonAddressStateKey];
+                user.country = [placemark.addressDictionary objectForKey:(NSString*)kABPersonAddressCountryKey];
+            }
+        }];
+    }
+    
 }
 
 

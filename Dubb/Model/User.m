@@ -33,6 +33,8 @@
     _lastName = [NSString stringWithFormat:@"%@", @""];
     _fbID = [NSString stringWithFormat:@"%@", @""];
     _gpID = [NSString stringWithFormat:@"%@", @""];
+    _zipCode = [NSString stringWithFormat:@"%@", @""];
+    _countryCode = [NSString stringWithFormat:@"%@", @""];
     _chatUser = nil;
     _profileImage = nil;
 }

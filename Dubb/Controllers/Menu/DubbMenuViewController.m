@@ -36,11 +36,11 @@
     
     self.sideMenuViewController.delegate = self;
     
-    menus = [[NSMutableArray alloc] initWithObjects: @"Listings", @"Chat", @"Set Offline",  @"Logout", nil ];
+    menus = [[NSMutableArray alloc] initWithObjects:@"Listings", @"Create a Listing", @"Chat", @"Set Offline",  @"Logout", nil ];
     selectedMenu = @"Listings";
     
     if( [[User currentUser].userID isEqualToString:@""] )
-        menus[3] = @"Login";
+        menus[4] = @"Login";
     
     [self showProfile];
     
@@ -104,15 +104,18 @@
     
     switch (indexPath.row) {
         case 0:
-            [contentVC setViewControllers:@[[self.storyboard instantiateViewControllerWithIdentifier:@"listingsController"]] animated:NO];
+            [contentVC setViewControllers:@[[self.storyboard instantiateViewControllerWithIdentifier:@"homeViewController"]] animated:NO];
             break;
         case 1:
+            [contentVC setViewControllers:@[[self.storyboard instantiateViewControllerWithIdentifier:@"listingsController"]] animated:NO];
+            break;
+        case 2:
             if( [User currentUser].chatUser == nil ) return;
             
             [contentVC setViewControllers:@[[self.storyboard instantiateViewControllerWithIdentifier:@"chatNavController"]] animated:NO];
             break;
         
-        case 2:
+        case 3:
             if( [User currentUser].chatUser == nil ) return;
             if( [selectedMenu isEqualToString:@"Set Offline"] ){
                 menus[indexPath.row] = @"Set Online";
@@ -124,7 +127,7 @@
             [menuTable reloadData];
             
             break;
-        case 3: {
+        case 4: {
             
             [[GPPSignIn sharedInstance] signOut];
             [FBSession.activeSession closeAndClearTokenInformation];
