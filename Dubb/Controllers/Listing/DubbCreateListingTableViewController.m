@@ -14,6 +14,7 @@
 #import "DubbServiceDescriptionViewController.h"
 #import "DubbServiceAreaViewController.h"
 #import "DubbServiceDescriptionWithPriceViewController.h"
+#import "DubbCreateListingConfirmationViewController.h"
 #import "DubbCreateListingTableViewController.h"
 
 @interface DubbCreateListingTableViewController () <IQDropDownTextFieldDelegate, DubbServiceAreaViewControllerDelegate>
@@ -27,6 +28,7 @@
     BOOL forAddOn;
     SelectedLocation *selectedLocation;
     NSString *radius;
+    
     
 }
 @property (strong, nonatomic) IBOutlet UILabel *tagsLabel;
@@ -253,8 +255,6 @@
     
     
     
-    
-    
     NSString* title = self.serviceDescriptionTextView.text;
     NSString* tags = self.tagsLabel.text;
     
@@ -277,27 +277,46 @@
         [self showMessage:@"Please describe your base service."];
         return;
     }
+    
+    if (self.chosenImages.count <= 0) {
+        [self showMessage:@"Please select at least one image."];
+        return;
+    }
+    
+    NSMutableArray *imageURLs = [self uploadImages];
+    NSArray *tagsArray = [self.tagsLabel.text componentsSeparatedByString:@","];
     NSMutableArray *addonArray = [NSMutableArray arrayWithArray:addOns];
     [addonArray addObject:@{@"description":self.baseServiceDescriptionLabel.text, @"price":self.baseServicePriceLabel.text, @"sequence":@"0"}];
     
     NSString *apiPath = [NSString stringWithFormat:@"%@%@", APIURL, @"listing"];
     [self showProgress:@"Wait for a moment"];
     
+    NSDictionary *params = @{@"name":self.serviceDescriptionTextView.text,
+                             @"instructions":self.fulfillmentInfoLabel.text,
+                             @"description":self.baseServiceDescriptionLabel.text,
+                             @"category_id":categories[self.categoryTextField.selectedRow][@"id"],
+                             @"category_edge_id":subCategories[self.subCategoryTextField.selectedRow][@"category_edge_id"],
+                             @"user_id":[User currentUser].userID,
+                             @"lat":[NSString stringWithFormat:@"%f", selectedLocation.locationCoordinates.latitude],
+                             @"long":[NSString stringWithFormat:@"%f", selectedLocation.locationCoordinates.longitude],
+                             @"radius_km":radius,
+                             @"addon":addonArray,
+                             @"main_image":imageURLs[0],
+                             @"images":imageURLs,
+                             @"tags":tagsArray
+                             };
+    
+    
+    
     [[PHPBackend sharedConnection] accessAPIbyPost:apiPath
-                                        Parameters:@{@"name":self.serviceDescriptionTextView.text,
-                                                     @"instructions":self.fulfillmentInfoLabel.text,
-                                                     @"category_id":categories[self.categoryTextField.selectedRow][@"id"],
-                                                     @"category_edge_id":subCategories[self.subCategoryTextField.selectedRow][@"category_edge_id"],
-                                                     @"user_id":@"1",
-                                                     @"lat":[NSString stringWithFormat:@"%f", selectedLocation.locationCoordinates.latitude],
-                                                     @"long":[NSString stringWithFormat:@"%f", selectedLocation.locationCoordinates.longitude],
-                                                     @"radius_km":radius,
-                                                     @"addon":addonArray}
+                                        Parameters:params
                                  CompletionHandler:^(NSDictionary *result, NSData *data, NSError *error) {
                                      [self hideProgress];
                                      NSDictionary *createdListing = result[@"response"];
-                                     [self uploadImagesWithListingID:createdListing[@"id"]];
-                                     [self submitTagInfoWithListingID:createdListing[@"id"]];
+                                     
+                                     if (result) {
+                                         [self performSegueWithIdentifier:@"displayCreateListingConfirmationSegue" sender:nil];
+                                     }
                                  }];
     
     
@@ -348,7 +367,6 @@
     
     
 }
-
 - (void)initSlideShow {
     
     self.slideShow.delegate = self;
@@ -368,7 +386,7 @@
 
 -(void)updatePageLabel {
     
-    [self.pageLabel setText:[NSString stringWithFormat:@"%u(%d)", self.slideShow.currentIndex + 1, self.chosenImages.count]];
+    [self.pageLabel setText:[NSString stringWithFormat:@"%lu(%lu)", self.slideShow.currentIndex + 1, (unsigned long)self.chosenImages.count]];
 }
 
 - (void)elcImagePickerControllerDidCancel:(ELCImagePickerController *)picker
@@ -385,7 +403,7 @@
         NSString *apiPath = [NSString stringWithFormat:@"%@%@", APIURL, @"tag"];
         [[PHPBackend sharedConnection] accessAPIbyPost:apiPath
                                             Parameters:@{@"name":tag,
-                                                         @"user_id":@"1"
+                                                         @"user_id":[User currentUser].userID
                                                          }
                                      CompletionHandler:^(NSDictionary *result, NSData *data, NSError *error) {
                                          
@@ -393,45 +411,31 @@
     }
     
 }
-- (void)uploadImagesWithListingID:(NSString *)listingID {
+- (NSMutableArray *) uploadImages{
     int index = 0;
     
+    NSMutableArray *imageURLs = [NSMutableArray array];
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSURL *documentDirectory = [[fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
     
     for (UIImage *image in self.chosenImages) {
         index ++;
         
         NSData *data = UIImageJPEGRepresentation(image, 0.7);
-        NSString *fileName = [NSString stringWithFormat:@"%@_%d.jpg", listingID, index];
-        NSURL *fullPath = [documentDirectory URLByAppendingPathComponent:fileName];
+        NSString *fileName = [NSString stringWithFormat:@"%@.jpg", [[NSUUID UUID] UUIDString]];
+        NSString *tempFilePath = [NSTemporaryDirectory() stringByAppendingPathComponent:fileName];
         
-        [fileManager createFileAtPath:[fullPath path] contents:data attributes:nil];
-        
-        [self uploadFileWithFileName:fileName];
-        
-        NSString *apiPath = [NSString stringWithFormat:@"%@%@", APIURL, @"asset"];
-        [[PHPBackend sharedConnection] accessAPIbyPost:apiPath
-                                            Parameters:@{@"object":@"listing",
-                                                         @"object_id":listingID,
-                                                         @"name": fileName,
-                                                         @"url":[NSString stringWithFormat:@"https://s3-us-west-1.amazonaws.com/listing-image-uploads/completed/%@", fileName],
-                                                         @"type":@"image"}
-                                     CompletionHandler:^(NSDictionary *result, NSData *data, NSError *error) {
-                                         
-                                     }];
-        
+        [fileManager createFileAtPath:tempFilePath contents:data attributes:nil];
+        [imageURLs addObject:[NSString stringWithFormat:@"http://s3-us-west-1.amazonaws.com/listing-image-uploads/completed/%@", fileName]];
+        [self uploadFileWithFileName:fileName SourcePath:tempFilePath];
     }
     
-    
+    return imageURLs;
 }
 
-- (void)uploadFileWithFileName:(NSString *)fileName {
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSURL *documentDirectory = [[fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
-    NSURL *fullPath = [documentDirectory URLByAppendingPathComponent:[NSString stringWithFormat:@"%@", fileName]];
+- (void)uploadFileWithFileName:(NSString *)fileName SourcePath:(NSString *)sourcePath {
     
-    
+    NSURL *fullPath = [NSURL fileURLWithPath:sourcePath
+                                 isDirectory:NO];
     AWSS3TransferManager *transferManager = [AWSS3TransferManager defaultS3TransferManager];
     
     AWSS3TransferManagerUploadRequest *uploadRequest = [AWSS3TransferManagerUploadRequest new];
@@ -532,7 +536,16 @@
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
+    if ([segue.identifier isEqualToString:@"displayCreateListingConfirmationSegue"]) {
+        DubbCreateListingConfirmationViewController *viewController = segue.destinationViewController;
+        
+        NSString *string = self.serviceDescriptionTextView.text;
+        viewController.listingTitle = string;
+        viewController.listingLocation = selectedLocation;
+        viewController.mainImage = self.chosenImages[0];
+        viewController.categoryDescription = [NSString stringWithFormat:@"%@ / %@", self.categoryTextField.text, self.subCategoryTextField.text];
+
+    }
 }
 
 @end

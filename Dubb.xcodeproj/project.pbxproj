@@ -89,6 +89,14 @@
 		0D1FA6BA1ACA3B9700079C79 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D1FA6B91ACA3B9700079C79 /* AppDelegate.m */; };
 		0D2BC8C81AE00878004880E7 /* btn_prevnavigation_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D2BC8C51AE00878004880E7 /* btn_prevnavigation_white.png */; };
 		0D2BC8C91AE00878004880E7 /* btn_prevnavigation_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D2BC8C61AE00878004880E7 /* btn_prevnavigation_white@2x.png */; };
+		0DD6C7071AEAC67E008D1348 /* DubbCreateListingConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DD6C7061AEAC67E008D1348 /* DubbCreateListingConfirmationViewController.m */; };
+		0DD6C70A1AEAD1B7008D1348 /* checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DD6C7081AEAD1B7008D1348 /* checkmark.png */; };
+		0DD6C70B1AEAD1B7008D1348 /* checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DD6C7091AEAD1B7008D1348 /* checkmark@2x.png */; };
+		0DD6C7111AEAD937008D1348 /* share_email_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DD6C70C1AEAD937008D1348 /* share_email_button.png */; };
+		0DD6C7121AEAD937008D1348 /* share_facebook_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DD6C70D1AEAD937008D1348 /* share_facebook_button.png */; };
+		0DD6C7131AEAD937008D1348 /* share_sms_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DD6C70E1AEAD937008D1348 /* share_sms_button.png */; };
+		0DD6C7141AEAD937008D1348 /* share_twitter_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DD6C70F1AEAD937008D1348 /* share_twitter_button.png */; };
+		0DD6C7151AEAD937008D1348 /* share_whatsapp_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DD6C7101AEAD937008D1348 /* share_whatsapp_button.png */; };
 		44ADE96B435F087DF53501F7 /* libPods-Dubb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 476BCF1FEECE1BA9CF93C40E /* libPods-Dubb.a */; };
 		7C09A59A1AB1D03B00218127 /* home_background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7C09A5981AB1D03B00218127 /* home_background.jpg */; };
 		7C09A59B1AB1D03B00218127 /* login_background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7C09A5991AB1D03B00218127 /* login_background.jpg */; };
@@ -309,6 +317,15 @@
 		0D1FA6B91ACA3B9700079C79 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		0D2BC8C51AE00878004880E7 /* btn_prevnavigation_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_prevnavigation_white.png; sourceTree = "<group>"; };
 		0D2BC8C61AE00878004880E7 /* btn_prevnavigation_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_prevnavigation_white@2x.png"; sourceTree = "<group>"; };
+		0DD6C7051AEAC67E008D1348 /* DubbCreateListingConfirmationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DubbCreateListingConfirmationViewController.h; path = Listing/DubbCreateListingConfirmationViewController.h; sourceTree = "<group>"; };
+		0DD6C7061AEAC67E008D1348 /* DubbCreateListingConfirmationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DubbCreateListingConfirmationViewController.m; path = Listing/DubbCreateListingConfirmationViewController.m; sourceTree = "<group>"; };
+		0DD6C7081AEAD1B7008D1348 /* checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkmark.png; sourceTree = "<group>"; };
+		0DD6C7091AEAD1B7008D1348 /* checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkmark@2x.png"; sourceTree = "<group>"; };
+		0DD6C70C1AEAD937008D1348 /* share_email_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = share_email_button.png; sourceTree = "<group>"; };
+		0DD6C70D1AEAD937008D1348 /* share_facebook_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = share_facebook_button.png; sourceTree = "<group>"; };
+		0DD6C70E1AEAD937008D1348 /* share_sms_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = share_sms_button.png; sourceTree = "<group>"; };
+		0DD6C70F1AEAD937008D1348 /* share_twitter_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = share_twitter_button.png; sourceTree = "<group>"; };
+		0DD6C7101AEAD937008D1348 /* share_whatsapp_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = share_whatsapp_button.png; sourceTree = "<group>"; };
 		3FC747553FC9F4473463E4B0 /* Pods-Dubb.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dubb.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dubb/Pods-Dubb.debug.xcconfig"; sourceTree = "<group>"; };
 		476BCF1FEECE1BA9CF93C40E /* libPods-Dubb.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Dubb.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C09A5981AB1D03B00218127 /* home_background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = home_background.jpg; sourceTree = "<group>"; };
@@ -691,6 +708,13 @@
 		7C09A5971AB1CFE200218127 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				0DD6C70C1AEAD937008D1348 /* share_email_button.png */,
+				0DD6C70D1AEAD937008D1348 /* share_facebook_button.png */,
+				0DD6C70E1AEAD937008D1348 /* share_sms_button.png */,
+				0DD6C70F1AEAD937008D1348 /* share_twitter_button.png */,
+				0DD6C7101AEAD937008D1348 /* share_whatsapp_button.png */,
+				0DD6C7081AEAD1B7008D1348 /* checkmark.png */,
+				0DD6C7091AEAD1B7008D1348 /* checkmark@2x.png */,
 				DC675A651AE8163C00E5CBDA /* btn_search@2x.png */,
 				DC675A5F1AE7DAF500E5CBDA /* close@2x.png */,
 				DC675A5D1AE7CB9F00E5CBDA /* pin_icon@2x.png */,
@@ -837,6 +861,8 @@
 				7C09A5FE1AB2A2DB00218127 /* DubbListingsViewController.m */,
 				DC675A541AE69C3C00E5CBDA /* DubbGigsViewController.h */,
 				DC675A551AE69C3C00E5CBDA /* DubbGigsViewController.m */,
+				0DD6C7051AEAC67E008D1348 /* DubbCreateListingConfirmationViewController.h */,
+				0DD6C7061AEAC67E008D1348 /* DubbCreateListingConfirmationViewController.m */,
 			);
 			name = Listing;
 			sourceTree = "<group>";
@@ -1211,6 +1237,7 @@
 				0D1FA6B21ACA23CA00079C79 /* placeholder_image.png in Resources */,
 				0D1FA6A61ACA23CA00079C79 /* location_pin.png in Resources */,
 				0D1FA6AC1ACA23CA00079C79 /* category_dropdown.png in Resources */,
+				0DD6C7141AEAD937008D1348 /* share_twitter_button.png in Resources */,
 				0D1FA6681ACA183D00079C79 /* s3-2006-03-01.json in Resources */,
 				7C09A59B1AB1D03B00218127 /* login_background.jpg in Resources */,
 				DC675A531AE69ACE00E5CBDA /* filter@2x.png in Resources */,
@@ -1220,6 +1247,7 @@
 				0D1FA6B61ACA23CA00079C79 /* submit_button.png in Resources */,
 				7C09A60F1AB31C3900218127 /* sender_bubble@2x.png in Resources */,
 				0D1FA66A1ACA183D00079C79 /* sns-2010-03-31.json in Resources */,
+				0DD6C7151AEAD937008D1348 /* share_whatsapp_button.png in Resources */,
 				7C09A5A31AB1DD0000218127 /* btn_prevnavigation.png in Resources */,
 				0D1FA5A61ACA183C00079C79 /* ELCAlbumPickerController.xib in Resources */,
 				DC675A601AE7DAF500E5CBDA /* close@2x.png in Resources */,
@@ -1245,6 +1273,8 @@
 				0D1FA6631ACA183D00079C79 /* elasticloadbalancing-2012-06-01.json in Resources */,
 				0D1FA6601ACA183D00079C79 /* css-2014-06-30.json in Resources */,
 				0D1FA5A71ACA183C00079C79 /* ELCAssetPicker.xib in Resources */,
+				0DD6C70A1AEAD1B7008D1348 /* checkmark.png in Resources */,
+				0DD6C7121AEAD937008D1348 /* share_facebook_button.png in Resources */,
 				0D1FA65E1ACA183D00079C79 /* autoscaling-2011-01-01.json in Resources */,
 				7C09A61C1AB33A5300218127 /* attachment@2x.png in Resources */,
 				DC675A451AE4BEE000E5CBDA /* btn_category@2x.png in Resources */,
@@ -1257,10 +1287,12 @@
 				7C09A59A1AB1D03B00218127 /* home_background.jpg in Resources */,
 				DC63FC7C1AD7EE7D00A505B8 /* refresh@2x.png in Resources */,
 				0D1FA6691ACA183D00079C79 /* sdb-2009-04-15.json in Resources */,
+				0DD6C7131AEAD937008D1348 /* share_sms_button.png in Resources */,
 				0D2BC8C81AE00878004880E7 /* btn_prevnavigation_white.png in Resources */,
 				7CA773B71AB1C2AF00F6D631 /* LaunchScreen.xib in Resources */,
 				0D1FA6B01ACA23CA00079C79 /* next_button.png in Resources */,
 				0D1FA6A51ACA23CA00079C79 /* arrow@2x.png in Resources */,
+				0DD6C7111AEAD937008D1348 /* share_email_button.png in Resources */,
 				0D1FA6A91ACA23CA00079C79 /* map_icon@2x.png in Resources */,
 				0D1FA6A81ACA23CA00079C79 /* map_icon.png in Resources */,
 				0D1FA6AE1ACA23CA00079C79 /* image_delete_button.png in Resources */,
@@ -1269,6 +1301,7 @@
 				DC675A4B1AE5FAB400E5CBDA /* CountryPicker.bundle in Resources */,
 				DC675A661AE8163C00E5CBDA /* btn_search@2x.png in Resources */,
 				7C09A6181AB3299500218127 /* receiver_bubble@2x.png in Resources */,
+				0DD6C70B1AEAD1B7008D1348 /* checkmark@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1361,6 +1394,7 @@
 				0D1FA59E1ACA183C00079C79 /* AsyncImageView.m in Sources */,
 				7CA27DFA1AC78FDB00B56AB9 /* DubbSignupUsernameViewController.m in Sources */,
 				0D1FA5991ACA183C00079C79 /* AFSecurityPolicy.m in Sources */,
+				0DD6C7071AEAC67E008D1348 /* DubbCreateListingConfirmationViewController.m in Sources */,
 				7C4A0AC41AC1D608007DA690 /* ChatNavController.m in Sources */,
 				7CA773A91AB1C2AF00F6D631 /* main.m in Sources */,
 				7C0E42A11AD61B62000CF83E /* UIImage+fixOrientation.m in Sources */,

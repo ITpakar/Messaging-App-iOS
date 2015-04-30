@@ -304,9 +304,6 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
                 
                 [self.searchTextField setText:[NSString stringWithFormat:@"%@",self.selectedLocation.address]];
                 
-                //[self performSegueWithIdentifier:@"BackToMainSearch" sender:self];
-                
-                
             }];
         }break;
             
