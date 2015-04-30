@@ -7,6 +7,9 @@
 //
 
 #import "DubbListingCell.h"
+#import <AddressBookUI/AddressBookUI.h>
+#import <CoreLocation/CLGeocoder.h>
+#import <CoreLocation/CLPlacemark.h>
 
 @interface DubbListingCell(){
     UIView*         containerView;
@@ -23,13 +26,14 @@
 
 @implementation DubbListingCell
 
--(id) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
+-(id) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier listingInfo:(NSDictionary*)listing{
     
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     
     if(self){        
         self.backgroundColor = [UIColor clearColor];
         self.selectionStyle = UITableViewCellSelectionStyleNone;
+        _listing = [[NSDictionary alloc] initWithDictionary:listing];
         
         containerView = [[UIView alloc] init];
         containerView.backgroundColor = [UIColor whiteColor];
@@ -45,13 +49,35 @@
         titleLabel = [[UILabel alloc] init];
         titleLabel.numberOfLines = 2;
         titleLabel.font = [UIFont systemFontOfSize:14.0f weight:bold];
-        titleLabel.text = @"I will take professional head shots in my studio";
+        titleLabel.text = listing[@"name"];
+        
+        CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+        CLLocationCoordinate2D myCoOrdinate;
+        myCoOrdinate.latitude = [listing[@"lat"] floatValue];
+        myCoOrdinate.longitude = [listing[@"long"] floatValue];
+        CLLocation *location = [[CLLocation alloc] initWithLatitude:myCoOrdinate.latitude longitude:myCoOrdinate.longitude];
+        
+        [geocoder reverseGeocodeLocation:location completionHandler: ^ (NSArray  *placemarks, NSError *error) {
+
+            CLPlacemark *placemark = [placemarks firstObject];
+            if(placemark) {
+                NSString *location = @"";
+                @try{
+                    if( placemark.addressDictionary[(NSString*)kABPersonAddressCityKey] && placemark.addressDictionary[(NSString*)kABPersonAddressStateKey])
+                        location = [NSString stringWithFormat:@"%@, %@", placemark.addressDictionary[(NSString*)kABPersonAddressCityKey], placemark.addressDictionary[(NSString*)kABPersonAddressStateKey]];
+                    userLabel = [[UILabel alloc] init];
+                    NSMutableAttributedString *userText = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ %@", _listing[@"user"][@"first"], location] attributes:@{NSForegroundColorAttributeName : [UIColor grayColor], NSFontAttributeName: [UIFont systemFontOfSize:12.0f]}];
+                    [userText addAttribute:NSForegroundColorAttributeName value:[UIColor greenColor] range:NSMakeRange(0, [_listing[@"user"][@"first"] length])];
+                    userLabel.attributedText = userText;
+                    [containerView addSubview:userLabel];
+                    [self layoutSubviews];
+                }@catch(NSException *e){
+                    NSLog(@"Exception: %@", e.description);
+                }
+            }
+        }];
         
         
-        userLabel = [[UILabel alloc] init];
-        NSMutableAttributedString *userText = [[NSMutableAttributedString alloc] initWithString:@"ezrasp Los Angeles, CA" attributes:@{NSForegroundColorAttributeName : [UIColor grayColor], NSFontAttributeName: [UIFont systemFontOfSize:12.0f]}];
-        [userText addAttribute:NSForegroundColorAttributeName value:[UIColor greenColor] range:NSMakeRange(0, 6)];
-        userLabel.attributedText = userText;
         
         listingImageView = [[UIImageView alloc] init];
         listingImageView.image = [UIImage imageNamed:@"placeholder_image.png"];
@@ -76,7 +102,6 @@
         
         [containerView addSubview:profileImageView];
         [containerView addSubview:titleLabel];
-        [containerView addSubview:userLabel];
         [containerView addSubview:listingImageView];
         [containerView addSubview:categoryLabel];
         [containerView addSubview:btnOrder];

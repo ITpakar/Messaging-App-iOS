@@ -14,6 +14,8 @@
 #import <AddressBookUI/AddressBookUI.h>
 #import <CoreLocation/CLGeocoder.h>
 #import <CoreLocation/CLPlacemark.h>
+#import "SVPullToRefresh.h"
+
 
 @interface DubbListingsViewController (){
     
@@ -45,6 +47,9 @@
     CLGeocoder* geocoder;
     
     NSMutableDictionary *selectedLocation;
+    
+    NSMutableArray *listings;
+    NSInteger currentListingPage;
 }
 
 @end
@@ -57,6 +62,7 @@
     // Do any additional setup after loading the view.
     
     [self setupSearch];
+    [self setupListingTableView];
 }
 
 
@@ -94,6 +100,19 @@
     
     [searchBar addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     [locationSearchBar addTarget:self action:@selector(locationFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+}
+
+-(void) setupListingTableView{
+    [listingsTableView addPullToRefreshWithActionHandler:^{
+        [self loadListings : YES];
+    }];
+    
+    [listingsTableView addInfiniteScrollingWithActionHandler:^{
+        [self loadListings : NO];
+    }];
+    
+    listings = [NSMutableArray new];
+    [self loadListings:YES];
 }
 
 
@@ -190,8 +209,7 @@
 }
 
 - (IBAction)clearSearchText:(id)sender {
-    searchBar.text =
-    @"";
+    searchBar.text = @"";
 }
 
 - (IBAction)clearLocationText:(id)sender {
@@ -284,6 +302,41 @@
     return location;
 }
 
+#pragma mark - 
+#pragma mark - Load Listings
+
+-(void) loadListings : (BOOL) refresh{
+    
+    if( refresh ){
+        [self showProgress:@"Load Listing..."];
+        currentListingPage = 1;
+        [self.backend getAllListings:[NSString stringWithFormat:@"%d", currentListingPage] CompletionHandler:^(NSDictionary *result) {
+            [self hideProgress];
+            [listingsTableView.pullToRefreshView stopAnimating];
+            if( ![result[@"error"] boolValue] ){
+                listings = [NSMutableArray arrayWithArray:result[@"response"]];
+                [listingsTableView reloadData];
+                currentListingPage++;
+            }
+        }];
+        
+    } else {
+
+        
+        [self.backend getAllListings:[NSString stringWithFormat:@"%d", currentListingPage] CompletionHandler:^(NSDictionary *result) {
+            [listingsTableView.infiniteScrollingView stopAnimating];
+            if( ![result[@"error"] boolValue] ){
+                if( [result[@"response"] count] > 0 ){
+                    currentListingPage ++;
+                    [listings addObjectsFromArray:result[@"response"]];
+                    [listingsTableView reloadData];
+                }
+            }
+        }];
+    }
+    
+}
+
 
 #pragma mark -
 #pragma mark - TableView Delegate
@@ -295,7 +348,7 @@
     else if( tableView == locationTableView )
         return [locationLists count] + 1;
     
-    return 5;
+    return [listings count];
 }
 
 -(CGFloat) tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -319,7 +372,7 @@
         cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         
         if( !cell )
-            cell = [[DubbListingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+            cell = [[DubbListingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier listingInfo:listings[indexPath.row]];
     }
     return cell;
 }
