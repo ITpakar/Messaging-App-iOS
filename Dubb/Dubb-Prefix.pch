@@ -6,6 +6,11 @@
 //  Copyright (c) 2015 dubb.co. All rights reserved.
 //
 
+
+
+#ifndef Dubb_Dubb_Prefix_pch
+#define Dubb_Dubb_Prefix_pch
+
 #import "BaseViewController.h"
 #import <Quickblox/Quickblox.h>
 #import "UIViewController+RESideMenu.h"
@@ -15,12 +20,6 @@
 #import "CharactersEscapeService.h"
 
 #import <NewRelicAgent/NewRelic.h>
-
-#ifndef Dubb_Dubb_Prefix_pch
-#define Dubb_Dubb_Prefix_pch
-
-// Include any system framework and library headers here that should be included in all compilation units.
-// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 
 #endif
 

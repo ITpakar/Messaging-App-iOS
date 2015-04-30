@@ -8,6 +8,8 @@
 #import <MobileCoreServices/UTCoreTypes.h>
 #import <AWSiOSSDKv2/S3.h>
 #import "SZTextView.h"
+#import "IQKeyboardManager.h"
+#import "IQTextView.h"
 #import "IQDropDownTextField.h"
 #import "DubbServiceDescriptionViewController.h"
 #import "DubbServiceAreaViewController.h"
@@ -99,6 +101,9 @@
         [self.categoryTextField setItemList:categoryNames];
     }];
     currentIndexPathRow = -1;
+    
+    [IQKeyboardManager sharedManager].shouldShowTextFieldPlaceholder = NO;
+    [IQKeyboardManager sharedManager].enable = NO;
 }
 
 - (void)doneClicked:(UIBarButtonItem*)button {
@@ -112,7 +117,6 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
 }
-
 
 #pragma mark - IQDropDownTextField delegate
 
@@ -196,15 +200,19 @@
     dubbServiceDescriptionViewController.placeholderString = placeholderString;
     
     forAddOn = isForAddOn;
+    if (forAddOn) {
+        dubbServiceDescriptionViewController.addOns = addOns;
+        NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
+        dubbServiceDescriptionViewController.currentIndex = (selectedIndexPath.row < addOns.count) ? selectedIndexPath.row : -1;
+    }
     [self.navigationController pushViewController:dubbServiceDescriptionViewController animated:YES];
 }
 
 - (void) completedWithDescription:(NSString*)description WithPrice:(NSString *)price {
     if (!forAddOn) {
-        [self.baseServicePriceLabel setText:[NSString stringWithFormat:@"$%@", price]];
+        [self.baseServicePriceLabel setText:[NSString stringWithFormat:@"%@", price]];
         [self.baseServiceDescriptionLabel setText:description];
     } else {
-        [addOns addObject:@{@"description":description, @"price":price, @"sequence":[NSString stringWithFormat:@"%d", addOns.count + 1]}];
         [self.tableView reloadData];
     }
 }
@@ -279,6 +287,7 @@
                                         Parameters:@{@"name":self.serviceDescriptionTextView.text,
                                                      @"instructions":self.fulfillmentInfoLabel.text,
                                                      @"category_id":categories[self.categoryTextField.selectedRow][@"id"],
+                                                     @"category_edge_id":subCategories[self.subCategoryTextField.selectedRow][@"category_edge_id"],
                                                      @"user_id":@"1",
                                                      @"lat":[NSString stringWithFormat:@"%f", selectedLocation.locationCoordinates.latitude],
                                                      @"long":[NSString stringWithFormat:@"%f", selectedLocation.locationCoordinates.longitude],
@@ -467,7 +476,7 @@
 #pragma mark - UITableView Data Source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return addOns.count > 1 ? addOns.count : 1;
+    return addOns.count > 1 ? addOns.count + 1 : 2;
 }
 
 
@@ -478,25 +487,52 @@
     
     UILabel *priceLabel = (UILabel *)[cell viewWithTag:100];
     UILabel *descriptionLabel = (UILabel *)[cell viewWithTag:101];
-    
-    UIButton *supplyAddOnButton = (UIButton *)[cell viewWithTag:102];
-    [supplyAddOnButton addTarget:self action:@selector(customActionPressed:) forControlEvents:UIControlEventTouchDown];
     currentIndexPathRow = indexPath.row;
     
-    if (addOns.count > 0) {
-        NSDictionary *addOn = addOns[indexPath.row];
-        [priceLabel setText:[NSString stringWithFormat:@"$%@", addOn[@"price"]]];
-        [descriptionLabel setText:addOn[@"description"]];
+    if (indexPath.row == [self.tableView numberOfRowsInSection:0] - 1) {
+        priceLabel.hidden = YES;
+        descriptionLabel.text = @"Add another add-on";
+    } else {
+        priceLabel.hidden = NO;
+        if (addOns.count > 0) {
+            NSDictionary *addOn = addOns[indexPath.row];
+            [priceLabel setText:[NSString stringWithFormat:@"$%@", addOn[@"price"]]];
+            [descriptionLabel setText:addOn[@"description"]];
+        }
     }
     return cell;
 }
 
-- (void) customActionPressed:(UIButton *)sender {
-    [self showDescriptionWithPriceViewControllerWithTitleString:@"Add On" WithPlaceholderString:@"Hire me to provide a great local service." forAddOn:YES];
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row < addOns.count) {
+        return YES;
+    }
+    
+    return NO;
 }
-
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [addOns removeObjectAtIndex:indexPath.row];
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    }
+}
 #pragma mark - UITableView Delegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 93;
+    return 43;
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self showDescriptionWithPriceViewControllerWithTitleString:@"Add On" WithPlaceholderString:@"Hire me to provide a great local service." forAddOn:YES];
+    [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
+}
+
+
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+}
+
 @end

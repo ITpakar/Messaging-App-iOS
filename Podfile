@@ -5,9 +5,9 @@ target 'Dubb' do
 
 pod 'SVPullToRefresh'
 pod 'IQKeyboardManager'
-pod 'QuickBlox'
 pod 'SDWebImage', '~>3.7'
 pod 'NewRelicAgent'
+pod 'QuickBlox'
 
 end
 

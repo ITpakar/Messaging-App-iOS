@@ -1,6 +1,6 @@
 PODS:
-  - IQKeyboardManager (3.2.2)
-  - NewRelicAgent (4.186)
+  - IQKeyboardManager (3.2.3)
+  - NewRelicAgent (4.186.1)
   - QuickBlox (2.2.3)
   - SDWebImage (3.7.2):
     - SDWebImage/Core (= 3.7.2)
@@ -15,10 +15,10 @@ DEPENDENCIES:
   - SVPullToRefresh
 
 SPEC CHECKSUMS:
-  IQKeyboardManager: 99df8006864663a4126a77b9a2f7ea70077eff31
-  NewRelicAgent: c9efe4386f703c97741fbb1f65e80d5513a04866
+  IQKeyboardManager: 6ca5c54e3776eb54af4c7caf515833f3cd761d59
+  NewRelicAgent: 5cd52dafe03e74c5066073a00fd500df9d966e7e
   QuickBlox: f3a8cd60af97ee673ef589d2c884713633aefa31
   SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
   SVPullToRefresh: ba2e718695a43253d8bea6852d2960097dc15d8c
 
-COCOAPODS: 0.36.3
+COCOAPODS: 0.35.0
