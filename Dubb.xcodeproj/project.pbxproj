@@ -89,6 +89,8 @@
 		0D1FA6BA1ACA3B9700079C79 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D1FA6B91ACA3B9700079C79 /* AppDelegate.m */; };
 		0D2BC8C81AE00878004880E7 /* btn_prevnavigation_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D2BC8C51AE00878004880E7 /* btn_prevnavigation_white.png */; };
 		0D2BC8C91AE00878004880E7 /* btn_prevnavigation_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D2BC8C61AE00878004880E7 /* btn_prevnavigation_white@2x.png */; };
+		0D612AD41AF723190030A91E /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D612AD31AF723190030A91E /* CoreTelephony.framework */; };
+		0D612AD61AF723360030A91E /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D612AD51AF723360030A91E /* libc++.dylib */; };
 		0DD6C7071AEAC67E008D1348 /* DubbCreateListingConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DD6C7061AEAC67E008D1348 /* DubbCreateListingConfirmationViewController.m */; };
 		0DD6C70A1AEAD1B7008D1348 /* checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DD6C7081AEAD1B7008D1348 /* checkmark.png */; };
 		0DD6C70B1AEAD1B7008D1348 /* checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DD6C7091AEAD1B7008D1348 /* checkmark@2x.png */; };
@@ -317,6 +319,8 @@
 		0D1FA6B91ACA3B9700079C79 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		0D2BC8C51AE00878004880E7 /* btn_prevnavigation_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_prevnavigation_white.png; sourceTree = "<group>"; };
 		0D2BC8C61AE00878004880E7 /* btn_prevnavigation_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_prevnavigation_white@2x.png"; sourceTree = "<group>"; };
+		0D612AD31AF723190030A91E /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		0D612AD51AF723360030A91E /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		0DD6C7051AEAC67E008D1348 /* DubbCreateListingConfirmationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DubbCreateListingConfirmationViewController.h; path = Listing/DubbCreateListingConfirmationViewController.h; sourceTree = "<group>"; };
 		0DD6C7061AEAC67E008D1348 /* DubbCreateListingConfirmationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DubbCreateListingConfirmationViewController.m; path = Listing/DubbCreateListingConfirmationViewController.m; sourceTree = "<group>"; };
 		0DD6C7081AEAD1B7008D1348 /* checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkmark.png; sourceTree = "<group>"; };
@@ -463,6 +467,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D612AD61AF723360030A91E /* libc++.dylib in Frameworks */,
+				0D612AD41AF723190030A91E /* CoreTelephony.framework in Frameworks */,
 				DC675A4D1AE5FE0800E5CBDA /* AddressBookUI.framework in Frameworks */,
 				DC63FC781AD7BBF900A505B8 /* ImageIO.framework in Frameworks */,
 				7C0E42A31AD62FE2000CF83E /* AVFoundation.framework in Frameworks */,
@@ -1063,6 +1069,8 @@
 		7CA773D41AB1C40E00F6D631 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0D612AD51AF723360030A91E /* libc++.dylib */,
+				0D612AD31AF723190030A91E /* CoreTelephony.framework */,
 				DC675A4C1AE5FE0800E5CBDA /* AddressBookUI.framework */,
 				DC63FC771AD7BBF900A505B8 /* ImageIO.framework */,
 				7C0E42A21AD62FE2000CF83E /* AVFoundation.framework */,

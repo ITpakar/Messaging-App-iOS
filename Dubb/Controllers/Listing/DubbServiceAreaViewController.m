@@ -107,6 +107,10 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
         NSLog(@"This string: %@ had a space at the begining.",self.substring);
     }
     
+    if ([self.searchTextField.text isEqualToString:@"Current Location"]) {
+        self.searchTextField.text = text;
+        return NO;
+    }
     
     return YES;
 }
@@ -293,7 +297,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
             [self.searchTextField resignFirstResponder];
             [self retrieveJSONDetailsAbout:placeID withCompletion:^(NSArray *place) {
                 
-                
+            
                 self.selectedLocation.name = [place valueForKey:@"name"];
                 self.selectedLocation.address = [place valueForKey:@"formatted_address"];
                 NSString *latitude = [NSString stringWithFormat:@"%@,",[place valueForKey:@"geometry"][@"location"][@"lat"]];
@@ -310,8 +314,10 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
         case TableViewSectionCurrentLocation: {
             
             self.selectedLocation.name = @"Current Location";
-            self.selectedLocation.address = @"";
-            self.selectedLocation.locationCoordinates = CLLocationCoordinate2DMake(38.910003, -77.015533);
+            self.selectedLocation.address = @"Current Location";
+            self.selectedLocation.locationCoordinates = CLLocationCoordinate2DMake([[User currentUser].latitude floatValue], [[User currentUser].longitude floatValue]);
+
+            [self.searchTextField setText:@"Current Location"];
         }break;
         default:
             break;

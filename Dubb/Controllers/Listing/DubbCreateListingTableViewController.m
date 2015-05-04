@@ -225,7 +225,7 @@
 - (void) completedWithRadius:(NSString*)radiusString WithLocation:(SelectedLocation *)location {
     radius = radiusString;
     selectedLocation = location;
-    self.fulfillmentAreaLabel.text = [NSString stringWithFormat:@"Radius: %@\n Lat:%f, Long:%f", radius, location.locationCoordinates.latitude, location.locationCoordinates.longitude];
+    self.fulfillmentAreaLabel.text = [NSString stringWithFormat:@"%@ mile from %@", radius, location.address];
 }
 - (IBAction)menuButtonTapped:(id)sender {
     [self.sideMenuViewController presentLeftMenuViewController];
@@ -480,7 +480,14 @@
 #pragma mark - UITableView Data Source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return addOns.count > 1 ? addOns.count + 1 : 2;
+    NSInteger numberOfRows = 2;
+    
+    if (addOns.count > 1) {
+        numberOfRows = addOns.count < 5 ? addOns.count + 1 : addOns.count;
+    } else {
+        numberOfRows = 2;
+    }
+    return numberOfRows;
 }
 
 
@@ -493,7 +500,7 @@
     UILabel *descriptionLabel = (UILabel *)[cell viewWithTag:101];
     currentIndexPathRow = indexPath.row;
     
-    if (indexPath.row == [self.tableView numberOfRowsInSection:0] - 1) {
+    if (indexPath.row == [self.tableView numberOfRowsInSection:0] - 1 && addOns.count < 5) {
         priceLabel.hidden = YES;
         descriptionLabel.text = @"Add another add-on";
     } else {
@@ -502,6 +509,9 @@
             NSDictionary *addOn = addOns[indexPath.row];
             [priceLabel setText:[NSString stringWithFormat:@"$%@", addOn[@"price"]]];
             [descriptionLabel setText:addOn[@"description"]];
+        } else if (addOns.count == 0 && indexPath.row == 0) {
+            [priceLabel setText:@"$40"];
+            [descriptionLabel setText:@"Describe your add - on"];
         }
     }
     return cell;
@@ -516,8 +526,14 @@
 }
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
+        
         [addOns removeObjectAtIndex:indexPath.row];
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        if (addOns.count > 0 && indexPath.row < addOns.count) {
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        } else {
+            [self.tableView reloadData];
+        }
+
     }
 }
 #pragma mark - UITableView Delegate

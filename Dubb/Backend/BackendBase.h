@@ -26,6 +26,10 @@
 -(void) getSuggestionList : (NSString*) keyword
   CompletionHandler:(void (^)(NSDictionary *result))handler;
 
+-(void) getAllListings: (NSString*)page CompletionHandler:(void (^)(NSDictionary *result))handler;
+
+-(void) getAllListings: (NSString*)keyword Page:(NSString*)page CompletionHandler:(void (^)(NSDictionary *result))handler;
+
 /* Common functions for all backends */
 
 - (void) accessAPIbyPost:(NSString *)apiPath

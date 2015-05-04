@@ -16,7 +16,6 @@
 #import "ChatHistoryController.h"
 #import "MBProgressHUD.h"
 #import "User.h"
-
 #import <AddressBookUI/AddressBookUI.h>
 #import <CoreLocation/CLGeocoder.h>
 #import <CoreLocation/CLPlacemark.h>
@@ -53,6 +52,7 @@
     AWSStaticCredentialsProvider *credentialsProvider = [AWSStaticCredentialsProvider credentialsWithAccessKey:awsAccessKey secretKey:awsSecretKey];
     AWSServiceConfiguration *configuration = [AWSServiceConfiguration configurationWithRegion:AWSRegionUSWest1 credentialsProvider:credentialsProvider];
     [AWSServiceManager defaultServiceManager].defaultServiceConfiguration = configuration;
+    
     
     //[NRLogger setLogLevels:NRLogLevelALL];
     //[NewRelicAgent startWithApplicationToken:kNewRelicToken];
@@ -157,7 +157,7 @@
         User *currentUser = [User currentUser];
         currentUser.longitude = [NSNumber numberWithFloat: currentLocation.coordinate.longitude];
         currentUser.latitude = [NSNumber numberWithFloat: currentLocation.coordinate.latitude];
-        
+ 
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidLocationUpdated
                                                             object:nil userInfo:nil];
     }

@@ -10,6 +10,8 @@
 
 @interface DubbListingCell : UITableViewCell
 
--(id) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
+@property (nonatomic, strong) NSDictionary* listing;
+
+-(id) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier listingInfo:(NSDictionary*)listing;
 
 @end
