@@ -168,6 +168,7 @@
 		DC675A5E1AE7CB9F00E5CBDA /* pin_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC675A5D1AE7CB9F00E5CBDA /* pin_icon@2x.png */; };
 		DC675A601AE7DAF500E5CBDA /* close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC675A5F1AE7DAF500E5CBDA /* close@2x.png */; };
 		DC675A661AE8163C00E5CBDA /* btn_search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC675A651AE8163C00E5CBDA /* btn_search@2x.png */; };
+		DC8C7D6A1AF549680033E6F9 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC8C7D691AF549680033E6F9 /* QuartzCore.framework */; };
 		DCF2DD7B1ADC9C7900500548 /* close_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCF2DD7A1ADC9C7900500548 /* close_icon@2x.png */; };
 /* End PBXBuildFile section */
 
@@ -438,6 +439,7 @@
 		DC675A5D1AE7CB9F00E5CBDA /* pin_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pin_icon@2x.png"; sourceTree = "<group>"; };
 		DC675A5F1AE7DAF500E5CBDA /* close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close@2x.png"; sourceTree = "<group>"; };
 		DC675A651AE8163C00E5CBDA /* btn_search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_search@2x.png"; sourceTree = "<group>"; };
+		DC8C7D691AF549680033E6F9 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		DCF2DD7A1ADC9C7900500548 /* close_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close_icon@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -446,6 +448,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC8C7D6A1AF549680033E6F9 /* QuartzCore.framework in Frameworks */,
 				DC675A4D1AE5FE0800E5CBDA /* AddressBookUI.framework in Frameworks */,
 				DC63FC781AD7BBF900A505B8 /* ImageIO.framework in Frameworks */,
 				7C0E42A31AD62FE2000CF83E /* AVFoundation.framework in Frameworks */,
@@ -1037,6 +1040,7 @@
 		7CA773D41AB1C40E00F6D631 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DC8C7D691AF549680033E6F9 /* QuartzCore.framework */,
 				DC675A4C1AE5FE0800E5CBDA /* AddressBookUI.framework */,
 				DC63FC771AD7BBF900A505B8 /* ImageIO.framework */,
 				7C0E42A21AD62FE2000CF83E /* AVFoundation.framework */,
@@ -1171,7 +1175,7 @@
 				TargetAttributes = {
 					7CA773A21AB1C2AF00F6D631 = {
 						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = 93D6ZD3D4Y;
+						DevelopmentTeam = 6822BLGBTR;
 					};
 					7CA773BB1AB1C2AF00F6D631 = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -1521,7 +1525,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Venk Tatineni (QYZW6DXNWC)";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1542,7 +1546,7 @@
 					"$(PROJECT_DIR)/Dubb/ExtraFrameworks/Library",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "af4b14c9-0de6-4556-815e-431729680430";
 			};
 			name = Debug;
 		};
@@ -1552,7 +1556,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Illumified Inc (93D6ZD3D4Y)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Venk Tatineni (6822BLGBTR)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Dubb/ExtraFrameworks/**",
@@ -1572,7 +1576,7 @@
 					"$(PROJECT_DIR)/Dubb/ExtraFrameworks/Library",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "445d2df7-5856-4967-9ad7-29d789888bcf";
+				PROVISIONING_PROFILE = "02a5b663-9e92-49b7-b4d2-592d793d2b75";
 			};
 			name = Release;
 		};
