@@ -10,6 +10,7 @@
 #import <AddressBookUI/AddressBookUI.h>
 #import <CoreLocation/CLGeocoder.h>
 #import <CoreLocation/CLPlacemark.h>
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface DubbListingCell(){
     UIView*         containerView;
@@ -19,6 +20,8 @@
     UIImageView*    listingImageView;
     UILabel*        categoryLabel;
     UIButton*       btnOrder;
+    
+    UIActivityIndicatorView *mainImageIndicator;
     
 }
 
@@ -61,10 +64,20 @@
 
             CLPlacemark *placemark = [placemarks firstObject];
             if(placemark) {
-                NSString *location = @"";
+                NSMutableString *location = [[NSMutableString alloc] init];
                 @try{
-                    if( placemark.addressDictionary[(NSString*)kABPersonAddressCityKey] && placemark.addressDictionary[(NSString*)kABPersonAddressStateKey])
-                        location = [NSString stringWithFormat:@"%@, %@", placemark.addressDictionary[(NSString*)kABPersonAddressCityKey], placemark.addressDictionary[(NSString*)kABPersonAddressStateKey]];
+                    /*if( placemark.addressDictionary[(NSString*)kABPersonAddressCityKey] && placemark.addressDictionary[(NSString*)kABPersonAddressStateKey])
+                        location = [NSString stringWithFormat:@"%@, %@", placemark.addressDictionary[(NSString*)kABPersonAddressCityKey], placemark.addressDictionary[(NSString*)kABPersonAddressStateKey]];*/
+                    NSArray *locations = placemark.addressDictionary[@"FormattedAddressLines"];
+                    
+                    for(int i = (locations.count > 2 ? 1: 0); i < locations.count; i++){
+                        NSString *loc = locations[i];
+                        if( [location isEqualToString:@""] )
+                            [location appendString:loc];
+                        else
+                            [location appendFormat:@", %@", loc];
+                    }
+                    
                     userLabel = [[UILabel alloc] init];
                     NSMutableAttributedString *userText = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ %@", _listing[@"user"][@"first"], location] attributes:@{NSForegroundColorAttributeName : [UIColor grayColor], NSFontAttributeName: [UIFont systemFontOfSize:12.0f]}];
                     [userText addAttribute:NSForegroundColorAttributeName value:[UIColor greenColor] range:NSMakeRange(0, [_listing[@"user"][@"first"] length])];
@@ -80,13 +93,36 @@
         
         
         listingImageView = [[UIImageView alloc] init];
-        listingImageView.image = [UIImage imageNamed:@"placeholder_image.png"];
+        mainImageIndicator = [[UIActivityIndicatorView alloc] init];
+        mainImageIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
         
         categoryLabel = [[UILabel alloc] init];
         categoryLabel.font = [UIFont systemFontOfSize:14.0f];
         categoryLabel.textColor = [UIColor darkGrayColor];
-        categoryLabel.text = @"Food Entertainment / Personal";
         
+        if( listing[@"mainimage"] ){
+            
+            if( listing[@"mainimage"][@"object"] )
+                categoryLabel.text = listing[@"mainimage"][@"object"];
+          
+            if( listing[@"mainimage"][@"url"] ){
+                [mainImageIndicator startAnimating];
+                [SDWebImageDownloader.sharedDownloader downloadImageWithURL: [NSURL URLWithString:listing[@"mainimage"][@"url"]] options:0 progress:nil completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
+
+                    dispatch_sync(dispatch_get_main_queue(), ^{
+                        [mainImageIndicator stopAnimating];
+                        if( error == nil ){
+                            listingImageView.image = image;
+                        } else {
+                            listingImageView.image = [UIImage imageNamed:@"placeholder_image.png"];
+                        }
+                    });
+                    
+                }];
+            } else
+                listingImageView.image = [UIImage imageNamed:@"placeholder_image.png"];
+            
+        }
         btnOrder = [[UIButton alloc] init];
         btnOrder.layer.masksToBounds = YES;
         btnOrder.layer.cornerRadius = 10.0f;
@@ -106,6 +142,8 @@
         [containerView addSubview:categoryLabel];
         [containerView addSubview:btnOrder];
         
+        
+        [containerView addSubview:mainImageIndicator];
         [self.contentView addSubview:containerView];
 
     }
@@ -124,6 +162,7 @@
     [titleLabel setFrame:CGRectMake(60, 10, width - 90, 35)];
     [userLabel setFrame:CGRectMake(60, 42, width - 90, 14)];
     [listingImageView setFrame:CGRectMake(15, 64, width-45, height - 106)];
+    mainImageIndicator.center = listingImageView.center;
     [btnOrder setFrame:CGRectMake(width - 120, height - 70, 80, 20)];
     [categoryLabel setFrame:CGRectMake(15, height - 42, width-25, 26)];
 }
