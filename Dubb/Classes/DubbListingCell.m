@@ -107,18 +107,28 @@
           
             if( listing[@"mainimage"][@"url"] ){
                 [mainImageIndicator startAnimating];
-                [SDWebImageDownloader.sharedDownloader downloadImageWithURL: [NSURL URLWithString:listing[@"mainimage"][@"url"]] options:0 progress:nil completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
-
-                    dispatch_sync(dispatch_get_main_queue(), ^{
+                [[SDImageCache sharedImageCache] queryDiskCacheForKey:listing[@"mainimage"][@"url"] done:^(UIImage *image, SDImageCacheType cacheType) {
+                    if( image != nil){
+                        listingImageView.image = image;
                         [mainImageIndicator stopAnimating];
-                        if( error == nil ){
-                            listingImageView.image = image;
-                        } else {
-                            listingImageView.image = [UIImage imageNamed:@"placeholder_image.png"];
-                        }
-                    });
-                    
+                    } else {
+                        [SDWebImageDownloader.sharedDownloader downloadImageWithURL: [NSURL URLWithString:listing[@"mainimage"][@"url"]] options:0 progress:nil completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
+                            
+                            dispatch_sync(dispatch_get_main_queue(), ^{
+                                [mainImageIndicator stopAnimating];
+                                if( error == nil ){
+                                    listingImageView.image = image;
+                                    [[SDImageCache sharedImageCache] storeImage:image forKey:listing[@"mainimage"][@"url"]];
+                                } else {
+                                    listingImageView.image = [UIImage imageNamed:@"placeholder_image.png"];
+                                    [[SDImageCache sharedImageCache] storeImage:listingImageView.image forKey:listing[@"mainimage"][@"url"]];
+                                }
+                            });
+                            
+                        }];
+                    }
                 }];
+                
             } else
                 listingImageView.image = [UIImage imageNamed:@"placeholder_image.png"];
             
