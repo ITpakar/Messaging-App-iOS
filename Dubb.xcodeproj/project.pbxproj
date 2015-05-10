@@ -111,6 +111,12 @@
 		0DFCB1771AFFD9FE001F2820 /* share_sheet_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DFCB1611AFFD9FE001F2820 /* share_sheet_button@2x.png */; };
 		0DFCB1781AFFD9FE001F2820 /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DFCB1621AFFD9FE001F2820 /* star.png */; };
 		0DFCB1791AFFD9FE001F2820 /* star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DFCB1631AFFD9FE001F2820 /* star@2x.png */; };
+		0DFCB17C1AFFDAF0001F2820 /* DubbSingleListingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DFCB17B1AFFDAF0001F2820 /* DubbSingleListingViewController.m */; };
+		0DFCB1841AFFDB27001F2820 /* DubbAddonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DFCB17F1AFFDB27001F2820 /* DubbAddonCell.m */; };
+		0DFCB1851AFFDB27001F2820 /* DubbAddonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0DFCB1801AFFDB27001F2820 /* DubbAddonCell.xib */; };
+		0DFCB1861AFFDB27001F2820 /* ListingTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DFCB1821AFFDB27001F2820 /* ListingTopView.m */; };
+		0DFCB1871AFFDB27001F2820 /* ListingTopView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0DFCB1831AFFDB27001F2820 /* ListingTopView.xib */; };
+		0DFCB18D1AFFDB8B001F2820 /* UIScrollView+APParallaxHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DFCB18C1AFFDB8B001F2820 /* UIScrollView+APParallaxHeader.m */; };
 		44ADE96B435F087DF53501F7 /* libPods-Dubb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 476BCF1FEECE1BA9CF93C40E /* libPods-Dubb.a */; };
 		7C09A59A1AB1D03B00218127 /* home_background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7C09A5981AB1D03B00218127 /* home_background.jpg */; };
 		7C09A59B1AB1D03B00218127 /* login_background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7C09A5991AB1D03B00218127 /* login_background.jpg */; };
@@ -354,6 +360,16 @@
 		0DFCB1611AFFD9FE001F2820 /* share_sheet_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "share_sheet_button@2x.png"; sourceTree = "<group>"; };
 		0DFCB1621AFFD9FE001F2820 /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
 		0DFCB1631AFFD9FE001F2820 /* star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star@2x.png"; sourceTree = "<group>"; };
+		0DFCB17A1AFFDAF0001F2820 /* DubbSingleListingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DubbSingleListingViewController.h; path = Listing/DubbSingleListingViewController.h; sourceTree = "<group>"; };
+		0DFCB17B1AFFDAF0001F2820 /* DubbSingleListingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DubbSingleListingViewController.m; path = Listing/DubbSingleListingViewController.m; sourceTree = "<group>"; };
+		0DFCB17E1AFFDB27001F2820 /* DubbAddonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DubbAddonCell.h; sourceTree = "<group>"; };
+		0DFCB17F1AFFDB27001F2820 /* DubbAddonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DubbAddonCell.m; sourceTree = "<group>"; };
+		0DFCB1801AFFDB27001F2820 /* DubbAddonCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DubbAddonCell.xib; sourceTree = "<group>"; };
+		0DFCB1811AFFDB27001F2820 /* ListingTopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListingTopView.h; sourceTree = "<group>"; };
+		0DFCB1821AFFDB27001F2820 /* ListingTopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListingTopView.m; sourceTree = "<group>"; };
+		0DFCB1831AFFDB27001F2820 /* ListingTopView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ListingTopView.xib; sourceTree = "<group>"; };
+		0DFCB18B1AFFDB8B001F2820 /* UIScrollView+APParallaxHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+APParallaxHeader.h"; sourceTree = "<group>"; };
+		0DFCB18C1AFFDB8B001F2820 /* UIScrollView+APParallaxHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+APParallaxHeader.m"; sourceTree = "<group>"; };
 		3FC747553FC9F4473463E4B0 /* Pods-Dubb.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dubb.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dubb/Pods-Dubb.debug.xcconfig"; sourceTree = "<group>"; };
 		476BCF1FEECE1BA9CF93C40E /* libPods-Dubb.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Dubb.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C09A5981AB1D03B00218127 /* home_background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = home_background.jpg; sourceTree = "<group>"; };
@@ -716,6 +732,25 @@
 			path = KASlideShow;
 			sourceTree = "<group>";
 		};
+		0DFCB1891AFFDB3B001F2820 /* ListingTopView */ = {
+			isa = PBXGroup;
+			children = (
+				0DFCB1811AFFDB27001F2820 /* ListingTopView.h */,
+				0DFCB1821AFFDB27001F2820 /* ListingTopView.m */,
+				0DFCB1831AFFDB27001F2820 /* ListingTopView.xib */,
+			);
+			name = ListingTopView;
+			sourceTree = "<group>";
+		};
+		0DFCB18A1AFFDB8B001F2820 /* APParallaxHeader */ = {
+			isa = PBXGroup;
+			children = (
+				0DFCB18B1AFFDB8B001F2820 /* UIScrollView+APParallaxHeader.h */,
+				0DFCB18C1AFFDB8B001F2820 /* UIScrollView+APParallaxHeader.m */,
+			);
+			path = APParallaxHeader;
+			sourceTree = "<group>";
+		};
 		68906338569F6BBDA26C928D /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -846,6 +881,7 @@
 		7C09A5D71AB20C2700218127 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				0DFCB1891AFFDB3B001F2820 /* ListingTopView */,
 				DC63FC731AD7B5C400A505B8 /* OverlayProgress */,
 				7CE350C91AD6B73E00DD5A7D /* ImageBrowser */,
 				7C0E42A41AD63857000CF83E /* ProgressView */,
@@ -894,6 +930,8 @@
 		7C09A5FC1AB2A2B300218127 /* Listing */ = {
 			isa = PBXGroup;
 			children = (
+				0DFCB17A1AFFDAF0001F2820 /* DubbSingleListingViewController.h */,
+				0DFCB17B1AFFDAF0001F2820 /* DubbSingleListingViewController.m */,
 				0D1FA4041ACA17EB00079C79 /* DubbCreateListingTableViewController.h */,
 				0D1FA4051ACA17EB00079C79 /* DubbCreateListingTableViewController.m */,
 				0D1FA4061ACA17EB00079C79 /* DubbServiceAreaViewController.h */,
@@ -1083,6 +1121,7 @@
 		7CA773CF1AB1C35300F6D631 /* ExFrameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0DFCB18A1AFFDB8B001F2820 /* APParallaxHeader */,
 				7C0E429E1AD61B36000CF83E /* FIxOrientation */,
 				0D1FA4101ACA183B00079C79 /* AFNetworking */,
 				0D1FA4241ACA183B00079C79 /* AsyncImageView */,
@@ -1185,6 +1224,9 @@
 			children = (
 				DC675A471AE5D16A00E5CBDA /* DubbListingCell.h */,
 				DC675A481AE5D16A00E5CBDA /* DubbListingCell.m */,
+				0DFCB17E1AFFDB27001F2820 /* DubbAddonCell.h */,
+				0DFCB17F1AFFDB27001F2820 /* DubbAddonCell.m */,
+				0DFCB1801AFFDB27001F2820 /* DubbAddonCell.xib */,
 			);
 			name = Listings;
 			sourceTree = "<group>";
@@ -1241,7 +1283,7 @@
 				TargetAttributes = {
 					7CA773A21AB1C2AF00F6D631 = {
 						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = 6822BLGBTR;
+						DevelopmentTeam = 93D6ZD3D4Y;
 					};
 					7CA773BB1AB1C2AF00F6D631 = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -1327,6 +1369,8 @@
 				0DFCB1751AFFD9FE001F2820 /* plus_button@2x.png in Resources */,
 				DCF2DD7B1ADC9C7900500548 /* close_icon@2x.png in Resources */,
 				0D1FA6A71ACA23CA00079C79 /* location_pin@2x.png in Resources */,
+				0DFCB1851AFFDB27001F2820 /* DubbAddonCell.xib in Resources */,
+				0DFCB1871AFFDB27001F2820 /* ListingTopView.xib in Resources */,
 				0D1FA6661ACA183D00079C79 /* mobileanalytics-2014-06-30.json in Resources */,
 				0DFCB16B1AFFD9FE001F2820 /* heart_button@2x.png in Resources */,
 				0D1FA6631ACA183D00079C79 /* elasticloadbalancing-2012-06-01.json in Resources */,
@@ -1424,6 +1468,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0DFCB18D1AFFDB8B001F2820 /* UIScrollView+APParallaxHeader.m in Sources */,
 				7C09A5D11AB1F7FF00218127 /* BaseViewController.m in Sources */,
 				0D1FA40C1ACA17EB00079C79 /* DubbCreateListingTableViewController.m in Sources */,
 				0D1FA5A31ACA183C00079C79 /* ELCConsole.m in Sources */,
@@ -1446,6 +1491,7 @@
 				0D1FA5971ACA183C00079C79 /* AFHTTPSessionManager.m in Sources */,
 				0D1FA6BA1ACA3B9700079C79 /* AppDelegate.m in Sources */,
 				7C09A5E01AB2931700218127 /* User.m in Sources */,
+				0DFCB1861AFFDB27001F2820 /* ListingTopView.m in Sources */,
 				0D1FA5A11ACA183C00079C79 /* ELCAssetCell.m in Sources */,
 				7CBE24321AD6B8D700DA0A12 /* DubbImageBrowser.m in Sources */,
 				7C09A6161AB31C7F00218127 /* DubbReceiverTableViewCell.m in Sources */,
@@ -1465,11 +1511,13 @@
 				0D1FA68F1ACA18DA00079C79 /* SelectedLocation.m in Sources */,
 				0D1FA40D1ACA17EB00079C79 /* DubbServiceAreaViewController.m in Sources */,
 				7C09A5FA1AB29E4B00218127 /* DubbMenuViewController.m in Sources */,
+				0DFCB17C1AFFDAF0001F2820 /* DubbSingleListingViewController.m in Sources */,
 				7C09A5A91AB1E93C00218127 /* DubbSignUpEmailViewController.m in Sources */,
 				7C09A5FF1AB2A2DB00218127 /* DubbListingsViewController.m in Sources */,
 				0D1FA5A41ACA183C00079C79 /* ELCImagePickerController.m in Sources */,
 				7C09A6131AB31C7200218127 /* DubbSenderTableViewCell.m in Sources */,
 				0D1FA40E1ACA17EB00079C79 /* DubbServiceDescriptionViewController.m in Sources */,
+				0DFCB1841AFFDB27001F2820 /* DubbAddonCell.m in Sources */,
 				7C09A5CD1AB1F72800218127 /* PHPBackend.m in Sources */,
 				7C4A0ABD1AC1D2D1007DA690 /* ChatService.m in Sources */,
 				0D1FA6571ACA183D00079C79 /* SZTextView.m in Sources */,
@@ -1612,7 +1660,7 @@
 			baseConfigurationReference = 3FC747553FC9F4473463E4B0 /* Pods-Dubb.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Venk Tatineni (QYZW6DXNWC)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1634,7 +1682,7 @@
 					"$(PROJECT_DIR)/Dubb/ExtraFrameworks/Library",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "02db9c51-93aa-4ca1-ac08-6115a91c1704";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -1643,8 +1691,8 @@
 			baseConfigurationReference = D1E8AA2095BD41F943711C81 /* Pods-Dubb.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Venk Tatineni (6822BLGBTR)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Illumified Inc (93D6ZD3D4Y)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Illumified Inc (93D6ZD3D4Y)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Dubb/ExtraFrameworks/**",
@@ -1664,7 +1712,7 @@
 					"$(PROJECT_DIR)/Dubb/ExtraFrameworks/Library",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "02a5b663-9e92-49b7-b4d2-592d793d2b75";
+				PROVISIONING_PROFILE = "5dabacbf-5ad6-4814-9a23-6f01db9d304f";
 			};
 			name = Release;
 		};
