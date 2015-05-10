@@ -9,6 +9,7 @@
 #import "DubbListingsViewController.h"
 #import "DubbListingCell.h"
 
+#import "DubbSingleListingViewController.h"
 #import "DubbGigsViewController.h"
 
 #import <AddressBookUI/AddressBookUI.h>
@@ -310,7 +311,7 @@
     if( refresh ){
         [self showProgress:@"Load Listing..."];
         currentListingPage = 1;
-        [self.backend getAllListings:[NSString stringWithFormat:@"%d", currentListingPage] CompletionHandler:^(NSDictionary *result) {
+        [self.backend getAllListings:[NSString stringWithFormat:@"%ld", (long)currentListingPage] CompletionHandler:^(NSDictionary *result) {
             [self hideProgress];
             [listingsTableView.pullToRefreshView stopAnimating];
             if( ![result[@"error"] boolValue] ){
@@ -323,7 +324,7 @@
     } else {
 
         
-        [self.backend getAllListings:[NSString stringWithFormat:@"%d", currentListingPage] CompletionHandler:^(NSDictionary *result) {
+        [self.backend getAllListings:[NSString stringWithFormat:@"%ld", (long)currentListingPage] CompletionHandler:^(NSDictionary *result) {
             [listingsTableView.infiniteScrollingView stopAnimating];
             if( ![result[@"error"] boolValue] ){
                 if( [result[@"response"] count] > 0 ){
@@ -368,7 +369,7 @@
     } else if (tableView == locationTableView){
         cell = [self setupLocationList:indexPath.row];
     } else {
-        NSString *cellIdentifier = [NSString stringWithFormat:@"CELL%u", indexPath.row];
+        NSString *cellIdentifier = [NSString stringWithFormat:@"CELL%ld", (long)indexPath.row];
         cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         
         if( !cell )
@@ -396,6 +397,14 @@
             locationSearchBar.text = [self getFormattedLocation:indexPath.row];
             [searchBar becomeFirstResponder];
         }
+    } else {
+        NSDictionary *listingInfo = listings[indexPath.row];
+        
+        DubbSingleListingViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"DubbSingleListingViewController"];
+        
+        vc.listingID = listingInfo[@"id"];
+        [self.navigationController pushViewController:vc animated:YES];
+        
     }
 }
 

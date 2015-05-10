@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="Ejd-8z-5Xx" customClass="ListingTopView">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lnf-f2-iFv" customClass="KASlideShow">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y6g-SM-BL2" userLabel="Extra Info and Buttons Container">
+                    <rect key="frame" x="0.0" y="135" width="320" height="65"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WiF-Rx-tio" userLabel="Share Sheet Button">
+                            <rect key="frame" x="247" y="33" width="28" height="22"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="22" id="eav-DJ-c3R"/>
+                                <constraint firstAttribute="width" constant="28" id="wQf-7g-ndj"/>
+                            </constraints>
+                            <state key="normal" image="share_sheet_button.png">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nrl-7Q-Hvm" userLabel="Heart Button">
+                            <rect key="frame" x="285" y="33" width="22" height="22"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="22" id="1O4-0r-vtQ"/>
+                                <constraint firstAttribute="width" constant="22" id="K6o-ou-EI6"/>
+                            </constraints>
+                            <state key="normal" image="heart_button.png">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 of 11" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hUz-Lz-ete">
+                            <rect key="frame" x="122" y="33" width="76" height="21"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="76" id="g9J-UM-yJk"/>
+                                <constraint firstAttribute="height" constant="21" id="ul9-BQ-Cbu"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="nrl-7Q-Hvm" secondAttribute="bottom" constant="10" id="HGH-kk-l4N"/>
+                        <constraint firstAttribute="bottom" secondItem="hUz-Lz-ete" secondAttribute="bottom" constant="11" id="O2Q-p7-cLF"/>
+                        <constraint firstAttribute="centerX" secondItem="hUz-Lz-ete" secondAttribute="centerX" id="OBw-FI-Psi"/>
+                        <constraint firstAttribute="trailing" secondItem="nrl-7Q-Hvm" secondAttribute="trailing" constant="13" id="PmO-Bq-td7"/>
+                        <constraint firstAttribute="bottom" secondItem="WiF-Rx-tio" secondAttribute="bottom" constant="10" id="Xka-vf-UaX"/>
+                        <constraint firstItem="nrl-7Q-Hvm" firstAttribute="leading" secondItem="WiF-Rx-tio" secondAttribute="trailing" constant="10" id="cED-qG-duf"/>
+                        <constraint firstAttribute="height" constant="65" id="ubb-XF-gEw"/>
+                    </constraints>
+                </view>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder_image.png" translatesAutoresizingMaskIntoConstraints="NO" id="l59-qX-cEr">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="l59-qX-cEr" firstAttribute="top" secondItem="Ejd-8z-5Xx" secondAttribute="top" id="1Mc-pV-dbM"/>
+                <constraint firstAttribute="bottom" secondItem="Y6g-SM-BL2" secondAttribute="bottom" id="6OX-ei-7zL"/>
+                <constraint firstItem="Lnf-f2-iFv" firstAttribute="top" secondItem="Ejd-8z-5Xx" secondAttribute="top" id="INd-9K-BwL"/>
+                <constraint firstAttribute="bottom" secondItem="Lnf-f2-iFv" secondAttribute="bottom" id="Mv2-8X-zFL"/>
+                <constraint firstAttribute="trailing" secondItem="l59-qX-cEr" secondAttribute="trailing" id="VDt-Ik-bzI"/>
+                <constraint firstItem="Y6g-SM-BL2" firstAttribute="leading" secondItem="Ejd-8z-5Xx" secondAttribute="leading" id="VaK-kG-RKG"/>
+                <constraint firstItem="l59-qX-cEr" firstAttribute="leading" secondItem="Ejd-8z-5Xx" secondAttribute="leading" id="Wkg-M4-ozw"/>
+                <constraint firstAttribute="trailing" secondItem="Y6g-SM-BL2" secondAttribute="trailing" id="Xd7-f7-H2u"/>
+                <constraint firstAttribute="trailing" secondItem="Lnf-f2-iFv" secondAttribute="trailing" id="j8p-Nb-hJ6"/>
+                <constraint firstAttribute="bottom" secondItem="l59-qX-cEr" secondAttribute="bottom" id="lDU-Rn-3ct"/>
+                <constraint firstItem="Lnf-f2-iFv" firstAttribute="leading" secondItem="Ejd-8z-5Xx" secondAttribute="leading" id="qDT-VR-h39"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="extraControlsContainerView" destination="Y6g-SM-BL2" id="96s-Eb-p5e"/>
+                <outlet property="likeButton" destination="nrl-7Q-Hvm" id="Ul3-TB-8tG"/>
+                <outlet property="pageLabel" destination="hUz-Lz-ete" id="mXO-JC-9u6"/>
+                <outlet property="placeholderImageView" destination="l59-qX-cEr" id="OMY-nr-3h3"/>
+                <outlet property="shareSheetButton" destination="WiF-Rx-tio" id="37T-PW-NRo"/>
+                <outlet property="slideShow" destination="Lnf-f2-iFv" id="uRO-FF-9Ga"/>
+            </connections>
+            <point key="canvasLocation" x="197" y="166"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="heart_button.png" width="22" height="21"/>
+        <image name="placeholder_image.png" width="1900" height="1200"/>
+        <image name="share_sheet_button.png" width="28" height="20"/>
+    </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>

@@ -1,4 +1,5 @@
 PODS:
+  - AXRatingView (1.0.3)
   - IQKeyboardManager (3.2.3)
   - NewRelicAgent (4.186.1)
   - QuickBlox (2.2.3)
@@ -8,6 +9,7 @@ PODS:
   - SVPullToRefresh (0.4.1)
 
 DEPENDENCIES:
+  - AXRatingView
   - IQKeyboardManager
   - NewRelicAgent
   - QuickBlox
@@ -15,10 +17,11 @@ DEPENDENCIES:
   - SVPullToRefresh
 
 SPEC CHECKSUMS:
+  AXRatingView: ccaadc1bbda99a4b7e1d556059482d2b933a9f4e
   IQKeyboardManager: 6ca5c54e3776eb54af4c7caf515833f3cd761d59
   NewRelicAgent: 5cd52dafe03e74c5066073a00fd500df9d966e7e
   QuickBlox: f3a8cd60af97ee673ef589d2c884713633aefa31
   SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
   SVPullToRefresh: ba2e718695a43253d8bea6852d2960097dc15d8c
 
-COCOAPODS: 0.36.3
+COCOAPODS: 0.36.4

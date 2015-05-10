@@ -62,7 +62,7 @@
         }];
         
     } else {
-
+	
         [self.backend getAllListings:self.keyword Page:[NSString stringWithFormat:@"%d", currentListingPage] CompletionHandler:^(NSDictionary *result) {
             [gigsTableView.infiniteScrollingView stopAnimating];
             if( ![result[@"error"] boolValue] ){
@@ -91,7 +91,7 @@
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell;
-    NSString *cellIdentifier = [NSString stringWithFormat:@"CELL%u", indexPath.row];
+    NSString *cellIdentifier = [NSString stringWithFormat:@"CELL%ld", (long)indexPath.row];
     cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
     if( !cell )
