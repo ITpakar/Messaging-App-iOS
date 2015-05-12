@@ -41,6 +41,9 @@
 #define APIURL                  @"http://devd.dubb.co/v1/"
 //#define APIURL                  @"http://devd-dubb-co-d9hg85ewhstw.runscope.net/v1/"
 #define kNotificationDidReceiveNewMessage           @"kNotificationDidReceiveNewMessage"
+
+#define kNotificationDidCheckAddon               @"kNotificationDidCheckAddon"
+#define kNotificationDidUncheckAddon               @"kNotificationDidUncheckAddon"
 #define kNotificationDidTapPlusButton               @"kNotificationDidTapPlusButton"
 #define kNotificationDidTapMinusButton              @"kNotificationDidTapMinusButton"
 #define kMessage                                    @"kMessage"

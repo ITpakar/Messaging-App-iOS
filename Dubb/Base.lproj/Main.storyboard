@@ -3718,7 +3718,7 @@ Dubb!</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cWi-tP-wj5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="810" y="4166"/>
+            <point key="canvasLocation" x="430" y="3916"/>
         </scene>
         <!--Dubb Single Listing Scene-->
         <scene sceneID="8Rt-ko-ndI">

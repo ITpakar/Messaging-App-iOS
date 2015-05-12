@@ -258,6 +258,7 @@
     NSString* title = self.serviceDescriptionTextView.text;
     NSString* tags = self.tagsLabel.text;
     
+    
     if (title.length <= 0) {
         [self showMessage:@"Please enter the title for this listing"];
         return;
@@ -278,6 +279,11 @@
         return;
     }
     
+    if ([[self.baseServicePriceLabel.text substringFromIndex:2] intValue] <= 0) {
+        [self showMessage:@"Please describe your base service price correctly."];
+        return;
+    }
+    
     if (self.chosenImages.count <= 0) {
         [self showMessage:@"Please select at least one image."];
         return;
@@ -286,7 +292,7 @@
     NSMutableArray *imageURLs = [self uploadImages];
     NSArray *tagsArray = [self.tagsLabel.text componentsSeparatedByString:@","];
     NSMutableArray *addonArray = [NSMutableArray arrayWithArray:addOns];
-    [addonArray addObject:@{@"description":self.baseServiceDescriptionLabel.text, @"price":self.baseServicePriceLabel.text, @"sequence":@"0"}];
+    [addonArray addObject:@{@"description":self.baseServiceDescriptionLabel.text, @"price":[self.baseServicePriceLabel.text substringFromIndex:2], @"sequence":@"0"}];
     
     NSString *apiPath = [NSString stringWithFormat:@"%@%@", APIURL, @"listing"];
     [self showProgress:@"Wait for a moment"];

@@ -11,6 +11,7 @@
 #import "ListingTopView.h"
 #import "AXRatingView.h"
 #import "DubbAddonCell.h"
+#import "DubbGigQuantityCell.h"
 #import "ChatViewController.h"
 #import "MBProgressHUD.h"
 
@@ -34,6 +35,7 @@
 
 enum DubbSingleListingSection {
     kDubbSingleListingSectionHeader = 0,
+    kDubbSingleListingSectionGigQuantity,
     kDubbSingleListingSectionAddons,
     kDubbSingleListingSectionSellerIntroduction,
     kDubbSingleListingSectionReviews,
@@ -121,9 +123,10 @@ enum DubbSingleListingViewTag {
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkedAddon:) name:kNotificationDidCheckAddon object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(uncheckedAddon:) name:kNotificationDidUncheckAddon object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(plusButtonTapped:) name:kNotificationDidTapPlusButton object:nil];
-    
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(minusButtonTapped:) name:kNotificationDidTapMinusButton object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(minusButtonTapped:) name:kNotificationDidTapMinusButton object:nil];
     
 }
 
@@ -142,6 +145,24 @@ enum DubbSingleListingViewTag {
     // Dispose of any resources that can be recreated.
 }
 
+- (void) checkedAddon:(NSNotification *)notif {
+    NSDictionary *addOnInfo = notif.userInfo;
+    [purchasedAddOns addObject:addOnInfo];
+    
+    [self configureBookNowButton];
+}
+
+- (void) uncheckedAddon:(NSNotification *)notif {
+    int index = 0;
+    for (NSDictionary *addOnInfo in purchasedAddOns) {
+        if ([addOnInfo[@"id"] isEqualToString:notif.userInfo[@"id"]]) {
+            [purchasedAddOns removeObjectAtIndex:index];
+            break;
+        }
+        index ++;
+    }
+    [self configureBookNowButton];
+}
 
 - (void) plusButtonTapped:(NSNotification *)notif {
     NSDictionary *addOnInfo = notif.userInfo;
@@ -252,6 +273,7 @@ static bool liked = NO;
     // Return the number of rows in the section.
     switch (section) {
         case kDubbSingleListingSectionAddons:
+            NSLog(@"%ld", (addOns.count == 0) ? 0 : addOns.count + 1);
             return (addOns.count == 0) ? 0 : addOns.count + 1;
         case kDubbSingleListingSectionReviews:
             return 2; //(reviews.count == 0) ? 0 : reviews.count + 1;
@@ -265,6 +287,8 @@ static bool liked = NO;
     switch (indexPath.section) {
         case kDubbSingleListingSectionHeader:
             return 160;
+        case kDubbSingleListingSectionGigQuantity:
+            return 45;
         case kDubbSingleListingSectionAddons:
             if (indexPath.row == 0)
                 return 37;
@@ -288,6 +312,9 @@ static bool liked = NO;
     switch (indexPath.section) {
         case kDubbSingleListingSectionHeader:
             cell = [self configureHeaderCell];
+            break;
+        case kDubbSingleListingSectionGigQuantity:
+            cell = [self configureGigQuantityCell];
             break;
         case kDubbSingleListingSectionAddons:
             if (indexPath.row == 0) {
@@ -345,6 +372,20 @@ static bool liked = NO;
     
     return cell;
     
+}
+
+- (UITableViewCell *)configureGigQuantityCell {
+    
+    static NSString *cellIdentifier = @"DubbGigQuantityCell";
+    
+    DubbAddonCell *cell = (DubbAddonCell *)[self.tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if (cell == nil)
+    {
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"DubbGigQuantityCell" owner:self options:nil];
+        cell = [nib objectAtIndex:0];
+    }
+    cell.addonInfo = baseService;
+    return cell;
 }
 
 - (UITableViewCell *)configureAddonsSectionHeaderCell {

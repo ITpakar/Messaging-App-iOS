@@ -12,7 +12,7 @@
 
 - (void)awakeFromNib {
     // Initialization code
-    self.quantity = 0;
+    self.checked = NO;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -32,24 +32,16 @@
 
 }
 
-- (IBAction)plusButtonTapped:(id)sender {
+- (IBAction)checkToggleButtonTapped:(id)sender {
     
-    self.quantity ++;
-    self.quantityLabel.text = [NSString stringWithFormat:@"%ld", self.quantity];
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidTapPlusButton object:nil userInfo:self.addonInfo];
+    self.checked = !self.checked;
     
+    NSString *notificationKey = self.checked == YES ? kNotificationDidCheckAddon : kNotificationDidUncheckAddon;
+    NSString *buttonImageName = self.checked == YES ? @"addon_checked" : @"addon_unchecked";
     
-}
-- (IBAction)minusButtonTapped:(id)sender {
+    [self.checkButton setImage:[UIImage imageNamed:buttonImageName] forState:UIControlStateNormal];
+    [[NSNotificationCenter defaultCenter] postNotificationName:notificationKey object:nil userInfo:self.addonInfo];
     
-    if (self.quantity > 0) {
-
-        self.quantity --;
-        self.quantityLabel.text = [NSString stringWithFormat:@"%ld", self.quantity];
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidTapMinusButton object:nil userInfo:self.addonInfo];
-        
-    }
     
 }
-
 @end
