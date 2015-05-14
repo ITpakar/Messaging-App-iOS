@@ -18,6 +18,7 @@
         user.timeZone = 8;
         user.longitude = @0;
         user.latitude = @0;
+        user.quickbloxID = @"";
         [user initialize];
     });
     
@@ -47,8 +48,8 @@
     if(dic[@"id"] && ![dic[@"id"] isKindOfClass:[NSNull class]] )
         user.userID = dic[@"id"];
 
-    if( dic[@"twitter_token"] && ![dic[@"twitter_token"] isKindOfClass:[NSNull class]] )
-        user.quickbloxID = dic[@"twitter_token"];
+    if( dic[@"quickblox_id"] && ![dic[@"quickblox_id"] isKindOfClass:[NSNull class]] )
+        user.quickbloxID = dic[@"quickblox_id"];
     
     if( dic[@"email"] && ![dic[@"email"] isKindOfClass:[NSNull class]] )
         user.email = dic[@"email"];
@@ -87,7 +88,7 @@
      "seller_location_verified" = 0;
      state = "<null>";
      timezone = "<null>";
-     "twitter_token" = 2608717;
+     "quickblox_id" = 2608717;
      "updated_at" = "-0001-11-30 00:00:00";
      username = t1;
      verified = 0;

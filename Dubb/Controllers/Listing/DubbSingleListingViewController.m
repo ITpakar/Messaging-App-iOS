@@ -198,10 +198,10 @@ static bool liked = NO;
 }
 
 - (void)askQuestionButtonTapped:(id)sender {
-//    QBChatDialog *chatDialog = [QBChatDialog new];
-//    chatDialog.occupantIDs = @[@(user.ID)];
-//    chatDialog.type = QBChatDialogTypePrivate;
-//    [QBChat createDialog:chatDialog delegate:self];
+    QBChatDialog *chatDialog = [QBChatDialog new];
+    chatDialog.occupantIDs = @[listingInfo[@"user"][@"quickblox_id"]];
+    chatDialog.type = QBChatDialogTypePrivate;
+    [QBChat createDialog:chatDialog delegate:self];
     
 }
 
