@@ -52,6 +52,7 @@
     self.navigationItem.title = self.titleString;
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     [self.descriptionTextView setPlaceholder:self.placeholderString];
+    self.descriptionTextView.text = self.descriptionString;
 }
 
 /*

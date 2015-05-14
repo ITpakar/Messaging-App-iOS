@@ -12,7 +12,7 @@
 
 - (void)awakeFromNib {
     // Initialization code
-    self.quantity = 0;
+    self.quantity = 1;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -37,7 +37,7 @@
 }
 - (IBAction)minusButtonTapped:(id)sender {
     
-    if (self.quantity > 0) {
+    if (self.quantity > 1) {
         
         self.quantity --;
         self.quantityLabel.text = [NSString stringWithFormat:@"%ld", self.quantity];

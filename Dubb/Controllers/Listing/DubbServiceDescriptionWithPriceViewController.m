@@ -43,7 +43,7 @@
 
     if (self.currentIndex == -1) {
         [self.addOns addObject:@{@"description":self.descriptionTextView.text, @"price":[self.priceTextField.text substringFromIndex:2], @"sequence":[NSString stringWithFormat:@"%ld", self.addOns.count + 1]}];
-    } else {
+    } else if (self.currentIndex >= 0) {
         [self.addOns setObject:@{@"description":self.descriptionTextView.text, @"price":[self.priceTextField.text substringFromIndex:2], @"sequence":[NSString stringWithFormat:@"%ld", self.currentIndex + 1]} atIndexedSubscript:self.currentIndex];
     }
 
@@ -65,10 +65,13 @@
         [self.descriptionTextView setPlaceholder:self.placeholderString];
     }
     
-    if (self.addOns && self.currentIndex != -1) {
+    if (self.addOns && self.currentIndex > -1) {
         NSDictionary *addOn = self.addOns[self.currentIndex];
         self.descriptionTextView.text = addOn[@"description"];
         self.priceTextField.text = [NSString stringWithFormat:@"$%@", addOn[@"price"]];
+    } else if (self.currentIndex == -2 && self.baseServicePrice){
+        self.descriptionTextView.text = self.baseServiceDescription;
+        self.priceTextField.text = self.baseServicePrice;
     }
 
 }

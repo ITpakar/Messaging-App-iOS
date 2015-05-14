@@ -18,36 +18,6 @@
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" tag="105" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6sc-xx-gqX">
-                        <rect key="frame" x="201" y="9" width="30" height="24"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="30" id="MM0-8k-dId"/>
-                            <constraint firstAttribute="height" constant="24" id="V4s-Js-Jzf"/>
-                        </constraints>
-                        <state key="normal" image="minus_button.png">
-                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                        </state>
-                        <connections>
-                            <action selector="minusButtonTapped:" destination="Rpe-N4-5kA" eventType="touchUpInside" id="mVS-FB-OkN"/>
-                        </connections>
-                    </button>
-                    <label opaque="NO" userInteractionEnabled="NO" tag="106" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7aQ-M4-4TC">
-                        <rect key="frame" x="239" y="10" width="30" height="21"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="21" id="ipp-Rt-Jm4"/>
-                            <constraint firstAttribute="width" constant="30" id="vq2-1s-ZOT"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GFI-IM-ODU" userLabel="Separator">
-                        <rect key="frame" x="13" y="0.0" width="294" height="1"/>
-                        <color key="backgroundColor" white="0.66666666669999997" alpha="0.26000000000000001" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="1" id="iyl-dQ-ZRf"/>
-                        </constraints>
-                    </view>
                     <button opaque="NO" tag="107" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yJ3-hJ-DLy">
                         <rect key="frame" x="277" y="9" width="30" height="24"/>
                         <constraints>
@@ -61,6 +31,36 @@
                             <action selector="plusButtonTapped:" destination="Rpe-N4-5kA" eventType="touchUpInside" id="OBr-z6-wqC"/>
                         </connections>
                     </button>
+                    <button opaque="NO" tag="105" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6sc-xx-gqX">
+                        <rect key="frame" x="201" y="9" width="30" height="24"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="30" id="MM0-8k-dId"/>
+                            <constraint firstAttribute="height" constant="24" id="V4s-Js-Jzf"/>
+                        </constraints>
+                        <state key="normal" image="minus_button.png">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="minusButtonTapped:" destination="Rpe-N4-5kA" eventType="touchUpInside" id="mVS-FB-OkN"/>
+                        </connections>
+                    </button>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GFI-IM-ODU" userLabel="Separator">
+                        <rect key="frame" x="13" y="0.0" width="294" height="1"/>
+                        <color key="backgroundColor" white="0.66666666669999997" alpha="0.26000000000000001" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="iyl-dQ-ZRf"/>
+                        </constraints>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" tag="106" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7aQ-M4-4TC">
+                        <rect key="frame" x="239" y="10" width="30" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="ipp-Rt-Jm4"/>
+                            <constraint firstAttribute="width" constant="30" id="vq2-1s-ZOT"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="6sc-xx-gqX" firstAttribute="leading" secondItem="11d-nx-4dQ" secondAttribute="trailing" constant="17" id="7Ov-bk-Xgv"/>

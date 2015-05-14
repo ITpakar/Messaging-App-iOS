@@ -10,8 +10,11 @@
 #import "DubbCreateListingConfirmationViewController.h"
 
 #define commonShareText  @"Discover and Hire local creative freelancers on the Dubb Mobile Marketplace http://www.dubb.co/app"
+#define disablingReasonText  @"For your Post to go live, we require that you share this through atleast one of the of the channels listed on this page"
 
-@interface DubbCreateListingConfirmationViewController ()
+@interface DubbCreateListingConfirmationViewController () {
+    SLComposeViewControllerCompletionHandler __block completionHandler;
+}
 @property (strong, nonatomic) IBOutlet UILabel *listingTitleLabel;
 @property (strong, nonatomic) IBOutlet UIImageView *profileImageView;
 @property (strong, nonatomic) IBOutlet UILabel *userNameLabel;
@@ -33,6 +36,30 @@
     self.locationLabel.text = self.listingLocation.address;
     self.listingImageView.image = self.mainImage;
     self.categoryLabel.text = self.categoryDescription;
+    
+    self.reasonForDisablingMenu = disablingReasonText;
+    
+    __weak DubbCreateListingConfirmationViewController *weakSelf = self;
+    completionHandler = ^(SLComposeViewControllerResult result)
+    {
+        
+        switch(result){
+            case SLComposeViewControllerResultCancelled:
+            default:
+            {
+                NSLog(@"Cancelled.....");
+                
+            }
+                break;
+            case SLComposeViewControllerResultDone:
+            {
+                NSLog(@"Posted....");
+                weakSelf.reasonForDisablingMenu = nil;
+            }
+                break;
+                
+        }};
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -42,15 +69,16 @@
 }
 
 
-
 #pragma mark - IBActions
 - (IBAction)shareOnTwitterButtonTapped:(id)sender {
     if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter])
     {
         SLComposeViewController *tweetSheet = [SLComposeViewController
                                                composeViewControllerForServiceType:SLServiceTypeTwitter];
+
         [tweetSheet setInitialText:@"Discover and Hire local creative freelancers on @Dubbapp  Mobile Marketplace http://www.dubb.co/app"];
         [self presentViewController:tweetSheet animated:YES completion:nil];
+        tweetSheet.completionHandler = completionHandler;
     }else{
         [[[UIAlertView alloc] initWithTitle:nil message:@"Twitter is not installed on this device! Please install first." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
     }
@@ -99,6 +127,7 @@
     
     if ([[UIApplication sharedApplication] canOpenURL: whatsappURL]) {
         [[UIApplication sharedApplication] openURL: whatsappURL];
+        self.reasonForDisablingMenu = nil;
     }else{
         [[[UIAlertView alloc] initWithTitle:nil message:@"Whatsapp is not installed on this device! Please install first." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
     }
@@ -110,6 +139,7 @@
         
         [controller setInitialText:commonShareText];
         [self presentViewController:controller animated:YES completion:Nil];
+        controller.completionHandler = completionHandler;
     }else{
         [[[UIAlertView alloc] initWithTitle:nil message:@"Facebook is not installed on this device! Please install first." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
     }
@@ -129,6 +159,7 @@
             break;
         }
         case MessageComposeResultSent:
+            self.reasonForDisablingMenu = nil;
             break;
             
         default:
@@ -151,6 +182,7 @@
             break;
         case MFMailComposeResultSent:
             NSLog(@"Mail sent");
+            self.reasonForDisablingMenu = nil;
             break;
         case MFMailComposeResultFailed:
             NSLog(@"Mail sent failure: %@", [error localizedDescription]);

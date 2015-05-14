@@ -14,7 +14,7 @@
 @interface BaseViewController : UIViewController 
 
 @property BackendBase           *backend;
-
+@property(nonatomic, strong) NSString *reasonForDisablingMenu;
 -(void) showMessage : (NSString *)message;
 
 

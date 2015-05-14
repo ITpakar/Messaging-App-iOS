@@ -18,7 +18,7 @@
 
 @property (nonatomic, strong) NSString *titleString;
 @property (nonatomic, strong) NSString *placeholderString;
-
+@property (nonatomic, strong) NSString *descriptionString;
 @property (nonatomic,strong) id<DubbServiceDescriptionViewControllerDelegate> delegate;
 @end
 

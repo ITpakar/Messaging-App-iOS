@@ -254,7 +254,7 @@
          
          [QBRequest signUp:user successBlock:^(QBResponse *response, QBUUser *user) {
              [User currentUser].quickbloxID = [NSString stringWithFormat:@"%d", (int)user.ID];
-             [self.backend updateUser:[User currentUser].userID Parameters:@{@"twitter_token":@(user.ID)} CompletionHandler:^(NSDictionary *result) {
+             [self.backend updateUser:[User currentUser].userID Parameters:@{@"quickblox_id":@(user.ID)} CompletionHandler:^(NSDictionary *result) {
                  NSLog(@"Update QuickBlox ID");
              }];
              
@@ -385,7 +385,7 @@
         [((AppDelegate*)[[UIApplication sharedApplication] delegate]) registerForRemoteNotifications];
         
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"id": user.userID, @"twitter_token" : user.quickbloxID, @"email":user.email,
+        NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"id": user.userID, @"quickblox_id" : user.quickbloxID, @"email":user.email,
                                                                                    @"username":user.username, @"first":user.firstName, @"last":user.lastName}];
                                                                                 
         [defaults setObject:dic forKey:@"DubbUser"];

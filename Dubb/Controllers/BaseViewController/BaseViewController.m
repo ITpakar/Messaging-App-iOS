@@ -31,7 +31,27 @@
 
 -(void) onMenu
 {
-    [self.sideMenuViewController presentLeftMenuViewController];
+    if (self.reasonForDisablingMenu) {
+        
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Warning"
+                                                                                 message:self.reasonForDisablingMenu
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okAction = [UIAlertAction
+                                   actionWithTitle:NSLocalizedString(@"OK", @"OK action")
+                                   style:UIAlertActionStyleDefault
+                                   handler:^(UIAlertAction *action)
+                                   {
+                                       NSLog(@"OK action");
+                                   }];
+        
+        [alertController addAction:okAction];
+        [self presentViewController:alertController animated:YES completion:nil];
+        
+    } else {
+        
+        [self.sideMenuViewController presentLeftMenuViewController];
+        
+    }
 }
 
 - (void)didReceiveMemoryWarning {

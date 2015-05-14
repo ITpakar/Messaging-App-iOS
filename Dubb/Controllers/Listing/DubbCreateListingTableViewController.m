@@ -26,6 +26,7 @@
     UILabel *currentDescriptionLabel;
     NSInteger currentIndexPathRow;
     BOOL forAddOn;
+    BOOL isServiceDescriptionEdited;
     SelectedLocation *selectedLocation;
     NSString *radius;
     
@@ -63,6 +64,7 @@
     selectedLocation.address = @"";
     selectedLocation.locationCoordinates = CLLocationCoordinate2DMake([[User currentUser].latitude floatValue], [[User currentUser].longitude floatValue]);
     radius = @"100";
+    isServiceDescriptionEdited = NO;
     
     [self.serviceDescriptionTextView setPlaceholder:@"I'll do something I'm really good at..."];
     
@@ -183,7 +185,7 @@
     dubbServiceDescriptionViewController.delegate = self;
     dubbServiceDescriptionViewController.titleString = titleString;
     dubbServiceDescriptionViewController.placeholderString = placeholderString;
-    
+    dubbServiceDescriptionViewController.descriptionString = currentDescriptionLabel.text;
     currentDescriptionLabel = descriptionLabel;
     [self.navigationController pushViewController:dubbServiceDescriptionViewController animated:YES];
 }
@@ -206,14 +208,23 @@
         dubbServiceDescriptionViewController.addOns = addOns;
         NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
         dubbServiceDescriptionViewController.currentIndex = (selectedIndexPath.row < addOns.count) ? selectedIndexPath.row : -1;
+    } else {
+        dubbServiceDescriptionViewController.currentIndex = -2;
+        if (isServiceDescriptionEdited) {
+            
+            dubbServiceDescriptionViewController.baseServicePrice = self.baseServicePriceLabel.text;
+            dubbServiceDescriptionViewController.baseServiceDescription = self.baseServiceDescriptionLabel.text;
+        }
     }
     [self.navigationController pushViewController:dubbServiceDescriptionViewController animated:YES];
 }
 
 - (void) completedWithDescription:(NSString*)description WithPrice:(NSString *)price {
     if (!forAddOn) {
+
         [self.baseServicePriceLabel setText:[NSString stringWithFormat:@"%@", price]];
         [self.baseServiceDescriptionLabel setText:description];
+        isServiceDescriptionEdited = YES;
     } else {
         [self.tableView reloadData];
     }
@@ -253,12 +264,12 @@
 
 - (IBAction)submitButtonTapped:(id)sender {
     
-    
+    [self performSegueWithIdentifier:@"displayCreateListingConfirmationSegue" sender:nil];
     
     NSString* title = self.serviceDescriptionTextView.text;
     NSString* tags = self.tagsLabel.text;
     
-    
+
     if (title.length <= 0) {
         [self showMessage:@"Please enter the title for this listing"];
         return;
@@ -297,7 +308,26 @@
     NSString *apiPath = [NSString stringWithFormat:@"%@%@", APIURL, @"listing"];
     [self showProgress:@"Wait for a moment"];
     
-    NSDictionary *params = @{@"name":self.serviceDescriptionTextView.text,
+    NSDictionary *params;
+    
+    NSMutableArray *imagesWithoutMainImage = [imageURLs mutableCopy];
+    if (imagesWithoutMainImage.count == 1) {
+        params = @{@"name":self.serviceDescriptionTextView.text,
+                   @"instructions":self.fulfillmentInfoLabel.text,
+                   @"description":self.baseServiceDescriptionLabel.text,
+                   @"category_id":categories[self.categoryTextField.selectedRow][@"id"],
+                   @"category_edge_id":subCategories[self.subCategoryTextField.selectedRow][@"category_edge_id"],
+                   @"user_id":[User currentUser].userID,
+                   @"lat":[NSString stringWithFormat:@"%f", selectedLocation.locationCoordinates.latitude],
+                   @"long":[NSString stringWithFormat:@"%f", selectedLocation.locationCoordinates.longitude],
+                   @"radius_km":radius,
+                   @"addon":addonArray,
+                   @"main_image":imageURLs[0],
+                   @"tags":tagsArray
+                   };
+    } else {
+        [imagesWithoutMainImage removeObjectAtIndex:0];
+        params = @{@"name":self.serviceDescriptionTextView.text,
                              @"instructions":self.fulfillmentInfoLabel.text,
                              @"description":self.baseServiceDescriptionLabel.text,
                              @"category_id":categories[self.categoryTextField.selectedRow][@"id"],
@@ -312,14 +342,12 @@
                              @"tags":tagsArray
                              };
     
-    
+    }
     
     [[PHPBackend sharedConnection] accessAPIbyPost:apiPath
                                         Parameters:params
                                  CompletionHandler:^(NSDictionary *result, NSData *data, NSError *error) {
                                      [self hideProgress];
-                                     NSDictionary *createdListing = result[@"response"];
-                                     
                                      if (result) {
                                          [self performSegueWithIdentifier:@"displayCreateListingConfirmationSegue" sender:nil];
                                      }
@@ -418,13 +446,11 @@
     
 }
 - (NSMutableArray *) uploadImages{
-    int index = 0;
     
     NSMutableArray *imageURLs = [NSMutableArray array];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     
     for (UIImage *image in self.chosenImages) {
-        index ++;
         
         NSData *data = UIImageJPEGRepresentation(image, 0.7);
         NSString *fileName = [NSString stringWithFormat:@"%@.jpg", [[NSUUID UUID] UUIDString]];
