@@ -86,10 +86,22 @@ static PHPBackend   *sharedConnection;
     }];
 }
 
+
 -(void) getAllCategories :(void (^)(NSDictionary *result))handler{
     NSString *apiPath = [NSString stringWithFormat:@"%@%@", APIURL, @"category"];
     [self accessAPI:apiPath Parameters:@{@"width":@"image"} CompletionHandler:^(NSDictionary *result, NSData *data, NSError *error) {
         handler(result);
     }];
 }
+
+
+-(void) getListingWithID:(NSString *)listingID CompletionHandler:(void (^)(NSDictionary *result))handler{
+    NSString *apiPath = [NSString stringWithFormat:@"%@%@/%@", APIURL, @"listing", listingID];
+    NSDictionary *params = @{@"with":@"user,category,mainimage,images,addon"};
+    
+    [self accessAPI:apiPath Parameters:params CompletionHandler:^(NSDictionary *result, NSData *data, NSError *error) {
+        handler(result);
+    }];
+}
+
 @end

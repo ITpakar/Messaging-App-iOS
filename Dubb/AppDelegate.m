@@ -54,8 +54,8 @@
     [AWSServiceManager defaultServiceManager].defaultServiceConfiguration = configuration;
     
     
-    //[NRLogger setLogLevels:NRLogLevelALL];
-    //[NewRelicAgent startWithApplicationToken:kNewRelicToken];
+    [NRLogger setLogLevels:NRLogLevelALL];
+    [NewRelicAgent startWithApplicationToken:kNewRelicToken];
     return YES;
 }
 

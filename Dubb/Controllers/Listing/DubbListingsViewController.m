@@ -383,7 +383,7 @@
     if( tableView == searchResultTableView ){
         DubbGigsViewController *gigsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"gigsSearchResultVC"];
         
-        if( indexPath.row <= [suggestionLists count] )
+        if( indexPath.row < [suggestionLists count] )
             searchBar.text = suggestionLists[indexPath.row];
         
         gigsVC.keyword = searchBar.text;

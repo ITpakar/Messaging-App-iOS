@@ -22,6 +22,8 @@
 #import <NewRelicAgent/NewRelic.h>
 
 #endif
+#define sWidth [[UIScreen mainScreen] bounds].size.width
+#define sHeight [[UIScreen mainScreen] bounds].size.height
 
 #define twitterConsumerKey      @"t0edKd5EQ8Fck7DU9SoQAY36b"
 #define twitterConsumerSecret   @"4OSE2H6mn6ZSeD5nRWuYJeSrdTrhZpBuh6r6RmqE0HviKV2IxZ"
@@ -39,6 +41,11 @@
 #define APIURL                  @"http://devd.dubb.co/v1/"
 //#define APIURL                  @"http://devd-dubb-co-d9hg85ewhstw.runscope.net/v1/"
 #define kNotificationDidReceiveNewMessage           @"kNotificationDidReceiveNewMessage"
+
+#define kNotificationDidCheckAddon               @"kNotificationDidCheckAddon"
+#define kNotificationDidUncheckAddon               @"kNotificationDidUncheckAddon"
+#define kNotificationDidTapPlusButton               @"kNotificationDidTapPlusButton"
+#define kNotificationDidTapMinusButton              @"kNotificationDidTapMinusButton"
 #define kMessage                                    @"kMessage"
 
 #define kNotificationDidLocationUpdated             @"kNotificationDidLocationUpdated"

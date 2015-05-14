@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="addonsSectionContentCell" rowHeight="42" id="Wy5-xy-unA" userLabel="Addons Section Content Cell" customClass="DubbAddonCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="42"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Wy5-xy-unA" id="tal-Nj-ZBH">
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" tag="104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Provide an explanation of what you are offering" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wr1-9V-7bd">
+                        <rect key="frame" x="63" y="2" width="174" height="38"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" tag="103" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$40" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c5f-BH-UIk">
+                        <rect key="frame" x="17" y="11" width="45" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="45" id="3cd-AX-rFw"/>
+                            <constraint firstAttribute="height" constant="20" id="RDX-bF-xV0"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.1647058824" green="0.63137254899999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yh8-hM-hlW">
+                        <rect key="frame" x="277" y="5" width="35" height="32"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="32" id="NgX-Uc-lnO"/>
+                            <constraint firstAttribute="width" constant="35" id="ZSo-SD-0Gy"/>
+                        </constraints>
+                        <state key="normal" image="addon_unchecked.png">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="checkToggleButtonTapped:" destination="Wy5-xy-unA" eventType="touchUpInside" id="J4r-qp-5wu"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="Yh8-hM-hlW" secondAttribute="trailing" constant="8" id="151-U3-B8r"/>
+                    <constraint firstItem="Yh8-hM-hlW" firstAttribute="leading" secondItem="Wr1-9V-7bd" secondAttribute="trailing" constant="40" id="434-Xz-FaI"/>
+                    <constraint firstItem="Wr1-9V-7bd" firstAttribute="leading" secondItem="c5f-BH-UIk" secondAttribute="trailing" constant="1" id="4OE-ew-qly"/>
+                    <constraint firstAttribute="centerY" secondItem="c5f-BH-UIk" secondAttribute="centerY" id="Bub-xR-PVP"/>
+                    <constraint firstItem="Wr1-9V-7bd" firstAttribute="top" secondItem="tal-Nj-ZBH" secondAttribute="top" constant="2" id="R5w-DP-aMx"/>
+                    <constraint firstAttribute="bottom" secondItem="Wr1-9V-7bd" secondAttribute="bottom" constant="1" id="Ygb-rh-oQ2"/>
+                    <constraint firstAttribute="centerY" secondItem="Yh8-hM-hlW" secondAttribute="centerY" id="kE3-Ah-XZr"/>
+                    <constraint firstItem="c5f-BH-UIk" firstAttribute="leading" secondItem="tal-Nj-ZBH" secondAttribute="leading" constant="17" id="rD0-sj-fSh"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="checkButton" destination="Yh8-hM-hlW" id="V7G-S0-UO0"/>
+                <outlet property="descriptionLabel" destination="Wr1-9V-7bd" id="eUG-8H-cHe"/>
+                <outlet property="priceLabel" destination="c5f-BH-UIk" id="M3e-TI-od8"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="addon_unchecked.png" width="31" height="34"/>
+    </resources>
+</document>
