@@ -11,6 +11,7 @@
 #import <GooglePlus/GooglePlus.h>
 #import <GoogleOpenSource/GoogleOpenSource.h>
 #import "AppDelegate.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface DubbMenuViewController (){
     NSMutableArray *menus;
@@ -131,6 +132,9 @@
             
             [[GPPSignIn sharedInstance] signOut];
             [FBSession.activeSession closeAndClearTokenInformation];
+            
+            [[SDImageCache sharedImageCache] clearDisk];
+            [[SDImageCache sharedImageCache] clearMemory];
             
             if([[QBChat instance] isLoggedIn]){
                 [[ChatService instance] logout];

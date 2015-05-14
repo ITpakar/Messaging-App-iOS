@@ -8,7 +8,7 @@
 
 #import "BaseViewController.h"
 
-@interface DubbGigsViewController : BaseViewController
+@interface DubbGigsViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) NSString *keyword;
 

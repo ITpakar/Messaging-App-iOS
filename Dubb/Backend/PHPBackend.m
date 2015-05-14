@@ -70,7 +70,7 @@ static PHPBackend   *sharedConnection;
 
 -(void) getAllListings: (NSString*)page CompletionHandler:(void (^)(NSDictionary *result))handler{
     NSString *apiPath = [NSString stringWithFormat:@"%@%@", APIURL, @"listing"];
-    NSDictionary *params = @{@"page":page, @"limit":@"25", @"with":@"user,category,mainimage,images"};
+    NSDictionary *params = @{@"page":page, @"limit":@"25", @"with":@"user,mainimage,category"};
     
     [self accessAPI:apiPath Parameters:params CompletionHandler:^(NSDictionary *result, NSData *data, NSError *error) {
         handler(result);
@@ -79,9 +79,16 @@ static PHPBackend   *sharedConnection;
 
 -(void) getAllListings: (NSString*)keyword Page:(NSString*)page CompletionHandler:(void (^)(NSDictionary *result))handler{
     NSString *apiPath = [NSString stringWithFormat:@"%@%@", APIURL, @"search"];
-    NSDictionary *params = @{@"page":page, @"limit":@"25", @"q":keyword};
+    NSDictionary *params = @{@"start":page, @"size":@"25", @"q":keyword};
     
     [self accessAPI:apiPath Parameters:params CompletionHandler:^(NSDictionary *result, NSData *data, NSError *error) {
+        handler(result);
+    }];
+}
+
+-(void) getAllCategories :(void (^)(NSDictionary *result))handler{
+    NSString *apiPath = [NSString stringWithFormat:@"%@%@", APIURL, @"category"];
+    [self accessAPI:apiPath Parameters:@{@"width":@"image"} CompletionHandler:^(NSDictionary *result, NSData *data, NSError *error) {
         handler(result);
     }];
 }

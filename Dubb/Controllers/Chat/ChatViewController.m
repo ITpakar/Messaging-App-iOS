@@ -298,10 +298,9 @@
     row += indexPath.row;
     if( messages.count <= row ) return [UITableViewCell new];
     
-    NSString *cellIdentifier = [NSString stringWithFormat:@"Cell%d", row];;
-    
     DubbChatCell *cell;
     QBChatMessage *message = messages[row];
+    NSString *cellIdentifier = [NSString stringWithFormat:@"Cell%@", message.ID];
     
     cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if( !cell )

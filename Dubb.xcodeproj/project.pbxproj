@@ -154,6 +154,8 @@
 		7CB88E761AC33A84005195AF /* sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7CB88E751AC33A84005195AF /* sound.mp3 */; };
 		7CB88E7A1AC34CE1005195AF /* NotificationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CB88E791AC34CE1005195AF /* NotificationView.m */; };
 		7CBE24321AD6B8D700DA0A12 /* DubbImageBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CBE24311AD6B8D700DA0A12 /* DubbImageBrowser.m */; };
+		DC26C2001B03950C00F9385A /* DubbCategoriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC26C1FF1B03950C00F9385A /* DubbCategoriesViewController.m */; };
+		DC26C2091B03CA5800F9385A /* DubbCategoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DC26C2081B03CA5800F9385A /* DubbCategoryCell.m */; };
 		DC63FC761AD7B5EA00A505B8 /* DubbOverlayProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC63FC751AD7B5EA00A505B8 /* DubbOverlayProgressView.m */; };
 		DC63FC781AD7BBF900A505B8 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC63FC771AD7BBF900A505B8 /* ImageIO.framework */; };
 		DC63FC7B1AD7EE7D00A505B8 /* play@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC63FC791AD7EE7D00A505B8 /* play@2x.png */; };
@@ -422,6 +424,10 @@
 		7CBE24301AD6B8D700DA0A12 /* DubbImageBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DubbImageBrowser.h; sourceTree = "<group>"; };
 		7CBE24311AD6B8D700DA0A12 /* DubbImageBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DubbImageBrowser.m; sourceTree = "<group>"; };
 		D1E8AA2095BD41F943711C81 /* Pods-Dubb.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dubb.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dubb/Pods-Dubb.release.xcconfig"; sourceTree = "<group>"; };
+		DC26C1FE1B03950C00F9385A /* DubbCategoriesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DubbCategoriesViewController.h; path = Listing/DubbCategoriesViewController.h; sourceTree = "<group>"; };
+		DC26C1FF1B03950C00F9385A /* DubbCategoriesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DubbCategoriesViewController.m; path = Listing/DubbCategoriesViewController.m; sourceTree = "<group>"; };
+		DC26C2071B03CA5800F9385A /* DubbCategoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DubbCategoryCell.h; sourceTree = "<group>"; };
+		DC26C2081B03CA5800F9385A /* DubbCategoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DubbCategoryCell.m; sourceTree = "<group>"; };
 		DC63FC741AD7B5EA00A505B8 /* DubbOverlayProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DubbOverlayProgressView.h; sourceTree = "<group>"; };
 		DC63FC751AD7B5EA00A505B8 /* DubbOverlayProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DubbOverlayProgressView.m; sourceTree = "<group>"; };
 		DC63FC771AD7BBF900A505B8 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
@@ -840,6 +846,8 @@
 				7C09A5FE1AB2A2DB00218127 /* DubbListingsViewController.m */,
 				DC675A541AE69C3C00E5CBDA /* DubbGigsViewController.h */,
 				DC675A551AE69C3C00E5CBDA /* DubbGigsViewController.m */,
+				DC26C1FE1B03950C00F9385A /* DubbCategoriesViewController.h */,
+				DC26C1FF1B03950C00F9385A /* DubbCategoriesViewController.m */,
 			);
 			name = Listing;
 			sourceTree = "<group>";
@@ -871,6 +879,7 @@
 		7C09A60B1AB31A1000218127 /* TableViewCells */ = {
 			isa = PBXGroup;
 			children = (
+				DC26C2061B03CA3800F9385A /* Categories */,
 				DC675A461AE57E9C00E5CBDA /* Listings */,
 				7C09A6101AB31C4400218127 /* Chat */,
 			);
@@ -1103,6 +1112,15 @@
 				7CBE24311AD6B8D700DA0A12 /* DubbImageBrowser.m */,
 			);
 			name = ImageBrowser;
+			sourceTree = "<group>";
+		};
+		DC26C2061B03CA3800F9385A /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				DC26C2071B03CA5800F9385A /* DubbCategoryCell.h */,
+				DC26C2081B03CA5800F9385A /* DubbCategoryCell.m */,
+			);
+			name = Categories;
 			sourceTree = "<group>";
 		};
 		DC63FC731AD7B5C400A505B8 /* OverlayProgress */ = {
@@ -1370,6 +1388,7 @@
 				7C0E42A11AD61B62000CF83E /* UIImage+fixOrientation.m in Sources */,
 				7C09A5AD1AB1F50700218127 /* BackendBase.m in Sources */,
 				7C4A0AB71AC1D2AC007DA690 /* UsersPaginator.m in Sources */,
+				DC26C2091B03CA5800F9385A /* DubbCategoryCell.m in Sources */,
 				0D1FA5951ACA183C00079C79 /* AFHTTPRequestOperation.m in Sources */,
 				0D1FA6521ACA183C00079C79 /* IQDropDownTextField.m in Sources */,
 				0D1FA59F1ACA183C00079C79 /* ELCAlbumPickerController.m in Sources */,
@@ -1384,6 +1403,7 @@
 				0D1FA40E1ACA17EB00079C79 /* DubbServiceDescriptionViewController.m in Sources */,
 				7C09A5CD1AB1F72800218127 /* PHPBackend.m in Sources */,
 				7C4A0ABD1AC1D2D1007DA690 /* ChatService.m in Sources */,
+				DC26C2001B03950C00F9385A /* DubbCategoriesViewController.m in Sources */,
 				0D1FA6571ACA183D00079C79 /* SZTextView.m in Sources */,
 				0D1FA6551ACA183D00079C79 /* RESideMenu.m in Sources */,
 				DC675A491AE5D16A00E5CBDA /* DubbListingCell.m in Sources */,

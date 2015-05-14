@@ -15,7 +15,7 @@
 #import <CoreLocation/CLGeocoder.h>
 #import <CoreLocation/CLPlacemark.h>
 #import "SVPullToRefresh.h"
-
+#import "DubbCategoriesViewController.h"
 
 @interface DubbListingsViewController (){
     
@@ -368,11 +368,12 @@
     } else if (tableView == locationTableView){
         cell = [self setupLocationList:indexPath.row];
     } else {
-        NSString *cellIdentifier = [NSString stringWithFormat:@"CELL%u", indexPath.row];
+        NSDictionary *item = listings[indexPath.row];
+        NSString *cellIdentifier = [NSString stringWithFormat:@"listing%@", item[@"id"]];
         cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         
         if( !cell )
-            cell = [[DubbListingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier listingInfo:listings[indexPath.row]];
+            cell = [[DubbListingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier listingInfo:item];
     }
     return cell;
 }
@@ -482,7 +483,7 @@
     if( btnRightMenuBar.selected ){ //Search
         [self textFieldShouldReturn:nil];
     } else { //Category
-        
+        [self.navigationController pushViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"categoriesController"] animated:YES];
     }
     
 }

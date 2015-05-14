@@ -32,7 +32,6 @@
 -(id) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier listingInfo:(NSDictionary*)listing{
     
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    
     if(self){        
         self.backgroundColor = [UIColor clearColor];
         self.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -47,48 +46,11 @@
         profileImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 15, 40, 40)];
         profileImageView.layer.masksToBounds = YES;
         profileImageView.layer.cornerRadius = 3.0f;
-        profileImageView.image = [UIImage imageNamed:@"portrait.png"];
+        
         
         titleLabel = [[UILabel alloc] init];
         titleLabel.numberOfLines = 2;
         titleLabel.font = [UIFont systemFontOfSize:14.0f weight:bold];
-        titleLabel.text = listing[@"name"];
-        
-        CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-        CLLocationCoordinate2D myCoOrdinate;
-        myCoOrdinate.latitude = [listing[@"lat"] floatValue];
-        myCoOrdinate.longitude = [listing[@"long"] floatValue];
-        CLLocation *location = [[CLLocation alloc] initWithLatitude:myCoOrdinate.latitude longitude:myCoOrdinate.longitude];
-        
-        [geocoder reverseGeocodeLocation:location completionHandler: ^ (NSArray  *placemarks, NSError *error) {
-
-            CLPlacemark *placemark = [placemarks firstObject];
-            if(placemark) {
-                NSMutableString *location = [[NSMutableString alloc] init];
-                @try{
-                    /*if( placemark.addressDictionary[(NSString*)kABPersonAddressCityKey] && placemark.addressDictionary[(NSString*)kABPersonAddressStateKey])
-                        location = [NSString stringWithFormat:@"%@, %@", placemark.addressDictionary[(NSString*)kABPersonAddressCityKey], placemark.addressDictionary[(NSString*)kABPersonAddressStateKey]];*/
-                    NSArray *locations = placemark.addressDictionary[@"FormattedAddressLines"];
-                    
-                    for(int i = (locations.count > 2 ? 1: 0); i < locations.count; i++){
-                        NSString *loc = locations[i];
-                        if( [location isEqualToString:@""] )
-                            [location appendString:loc];
-                        else
-                            [location appendFormat:@", %@", loc];
-                    }
-                    
-                    userLabel = [[UILabel alloc] init];
-                    NSMutableAttributedString *userText = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ %@", _listing[@"user"][@"first"], location] attributes:@{NSForegroundColorAttributeName : [UIColor grayColor], NSFontAttributeName: [UIFont systemFontOfSize:12.0f]}];
-                    [userText addAttribute:NSForegroundColorAttributeName value:[UIColor greenColor] range:NSMakeRange(0, [_listing[@"user"][@"first"] length])];
-                    userLabel.attributedText = userText;
-                    [containerView addSubview:userLabel];
-                    [self layoutSubviews];
-                }@catch(NSException *e){
-                    NSLog(@"Exception: %@", e.description);
-                }
-            }
-        }];
         
         
         
@@ -99,52 +61,110 @@
         categoryLabel = [[UILabel alloc] init];
         categoryLabel.font = [UIFont systemFontOfSize:14.0f];
         categoryLabel.textColor = [UIColor darkGrayColor];
-        
-        if( listing[@"mainimage"] ){
-            
-            if( listing[@"mainimage"][@"object"] )
-                categoryLabel.text = listing[@"mainimage"][@"object"];
-          
-            if( listing[@"mainimage"][@"url"] ){
-                [mainImageIndicator startAnimating];
-                [[SDImageCache sharedImageCache] queryDiskCacheForKey:listing[@"mainimage"][@"url"] done:^(UIImage *image, SDImageCacheType cacheType) {
-                    if( image != nil){
-                        listingImageView.image = image;
-                        [mainImageIndicator stopAnimating];
-                    } else {
-                        [SDWebImageDownloader.sharedDownloader downloadImageWithURL: [NSURL URLWithString:listing[@"mainimage"][@"url"]] options:0 progress:nil completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
-                            
-                            dispatch_sync(dispatch_get_main_queue(), ^{
-                                [mainImageIndicator stopAnimating];
-                                if( error == nil ){
-                                    listingImageView.image = image;
-                                    [[SDImageCache sharedImageCache] storeImage:image forKey:listing[@"mainimage"][@"url"]];
-                                } else {
-                                    listingImageView.image = [UIImage imageNamed:@"placeholder_image.png"];
-                                    [[SDImageCache sharedImageCache] storeImage:listingImageView.image forKey:listing[@"mainimage"][@"url"]];
-                                }
-                            });
-                            
-                        }];
-                    }
-                }];
-                
-            } else
-                listingImageView.image = [UIImage imageNamed:@"placeholder_image.png"];
-            
-        }
+
         btnOrder = [[UIButton alloc] init];
         btnOrder.layer.masksToBounds = YES;
         btnOrder.layer.cornerRadius = 10.0f;
         btnOrder.layer.borderColor = [UIColor whiteColor].CGColor;
         btnOrder.layer.borderWidth = 1.0f;
         
-        [btnOrder setTitle:@"ORDER ($20)" forState:UIControlStateNormal];
         [btnOrder setTitleShadowColor:[[UIColor blackColor] colorWithAlphaComponent:0.5f] forState:UIControlStateNormal];
         [btnOrder setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [btnOrder.titleLabel setFont:[UIFont systemFontOfSize:10.0f]];
         [btnOrder.titleLabel setShadowOffset:CGSizeMake(1, 1)];
         [btnOrder setBackgroundColor:[UIColor colorWithRed:1.0f green:0.67f blue:0.21 alpha:1.0f]];
+        
+        @try{
+            profileImageView.image = [UIImage imageNamed:@"portrait.png"];
+            titleLabel.text = listing[@"name"];
+            
+            CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+            CLLocationCoordinate2D myCoOrdinate;
+            myCoOrdinate.latitude = [listing[@"lat"] floatValue];
+            myCoOrdinate.longitude = [listing[@"long"] floatValue];
+            CLLocation *location = [[CLLocation alloc] initWithLatitude:myCoOrdinate.latitude longitude:myCoOrdinate.longitude];
+            
+            [geocoder reverseGeocodeLocation:location completionHandler: ^ (NSArray  *placemarks, NSError *error) {
+                
+                CLPlacemark *placemark = [placemarks firstObject];
+                if(placemark) {
+                    NSMutableString *location = [[NSMutableString alloc] init];
+                    
+                    /*if( placemark.addressDictionary[(NSString*)kABPersonAddressCityKey] && placemark.addressDictionary[(NSString*)kABPersonAddressStateKey])
+                     location = [NSString stringWithFormat:@"%@, %@", placemark.addressDictionary[(NSString*)kABPersonAddressCityKey], placemark.addressDictionary[(NSString*)kABPersonAddressStateKey]];*/
+                    @try{
+                        NSArray *locations = placemark.addressDictionary[@"FormattedAddressLines"];
+                        
+                        for(int i = (locations.count > 2 ? 1: 0); i < locations.count; i++){
+                            NSString *loc = locations[i];
+                            if( [location isEqualToString:@""] )
+                                [location appendString:loc];
+                            else
+                                [location appendFormat:@", %@", loc];
+                        }
+                        
+                        userLabel = [[UILabel alloc] init];
+                        NSMutableAttributedString *userText = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ %@", _listing[@"user"][@"first"], location] attributes:@{NSForegroundColorAttributeName : [UIColor grayColor], NSFontAttributeName: [UIFont systemFontOfSize:12.0f]}];
+                        [userText addAttribute:NSForegroundColorAttributeName value:[UIColor greenColor] range:NSMakeRange(0, [_listing[@"user"][@"first"] length])];
+                        userLabel.attributedText = userText;
+                        [containerView addSubview:userLabel];
+                        [self layoutSubviews];
+                    }@catch(NSException *e){
+                        
+                    }
+                    
+                }
+            }];
+            
+            if( listing[@"category"] && ![listing[@"category"] isKindOfClass:[NSNull class]] )
+                categoryLabel.text = listing[@"category"][@"name"];
+            
+            if( listing[@"mainimage"] && ![listing[@"mainimage"] isKindOfClass:[NSNull class]] ){
+                if( listing[@"mainimage"][@"url"] ){
+                    [mainImageIndicator startAnimating];
+                    [[SDImageCache sharedImageCache] queryDiskCacheForKey:listing[@"mainimage"][@"url"] done:^(UIImage *image, SDImageCacheType cacheType) {
+                        if( image != nil){
+                            listingImageView.image = image;
+                            [mainImageIndicator stopAnimating];
+                        } else {
+                            [SDWebImageDownloader.sharedDownloader downloadImageWithURL: [NSURL URLWithString:listing[@"mainimage"][@"url"]] options:0 progress:nil completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
+                                
+                                dispatch_sync(dispatch_get_main_queue(), ^{
+                                    [mainImageIndicator stopAnimating];
+                                    if( error == nil ){
+                                        listingImageView.image = image;
+                                        [[SDImageCache sharedImageCache] storeImage:image forKey:listing[@"mainimage"][@"url"]];
+                                    } else {
+                                        listingImageView.image = [UIImage imageNamed:@"placeholder_image.png"];
+                                        [[SDImageCache sharedImageCache] storeImage:listingImageView.image forKey:listing[@"mainimage"][@"url"]];
+                                    }
+                                    [listingImageView layoutIfNeeded];
+                                });
+                                
+                            }];
+                        }
+                    }];
+                    
+                } else
+                    listingImageView.image = [UIImage imageNamed:@"placeholder_image.png"];
+                
+            } else
+                listingImageView.image = [UIImage imageNamed:@"placeholder_image.png"];
+           
+            
+            if( listing[@"baseprice"] )
+                [btnOrder setTitle:[NSString stringWithFormat:@"ORDER ($%d)", (int)[listing[@"baseprice"] integerValue]]  forState:UIControlStateNormal];
+            else
+                [btnOrder setTitle:@"ORDER ($20)" forState:UIControlStateNormal];
+        
+        }@catch(NSException *e){
+            
+            profileImageView.image = [UIImage imageNamed:@"portrait.png"];
+            listingImageView.image = [UIImage imageNamed:@"placeholder_image.png"];
+            [btnOrder setTitle:@"ORDER ($20)" forState:UIControlStateNormal];
+            
+            NSLog(@"Exception: %@", e.description);
+        }
         
         [containerView addSubview:profileImageView];
         [containerView addSubview:titleLabel];
@@ -169,7 +189,7 @@
     UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRect:containerView.bounds];
     containerView.layer.shadowPath = shadowPath.CGPath;
     
-    [titleLabel setFrame:CGRectMake(60, 10, width - 90, 35)];
+    [titleLabel setFrame:CGRectMake(60, 5, width - 90, 35)];
     [userLabel setFrame:CGRectMake(60, 42, width - 90, 14)];
     [listingImageView setFrame:CGRectMake(15, 64, width-45, height - 106)];
     mainImageIndicator.center = listingImageView.center;
