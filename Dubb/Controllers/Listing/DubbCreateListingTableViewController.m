@@ -8,6 +8,7 @@
 #import <MobileCoreServices/UTCoreTypes.h>
 #import <AWSiOSSDKv2/S3.h>
 #import "SZTextView.h"
+#import "UIImage+fixOrientation.h"
 #import "IQKeyboardManager.h"
 #import "IQTextView.h"
 #import "IQDropDownTextField.h"
@@ -397,7 +398,7 @@
     for (NSDictionary *dict in info) {
         if ([dict objectForKey:UIImagePickerControllerMediaType] == ALAssetTypePhoto){
             if ([dict objectForKey:UIImagePickerControllerOriginalImage]){
-                UIImage* image=[dict objectForKey:UIImagePickerControllerOriginalImage];
+                UIImage* image=[[dict objectForKey:UIImagePickerControllerOriginalImage] fixOrientation];
                 [images addObject:image];
                 
             }

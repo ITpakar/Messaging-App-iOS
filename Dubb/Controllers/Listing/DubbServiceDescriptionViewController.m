@@ -41,7 +41,9 @@
         [self.delegate completedWithDescription:self.descriptionTextView.text];
     }
     [self.navigationController popViewControllerAnimated:YES];
+    
 }
+
 - (IBAction)backButtonTapped:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -49,6 +51,7 @@
 #pragma mark - Custom Methods
 
 - (void)initView {
+    
     self.navigationItem.title = self.titleString;
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     [self.descriptionTextView setPlaceholder:self.placeholderString];
