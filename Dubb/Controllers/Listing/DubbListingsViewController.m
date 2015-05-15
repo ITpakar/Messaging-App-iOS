@@ -16,6 +16,7 @@
 #import <CoreLocation/CLPlacemark.h>
 #import "SVPullToRefresh.h"
 #import "DubbCategoriesViewController.h"
+#import "DubbSingleListingViewController.h"
 
 @interface DubbListingsViewController (){
     
@@ -397,6 +398,12 @@
             locationSearchBar.text = [self getFormattedLocation:indexPath.row];
             [searchBar becomeFirstResponder];
         }
+    } else {
+        NSDictionary *item = listings[indexPath.row];
+        DubbSingleListingViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"DubbSingleListingViewController"];
+        vc.listingID = item[@"id"];
+        
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 

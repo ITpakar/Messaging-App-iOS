@@ -7,6 +7,7 @@
 //
 
 #import "DubbGigsViewController.h"
+#import "DubbSingleListingViewController.h"
 #import "SVPullToRefresh.h"
 #import "DubbListingCell.h"
 
@@ -95,6 +96,17 @@
     }
 
     return cell;
+}
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    NSDictionary *item = listings[indexPath.row];
+    DubbSingleListingViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"DubbSingleListingViewController"];
+    vc.listingID = item[@"fields"][@"id"];
+    
+    [self.navigationController pushViewController:vc animated:YES];
+
+    
 }
 
 -(NSDictionary *) convertGigData : (NSDictionary*) item{

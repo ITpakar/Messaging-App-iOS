@@ -9,7 +9,7 @@
 
 #import "DubbCreateListingConfirmationViewController.h"
 
-#define commonShareText  @"Discover and Hire local creative freelancers on the Dubb Mobile Marketplace http://www.dubb.co/app"
+#define commonShareText(listingTitle)  [NSString stringWithFormat:@"%@ - Dubb Mobile Marketplace for Creative Freelancers - http://www.dubb.co/app", listingTitle]
 #define disablingReasonText  @"For your Post to go live, we require that you share this through atleast one of the of the channels listed on this page"
 
 @interface DubbCreateListingConfirmationViewController () {
@@ -76,7 +76,7 @@
         SLComposeViewController *tweetSheet = [SLComposeViewController
                                                composeViewControllerForServiceType:SLServiceTypeTwitter];
 
-        [tweetSheet setInitialText:@"Discover and Hire local creative freelancers on @Dubbapp  Mobile Marketplace http://www.dubb.co/app"];
+        [tweetSheet setInitialText:[NSString stringWithFormat:@"%@ - @dubbapp - http://www.dubb.co/app", self.listingTitle]];
         [self presentViewController:tweetSheet animated:YES completion:nil];
         tweetSheet.completionHandler = completionHandler;
     }else{
@@ -91,7 +91,7 @@
     }
     
     NSArray *recipents = @[@""];
-    NSString *message = commonShareText;
+    NSString *message = commonShareText(self.listingTitle);
     
     MFMessageComposeViewController *messageController = [[MFMessageComposeViewController alloc] init];
     messageController.messageComposeDelegate = self;
@@ -103,9 +103,9 @@
 }
 - (IBAction)shareOnEmailButtonTapped:(id)sender {
     // Email Subject
-    NSString *emailTitle = @"Awesome News!";
+    NSString *emailTitle = [NSString stringWithFormat:@"%@ - Dubb Mobile Marketplace for Creative Freelancers -", self.listingTitle];
     // Email Content
-    NSString *messageBody = commonShareText;
+    NSString *messageBody = [NSString stringWithFormat:@"Check out this listing on Dubb:\n\n%@\nDubb is a Mobile Marketplace for Creative Freelancers\nhttp://www.dubb.co/app", self.listingTitle];
     // To address
     NSArray *toRecipents = [NSArray arrayWithObject:@""];
     
@@ -121,7 +121,7 @@
 }
 - (IBAction)shareOnWhatsAppButtonTapped:(id)sender {
     
-    NSString *textToShare = commonShareText;
+    NSString *textToShare = commonShareText(self.listingTitle);
     NSString *textToSend = [NSString stringWithFormat:@"whatsapp://send?text=%@", [textToShare stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     NSURL *whatsappURL = [NSURL URLWithString:textToSend];
     
@@ -137,7 +137,7 @@
     if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
         SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
         
-        [controller setInitialText:commonShareText];
+        [controller setInitialText:commonShareText(self.listingTitle)];
         [self presentViewController:controller animated:YES completion:Nil];
         controller.completionHandler = completionHandler;
     }else{

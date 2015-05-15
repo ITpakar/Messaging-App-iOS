@@ -40,18 +40,33 @@
 #pragma mark - Navigation View Button Events
 - (IBAction)saveButtonTapped:(id)sender {
     
-
+    NSInteger price = [[self.priceTextField.text substringFromIndex:2] integerValue];
+    
+    if (price <= 0) {
+        
+        [self showMessage:@"You should type in price correctly."];
+        return;
+        
+    }
+    
+    if ([self.descriptionTextView.text isEqualToString:@""]) {
+        
+        [self showMessage:@"You should type in the description for the service/addon."];
+        return;
+        
+    }
+    
     if (self.currentIndex == -1) {
         [self.addOns addObject:@{@"description":self.descriptionTextView.text, @"price":[self.priceTextField.text substringFromIndex:2], @"sequence":[NSString stringWithFormat:@"%ld", self.addOns.count + 1]}];
     } else if (self.currentIndex >= 0) {
         [self.addOns setObject:@{@"description":self.descriptionTextView.text, @"price":[self.priceTextField.text substringFromIndex:2], @"sequence":[NSString stringWithFormat:@"%ld", self.currentIndex + 1]} atIndexedSubscript:self.currentIndex];
     }
-
     
     if ([self.delegate respondsToSelector:@selector(completedWithDescription:WithPrice:)]) {
         [self.delegate completedWithDescription:self.descriptionTextView.text WithPrice:self.priceTextField.text];
     }
     [self.navigationController popViewControllerAnimated:YES];
+    
 }
 - (IBAction)backButtonTapped:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];

@@ -14,6 +14,7 @@
 #import "DubbGigQuantityCell.h"
 #import "ChatViewController.h"
 #import "MBProgressHUD.h"
+#import <AddressBookUI/AddressBookUI.h>
 
 @interface DubbSingleListingViewController () <QBActionStatusDelegate>
 {
@@ -23,8 +24,11 @@
     ListingTopView *topView;
     NSDictionary *baseService;
     
+    
     NSDictionary *sellerInfo;
     NSDictionary *listingInfo;
+    
+    BOOL isAskingQuestion;
 }
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UIButton *bookNowButton;
@@ -87,6 +91,7 @@ enum DubbSingleListingViewTag {
     [topView.likeButton addTarget:self action:@selector(likeButtonTapped) forControlEvents:UIControlEventTouchUpInside];
     [self.tableView addParallaxWithView:topView andHeight:200];
     
+    isAskingQuestion = NO;
     
     __weak DubbSingleListingViewController * weakSelf = self;
 
@@ -198,10 +203,17 @@ static bool liked = NO;
 }
 
 - (void)askQuestionButtonTapped:(id)sender {
-    QBChatDialog *chatDialog = [QBChatDialog new];
-    chatDialog.occupantIDs = @[listingInfo[@"user"][@"quickblox_id"]];
-    chatDialog.type = QBChatDialogTypePrivate;
-    [QBChat createDialog:chatDialog delegate:self];
+    
+    if (isAskingQuestion == NO) {
+        
+        isAskingQuestion = YES;
+        QBChatDialog *chatDialog = [QBChatDialog new];
+        chatDialog.occupantIDs = @[listingInfo[@"user"][@"quickblox_id"]];
+        chatDialog.type = QBChatDialogTypePrivate;
+        [QBChat createDialog:chatDialog delegate:self];
+        
+    }
+    
     
 }
 
@@ -218,6 +230,7 @@ static bool liked = NO;
         ChatViewController *chatController = (ChatViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"chatController"];
         chatController.dialog = dialogRes.dialog;
         [self.navigationController pushViewController:chatController animated:YES];
+        isAskingQuestion = NO;
         
     }else{
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errors"
@@ -252,7 +265,7 @@ static bool liked = NO;
     
     [activityVC setCompletionWithItemsHandler:^(NSString *act, BOOL done, NSArray *returnedItems, NSError *activity)
      {
-         NSString *ServiceMsg = @"Shared!";
+         NSString *ServiceMsg = @"Message Has Been Shared!";
          [self showMessage:ServiceMsg];
          
      }];
@@ -440,23 +453,12 @@ static bool liked = NO;
         
         CLPlacemark *placemark = [placemarks firstObject];
         if(placemark) {
-            NSMutableString *location = [[NSMutableString alloc] init];
-            @try{
-                NSArray *locations = placemark.addressDictionary[@"FormattedAddressLines"];
-                
-                for(int i = (locations.count > 2 ? 1: 0); i < locations.count; i++){
-                    NSString *loc = locations[i];
-                    if( [location isEqualToString:@""] )
-                        [location appendString:loc];
-                    else
-                        [location appendFormat:@", %@", loc];
-                }
-                
-                locationLabel.text = location;
-                
-            }@catch(NSException *e){
-                NSLog(@"Exception: %@", e.description);
-            }
+
+            NSString *city = [placemark.addressDictionary objectForKey:(NSString*)kABPersonAddressCityKey];
+            NSString *state = [placemark.addressDictionary objectForKey:(NSString*)kABPersonAddressStateKey];
+            
+            locationLabel.text = [NSString stringWithFormat:@"%@, %@", city, state];
+
         }
     }];
 

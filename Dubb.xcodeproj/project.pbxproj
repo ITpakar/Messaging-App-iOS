@@ -1341,7 +1341,7 @@
 				TargetAttributes = {
 					7CA773A21AB1C2AF00F6D631 = {
 						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = 6822BLGBTR;
+						DevelopmentTeam = 93D6ZD3D4Y;
 					};
 					7CA773BB1AB1C2AF00F6D631 = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -1732,8 +1732,8 @@
 			baseConfigurationReference = 3FC747553FC9F4473463E4B0 /* Pods-Dubb.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Venk Tatineni (QYZW6DXNWC)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Venk Tatineni (QYZW6DXNWC)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1754,7 +1754,7 @@
 					"$(PROJECT_DIR)/Dubb/ExtraFrameworks/Library",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "02db9c51-93aa-4ca1-ac08-6115a91c1704";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -1763,8 +1763,8 @@
 			baseConfigurationReference = D1E8AA2095BD41F943711C81 /* Pods-Dubb.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Venk Tatineni (6822BLGBTR)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Venk Tatineni (6822BLGBTR)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Illumified Inc (93D6ZD3D4Y)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Illumified Inc (93D6ZD3D4Y)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Dubb/ExtraFrameworks/**",
@@ -1784,7 +1784,7 @@
 					"$(PROJECT_DIR)/Dubb/ExtraFrameworks/Library",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "4f43c284-7061-42ef-88e9-32317124715f";
+				PROVISIONING_PROFILE = "5dabacbf-5ad6-4814-9a23-6f01db9d304f";
 			};
 			name = Release;
 		};

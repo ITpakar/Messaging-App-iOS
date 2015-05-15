@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
 @protocol DubbServiceDescriptionWithPriceViewControllerDelegate <NSObject>
 @required
@@ -14,7 +15,7 @@
 @end
 
 
-@interface DubbServiceDescriptionWithPriceViewController : UIViewController
+@interface DubbServiceDescriptionWithPriceViewController : BaseViewController
 
 @property (nonatomic, strong) NSString *titleString;
 @property (nonatomic, strong) NSString *placeholderString;

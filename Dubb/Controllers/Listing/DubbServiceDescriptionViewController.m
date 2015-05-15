@@ -52,7 +52,10 @@
     self.navigationItem.title = self.titleString;
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     [self.descriptionTextView setPlaceholder:self.placeholderString];
-    self.descriptionTextView.text = self.descriptionString;
+    if (![self.descriptionString isEqualToString:@"What information you need from buyers in order to provide your services (dates, no, of attendees, location, parking, entrance information, etc)"] && ![self.descriptionString isEqualToString:@"Add tags separated by commas."]) {
+        self.descriptionTextView.text = self.descriptionString;
+    }
+    
 }
 
 /*
