@@ -1754,7 +1754,7 @@
 					"$(PROJECT_DIR)/Dubb/ExtraFrameworks/Library",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "02db9c51-93aa-4ca1-ac08-6115a91c1704";
+				PROVISIONING_PROFILE = "42c4ab87-95f3-40ee-8f91-ad819bc07a79";
 			};
 			name = Debug;
 		};
@@ -1784,7 +1784,7 @@
 					"$(PROJECT_DIR)/Dubb/ExtraFrameworks/Library",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "4f43c284-7061-42ef-88e9-32317124715f";
+				PROVISIONING_PROFILE = "1df7004a-bfd3-4aa2-9359-71d54924e8b9";
 			};
 			name = Release;
 		};

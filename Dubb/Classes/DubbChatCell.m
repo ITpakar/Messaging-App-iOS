@@ -161,6 +161,7 @@
         if( contentType ){
             
             thumbnailView = [[UIImageView alloc] init];
+
             if( self.message.customParameters[@"transfer"]){
                 thumbnailView.image = self.message.customParameters[@"thumb"];
                 _isTransferred = YES;

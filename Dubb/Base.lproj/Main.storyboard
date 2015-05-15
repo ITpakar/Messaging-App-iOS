@@ -4168,7 +4168,7 @@ Dubb!</string>
                                                 <view tag="1000" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZXi-ZH-cBt">
                                                     <rect key="frame" x="5" y="5" width="150" height="150"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" tag="1002" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WsH-kG-cUF">
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="1002" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WsH-kG-cUF">
                                                             <rect key="frame" x="3" y="3" width="144" height="120"/>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>

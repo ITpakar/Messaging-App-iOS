@@ -55,6 +55,9 @@
         
         
         listingImageView = [[UIImageView alloc] init];
+        listingImageView.contentMode = UIViewContentModeScaleAspectFill;
+        listingImageView.clipsToBounds = YES;
+        
         mainImageIndicator = [[UIActivityIndicatorView alloc] init];
         mainImageIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
         
@@ -88,20 +91,23 @@
                 
                 CLPlacemark *placemark = [placemarks firstObject];
                 if(placemark) {
-                    NSMutableString *location = [[NSMutableString alloc] init];
-                    
-                    /*if( placemark.addressDictionary[(NSString*)kABPersonAddressCityKey] && placemark.addressDictionary[(NSString*)kABPersonAddressStateKey])
-                     location = [NSString stringWithFormat:@"%@, %@", placemark.addressDictionary[(NSString*)kABPersonAddressCityKey], placemark.addressDictionary[(NSString*)kABPersonAddressStateKey]];*/
+                    //NSMutableString *location = [[NSMutableString alloc] init];
+                    NSString *location = @"";
                     @try{
-                        NSArray *locations = placemark.addressDictionary[@"FormattedAddressLines"];
+                        if( placemark.addressDictionary[(NSString*)kABPersonAddressCityKey] && placemark.addressDictionary[(NSString*)kABPersonAddressStateKey])
+                            location = [NSString stringWithFormat:@"%@, %@", placemark.addressDictionary[(NSString*)kABPersonAddressCityKey], placemark.addressDictionary[(NSString*)kABPersonAddressStateKey]];
                         
-                        for(int i = (locations.count > 2 ? 1: 0); i < locations.count; i++){
+                        /*NSArray *locations = placemark.addressDictionary[@"FormattedAddressLines"];
+                        int lower_range = (locations.count > 2 ? 1: 0);
+                        int high_range = (locations.count > 2 ? 3 : (int)locations.count);
+
+                        for(int i = lower_range; i < high_range; i++){
                             NSString *loc = locations[i];
                             if( [location isEqualToString:@""] )
                                 [location appendString:loc];
                             else
                                 [location appendFormat:@", %@", loc];
-                        }
+                        }*/
                         
                         userLabel = [[UILabel alloc] init];
                         NSMutableAttributedString *userText = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ %@", _listing[@"user"][@"first"], location] attributes:@{NSForegroundColorAttributeName : [UIColor grayColor], NSFontAttributeName: [UIFont systemFontOfSize:12.0f]}];
