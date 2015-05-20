@@ -84,9 +84,15 @@
         NSDictionary *addOn = self.addOns[self.currentIndex];
         self.descriptionTextView.text = addOn[@"description"];
         self.priceTextField.text = [NSString stringWithFormat:@"$%@", addOn[@"price"]];
-    } else if (self.currentIndex == -2 && self.baseServicePrice){
-        self.descriptionTextView.text = self.baseServiceDescription;
-        self.priceTextField.text = self.baseServicePrice;
+    } else if (self.currentIndex == -2){
+        
+        if (self.baseServicePrice) {
+            self.descriptionTextView.text = self.baseServiceDescription;
+            self.priceTextField.text = self.baseServicePrice;
+        } else {
+            self.priceTextField.text = @"$20";
+        }
+        
     }
 
 }

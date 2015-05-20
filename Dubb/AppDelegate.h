@@ -9,8 +9,9 @@
 
 #import <UIKit/UIKit.h>
 #import "NotificationView.h"
+#import "iRate.h"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, NotificationDelegate, QBActionStatusDelegate, CLLocationManagerDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, NotificationDelegate, QBActionStatusDelegate, CLLocationManagerDelegate, iRateDelegate>
 
 -(void)registerForRemoteNotifications;
 
@@ -18,8 +19,5 @@
 -(void)updateUserLocation;@property (strong, nonatomic) UIWindow *window;
 
 @property (strong) NotificationView *notificationView;
-
-
-
 @end
 

@@ -11,6 +11,7 @@
 #import <GooglePlus/GooglePlus.h>
 #import <GoogleOpenSource/GoogleOpenSource.h>
 #import "AppDelegate.h"
+#import "UserVoice.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
 @interface DubbMenuViewController (){
@@ -37,7 +38,7 @@
     
     self.sideMenuViewController.delegate = self;
     
-    menus = [[NSMutableArray alloc] initWithObjects:@"Listings", @"Create a Listing", @"Chat", @"Set Offline",  @"Logout", nil ];
+    menus = [[NSMutableArray alloc] initWithObjects:@"Home", @"Create a Listing", @"Chat", @"Set Offline", @"Support", @"Logout", nil ];
     selectedMenu = @"Listings";
     
     if( [[User currentUser].userID isEqualToString:@""] )
@@ -128,7 +129,10 @@
             [menuTable reloadData];
             
             break;
-        case 4: {
+        case 4:
+            [UserVoice presentUserVoiceInterfaceForParentViewController:self];
+            break;
+        case 5: {
             
             [[GPPSignIn sharedInstance] signOut];
             [FBSession.activeSession closeAndClearTokenInformation];

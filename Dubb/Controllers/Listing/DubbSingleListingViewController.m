@@ -5,7 +5,7 @@
 //  Created by andikabijaya on 5/8/15.
 //  Copyright (c) 2015 dubb.co. All rights reserved.
 //
-
+#import <MessageUI/MessageUI.h>
 #import "DubbSingleListingViewController.h"
 #import "UIScrollView+APParallaxHeader.h"
 #import "ListingTopView.h"
@@ -16,7 +16,7 @@
 #import "MBProgressHUD.h"
 #import <AddressBookUI/AddressBookUI.h>
 
-@interface DubbSingleListingViewController () <QBActionStatusDelegate>
+@interface DubbSingleListingViewController () <QBActionStatusDelegate, MFMailComposeViewControllerDelegate>
 {
     NSMutableArray *purchasedAddOns;
     NSMutableArray *addOns;
@@ -74,6 +74,23 @@ enum DubbSingleListingViewTag {
 - (IBAction)backButtonTapped:(id)sender {
     
     [self.navigationController popViewControllerAnimated:YES];
+}
+- (IBAction)flagButtonTapped:(id)sender {
+    
+    if (![MFMailComposeViewController canSendMail]) {
+        [self showMessage:@"Your device can't send Email!"];
+        return;
+    }
+
+    NSString *postTitle = listingInfo[@"name"];
+    MFMailComposeViewController *mail = [[MFMailComposeViewController alloc] init];
+    mail.mailComposeDelegate = self;
+    [mail setSubject:postTitle];
+    [mail setMessageBody:[NSString stringWithFormat:@"I'm reporting the content on this listing - \"%@\"", postTitle] isHTML:NO];
+    [mail setToRecipients:@[@"tools@dubb.co"]];
+    [self presentViewController:mail animated:YES completion:NULL];
+
+    
 }
 
 - (void)viewDidLoad {
@@ -522,6 +539,30 @@ static bool liked = NO;
 -(void)kaSlideShowDidPrevious:(KASlideShow *)slideShow
 {
     [topView updatePageLabel];
+}
+
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+{
+    switch (result) {
+        case MFMailComposeResultSent:
+            NSLog(@"You sent the email.");
+            break;
+        case MFMailComposeResultSaved:
+            NSLog(@"You saved a draft of this email");
+            break;
+        case MFMailComposeResultCancelled:
+            NSLog(@"You cancelled sending this email.");
+            break;
+        case MFMailComposeResultFailed:
+            [self showMessage:@"Failed to send Email!"];
+            break;
+        default:
+            NSLog(@"An error occurred when trying to compose this email");
+            break;
+    }
+    
+    [controller dismissViewControllerAnimated:YES completion:NULL];
 }
 
 /*

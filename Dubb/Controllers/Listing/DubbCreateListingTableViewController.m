@@ -339,7 +339,7 @@
                    @"user_id":[User currentUser].userID,
                    @"lat":[NSString stringWithFormat:@"%f", selectedLocation.locationCoordinates.latitude],
                    @"long":[NSString stringWithFormat:@"%f", selectedLocation.locationCoordinates.longitude],
-                   @"radius_km":radius,
+                   @"radius_mi":radius,
                    @"addon":addonArray,
                    @"main_image":imageURLs[0],
                    @"tags":tagsArray
