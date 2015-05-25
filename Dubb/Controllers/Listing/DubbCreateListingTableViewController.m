@@ -8,6 +8,7 @@
 #import <MobileCoreServices/UTCoreTypes.h>
 #import <AWSiOSSDKv2/S3.h>
 #import "SZTextView.h"
+#import "UIImage+fixOrientation.h"
 #import "IQKeyboardManager.h"
 #import "IQTextView.h"
 #import "IQDropDownTextField.h"
@@ -338,7 +339,7 @@
                    @"user_id":[User currentUser].userID,
                    @"lat":[NSString stringWithFormat:@"%f", selectedLocation.locationCoordinates.latitude],
                    @"long":[NSString stringWithFormat:@"%f", selectedLocation.locationCoordinates.longitude],
-                   @"radius_km":radius,
+                   @"radius_mi":radius,
                    @"addon":addonArray,
                    @"main_image":imageURLs[0],
                    @"tags":tagsArray
@@ -397,7 +398,7 @@
     for (NSDictionary *dict in info) {
         if ([dict objectForKey:UIImagePickerControllerMediaType] == ALAssetTypePhoto){
             if ([dict objectForKey:UIImagePickerControllerOriginalImage]){
-                UIImage* image=[dict objectForKey:UIImagePickerControllerOriginalImage];
+                UIImage* image=[[dict objectForKey:UIImagePickerControllerOriginalImage] fixOrientation];
                 [images addObject:image];
                 
             }

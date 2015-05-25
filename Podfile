@@ -9,5 +9,6 @@ pod 'SDWebImage', '~>3.7'
 pod 'NewRelicAgent'
 pod 'QuickBlox'
 pod 'AXRatingView'
+pod 'uservoice-iphone-sdk'
 end
 

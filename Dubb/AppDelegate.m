@@ -16,20 +16,32 @@
 #import "ChatHistoryController.h"
 #import "MBProgressHUD.h"
 #import "User.h"
+#import "UserVoice.h"
 #import <AddressBookUI/AddressBookUI.h>
 #import <CoreLocation/CLGeocoder.h>
 #import <CoreLocation/CLPlacemark.h>
 
-@interface AppDelegate (){
+@interface AppDelegate () {
     CLLocationManager *locationManager;
     CLPlacemark *placeMark;
 
     NSTimer *updatingLocationTimer;
 }
-
+@property (nonatomic, strong) UIAlertView *alertView;
 @end
 
 @implementation AppDelegate
+
++ (void)initialize
+{
+    //set the bundle ID. normally you wouldn't need to do this
+    //as it is picked up automatically from your Info.plist file
+    //but we want to test with an app that's actually on the store
+    [iRate sharedInstance].onlyPromptIfLatestVersion = NO;
+    
+    //enable preview mode
+    //[iRate sharedInstance].previewMode = YES;
+}
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -38,6 +50,7 @@
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
     [self enableQuickBlox];
+    [self enableUserVoice];
     
     #ifndef DEBUG
         [QBApplication sharedApplication].productionEnvironmentForPushesEnabled = YES;    
@@ -58,6 +71,22 @@
     
     [NRLogger setLogLevels:NRLogLevelALL];
     [NewRelicAgent startWithApplicationToken:kNewRelicToken];
+    
+    // Setup for APN
+    
+    if ([application respondsToSelector:@selector(isRegisteredForRemoteNotifications)])
+    {
+        // iOS 8 Notifications
+        [application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
+        
+        [application registerForRemoteNotifications];
+    }
+    else {
+        // iOS < 8 Notifications
+        [application registerForRemoteNotificationTypes:
+         (UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert)];
+    }
+    
     return YES;
 }
 
@@ -97,6 +126,39 @@
     return [GPPURLHandler handleURL:url sourceApplication:sourceApplication annotation:annotation];
 }
 
+#pragma mark -
+#pragma mark iRate
+
+- (BOOL)iRateShouldPromptForRating
+{
+    if (!self.alertView)
+    {
+        self.alertView = [[UIAlertView alloc] initWithTitle:@"Recommend Dubb" message:@"If you're enjoying DubbFreelancer (and we hope you are!), perhaps consider rating us 5 stars in the App Store." delegate:self cancelButtonTitle:@"No Thanks" otherButtonTitles:@"Rate 5 Stars!", nil];
+        
+        [self.alertView show];
+    }
+    return NO;
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == alertView.cancelButtonIndex)
+    {
+        //ignore this version
+        [iRate sharedInstance].declinedThisVersion = YES;
+    }
+    else if (buttonIndex == 1) // rate now
+    {
+        //mark as rated
+        [iRate sharedInstance].ratedThisVersion = YES;
+        
+        //launch app store
+        [[iRate sharedInstance] openRatingsPageInAppStore];
+    }
+    self.alertView = nil;
+}
+
+
 #pragma mark - 
 #pragma mark QuickBlox
 
@@ -106,6 +168,17 @@
     [QBConnection registerServiceKey:qbServiceKey];
     [QBConnection registerServiceSecret:qbServiceSecret];
     [QBSettings setAccountKey:qbAccountKey];
+}
+
+#pragma mark -
+#pragma mark UserVoice
+
+- (void)enableUserVoice{
+    // Set this up once when your application launches
+    UVConfig *config = [UVConfig configWithSite:@"dubb.uservoice.com"];
+    config.forumId = 284535;
+    // [config identifyUserWithEmail:@"email@example.com" name:@"User Name", guid:@"USER_ID");
+    [UserVoice initialize:config];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -229,12 +302,19 @@
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
-    [QBRequest registerSubscriptionForDeviceToken:deviceToken successBlock:^(QBResponse *response, NSArray *subscriptions) {
-        NSLog(@"Register for APNS");
-    } errorBlock:nil];
+    
+    NSString *tokenStr = [deviceToken description];
+    NSString *pushToken = [[[tokenStr
+                             stringByReplacingOccurrencesOfString:@"<" withString:@""]
+                            stringByReplacingOccurrencesOfString:@">" withString:@""]
+                           stringByReplacingOccurrencesOfString:@" " withString:@""];
+    
+    NSLog(@"Device token: %@", pushToken);
+    [[NSUserDefaults standardUserDefaults] setObject:pushToken forKey:DEFAULTS_DEVICE_TOKEN];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    
 }
-
-
 #pragma mark Message Notification
 
 //Message when App is foreground

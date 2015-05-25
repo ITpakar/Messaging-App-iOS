@@ -7,6 +7,7 @@ PODS:
     - SDWebImage/Core (= 3.7.2)
   - SDWebImage/Core (3.7.2)
   - SVPullToRefresh (0.4.1)
+  - uservoice-iphone-sdk (3.2.3)
 
 DEPENDENCIES:
   - AXRatingView
@@ -15,6 +16,7 @@ DEPENDENCIES:
   - QuickBlox
   - SDWebImage (~> 3.7)
   - SVPullToRefresh
+  - uservoice-iphone-sdk
 
 SPEC CHECKSUMS:
   AXRatingView: ccaadc1bbda99a4b7e1d556059482d2b933a9f4e
@@ -23,5 +25,6 @@ SPEC CHECKSUMS:
   QuickBlox: f3a8cd60af97ee673ef589d2c884713633aefa31
   SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
   SVPullToRefresh: ba2e718695a43253d8bea6852d2960097dc15d8c
+  uservoice-iphone-sdk: 349d9ef36d3c43939d28390b9e86bb32b65fe983
 
 COCOAPODS: 0.37.1

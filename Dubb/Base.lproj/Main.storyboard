@@ -322,31 +322,6 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
-                                            <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3VF-gj-Nhf">
-                                                <rect key="frame" x="347" y="442" width="78" height="38"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="78" id="ERw-eG-gjX"/>
-                                                    <constraint firstAttribute="height" constant="38" id="Vzr-8E-oz6"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                                <state key="normal" title="Sign In">
-                                                    <color key="titleColor" red="0.0" green="0.8803710938" blue="0.051284325899999997" alpha="1" colorSpace="calibratedRGB"/>
-                                                </state>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
-                                                        <size key="value" width="1" height="1"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
-                                                        <integer key="value" value="3"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
-                                                        <integer key="value" value="1"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <segue destination="L6S-z9-0ds" kind="show" id="9wO-od-KMN"/>
-                                                </connections>
-                                            </button>
                                             <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IyI-0z-YR5">
                                                 <rect key="frame" x="140" y="86" width="320" height="74"/>
                                                 <constraints>
@@ -432,6 +407,31 @@ Dubb!</string>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="onRegisterWithGoogle:" destination="aPB-tq-sYE" eventType="touchUpInside" id="CDw-BD-uSZ"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3VF-gj-Nhf">
+                                                <rect key="frame" x="347" y="442" width="78" height="38"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="78" id="ERw-eG-gjX"/>
+                                                    <constraint firstAttribute="height" constant="38" id="Vzr-8E-oz6"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                <state key="normal" title="Sign In">
+                                                    <color key="titleColor" red="0.0" green="0.8803710938" blue="0.051284325899999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
+                                                        <size key="value" width="1" height="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
+                                                        <integer key="value" value="3"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                                                        <integer key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <segue destination="L6S-z9-0ds" kind="show" id="9wO-od-KMN"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -861,22 +861,8 @@ Dubb!</string>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p1V-cd-ZkD">
                                         <rect key="frame" x="140" y="80" width="320" height="415"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l4A-CS-SJk">
-                                                <rect key="frame" x="36" y="251" width="249" height="40"/>
-                                                <color key="backgroundColor" red="0.0" green="0.65792713989999996" blue="0.038326280929999998" alpha="1" colorSpace="calibratedRGB"/>
-                                                <state key="normal" title="SIGN UP">
-                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                            </button>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="foi-S4-2Hi" customClass="DubbTextField">
-                                                <rect key="frame" x="36" y="24" width="249" height="40"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                            </textField>
                                             <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wSf-yI-Af3">
-                                                <rect key="frame" x="75" y="189" width="171" height="38"/>
+                                                <rect key="frame" x="75" y="291" width="171" height="38"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                 <state key="normal" title="Terms of Service">
                                                     <color key="titleColor" red="0.0" green="0.8803710938" blue="0.051284325899999997" alpha="1" colorSpace="calibratedRGB"/>
@@ -894,7 +880,7 @@ Dubb!</string>
                                                 </userDefinedRuntimeAttributes>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Already a member?" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4vs-s7-Qxl">
-                                                <rect key="frame" x="36" y="299" width="163" height="38"/>
+                                                <rect key="frame" x="36" y="377" width="163" height="38"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
@@ -911,8 +897,66 @@ Dubb!</string>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="By signing up, you agree to the" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UGs-oP-yKW">
+                                                <rect key="frame" x="22" y="258" width="277" height="38"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                                <size key="shadowOffset" width="0.0" height="0.0"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
+                                                        <size key="value" width="1" height="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
+                                                        <integer key="value" value="3"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                                                        <integer key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </label>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wjE-Qr-3wx" customClass="TextFieldValidator">
+                                                <rect key="frame" x="36" y="106" width="249" height="40"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="Dad-qT-83G" id="eqS-Gy-M92"/>
+                                                    <outlet property="presentInView" destination="kDk-Y8-awY" id="J55-i2-faN"/>
+                                                </connections>
+                                            </textField>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tBy-gy-TTm" customClass="TextFieldValidator">
+                                                <rect key="frame" x="36" y="65" width="249" height="40"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="Dad-qT-83G" id="iTs-uc-U4V"/>
+                                                    <outlet property="presentInView" destination="kDk-Y8-awY" id="blJ-d4-co6"/>
+                                                </connections>
+                                            </textField>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="First Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8bo-jZ-pFZ" customClass="TextFieldValidator">
+                                                <rect key="frame" x="36" y="181" width="249" height="40"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="Dad-qT-83G" id="f1d-hO-5IG"/>
+                                                    <outlet property="presentInView" destination="kDk-Y8-awY" id="0ao-j4-QvP"/>
+                                                </connections>
+                                            </textField>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Last Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eSP-6W-Fwd" customClass="TextFieldValidator">
+                                                <rect key="frame" x="36" y="222" width="249" height="40"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="Dad-qT-83G" id="Gjf-fe-15E"/>
+                                                    <outlet property="presentInView" destination="kDk-Y8-awY" id="aNj-bE-7kB"/>
+                                                </connections>
+                                            </textField>
                                             <button opaque="NO" tag="4" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FiI-4l-Uwc">
-                                                <rect key="frame" x="207" y="299" width="78" height="38"/>
+                                                <rect key="frame" x="207" y="377" width="78" height="38"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                 <state key="normal" title="Sign In">
                                                     <color key="titleColor" red="0.0" green="0.8803710938" blue="0.051284325899999997" alpha="1" colorSpace="calibratedRGB"/>
@@ -928,37 +972,35 @@ Dubb!</string>
                                                         <integer key="value" value="1"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <segue destination="L6S-z9-0ds" kind="show" id="Edg-Ct-xA3"/>
+                                                </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="By signing up, you agree to the" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UGs-oP-yKW">
-                                                <rect key="frame" x="22" y="154" width="277" height="38"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <nil key="highlightedColor"/>
-                                                <size key="shadowOffset" width="0.0" height="0.0"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
-                                                        <size key="value" width="1" height="1"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
-                                                        <integer key="value" value="3"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
-                                                        <integer key="value" value="1"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                            </label>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wjE-Qr-3wx" customClass="DubbTextField">
-                                                <rect key="frame" x="36" y="106" width="249" height="40"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
-                                            </textField>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tBy-gy-TTm" customClass="DubbTextField">
-                                                <rect key="frame" x="36" y="65" width="249" height="40"/>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="foi-S4-2Hi" customClass="TextFieldValidator">
+                                                <rect key="frame" x="36" y="24" width="249" height="40"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="Dad-qT-83G" id="WnM-6c-nOz"/>
+                                                    <outlet property="presentInView" destination="kDk-Y8-awY" id="XGV-j2-jtD"/>
+                                                </connections>
                                             </textField>
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nBy-z9-biz" customClass="M13Checkbox">
+                                                <rect key="frame" x="50" y="153" width="160" height="20"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </view>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l4A-CS-SJk">
+                                                <rect key="frame" x="36" y="337" width="249" height="40"/>
+                                                <color key="backgroundColor" red="0.0" green="0.65490196078431373" blue="0.039215686274509803" alpha="1" colorSpace="calibratedRGB"/>
+                                                <state key="normal" title="SIGN UP">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="signUpButtonTapped:" destination="Dad-qT-83G" eventType="touchUpInside" id="cDc-QZ-fGL"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -1044,7 +1086,12 @@ Dubb!</string>
                     </view>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
+                        <outlet property="alreadyMemberLabel" destination="4vs-s7-Qxl" id="VDf-uv-TEH"/>
+                        <outlet property="chkboxTogglePasswordSecureEntry" destination="nBy-z9-biz" id="R90-vX-qrU"/>
+                        <outlet property="signInButton" destination="FiI-4l-Uwc" id="vI4-1w-s69"/>
                         <outlet property="txtEmail" destination="foi-S4-2Hi" id="Hwn-kF-alD"/>
+                        <outlet property="txtFirstname" destination="8bo-jZ-pFZ" id="Yav-WZ-pzn"/>
+                        <outlet property="txtLastName" destination="eSP-6W-Fwd" id="obc-P5-iec"/>
                         <outlet property="txtPassword" destination="wjE-Qr-3wx" id="Hv1-83-kco"/>
                         <outlet property="txtUsername" destination="tBy-gy-TTm" id="9tP-Sl-Bo2"/>
                     </connections>
@@ -3535,7 +3582,7 @@ Dubb!</string>
                                             <constraint firstAttribute="width" constant="81" id="eJB-CN-NbB"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <color key="textColor" red="0.0" green="0.65792713989999996" blue="0.038326280929999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.0" green="0.35563982659999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gQ6-Rk-lwV">
@@ -3588,7 +3635,7 @@ Dubb!</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="sdfsdfds" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jS3-e6-4up">
-                                        <rect key="frame" x="67" y="8" width="229" height="40"/>
+                                        <rect key="frame" x="67" y="8" width="229" height="20"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -3602,7 +3649,7 @@ Dubb!</string>
                                     <constraint firstItem="R8s-wJ-F29" firstAttribute="leading" secondItem="1Lg-zq-1vF" secondAttribute="leading" constant="8" id="FnH-AK-CUr"/>
                                     <constraint firstItem="mox-hs-guY" firstAttribute="top" secondItem="1Lg-zq-1vF" secondAttribute="top" constant="8" id="Ihx-fU-Iio"/>
                                     <constraint firstItem="jS3-e6-4up" firstAttribute="top" secondItem="1Lg-zq-1vF" secondAttribute="top" constant="8" id="PHU-h1-Jcl"/>
-                                    <constraint firstItem="gQ6-Rk-lwV" firstAttribute="top" secondItem="jS3-e6-4up" secondAttribute="bottom" constant="1" id="V8U-tE-ELP"/>
+                                    <constraint firstItem="gQ6-Rk-lwV" firstAttribute="top" secondItem="jS3-e6-4up" secondAttribute="bottom" constant="21" id="V8U-tE-ELP"/>
                                     <constraint firstAttribute="trailing" secondItem="gQ6-Rk-lwV" secondAttribute="trailing" constant="8" id="YVD-xc-8Ll"/>
                                     <constraint firstItem="R8s-wJ-F29" firstAttribute="top" secondItem="mox-hs-guY" secondAttribute="bottom" constant="4" id="Yng-ci-BGu"/>
                                     <constraint firstItem="gQ6-Rk-lwV" firstAttribute="leading" secondItem="iUC-2F-Ob6" secondAttribute="trailing" constant="1" id="ZbT-0P-SEy"/>
@@ -3778,18 +3825,9 @@ Dubb!</string>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Hire me to provide a great local service." lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VXr-sd-R6k">
                                                     <rect key="frame" x="17" y="11" width="273" height="42"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="odu-X9-2dD" userLabel="Back Button">
-                                                    <rect key="frame" x="8" y="0.0" width="22" height="22"/>
-                                                    <state key="normal" image="btn_prevnavigation_white.png">
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="backButtonTapped:" destination="TcD-JJ-32S" eventType="touchUpInside" id="TPO-lW-Uwh"/>
-                                                    </connections>
-                                                </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="102" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Here is where a lovely service description goes describing the talent of the provider and their past experience." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jZr-SR-H08">
                                                     <rect key="frame" x="17" y="81" width="287" height="64"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
@@ -3814,7 +3852,7 @@ Dubb!</string>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Add Ons" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZMR-TK-yIx">
                                                     <rect key="frame" x="13" y="8" width="270" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -3863,7 +3901,7 @@ Dubb!</string>
                                                         <constraint firstAttribute="height" constant="21" id="ZeQ-Cm-U77"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="103" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="$ 40" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HqL-4d-EGM">
@@ -3968,7 +4006,7 @@ Dubb!</string>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Customer Reviews" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zou-p9-NoS">
                                                     <rect key="frame" x="13" y="4" width="270" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4x9-Py-ZZH" userLabel="Separator">
@@ -4088,12 +4126,36 @@ Dubb!</string>
                                     <constraint firstAttribute="height" constant="50" id="RXF-hF-rtX"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="odu-X9-2dD" userLabel="Back Button">
+                                <rect key="frame" x="8" y="12" width="32" height="32"/>
+                                <state key="normal" image="btn_prevnavigation_white.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="backButtonTapped:" destination="TcD-JJ-32S" eventType="touchUpInside" id="TPO-lW-Uwh"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7eZ-4g-J22" userLabel="Flag Button">
+                                <rect key="frame" x="280" y="13" width="32" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="7Mc-OT-Iiw"/>
+                                    <constraint firstAttribute="width" constant="32" id="ei9-li-vyy"/>
+                                </constraints>
+                                <state key="normal" image="flag.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="flagButtonTapped:" destination="TcD-JJ-32S" eventType="touchUpInside" id="sE7-OR-a0c"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.90980392160000001" green="0.90980392160000001" blue="0.90980392160000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="7eZ-4g-J22" secondAttribute="trailing" constant="8" id="0Jv-2u-eIg"/>
                             <constraint firstItem="mK1-eb-UxF" firstAttribute="leading" secondItem="TdN-1H-Sgo" secondAttribute="leading" id="4S1-Xk-lXy"/>
                             <constraint firstAttribute="trailing" secondItem="mK1-eb-UxF" secondAttribute="trailing" id="7HL-bF-Snk"/>
                             <constraint firstItem="yEi-Cm-zZE" firstAttribute="top" secondItem="mK1-eb-UxF" secondAttribute="bottom" id="Dvd-OV-L2a"/>
+                            <constraint firstItem="7eZ-4g-J22" firstAttribute="top" secondItem="TdN-1H-Sgo" secondAttribute="top" constant="13" id="Lo8-kT-94H"/>
                             <constraint firstItem="mK1-eb-UxF" firstAttribute="top" secondItem="TdN-1H-Sgo" secondAttribute="top" id="b33-4U-AI6"/>
                             <constraint firstItem="yEi-Cm-zZE" firstAttribute="leading" secondItem="TdN-1H-Sgo" secondAttribute="leading" id="gqQ-FU-mYO"/>
                             <constraint firstAttribute="trailing" secondItem="yEi-Cm-zZE" secondAttribute="trailing" id="mxN-3J-jA6"/>
@@ -4203,7 +4265,7 @@ Dubb!</string>
                                                                 <constraint firstAttribute="height" constant="21" id="dGu-p6-KB4"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="adjustsFontSizeToFitWidth" value="YES"/>
@@ -4488,6 +4550,7 @@ Dubb!</string>
         <image name="checkmark.png" width="23" height="19"/>
         <image name="close_icon.png" width="24" height="24"/>
         <image name="filter.png" width="45" height="45"/>
+        <image name="flag.png" width="12" height="15"/>
         <image name="home_background.jpg" width="1536" height="2048"/>
         <image name="icon_menu.png" width="22" height="16"/>
         <image name="image_delete_button.png" width="25" height="25"/>
@@ -4513,6 +4576,6 @@ Dubb!</string>
         <image name="submit_button.png" width="303" height="36"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="9wO-od-KMN"/>
+        <segue reference="Edg-Ct-xA3"/>
     </inferredMetricsTieBreakers>
 </document>

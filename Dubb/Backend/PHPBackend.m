@@ -52,7 +52,9 @@ static PHPBackend   *sharedConnection;
     NSString *apiPath = [NSString stringWithFormat:@"%@%@%@", APIURL, @"user/", userID];
     
     [self accessAPIbyPUT:apiPath Parameters:params CompletionHandler:^(NSDictionary *result, NSData *data, NSError *error) {
-        handler(result);
+        if (handler) {
+            handler(result);
+        }
     }];
 }
 
@@ -64,7 +66,10 @@ static PHPBackend   *sharedConnection;
     NSDictionary *params = @{@"q":keyword, @"from":@"tags"};
     
     [self accessAPI:apiPath Parameters:params CompletionHandler:^(NSDictionary *result, NSData *data, NSError *error) {
-        handler(result);
+        if (handler) {
+            handler(result);
+        }
+
     }];
 }
 
@@ -104,12 +109,29 @@ static PHPBackend   *sharedConnection;
     }];
 }
 
--(void) getListingsWithCategoryID :(NSString*) categoryID Page:(NSInteger)page CompletionHandler:(void (^)(NSDictionary *result))handler{
-    NSString *apiPath = [NSString stringWithFormat:@"%@category/%@/listing", APIURL, categoryID];
-    NSDictionary *params = @{@"page":@(page), @"size":@"25"};
+
+-(void) checkValidityOfUsername:(NSString *)userName CompletionHandler:(void (^)(NSDictionary *result))handler{
     
-    [self accessAPI:apiPath Parameters:params CompletionHandler:^(NSDictionary *result, NSData *data, NSError *error) {
-        handler(result);
+    NSString *apiPath = [NSString stringWithFormat:@"%@%@/%@", APIURL, @"user", userName];
+    
+    [self accessAPI:apiPath Parameters:nil CompletionHandler:^(NSDictionary *result, NSData *data, NSError *error) {
+        if (handler) {
+            handler(result);
+        }
+
+    }];
+    
+}
+
+-(void) registerDeviceToken:(NSString *)deviceToken forUser:(NSString *)userID
+         CompletionHandler:(void (^)(NSDictionary *result))handler
+{
+    NSString *apiPath = [NSString stringWithFormat:@"%@%@", APIURL, @"device"];
+    
+    [self accessAPIbyPOST:apiPath Parameters:@{@"user_id": userID, @"token": deviceToken} CompletionHandler:^(NSDictionary *result, NSData *data, NSError *error) {
+        if (handler) {
+            handler(result);
+        }
     }];
 }
 
