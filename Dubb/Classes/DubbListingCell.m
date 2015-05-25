@@ -111,7 +111,7 @@
                         
                         userLabel = [[UILabel alloc] init];
                         NSMutableAttributedString *userText = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ %@", _listing[@"user"][@"first"], location] attributes:@{NSForegroundColorAttributeName : [UIColor grayColor], NSFontAttributeName: [UIFont systemFontOfSize:12.0f]}];
-                        [userText addAttribute:NSForegroundColorAttributeName value:[UIColor greenColor] range:NSMakeRange(0, [_listing[@"user"][@"first"] length])];
+                        [userText addAttribute:NSForegroundColorAttributeName value:[UIColor blueColor] range:NSMakeRange(0, [_listing[@"user"][@"first"] length])];
                         userLabel.attributedText = userText;
                         [containerView addSubview:userLabel];
                         [self layoutSubviews];
@@ -122,8 +122,15 @@
                 }
             }];
             
+            NSMutableString *category = [[NSMutableString alloc] init];
+            
             if( listing[@"category"] && ![listing[@"category"] isKindOfClass:[NSNull class]] )
-                categoryLabel.text = listing[@"category"][@"name"];
+                [category appendString: listing[@"category"][@"name"]];
+            
+            if( listing[@"subcategory"] && ![listing[@"subcategory"] isKindOfClass:[NSNull class]] )
+                [category appendFormat:@" > %@", listing[@"subcategory"][@"name"]];
+            
+            categoryLabel.text = category;
             
             if( listing[@"mainimage"] && ![listing[@"mainimage"] isKindOfClass:[NSNull class]] ){
                 if( listing[@"mainimage"][@"url"] ){

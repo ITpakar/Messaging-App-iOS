@@ -314,7 +314,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
         case TableViewSectionCurrentLocation: {
             
             self.selectedLocation.name = @"Current Location";
-            self.selectedLocation.address = @"Current Location";
+            self.selectedLocation.address = [NSString stringWithFormat:@"%@, %@", [User currentUser].city, [User currentUser].state];
             self.selectedLocation.locationCoordinates = CLLocationCoordinate2DMake([[User currentUser].latitude floatValue], [[User currentUser].longitude floatValue]);
 
             [self.searchTextField setText:@"Current Location"];

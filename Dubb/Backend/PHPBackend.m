@@ -104,4 +104,13 @@ static PHPBackend   *sharedConnection;
     }];
 }
 
+-(void) getListingsWithCategoryID :(NSString*) categoryID Page:(NSInteger)page CompletionHandler:(void (^)(NSDictionary *result))handler{
+    NSString *apiPath = [NSString stringWithFormat:@"%@category/%@/listing", APIURL, categoryID];
+    NSDictionary *params = @{@"page":@(page), @"size":@"25"};
+    
+    [self accessAPI:apiPath Parameters:params CompletionHandler:^(NSDictionary *result, NSData *data, NSError *error) {
+        handler(result);
+    }];
+}
+
 @end

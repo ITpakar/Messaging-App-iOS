@@ -196,6 +196,7 @@
 		7CBE24321AD6B8D700DA0A12 /* DubbImageBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CBE24311AD6B8D700DA0A12 /* DubbImageBrowser.m */; };
 		DC26C2101B050C7B00F9385A /* DubbCategoriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC26C20F1B050C7B00F9385A /* DubbCategoriesViewController.m */; };
 		DC26C2141B050CAB00F9385A /* DubbCategoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DC26C2131B050CAB00F9385A /* DubbCategoryCell.m */; };
+		DC26C21A1B0BAF2E00F9385A /* DubbSubCategoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC26C2191B0BAF2E00F9385A /* DubbSubCategoryController.m */; };
 		DC63FC761AD7B5EA00A505B8 /* DubbOverlayProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC63FC751AD7B5EA00A505B8 /* DubbOverlayProgressView.m */; };
 		DC63FC781AD7BBF900A505B8 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC63FC771AD7BBF900A505B8 /* ImageIO.framework */; };
 		DC63FC7B1AD7EE7D00A505B8 /* play@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC63FC791AD7EE7D00A505B8 /* play@2x.png */; };
@@ -514,6 +515,8 @@
 		DC26C20F1B050C7B00F9385A /* DubbCategoriesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DubbCategoriesViewController.m; path = Listing/DubbCategoriesViewController.m; sourceTree = "<group>"; };
 		DC26C2121B050CAB00F9385A /* DubbCategoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DubbCategoryCell.h; sourceTree = "<group>"; };
 		DC26C2131B050CAB00F9385A /* DubbCategoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DubbCategoryCell.m; sourceTree = "<group>"; };
+		DC26C2181B0BAF2E00F9385A /* DubbSubCategoryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DubbSubCategoryController.h; path = Listing/DubbSubCategoryController.h; sourceTree = "<group>"; };
+		DC26C2191B0BAF2E00F9385A /* DubbSubCategoryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DubbSubCategoryController.m; path = Listing/DubbSubCategoryController.m; sourceTree = "<group>"; };
 		DC63FC741AD7B5EA00A505B8 /* DubbOverlayProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DubbOverlayProgressView.h; sourceTree = "<group>"; };
 		DC63FC751AD7B5EA00A505B8 /* DubbOverlayProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DubbOverlayProgressView.m; sourceTree = "<group>"; };
 		DC63FC771AD7BBF900A505B8 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
@@ -989,6 +992,8 @@
 				DC675A551AE69C3C00E5CBDA /* DubbGigsViewController.m */,
 				DC26C20E1B050C7B00F9385A /* DubbCategoriesViewController.h */,
 				DC26C20F1B050C7B00F9385A /* DubbCategoriesViewController.m */,
+				DC26C2181B0BAF2E00F9385A /* DubbSubCategoryController.h */,
+				DC26C2191B0BAF2E00F9385A /* DubbSubCategoryController.m */,
 			);
 			name = Listing;
 			sourceTree = "<group>";
@@ -1584,6 +1589,7 @@
 				0DFCB17C1AFFDAF0001F2820 /* DubbSingleListingViewController.m in Sources */,
 				7C09A5A91AB1E93C00218127 /* DubbSignUpEmailViewController.m in Sources */,
 				7C09A5FF1AB2A2DB00218127 /* DubbListingsViewController.m in Sources */,
+				DC26C21A1B0BAF2E00F9385A /* DubbSubCategoryController.m in Sources */,
 				0D1FA5A41ACA183C00079C79 /* ELCImagePickerController.m in Sources */,
 				7C09A6131AB31C7200218127 /* DubbSenderTableViewCell.m in Sources */,
 				0D1FA40E1ACA17EB00079C79 /* DubbServiceDescriptionViewController.m in Sources */,
@@ -1747,6 +1753,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Dubb/Dubb-Prefix.pch";
 				INFOPLIST_FILE = Dubb/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1754,7 +1761,7 @@
 					"$(PROJECT_DIR)/Dubb/ExtraFrameworks/Library",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "42c4ab87-95f3-40ee-8f91-ad819bc07a79";
+				PROVISIONING_PROFILE = "02db9c51-93aa-4ca1-ac08-6115a91c1704";
 			};
 			name = Debug;
 		};
@@ -1777,6 +1784,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Dubb/Dubb-Prefix.pch";
 				INFOPLIST_FILE = Dubb/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1784,7 +1792,7 @@
 					"$(PROJECT_DIR)/Dubb/ExtraFrameworks/Library",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1df7004a-bfd3-4aa2-9359-71d54924e8b9";
+				PROVISIONING_PROFILE = "4f43c284-7061-42ef-88e9-32317124715f";
 			};
 			name = Release;
 		};

@@ -23,6 +23,8 @@
 @interface AppDelegate (){
     CLLocationManager *locationManager;
     CLPlacemark *placeMark;
+
+    NSTimer *updatingLocationTimer;
 }
 
 @end
@@ -110,12 +112,18 @@
 {
     if( [User currentUser].chatUser )
         [[ChatService instance] logout];
+    
+    if( updatingLocationTimer )
+        [updatingLocationTimer invalidate];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
     if( [User currentUser].chatUser )
         [[ChatService instance] logout];
+    
+    if( updatingLocationTimer )
+        [updatingLocationTimer invalidate];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -127,11 +135,18 @@
         
         [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
     }
+    
+    [self startLocationTimer];
 }
 
 
 #pragma mark -
 #pragma mark GeoLocation
+
+-(void)startLocationTimer
+{
+    updatingLocationTimer = [NSTimer scheduledTimerWithTimeInterval:300 target:self selector:@selector(updateUserLocation) userInfo:nil repeats:YES];
+}
 
 -(void) updateUserLocation
 {
@@ -149,15 +164,15 @@
     
 }
 
-- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
-    CLLocation *currentLocation = newLocation;
+    CLLocation *currentLocation = (CLLocation*)[locations lastObject];
     
     if (currentLocation != nil) {
         User *currentUser = [User currentUser];
         currentUser.longitude = [NSNumber numberWithFloat: currentLocation.coordinate.longitude];
         currentUser.latitude = [NSNumber numberWithFloat: currentLocation.coordinate.latitude];
- 
+        
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidLocationUpdated
                                                             object:nil userInfo:nil];
     }
@@ -167,7 +182,7 @@
     
     CLGeocoder* reverseGeocoder = [[CLGeocoder alloc] init];
     if (reverseGeocoder) {
-        [reverseGeocoder reverseGeocodeLocation:newLocation completionHandler:^(NSArray *placemarks, NSError *error) {
+        [reverseGeocoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray *placemarks, NSError *error) {
             CLPlacemark* placemark = [placemarks firstObject];
             if (placemark) {
                 //Using blocks, get zip code
@@ -181,7 +196,11 @@
             }
         }];
     }
-    
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+{
+    NSLog(@"Location Updated");
 }
 
 

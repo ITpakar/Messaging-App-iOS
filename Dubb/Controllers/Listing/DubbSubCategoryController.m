@@ -1,12 +1,12 @@
 //
-//  DubbListingsViewController.m
+//  DubbSubCategoryController.m
 //  Dubb
 //
-//  Created by Oleg Koshkin on 13/03/15.
+//  Created by Oleg K on 5/19/15.
 //  Copyright (c) 2015 dubb.co. All rights reserved.
 //
 
-#import "DubbListingsViewController.h"
+#import "DubbSubCategoryController.h"
 #import "DubbListingCell.h"
 
 #import "DubbGigsViewController.h"
@@ -18,7 +18,7 @@
 #import "DubbCategoriesViewController.h"
 #import "DubbSingleListingViewController.h"
 
-@interface DubbListingsViewController (){
+@interface DubbSubCategoryController (){
     
     __weak IBOutlet UIButton *btnMenuBar;
     __weak IBOutlet UIButton *btnRightMenuBar;
@@ -29,7 +29,7 @@
     __weak IBOutlet NSLayoutConstraint *searchBarLeftConstraint;
     __weak IBOutlet NSLayoutConstraint *searchContainerViewConstraint;
     
-    __weak IBOutlet UILabel *titleLabel;   
+    __weak IBOutlet UILabel *titleLabel;
     
     __weak IBOutlet UITextField *locationSearchBar;
     
@@ -55,7 +55,7 @@
 
 @end
 
-@implementation DubbListingsViewController
+@implementation DubbSubCategoryController
 
 
 - (void)viewDidLoad {
@@ -73,14 +73,14 @@
 }
 
 
-#pragma mark - 
+#pragma mark -
 #pragma mark - SearchBar
 
 //Initialize UIs for search
 -(void) setupSearch{
     
     self.definesPresentationContext = YES;
- 
+    
     overlayView = [[UIView alloc] init];
     overlayView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3f];
     tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cancelSearch)];
@@ -133,7 +133,7 @@
 #pragma mark SearchBar Delegate
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-
+    
     if(locationSearchBar == textField){
         [self.view addSubview:locationTableView];
         return YES;
@@ -172,9 +172,9 @@
     if( locationSearchBar == textField ){
         return YES;
     }
-
+    
     if( ![searchBar.text isEqualToString:@""] || locationTableView.superview != nil ) return YES;
-
+    
     searchBarConstraint.constant = 12;
     searchBarLeftConstraint.constant = 12;
     searchBarTopConstraint.constant = 25;
@@ -241,7 +241,7 @@
 
 
 -(void) updateSuggestions{
-    if( ![suggestionKeyword isEqualToString:@""] && [searchBar.text isEqualToString:suggestionKeyword] && [[self.navigationController visibleViewController] isKindOfClass:[DubbListingsViewController class]] ){
+    if( ![suggestionKeyword isEqualToString:@""] && [searchBar.text isEqualToString:suggestionKeyword] && [[self.navigationController visibleViewController] isKindOfClass:[DubbSubCategoryController class]] ){
         
         [self.backend getSuggestionList:suggestionKeyword CompletionHandler:^(NSDictionary *result) {
             suggestionLists = [[NSMutableArray alloc] init];
@@ -262,7 +262,7 @@
         searchText = @"";
         locationSearchBar.text = @"";
     }
-
+    
     if( ![searchText isEqualToString:@""] && ![searchText isEqualToString:@"Current Location"] ){
         locationKeyword = searchText;
         [self performSelector:@selector(updateLocations) withObject:nil afterDelay:0.25f];
@@ -277,7 +277,7 @@
         [geocoder geocodeAddressString:locationKeyword  completionHandler: ^ (NSArray  *placemarks, NSError *error) {
             [locationLists removeAllObjects];
             for(CLPlacemark *placemark in placemarks) {
-
+                
                 NSMutableDictionary *location = [NSMutableDictionary dictionaryWithDictionary:placemark.addressDictionary];
                 [location setObject:@(placemark.location.coordinate.latitude) forKey:@"latitude"];
                 [location setObject:@(placemark.location.coordinate.longitude) forKey:@"longitude"];
@@ -303,7 +303,7 @@
     return location;
 }
 
-#pragma mark - 
+#pragma mark -
 #pragma mark - Load Listings
 
 -(void) loadListings : (BOOL) refresh{
@@ -311,7 +311,7 @@
     if( refresh ){
         [self showProgress:@"Load Listing..."];
         currentListingPage = 1;
-        [self.backend getAllListings:[NSString stringWithFormat:@"%d", currentListingPage] CompletionHandler:^(NSDictionary *result) {
+        [self.backend getListingsWithCategoryID:_categoryID Page: currentListingPage CompletionHandler:^(NSDictionary *result) {
             [self hideProgress];
             [listingsTableView.pullToRefreshView stopAnimating];
             if( ![result[@"error"] boolValue] ){
@@ -322,14 +322,16 @@
         }];
         
     } else {
-
+        currentListingPage = (int)(listings.count/25) + 1;
         
-        [self.backend getAllListings:[NSString stringWithFormat:@"%d", currentListingPage] CompletionHandler:^(NSDictionary *result) {
+        [self.backend getListingsWithCategoryID:_categoryID Page: currentListingPage CompletionHandler:^(NSDictionary *result) {
             [listingsTableView.infiniteScrollingView stopAnimating];
             if( ![result[@"error"] boolValue] ){
                 if( [result[@"response"] count] > 0 ){
-                    currentListingPage ++;
-                    [listings addObjectsFromArray:result[@"response"]];
+                    if( currentListingPage == 1 )
+                        listings = [NSMutableArray arrayWithArray:result[@"response"]];
+                    else
+                        [listings addObjectsFromArray:result[@"response"]];
                     [listingsTableView reloadData];
                 }
             }
@@ -416,10 +418,10 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-
+    
     if( row == [suggestionLists count]){
         NSMutableAttributedString * keyword = [[NSMutableAttributedString alloc] initWithString:
-                                              [NSString stringWithFormat:@"search users containing \"%@\"", searchBar.text]];
+                                               [NSString stringWithFormat:@"search users containing \"%@\"", searchBar.text]];
         
         [keyword addAttribute:NSForegroundColorAttributeName value:[UIColor grayColor] range:NSMakeRange(0, keyword.length)];
         [keyword addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(25, searchBar.text.length)];
@@ -471,7 +473,7 @@
 }
 
 
-#pragma mark - 
+#pragma mark -
 #pragma mark - Navigation
 
 -(void) onBack {
@@ -494,5 +496,11 @@
     }
     
 }
+
+
+- (IBAction)onBackToCategory:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 
 @end

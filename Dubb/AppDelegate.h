@@ -16,6 +16,7 @@
 
 -(void)didReceiveMessage: (QBChatMessage*) message;
 -(void)updateUserLocation;@property (strong, nonatomic) UIWindow *window;
+-(void)startLocationTimer;
 
 @property (strong) NotificationView *notificationView;
 

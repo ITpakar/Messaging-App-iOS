@@ -46,6 +46,10 @@
 @property (strong, nonatomic) IBOutlet SZTextView *serviceDescriptionTextView;
 @property (strong, nonatomic) IBOutlet UILabel *baseServicePriceLabel;
 @property (strong, nonatomic) IBOutlet UILabel *baseServiceDescriptionLabel;
+@property (strong, nonatomic) IBOutlet UIView *serviceDescriptionContainerView;
+@property (strong, nonatomic) IBOutlet UIView *fulfillmentInfoContainerView;
+@property (strong, nonatomic) IBOutlet UIView *fulfillmentAreaContainerView;
+@property (strong, nonatomic) IBOutlet UIView *tagsContainerView;
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @end
@@ -108,6 +112,22 @@
     
     [IQKeyboardManager sharedManager].shouldShowTextFieldPlaceholder = NO;
     [IQKeyboardManager sharedManager].enable = NO;
+    
+    [self addTapGestures];
+}
+
+- (void)addTapGestures {
+    UITapGestureRecognizer *serviceDescriptionTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(editServiceDescription:)];
+    [self.serviceDescriptionContainerView addGestureRecognizer:serviceDescriptionTapGestureRecognizer];
+    
+    UITapGestureRecognizer *fulfillmentInfoTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(editFulfillmentInfo:)];
+    [self.fulfillmentInfoContainerView addGestureRecognizer:fulfillmentInfoTapGestureRecognizer];
+    
+    UITapGestureRecognizer *fulfillmentAreaTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(editFulfillmentArea:)];
+    [self.fulfillmentAreaContainerView addGestureRecognizer:fulfillmentAreaTapGestureRecognizer];
+    
+    UITapGestureRecognizer *tagsTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(editTags:)];
+    [self.tagsContainerView addGestureRecognizer:tagsTapGestureRecognizer];
 }
 
 - (void)doneClicked:(UIBarButtonItem*)button {
@@ -185,8 +205,8 @@
     dubbServiceDescriptionViewController.delegate = self;
     dubbServiceDescriptionViewController.titleString = titleString;
     dubbServiceDescriptionViewController.placeholderString = placeholderString;
-    dubbServiceDescriptionViewController.descriptionString = currentDescriptionLabel.text;
     currentDescriptionLabel = descriptionLabel;
+    dubbServiceDescriptionViewController.descriptionString = currentDescriptionLabel.text;
     [self.navigationController pushViewController:dubbServiceDescriptionViewController animated:YES];
 }
 
@@ -264,8 +284,6 @@
 
 - (IBAction)submitButtonTapped:(id)sender {
     
-    [self performSegueWithIdentifier:@"displayCreateListingConfirmationSegue" sender:nil];
-    
     NSString* title = self.serviceDescriptionTextView.text;
     NSString* tags = self.tagsLabel.text;
     
@@ -338,7 +356,7 @@
                              @"radius_km":radius,
                              @"addon":addonArray,
                              @"main_image":imageURLs[0],
-                             @"images":imageURLs,
+                             @"images":imagesWithoutMainImage,
                              @"tags":tagsArray
                              };
     

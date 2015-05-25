@@ -32,6 +32,7 @@
     
     _categoryNameLabel.text = category[@"name"];
     
+    [_activityIndicator stopAnimating];
     [_activityIndicator startAnimating];
     [[SDImageCache sharedImageCache] queryDiskCacheForKey:_categoryData[@"image"][@"url"] done:^(UIImage *image, SDImageCacheType cacheType) {
         if( image != nil){

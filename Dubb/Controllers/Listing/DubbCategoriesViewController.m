@@ -9,6 +9,7 @@
 #import "DubbCategoriesViewController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "DubbCategoryCell.h"
+#import "DubbSubCategoryController.h"
 
 @interface DubbCategoriesViewController () <UICollectionViewDataSource, UICollectionViewDelegate>{
     
@@ -54,10 +55,17 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
     DubbCategoryCell* cell = (DubbCategoryCell*)[collectionView dequeueReusableCellWithReuseIdentifier:@"categoryCell" forIndexPath:indexPath];
-    if( cell.categoryData == nil ){
+    //if( cell.categoryData == nil ){
         [cell setupCell:categoryList[indexPath.row]];
-    }
+    //}
     return cell;
+}
+
+-(void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    DubbSubCategoryController *subCategoryController = (DubbSubCategoryController*)[self.storyboard instantiateViewControllerWithIdentifier:@"subCategoryController"];
+    subCategoryController.categoryID = categoryList[indexPath.row][@"id"];
+    [self.navigationController pushViewController:subCategoryController animated:YES];
 }
 
 

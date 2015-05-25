@@ -23,7 +23,7 @@
     // Do any additional setup after loading the view.
     
     [((AppDelegate*)[UIApplication sharedApplication].delegate) updateUserLocation];
-
+    [((AppDelegate*)[UIApplication sharedApplication].delegate) startLocationTimer];
 }
 
 - (void)didReceiveMemoryWarning {

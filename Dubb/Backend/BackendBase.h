@@ -34,6 +34,7 @@
 
 -(void) getListingWithID:(NSString *)listingID CompletionHandler:(void (^)(NSDictionary *result))handler;
 
+-(void) getListingsWithCategoryID :(NSString*) categoryID Page:(NSInteger)page CompletionHandler:(void (^)(NSDictionary *result))handler;
 
 /* Common functions for all backends */
 
