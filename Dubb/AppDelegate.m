@@ -38,7 +38,7 @@
     [iRate sharedInstance].onlyPromptIfLatestVersion = NO;
     
     //enable preview mode
-    [iRate sharedInstance].previewMode = YES;
+    //[iRate sharedInstance].previewMode = YES;
 }
 
 
@@ -69,6 +69,22 @@
     
     [NRLogger setLogLevels:NRLogLevelALL];
     [NewRelicAgent startWithApplicationToken:kNewRelicToken];
+    
+    // Setup for APN
+    
+    if ([application respondsToSelector:@selector(isRegisteredForRemoteNotifications)])
+    {
+        // iOS 8 Notifications
+        [application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
+        
+        [application registerForRemoteNotifications];
+    }
+    else {
+        // iOS < 8 Notifications
+        [application registerForRemoteNotificationTypes:
+         (UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert)];
+    }
+    
     return YES;
 }
 
@@ -267,12 +283,19 @@
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
-    [QBRequest registerSubscriptionForDeviceToken:deviceToken successBlock:^(QBResponse *response, NSArray *subscriptions) {
-        NSLog(@"Register for APNS");
-    } errorBlock:nil];
+    
+    NSString *tokenStr = [deviceToken description];
+    NSString *pushToken = [[[tokenStr
+                             stringByReplacingOccurrencesOfString:@"<" withString:@""]
+                            stringByReplacingOccurrencesOfString:@">" withString:@""]
+                           stringByReplacingOccurrencesOfString:@" " withString:@""];
+    
+    NSLog(@"Device token: %@", pushToken);
+    [[NSUserDefaults standardUserDefaults] setObject:pushToken forKey:DEFAULTS_DEVICE_TOKEN];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    
 }
-
-
 #pragma mark Message Notification
 
 //Message when App is foreground

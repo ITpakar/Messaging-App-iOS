@@ -34,7 +34,10 @@
 
 -(void) getListingWithID:(NSString *)listingID CompletionHandler:(void (^)(NSDictionary *result))handler;
 
+-(void) checkValidityOfUsername:(NSString *)userName CompletionHandler:(void (^)(NSDictionary *result))handler;
 
+-(void) registerDeviceToken:(NSString *)deviceToken forUser:(NSString *)userID
+          CompletionHandler:(void (^)(NSDictionary *result))handler;
 /* Common functions for all backends */
 
 - (void) accessAPIbyPost:(NSString *)apiPath

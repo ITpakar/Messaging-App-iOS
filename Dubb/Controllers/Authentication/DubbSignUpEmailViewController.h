@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "AuthViewController.h"
 @interface DubbSignUpEmailViewController : AuthViewController
-
+@property(nonatomic) NSDictionary *userInfo;
+@property(nonatomic) NSString *userId;
 @end

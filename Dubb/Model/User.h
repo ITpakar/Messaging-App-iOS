@@ -24,7 +24,7 @@
 @property NSString* gender;
 @property NSString* gpID;
 @property NSString* fbID;
-@property  NSString* quickbloxID;
+@property NSString* quickbloxID;
 
 @property (nonatomic) NSInteger timeZone;
 @property NSDateFormatter *dateFormatter;

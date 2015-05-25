@@ -7,6 +7,7 @@
 //
 
 #import "AuthViewController.h"
+#import "DubbSignUpEmailViewController.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import <GooglePlus/GooglePlus.h>
 #import <GoogleOpenSource/GoogleOpenSource.h>
@@ -174,12 +175,11 @@
     if( userType == kFacebookUser ){
         currentUser.fbID = userid;
         
-        /*params = @{@"username":[NSString stringWithFormat:@"fb%@", userid], @"password":qbDefaultPassword, @"email":email, @"first":fname, @"last":lname, @"lat":currentUser.latitude, @"long":currentUser.longitude, @"facebook_token":userid, @"gender":gender};*/
-        params = @{ @"email":email, @"password":qbDefaultPassword, @"first":fname, @"last":lname, @"lat":@"55.7502", @"long":@"37.6168", @"facebook_token":userid, @"gender":gender};
+        params = @{ @"email":email, @"password":qbDefaultPassword, @"first":fname, @"last":lname, @"lat":@"55.7502", @"long":@"37.6168", @"facebook_token":userid, @"gender":gender, @"image": url};
         
     } else {
         currentUser.gpID = userid;
-        params = @{ @"email":email, @"password":qbDefaultPassword, @"first":fname, @"last":lname, @"lat":@"55.7502", @"long":@"37.6168", @"gplus_token":userid};
+        params = @{ @"email":email, @"password":qbDefaultPassword, @"first":fname, @"last":lname, @"lat":@"55.7502", @"long":@"37.6168", @"gplus_token":userid, @"image": url};
     }
                              
     if( currentUser.latitude.intValue + currentUser.longitude.intValue != 0 )
@@ -206,7 +206,10 @@
                     [self registerUserToQuickBlox];
                 }
             } else {
-                [self.navigationController pushViewController: [self.storyboard instantiateViewControllerWithIdentifier:@"SignUpWithUsernameViewController"] animated:YES];
+                DubbSignUpEmailViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SignUpWithEmailViewController"];
+                vc.userId = result[@"response"][@"id"];
+                vc.userInfo = params;
+                [self.navigationController pushViewController: vc animated:YES];
             }
             
         } else {
@@ -215,6 +218,31 @@
         }
     }];
     
+    return -1;
+}
+
+-(int) updateUserToDubbWithUserID: (NSString *)userID
+                           params: (NSDictionary*) params
+{
+    [self showProgress:@"Connecting..."];
+    [self.backend updateUser:userID Parameters:params CompletionHandler:^(NSDictionary *result) {
+        
+        [self hideProgress];
+        if (result) {
+        
+            User *user = [User initialize:result[@"response"]];
+            
+            if (user.quickbloxID && ![user.quickbloxID isEqualToString:@""]){
+                [self showProgress:@"Logging in..."];
+                [self loginToQuickBlox];
+            } else {
+                [self showProgress:@"Registering a user..."];
+                [self registerUserToQuickBlox];
+            }
+            
+        }
+        
+    }];
     return -1;
 }
 
@@ -254,9 +282,11 @@
          
          [QBRequest signUp:user successBlock:^(QBResponse *response, QBUUser *user) {
              [User currentUser].quickbloxID = [NSString stringWithFormat:@"%d", (int)user.ID];
-             [self.backend updateUser:[User currentUser].userID Parameters:@{@"quickblox_id":@(user.ID)} CompletionHandler:^(NSDictionary *result) {
-                 NSLog(@"Update QuickBlox ID");
-             }];
+             NSMutableDictionary *paramsToBeUpdated = [NSMutableDictionary dictionaryWithDictionary:@{@"quickblox_id":@(user.ID)}];
+             if ([[NSUserDefaults standardUserDefaults] objectForKey:DEFAULTS_DEVICE_TOKEN])
+                 [self.backend registerDeviceToken:[[NSUserDefaults standardUserDefaults] stringForKey:DEFAULTS_DEVICE_TOKEN] forUser:[User currentUser].userID CompletionHandler:nil];
+             
+             [self.backend updateUser:[User currentUser].userID Parameters:@{@"quickblox_id":@(user.ID)} CompletionHandler:nil];
              
              [QBRequest logInWithUserLogin:user.login password:qbDefaultPassword successBlock:^(QBResponse *response, QBUUser *user) {
                  [User currentUser].chatUser = user;

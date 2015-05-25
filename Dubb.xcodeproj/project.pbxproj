@@ -102,10 +102,11 @@
 		0D344D991B027E750069D816 /* share_twitter_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D344D941B027E750069D816 /* share_twitter_button.png */; };
 		0D344D9A1B027E750069D816 /* share_whatsapp_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D344D951B027E750069D816 /* share_whatsapp_button.png */; };
 		0D344D9E1B068DD40069D816 /* UIImage+fixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D344D9D1B068DD40069D816 /* UIImage+fixOrientation.m */; };
-		0D3626EF1B0C2C18002A7814 /* flag.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D3626ED1B0C2C18002A7814 /* flag.png */; };
 		0D3626F01B0C2C18002A7814 /* flag@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D3626EE1B0C2C18002A7814 /* flag@2x.png */; };
 		0D3626F51B0C377E002A7814 /* iRate.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0D3626F21B0C377E002A7814 /* iRate.bundle */; };
 		0D3626F61B0C377E002A7814 /* iRate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D3626F41B0C377E002A7814 /* iRate.m */; };
+		0D76B5021B12510F00D24BFA /* TextFieldValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D76B5011B12510F00D24BFA /* TextFieldValidator.m */; };
+		0D79C46A1B12DBD80021AAE4 /* M13Checkbox.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D79C4691B12DBD80021AAE4 /* M13Checkbox.m */; };
 		0DFCB1641AFFD9FE001F2820 /* ask_question_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DFCB14E1AFFD9FE001F2820 /* ask_question_button.png */; };
 		0DFCB1651AFFD9FE001F2820 /* ask_question_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DFCB14F1AFFD9FE001F2820 /* ask_question_button@2x.png */; };
 		0DFCB1661AFFD9FE001F2820 /* book_now_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DFCB1501AFFD9FE001F2820 /* book_now_button.png */; };
@@ -373,11 +374,14 @@
 		0D344D951B027E750069D816 /* share_whatsapp_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = share_whatsapp_button.png; sourceTree = "<group>"; };
 		0D344D9C1B068DD40069D816 /* UIImage+fixOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+fixOrientation.h"; sourceTree = "<group>"; };
 		0D344D9D1B068DD40069D816 /* UIImage+fixOrientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+fixOrientation.m"; sourceTree = "<group>"; };
-		0D3626ED1B0C2C18002A7814 /* flag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flag.png; sourceTree = "<group>"; };
 		0D3626EE1B0C2C18002A7814 /* flag@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "flag@2x.png"; sourceTree = "<group>"; };
 		0D3626F21B0C377E002A7814 /* iRate.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = iRate.bundle; sourceTree = "<group>"; };
 		0D3626F31B0C377E002A7814 /* iRate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iRate.h; sourceTree = "<group>"; };
 		0D3626F41B0C377E002A7814 /* iRate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iRate.m; sourceTree = "<group>"; };
+		0D76B5001B12510F00D24BFA /* TextFieldValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFieldValidator.h; sourceTree = "<group>"; };
+		0D76B5011B12510F00D24BFA /* TextFieldValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFieldValidator.m; sourceTree = "<group>"; };
+		0D79C4681B12DBD80021AAE4 /* M13Checkbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M13Checkbox.h; sourceTree = "<group>"; };
+		0D79C4691B12DBD80021AAE4 /* M13Checkbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M13Checkbox.m; sourceTree = "<group>"; };
 		0DFCB14E1AFFD9FE001F2820 /* ask_question_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ask_question_button.png; sourceTree = "<group>"; };
 		0DFCB14F1AFFD9FE001F2820 /* ask_question_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ask_question_button@2x.png"; sourceTree = "<group>"; };
 		0DFCB1501AFFD9FE001F2820 /* book_now_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = book_now_button.png; sourceTree = "<group>"; };
@@ -795,6 +799,24 @@
 			path = iRate;
 			sourceTree = "<group>";
 		};
+		0D76B4FF1B12510F00D24BFA /* TextFieldValidator */ = {
+			isa = PBXGroup;
+			children = (
+				0D76B5001B12510F00D24BFA /* TextFieldValidator.h */,
+				0D76B5011B12510F00D24BFA /* TextFieldValidator.m */,
+			);
+			path = TextFieldValidator;
+			sourceTree = "<group>";
+		};
+		0D79C4671B12DBD80021AAE4 /* M13Checkbox */ = {
+			isa = PBXGroup;
+			children = (
+				0D79C4681B12DBD80021AAE4 /* M13Checkbox.h */,
+				0D79C4691B12DBD80021AAE4 /* M13Checkbox.m */,
+			);
+			path = M13Checkbox;
+			sourceTree = "<group>";
+		};
 		0DFCB1891AFFDB3B001F2820 /* ListingTopView */ = {
 			isa = PBXGroup;
 			children = (
@@ -836,7 +858,6 @@
 		7C09A5971AB1CFE200218127 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				0D3626ED1B0C2C18002A7814 /* flag.png */,
 				0D3626EE1B0C2C18002A7814 /* flag@2x.png */,
 				0D344D911B027E750069D816 /* share_email_button.png */,
 				0D344D921B027E750069D816 /* share_facebook_button.png */,
@@ -1201,6 +1222,8 @@
 		7CA773CF1AB1C35300F6D631 /* ExFrameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0D79C4671B12DBD80021AAE4 /* M13Checkbox */,
+				0D76B4FF1B12510F00D24BFA /* TextFieldValidator */,
 				0D3626F11B0C377E002A7814 /* iRate */,
 				0DFCB18A1AFFDB8B001F2820 /* APParallaxHeader */,
 				7C0E429E1AD61B36000CF83E /* FIxOrientation */,
@@ -1451,7 +1474,6 @@
 				0D1FA6B31ACA23CA00079C79 /* prev_button.png in Resources */,
 				0DFCB16E1AFFD9FE001F2820 /* minus_button.png in Resources */,
 				0D1FA6671ACA183D00079C79 /* monitoring-2010-08-01.json in Resources */,
-				0D3626EF1B0C2C18002A7814 /* flag.png in Resources */,
 				0DFCB1671AFFD9FE001F2820 /* book_now_button@2x.png in Resources */,
 				7C09A59D1AB1D20D00218127 /* logo.png in Resources */,
 				0DFCB16C1AFFD9FE001F2820 /* left_arrow.png in Resources */,
@@ -1582,6 +1604,7 @@
 				7C4A0ACA1AC1D744007DA690 /* ChatHistoryController.m in Sources */,
 				0D1FA6561ACA183D00079C79 /* UIViewController+RESideMenu.m in Sources */,
 				7C09A5DC1AB2259B00218127 /* DubbTextField.m in Sources */,
+				0D79C46A1B12DBD80021AAE4 /* M13Checkbox.m in Sources */,
 				0D1FA59A1ACA183C00079C79 /* AFURLConnectionOperation.m in Sources */,
 				7C09A6031AB2A36C00218127 /* ChatViewController.m in Sources */,
 				7C09A5E41AB2994500218127 /* MBProgressHUD.m in Sources */,
@@ -1638,6 +1661,7 @@
 				0D1FA59D1ACA183C00079C79 /* AFURLSessionManager.m in Sources */,
 				0D344D901B027BE90069D816 /* DubbCreateListingConfirmationViewController.m in Sources */,
 				7C09A5D41AB1FCB600218127 /* DubbSignInViewController.m in Sources */,
+				0D76B5021B12510F00D24BFA /* TextFieldValidator.m in Sources */,
 				7C4A0AB31ABFA209007DA690 /* AuthViewController.m in Sources */,
 				7C09A5A61AB1E19000218127 /* DubbSignUpViewController.m in Sources */,
 				DC26C2141B050CAB00F9385A /* DubbCategoryCell.m in Sources */,
@@ -1772,8 +1796,8 @@
 			baseConfigurationReference = 3FC747553FC9F4473463E4B0 /* Pods-Dubb.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Venk Tatineni (L996VHMYTF)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Venk Tatineni (L996VHMYTF)";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1794,7 +1818,7 @@
 					"$(PROJECT_DIR)/Dubb/ExtraFrameworks/Library",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "9ddca4ac-eb3c-4c03-9ed0-cac5e2cd9914";
 			};
 			name = Debug;
 		};
@@ -1824,7 +1848,7 @@
 					"$(PROJECT_DIR)/Dubb/ExtraFrameworks/Library",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "4a5f2aa6-1bda-401a-924b-2b607728b81c";
+				PROVISIONING_PROFILE = "a98b398e-090d-44a2-a7e6-34fa60550810";
 			};
 			name = Release;
 		};

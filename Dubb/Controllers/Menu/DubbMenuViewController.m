@@ -41,7 +41,7 @@
     menus = [[NSMutableArray alloc] initWithObjects:@"Home", @"Create a Listing", @"Chat", @"Set Offline", @"Support", @"Logout", nil ];
     selectedMenu = @"Listings";
     
-    if( [[User currentUser].userID isEqualToString:@""] )
+    if( [[NSString stringWithFormat:@"%@", [User currentUser].userID] isEqualToString:@""] )
         menus[4] = @"Login";
     
     [self showProfile];

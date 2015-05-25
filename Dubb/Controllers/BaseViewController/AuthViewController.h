@@ -16,5 +16,6 @@
 -(void) registerUserWithUsername : (NSDictionary*)params;
 -(void) loginToQuickBlox;
 -(void) onAuthenticationSuccess : (BOOL)chatLogged;
-
+-(int) registerUserToDubb : (NSDictionary*) params;
+-(int) updateUserToDubbWithUserID: (NSString *)userID params: (NSDictionary*) params;
 @end
