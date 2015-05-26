@@ -105,6 +105,8 @@
 		0D3626F01B0C2C18002A7814 /* flag@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D3626EE1B0C2C18002A7814 /* flag@2x.png */; };
 		0D3626F51B0C377E002A7814 /* iRate.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0D3626F21B0C377E002A7814 /* iRate.bundle */; };
 		0D3626F61B0C377E002A7814 /* iRate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D3626F41B0C377E002A7814 /* iRate.m */; };
+		0D6B7D5F1B143D3B000B0352 /* signup_textfield_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D6B7D5E1B143D3B000B0352 /* signup_textfield_background@2x.png */; };
+		0D6B7D611B14401C000B0352 /* signup_textfield_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D6B7D601B14401C000B0352 /* signup_textfield_background.png */; };
 		0D76B5021B12510F00D24BFA /* TextFieldValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D76B5011B12510F00D24BFA /* TextFieldValidator.m */; };
 		0D79C46A1B12DBD80021AAE4 /* M13Checkbox.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D79C4691B12DBD80021AAE4 /* M13Checkbox.m */; };
 		0DFCB1641AFFD9FE001F2820 /* ask_question_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DFCB14E1AFFD9FE001F2820 /* ask_question_button.png */; };
@@ -378,6 +380,8 @@
 		0D3626F21B0C377E002A7814 /* iRate.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = iRate.bundle; sourceTree = "<group>"; };
 		0D3626F31B0C377E002A7814 /* iRate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iRate.h; sourceTree = "<group>"; };
 		0D3626F41B0C377E002A7814 /* iRate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iRate.m; sourceTree = "<group>"; };
+		0D6B7D5E1B143D3B000B0352 /* signup_textfield_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "signup_textfield_background@2x.png"; sourceTree = "<group>"; };
+		0D6B7D601B14401C000B0352 /* signup_textfield_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = signup_textfield_background.png; sourceTree = "<group>"; };
 		0D76B5001B12510F00D24BFA /* TextFieldValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFieldValidator.h; sourceTree = "<group>"; };
 		0D76B5011B12510F00D24BFA /* TextFieldValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFieldValidator.m; sourceTree = "<group>"; };
 		0D79C4681B12DBD80021AAE4 /* M13Checkbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M13Checkbox.h; sourceTree = "<group>"; };
@@ -858,6 +862,8 @@
 		7C09A5971AB1CFE200218127 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				0D6B7D601B14401C000B0352 /* signup_textfield_background.png */,
+				0D6B7D5E1B143D3B000B0352 /* signup_textfield_background@2x.png */,
 				0D3626EE1B0C2C18002A7814 /* flag@2x.png */,
 				0D344D911B027E750069D816 /* share_email_button.png */,
 				0D344D921B027E750069D816 /* share_facebook_button.png */,
@@ -1444,6 +1450,7 @@
 				0D1FA6A61ACA23CA00079C79 /* location_pin.png in Resources */,
 				0D1FA6AC1ACA23CA00079C79 /* category_dropdown.png in Resources */,
 				0D1FA6681ACA183D00079C79 /* s3-2006-03-01.json in Resources */,
+				0D6B7D611B14401C000B0352 /* signup_textfield_background.png in Resources */,
 				0DFCB1761AFFD9FE001F2820 /* share_sheet_button.png in Resources */,
 				7C09A59B1AB1D03B00218127 /* login_background.jpg in Resources */,
 				DC675A531AE69ACE00E5CBDA /* filter@2x.png in Resources */,
@@ -1522,6 +1529,7 @@
 				0D1FA6A51ACA23CA00079C79 /* arrow@2x.png in Resources */,
 				0D344D981B027E750069D816 /* share_sms_button.png in Resources */,
 				0D1FA6A91ACA23CA00079C79 /* map_icon@2x.png in Resources */,
+				0D6B7D5F1B143D3B000B0352 /* signup_textfield_background@2x.png in Resources */,
 				0D344D9A1B027E750069D816 /* share_whatsapp_button.png in Resources */,
 				0D3626F01B0C2C18002A7814 /* flag@2x.png in Resources */,
 				0D1FA6A81ACA23CA00079C79 /* map_icon.png in Resources */,

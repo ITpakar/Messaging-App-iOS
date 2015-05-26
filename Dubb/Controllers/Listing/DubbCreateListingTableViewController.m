@@ -71,8 +71,12 @@
     radius = @"100";
     isServiceDescriptionEdited = NO;
     
-    [self.serviceDescriptionTextView setPlaceholder:@"I'll do something I'm really good at..."];
-    
+    [self.serviceDescriptionTextView setPlaceholder:@"to provide a great local service."];
+    UILabel *dollarLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, 80, 15)];
+    dollarLabel.text = @"Hire me ";
+    [self.serviceDescriptionTextView addSubview:dollarLabel];
+    self.serviceDescriptionTextView.textContainerInset = UIEdgeInsetsMake(3, 60, 0, 20);
+    self.serviceDescriptionTextView.font = [UIFont systemFontOfSize:16.0f];
     // Configure a PickerView for selecting a position
     UIToolbar *toolbar = [[UIToolbar alloc] init];
     [toolbar setBarStyle:UIBarStyleBlackTranslucent];
@@ -331,7 +335,7 @@
     
     NSMutableArray *imagesWithoutMainImage = [imageURLs mutableCopy];
     if (imagesWithoutMainImage.count == 1) {
-        params = @{@"name":self.serviceDescriptionTextView.text,
+        params = @{@"name":[NSString stringWithFormat:@"Hire me to %@", self.serviceDescriptionTextView.text],
                    @"instructions":self.fulfillmentInfoLabel.text,
                    @"description":self.baseServiceDescriptionLabel.text,
                    @"category_id":categories[self.categoryTextField.selectedRow][@"id"],
@@ -346,7 +350,7 @@
                    };
     } else {
         [imagesWithoutMainImage removeObjectAtIndex:0];
-        params = @{@"name":self.serviceDescriptionTextView.text,
+        params = @{@"name":[NSString stringWithFormat:@"Hire me to %@", self.serviceDescriptionTextView.text],
                              @"instructions":self.fulfillmentInfoLabel.text,
                              @"description":self.baseServiceDescriptionLabel.text,
                              @"category_id":categories[self.categoryTextField.selectedRow][@"id"],

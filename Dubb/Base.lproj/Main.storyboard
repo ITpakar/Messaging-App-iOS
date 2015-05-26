@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="9mC-Dp-d8L">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -916,7 +915,7 @@ Dubb!</string>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wjE-Qr-3wx" customClass="TextFieldValidator">
-                                                <rect key="frame" x="36" y="106" width="249" height="40"/>
+                                                <rect key="frame" x="36" y="182" width="249" height="40"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
@@ -926,33 +925,13 @@ Dubb!</string>
                                                 </connections>
                                             </textField>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tBy-gy-TTm" customClass="TextFieldValidator">
-                                                <rect key="frame" x="36" y="65" width="249" height="40"/>
+                                                <rect key="frame" x="36" y="141" width="249" height="40"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                                 <connections>
                                                     <outlet property="delegate" destination="Dad-qT-83G" id="iTs-uc-U4V"/>
                                                     <outlet property="presentInView" destination="kDk-Y8-awY" id="blJ-d4-co6"/>
-                                                </connections>
-                                            </textField>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="First Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8bo-jZ-pFZ" customClass="TextFieldValidator">
-                                                <rect key="frame" x="36" y="181" width="249" height="40"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                                <connections>
-                                                    <outlet property="delegate" destination="Dad-qT-83G" id="f1d-hO-5IG"/>
-                                                    <outlet property="presentInView" destination="kDk-Y8-awY" id="0ao-j4-QvP"/>
-                                                </connections>
-                                            </textField>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Last Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eSP-6W-Fwd" customClass="TextFieldValidator">
-                                                <rect key="frame" x="36" y="222" width="249" height="40"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                                <connections>
-                                                    <outlet property="delegate" destination="Dad-qT-83G" id="Gjf-fe-15E"/>
-                                                    <outlet property="presentInView" destination="kDk-Y8-awY" id="aNj-bE-7kB"/>
                                                 </connections>
                                             </textField>
                                             <button opaque="NO" tag="4" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FiI-4l-Uwc">
@@ -977,7 +956,7 @@ Dubb!</string>
                                                 </connections>
                                             </button>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="foi-S4-2Hi" customClass="TextFieldValidator">
-                                                <rect key="frame" x="36" y="24" width="249" height="40"/>
+                                                <rect key="frame" x="36" y="100" width="249" height="40"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
@@ -987,7 +966,7 @@ Dubb!</string>
                                                 </connections>
                                             </textField>
                                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nBy-z9-biz" customClass="M13Checkbox">
-                                                <rect key="frame" x="50" y="153" width="160" height="20"/>
+                                                <rect key="frame" x="50" y="230" width="160" height="20"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l4A-CS-SJk">
@@ -1001,6 +980,26 @@ Dubb!</string>
                                                     <action selector="signUpButtonTapped:" destination="Dad-qT-83G" eventType="touchUpInside" id="cDc-QZ-fGL"/>
                                                 </connections>
                                             </button>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="First Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8bo-jZ-pFZ" customClass="TextFieldValidator">
+                                                <rect key="frame" x="36" y="18" width="249" height="40"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="Dad-qT-83G" id="f1d-hO-5IG"/>
+                                                    <outlet property="presentInView" destination="kDk-Y8-awY" id="0ao-j4-QvP"/>
+                                                </connections>
+                                            </textField>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Last Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eSP-6W-Fwd" customClass="TextFieldValidator">
+                                                <rect key="frame" x="36" y="59" width="249" height="40"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="Dad-qT-83G" id="Gjf-fe-15E"/>
+                                                    <outlet property="presentInView" destination="kDk-Y8-awY" id="aNj-bE-7kB"/>
+                                                </connections>
+                                            </textField>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -1866,7 +1865,7 @@ Dubb!</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aLD-ru-zId" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2175" y="617"/>
+            <point key="canvasLocation" x="2096" y="602"/>
         </scene>
         <!--Chat Users Controller-->
         <scene sceneID="EyM-GJ-3ux">
@@ -2944,19 +2943,6 @@ Dubb!</string>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" tag="9876" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KuC-4v-kdS">
-                                        <rect key="frame" x="8" y="32" width="17" height="17"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="17" id="EVj-LY-bRc"/>
-                                            <constraint firstAttribute="width" constant="17" id="lUS-aW-KKj"/>
-                                        </constraints>
-                                        <state key="normal" image="btn_prevnavigation_white.png">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="backButtonTapped:" destination="xzN-HF-2Nc" eventType="touchUpInside" id="oV3-iz-UaY"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5tI-ny-MK4">
                                         <rect key="frame" x="553" y="28" width="39" height="29"/>
                                         <constraints>
@@ -2969,6 +2955,19 @@ Dubb!</string>
                                         </state>
                                         <connections>
                                             <action selector="saveButtonTapped:" destination="xzN-HF-2Nc" eventType="touchUpInside" id="6VT-zh-lH0"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KuC-4v-kdS">
+                                        <rect key="frame" x="8" y="32" width="17" height="17"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="17" id="EVj-LY-bRc"/>
+                                            <constraint firstAttribute="width" constant="17" id="lUS-aW-KKj"/>
+                                        </constraints>
+                                        <state key="normal" image="btn_prevnavigation_white.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="backButtonTapped:" destination="xzN-HF-2Nc" eventType="touchUpInside" id="oV3-iz-UaY"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -2986,7 +2985,7 @@ Dubb!</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vco-xU-Cjp" userLabel="Container View">
                                 <rect key="frame" x="10" y="80" width="580" height="230"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text=" $" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HxP-4d-Gyg">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HxP-4d-Gyg">
                                         <rect key="frame" x="0.0" y="195" width="580" height="30"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -3807,7 +3806,7 @@ Dubb!</string>
                         <rect key="frame" x="0.0" y="0.0" width="320" height="700"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="mK1-eb-UxF">
+                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="mK1-eb-UxF">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="650"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -4135,29 +4134,24 @@ Dubb!</string>
                                     <action selector="backButtonTapped:" destination="TcD-JJ-32S" eventType="touchUpInside" id="TPO-lW-Uwh"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7eZ-4g-J22" userLabel="Flag Button">
-                                <rect key="frame" x="280" y="13" width="32" height="32"/>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Ow0-Qz-Vg5">
+                                <rect key="frame" x="142" y="332" width="37" height="37"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="32" id="7Mc-OT-Iiw"/>
-                                    <constraint firstAttribute="width" constant="32" id="ei9-li-vyy"/>
+                                    <constraint firstAttribute="height" constant="37" id="TIY-z6-Ogd"/>
+                                    <constraint firstAttribute="width" constant="37" id="okw-ha-Jof"/>
                                 </constraints>
-                                <state key="normal" image="flag.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="flagButtonTapped:" destination="TcD-JJ-32S" eventType="touchUpInside" id="sE7-OR-a0c"/>
-                                </connections>
-                            </button>
+                                <color key="color" red="0.0" green="0.65490196079999996" blue="0.039215686270000001" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.90980392160000001" green="0.90980392160000001" blue="0.90980392160000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="7eZ-4g-J22" secondAttribute="trailing" constant="8" id="0Jv-2u-eIg"/>
                             <constraint firstItem="mK1-eb-UxF" firstAttribute="leading" secondItem="TdN-1H-Sgo" secondAttribute="leading" id="4S1-Xk-lXy"/>
                             <constraint firstAttribute="trailing" secondItem="mK1-eb-UxF" secondAttribute="trailing" id="7HL-bF-Snk"/>
                             <constraint firstItem="yEi-Cm-zZE" firstAttribute="top" secondItem="mK1-eb-UxF" secondAttribute="bottom" id="Dvd-OV-L2a"/>
-                            <constraint firstItem="7eZ-4g-J22" firstAttribute="top" secondItem="TdN-1H-Sgo" secondAttribute="top" constant="13" id="Lo8-kT-94H"/>
+                            <constraint firstAttribute="centerY" secondItem="Ow0-Qz-Vg5" secondAttribute="centerY" id="JOM-Qg-e7o"/>
                             <constraint firstItem="mK1-eb-UxF" firstAttribute="top" secondItem="TdN-1H-Sgo" secondAttribute="top" id="b33-4U-AI6"/>
                             <constraint firstItem="yEi-Cm-zZE" firstAttribute="leading" secondItem="TdN-1H-Sgo" secondAttribute="leading" id="gqQ-FU-mYO"/>
+                            <constraint firstAttribute="centerX" secondItem="Ow0-Qz-Vg5" secondAttribute="centerX" id="hF2-OI-EfM"/>
                             <constraint firstAttribute="trailing" secondItem="yEi-Cm-zZE" secondAttribute="trailing" id="mxN-3J-jA6"/>
                             <constraint firstItem="bNd-iF-w4a" firstAttribute="top" secondItem="yEi-Cm-zZE" secondAttribute="bottom" id="rBR-ZE-VIZ"/>
                         </constraints>
@@ -4174,6 +4168,7 @@ Dubb!</string>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="700"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="Ow0-Qz-Vg5" id="IJV-TG-m0f"/>
                         <outlet property="bookNowButton" destination="6wm-7P-0ZT" id="hFZ-SK-Ejt"/>
                         <outlet property="tableView" destination="mK1-eb-UxF" id="Akh-II-V0q"/>
                     </connections>
@@ -4550,7 +4545,6 @@ Dubb!</string>
         <image name="checkmark.png" width="23" height="19"/>
         <image name="close_icon.png" width="24" height="24"/>
         <image name="filter.png" width="45" height="45"/>
-        <image name="flag.png" width="12" height="15"/>
         <image name="home_background.jpg" width="1536" height="2048"/>
         <image name="icon_menu.png" width="22" height="16"/>
         <image name="image_delete_button.png" width="25" height="25"/>

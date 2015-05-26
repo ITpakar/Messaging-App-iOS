@@ -32,6 +32,7 @@
 }
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UIButton *bookNowButton;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @end
 
@@ -75,7 +76,7 @@ enum DubbSingleListingViewTag {
     
     [self.navigationController popViewControllerAnimated:YES];
 }
-- (IBAction)flagButtonTapped:(id)sender {
+- (void)flagButtonTapped{
     
     if (![MFMailComposeViewController canSendMail]) {
         [self showMessage:@"Your device can't send Email!"];
@@ -102,6 +103,7 @@ enum DubbSingleListingViewTag {
     [self.view setFrame:self.navigationController.view.bounds];
     
     topView = [[[NSBundle mainBundle] loadNibNamed:@"ListingTopView" owner:nil options:nil] objectAtIndex:0];
+    topView.parentViewController = self;
     [topView initViews];
     topView.slideShow.delegate = self;
     [topView.shareSheetButton addTarget:self action:@selector(shareSheetButtonTapped) forControlEvents:UIControlEventTouchUpInside];
@@ -111,13 +113,21 @@ enum DubbSingleListingViewTag {
     isAskingQuestion = NO;
     
     __weak DubbSingleListingViewController * weakSelf = self;
-
+    [self.activityIndicator startAnimating];
     [self.backend getListingWithID:self.listingID CompletionHandler:^(NSDictionary *result) {
-        
+        [self.activityIndicator stopAnimating];
         listingInfo = result[@"response"];
         NSArray *images = listingInfo[@"images"];
         addOns = listingInfo[@"addon"];
         sellerInfo = listingInfo[@"user"];
+        
+        if ([sellerInfo isKindOfClass:[NSNull class]]) {
+            [self showMessage:@"Invalid Listing"];
+            [self.navigationController popViewControllerAnimated:YES];
+            return;
+        }
+        
+        self.tableView.hidden = NO;
         
         int index = 0;
         for (NSDictionary *addOnInfo in addOns) {
@@ -250,8 +260,8 @@ static bool liked = NO;
         isAskingQuestion = NO;
         
     }else{
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errors"
-                                                        message:[[result errors] componentsJoinedByString:@","]
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                        message:@"You can't chat with yourself"
                                                        delegate:nil
                                               cancelButtonTitle:@"Ok"
                                               otherButtonTitles: nil];

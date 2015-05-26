@@ -196,6 +196,11 @@
     supportObj=[[TextFieldValidatorSupport alloc] init];
     supportObj.validateOnCharacterChanged=validateOnCharacterChanged;
     supportObj.validateOnResign=validateOnResign;
+    self.layer.cornerRadius=8.0f;
+    self.layer.masksToBounds=YES;
+    self.layer.borderWidth = 1;
+    self.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+    
     NSNotificationCenter *notify=[NSNotificationCenter defaultCenter];
     [notify addObserver:self selector:@selector(didHideKeyboard) name:UIKeyboardWillHideNotification object:nil];
 }
@@ -208,6 +213,15 @@
 -(void)setValidateOnResign:(BOOL)validate{
     supportObj.validateOnResign=validate;
     validateOnResign=validate;
+}
+
+- (CGRect)textRectForBounds:(CGRect)bounds {
+    return CGRectInset( bounds , 10 , 10 );
+}
+
+// text position
+- (CGRect)editingRectForBounds:(CGRect)bounds {
+    return CGRectInset( bounds , 10 , 10 );
 }
 
 #pragma mark - Public methods

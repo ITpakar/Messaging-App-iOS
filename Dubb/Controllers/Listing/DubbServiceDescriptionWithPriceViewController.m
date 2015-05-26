@@ -39,8 +39,8 @@
 
 #pragma mark - Navigation View Button Events
 - (IBAction)saveButtonTapped:(id)sender {
-    
-    NSInteger price = [[self.priceTextField.text substringFromIndex:2] integerValue];
+
+    NSInteger price = [self.priceTextField.text integerValue];
     
     if (price <= 0) {
         
@@ -57,13 +57,13 @@
     }
     
     if (self.currentIndex == -1) {
-        [self.addOns addObject:@{@"description":self.descriptionTextView.text, @"price":[self.priceTextField.text substringFromIndex:2], @"sequence":[NSString stringWithFormat:@"%ld", self.addOns.count + 1]}];
+        [self.addOns addObject:@{@"description":self.descriptionTextView.text, @"price":self.priceTextField.text, @"sequence":[NSString stringWithFormat:@"%ld", self.addOns.count + 1]}];
     } else if (self.currentIndex >= 0) {
-        [self.addOns setObject:@{@"description":self.descriptionTextView.text, @"price":[self.priceTextField.text substringFromIndex:2], @"sequence":[NSString stringWithFormat:@"%ld", self.currentIndex + 1]} atIndexedSubscript:self.currentIndex];
+        [self.addOns setObject:@{@"description":self.descriptionTextView.text, @"price":self.priceTextField.text, @"sequence":[NSString stringWithFormat:@"%ld", self.currentIndex + 1]} atIndexedSubscript:self.currentIndex];
     }
     
     if ([self.delegate respondsToSelector:@selector(completedWithDescription:WithPrice:)]) {
-        [self.delegate completedWithDescription:self.descriptionTextView.text WithPrice:self.priceTextField.text];
+        [self.delegate completedWithDescription:self.descriptionTextView.text WithPrice:[NSString stringWithFormat:@"$%@", self.priceTextField.text]];
     }
     [self.navigationController popViewControllerAnimated:YES];
     
@@ -83,17 +83,24 @@
     if (self.addOns && self.currentIndex > -1) {
         NSDictionary *addOn = self.addOns[self.currentIndex];
         self.descriptionTextView.text = addOn[@"description"];
-        self.priceTextField.text = [NSString stringWithFormat:@"$%@", addOn[@"price"]];
+        self.priceTextField.text = [NSString stringWithFormat:@"%@", addOn[@"price"]];
     } else if (self.currentIndex == -2){
         
         if (self.baseServicePrice) {
             self.descriptionTextView.text = self.baseServiceDescription;
-            self.priceTextField.text = self.baseServicePrice;
+            self.priceTextField.text = [self.baseServicePrice substringFromIndex:1];
         } else {
-            self.priceTextField.text = @"$20";
+            self.priceTextField.text = @"20";
         }
         
     }
+    
+    UILabel *dollarLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 10, self.priceTextField.frame.size.height)];
+    dollarLabel.text = @"$ ";
+    dollarLabel.textColor = [UIColor grayColor];
+    self.priceTextField.leftView = dollarLabel;
+    self.priceTextField.leftViewMode = UITextFieldViewModeAlways;
+    self.priceTextField.font = [UIFont systemFontOfSize:16.0f];
 
 }
 /*
