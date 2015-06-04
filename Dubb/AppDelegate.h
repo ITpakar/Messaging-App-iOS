@@ -10,6 +10,7 @@
 #import <UIKit/UIKit.h>
 #import "NotificationView.h"
 #import "iRate.h"
+#import "PaypalMobile.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, NotificationDelegate, QBActionStatusDelegate, CLLocationManagerDelegate, iRateDelegate>
 
@@ -20,5 +21,7 @@
 -(void)startLocationTimer;
 
 @property (strong) NotificationView *notificationView;
+
+@property PayPalConfiguration *payPalConfig;
 @end
 

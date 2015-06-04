@@ -21,6 +21,8 @@
 #import <CoreLocation/CLGeocoder.h>
 #import <CoreLocation/CLPlacemark.h>
 
+
+
 @interface AppDelegate () {
     CLLocationManager *locationManager;
     CLPlacemark *placeMark;
@@ -51,6 +53,8 @@
     
     [self enableQuickBlox];
     [self enableUserVoice];
+    
+    [self enablePaypal];
     
     #ifndef DEBUG
         [QBApplication sharedApplication].productionEnvironmentForPushesEnabled = YES;    
@@ -168,6 +172,30 @@
     [QBConnection registerServiceKey:qbServiceKey];
     [QBConnection registerServiceSecret:qbServiceSecret];
     [QBSettings setAccountKey:qbAccountKey];
+}
+
+#pragma mark - 
+#pragma mark Paypal
+
+-(void) enablePaypal {
+    [PayPalMobile initializeWithClientIdsForEnvironments:@{PayPalEnvironmentSandbox : @"AdOfwWKxjLZCn5ePvgo5bIfs5CmnnzdMfKucDIzE9jVbN8t0lytx5X_goUf5DAbEfmIbKQMbY4M3OAfC"}];
+    
+    // Set up payPalConfig
+    _payPalConfig = [[PayPalConfiguration alloc] init];
+    _payPalConfig.acceptCreditCards = YES;
+    _payPalConfig.merchantName = @"Dubb Inc.";
+    _payPalConfig.merchantPrivacyPolicyURL = [NSURL URLWithString:@"https://www.paypal.com/webapps/mpp/ua/privacy-full"];
+    _payPalConfig.merchantUserAgreementURL = [NSURL URLWithString:@"https://www.paypal.com/webapps/mpp/ua/useragreement-full"];
+    
+    
+    _payPalConfig.languageOrLocale = [NSLocale preferredLanguages][0];
+    
+    _payPalConfig.payPalShippingAddressOption = PayPalShippingAddressOptionPayPal;
+    _payPalConfig.acceptCreditCards = YES;
+    
+    NSLog(@"PayPal iOS SDK version: %@", [PayPalMobile libraryVersion]);
+
+    [PayPalMobile preconnectWithEnvironment:PayPalEnvironmentSandbox];
 }
 
 #pragma mark -

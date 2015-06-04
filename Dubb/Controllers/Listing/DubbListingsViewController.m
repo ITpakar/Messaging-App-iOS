@@ -18,7 +18,10 @@
 #import "DubbCategoriesViewController.h"
 #import "DubbSingleListingViewController.h"
 
-@interface DubbListingsViewController (){
+#import "PaypalMobile.h"
+#import "AppDelegate.h"
+
+@interface DubbListingsViewController () <DubbListingCellDelegate, PayPalPaymentDelegate>{
     
     __weak IBOutlet UIButton *btnMenuBar;
     __weak IBOutlet UIButton *btnRightMenuBar;
@@ -373,8 +376,10 @@
         NSString *cellIdentifier = [NSString stringWithFormat:@"listing%@", item[@"id"]];
         cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         
-        if( !cell )
+        if( !cell ){
             cell = [[DubbListingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier listingInfo:item];
+            ((DubbListingCell*)cell).delegate = self;
+        }
     }
     return cell;
 }
@@ -494,5 +499,54 @@
     }
     
 }
+
+#pragma mark - 
+#pragma mark Payment
+
+-(void) onPay:(NSDictionary *)listing Location:(NSString *)location
+{
+    NSInteger price = 20;
+    
+    if( listing[@"baseprice"] ) price = [listing[@"baseprice"] integerValue];
+    
+    PayPalPayment *payment = [[PayPalPayment alloc] init];
+    payment.amount = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%lu", price]];
+    payment.currencyCode = @"USD";
+    payment.shortDescription = [NSString stringWithFormat:@"%@ (%@: %@)", listing[@"name"], listing[@"user"][@"first"], location ];
+    payment.items = nil;  // if not including multiple items, then leave payment.items as nil
+    payment.paymentDetails = nil; // if not including payment details, then leave payment.paymentDetails as nil
+    
+    AppDelegate *app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    
+    PayPalPaymentViewController *paymentViewController = [[PayPalPaymentViewController alloc] initWithPayment:payment
+                                                                                                configuration:app.payPalConfig
+                                                                                                     delegate:self];
+    [self presentViewController:paymentViewController animated:YES completion:nil];
+    
+}
+
+#pragma mark PayPalPaymentDelegate methods
+
+- (void)payPalPaymentViewController:(PayPalPaymentViewController *)paymentViewController didCompletePayment:(PayPalPayment *)completedPayment {
+    NSLog(@"PayPal Payment Success!\n %@", [completedPayment description]);
+    [self showMessage:@"Payment succeed"];
+    
+    [self sendCompletedPaymentToServer:completedPayment]; // Payment was processed successfully; send to server for verification and fulfillment
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)payPalPaymentDidCancel:(PayPalPaymentViewController *)paymentViewController {
+    NSLog(@"PayPal Payment Canceled");
+    [self showMessage:@"Payment cancelled"];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark Proof of payment validation
+
+- (void)sendCompletedPaymentToServer:(PayPalPayment *)completedPayment {
+    // TODO: Send completedPayment.confirmation to server
+    NSLog(@"Here is your proof of payment:\n\n%@\n\nSend this to your server for confirmation and fulfillment.", completedPayment.confirmation);
+}
+
 
 @end

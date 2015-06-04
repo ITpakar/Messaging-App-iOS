@@ -46,7 +46,6 @@
     signIn.shouldFetchGoogleUserID = YES;
     
     signIn.clientID = kGoogleClientID;
-    
     signIn.scopes = @[ kGTLAuthScopePlusLogin ];
     
     signIn.delegate = self;

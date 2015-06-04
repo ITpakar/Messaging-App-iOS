@@ -12,6 +12,7 @@
 #import <CoreLocation/CLPlacemark.h>
 #import <SDWebImage/UIImageView+WebCache.h>
 
+
 @interface DubbListingCell(){
     UIView*         containerView;
     UIImageView*    profileImageView;
@@ -22,7 +23,7 @@
     UIButton*       btnOrder;
     
     UIActivityIndicatorView *mainImageIndicator;
-    
+    NSString *userLocation;
 }
 
 @end
@@ -77,6 +78,8 @@
         [btnOrder.titleLabel setShadowOffset:CGSizeMake(1, 1)];
         [btnOrder setBackgroundColor:[UIColor colorWithRed:1.0f green:0.67f blue:0.21 alpha:1.0f]];
         
+        [btnOrder addTarget:self action:@selector(onOrder) forControlEvents:UIControlEventTouchUpInside];
+        
         @try{
             profileImageView.image = [UIImage imageNamed:@"portrait.png"];
             titleLabel.text = listing[@"name"];
@@ -92,10 +95,10 @@
                 CLPlacemark *placemark = [placemarks firstObject];
                 if(placemark) {
                     //NSMutableString *location = [[NSMutableString alloc] init];
-                    NSString *location = @"";
+                    userLocation = @"";
                     @try{
                         if( placemark.addressDictionary[(NSString*)kABPersonAddressCityKey] && placemark.addressDictionary[(NSString*)kABPersonAddressStateKey])
-                            location = [NSString stringWithFormat:@"%@, %@", placemark.addressDictionary[(NSString*)kABPersonAddressCityKey], placemark.addressDictionary[(NSString*)kABPersonAddressStateKey]];
+                            userLocation = [NSString stringWithFormat:@"%@, %@", placemark.addressDictionary[(NSString*)kABPersonAddressCityKey], placemark.addressDictionary[(NSString*)kABPersonAddressStateKey]];
                         
                         /*NSArray *locations = placemark.addressDictionary[@"FormattedAddressLines"];
                         int lower_range = (locations.count > 2 ? 1: 0);
@@ -110,7 +113,7 @@
                         }*/
                         
                         userLabel = [[UILabel alloc] init];
-                        NSMutableAttributedString *userText = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ %@", _listing[@"user"][@"first"], location] attributes:@{NSForegroundColorAttributeName : [UIColor grayColor], NSFontAttributeName: [UIFont systemFontOfSize:12.0f]}];
+                        NSMutableAttributedString *userText = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ %@", _listing[@"user"][@"first"], userLocation] attributes:@{NSForegroundColorAttributeName : [UIColor grayColor], NSFontAttributeName: [UIFont systemFontOfSize:12.0f]}];
                         [userText addAttribute:NSForegroundColorAttributeName value:[UIColor blueColor] range:NSMakeRange(0, [_listing[@"user"][@"first"] length])];
                         userLabel.attributedText = userText;
                         [containerView addSubview:userLabel];
@@ -214,6 +217,10 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+-(void) onOrder {
+    [self.delegate onPay:_listing Location:userLocation];
 }
 
 @end
