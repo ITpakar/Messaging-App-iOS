@@ -419,7 +419,7 @@
 
     if( row == [suggestionLists count]){
         NSMutableAttributedString * keyword = [[NSMutableAttributedString alloc] initWithString:
-                                              [NSString stringWithFormat:@"search users containing \"%@\"", searchBar.text]];
+                                              [NSString stringWithFormat:@"search listings containing \"%@\"", searchBar.text]];
         
         [keyword addAttribute:NSForegroundColorAttributeName value:[UIColor grayColor] range:NSMakeRange(0, keyword.length)];
         [keyword addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(25, searchBar.text.length)];
