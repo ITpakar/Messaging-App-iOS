@@ -36,8 +36,9 @@
 
 -(void) checkValidityOfUsername:(NSString *)userName CompletionHandler:(void (^)(NSDictionary *result))handler;
 
--(void) registerDeviceToken:(NSString *)deviceToken forUser:(NSString *)userID
-          CompletionHandler:(void (^)(NSDictionary *result))handler;
+-(void) registerDeviceToken:(NSString *)deviceToken forUser:(NSString *)userID CompletionHandler:(void (^)(NSDictionary *result))handler;
+
+-(void) createOrder:(NSDictionary*)params CompletionHandler:(void (^)(NSDictionary *result))handler;
 /* Common functions for all backends */
 
 - (void) accessAPIbyPost:(NSString *)apiPath
@@ -65,6 +66,5 @@
                     Image:(UIImage*) image
                  filename:(NSString*)filename
       CompletionHandler:(void (^)(NSDictionary *result, NSData *data, NSError *error))handler;
-
-
+-(void) getAllOrdersForUserType:(NSString *)userType CompletionHandler:(void (^)(NSDictionary *result))handler;
 @end

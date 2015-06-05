@@ -14,6 +14,7 @@
 #define REGEX_USER_NAME @"[A-Za-z0-9_]{3,10}"
 #define REGEX_EMAIL @"[A-Z0-9a-z._%+-]{3,}+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"
 #define REGEX_PASSWORD_LIMIT @"^.{6,20}$"
+#define REGEX_PHONE_DEFAULT @"[0-9]{3}\\-[0-9]{3}\\-[0-9]{4}"
 
 @interface DubbSignUpEmailViewController (){
     __weak IBOutlet TextFieldValidator *txtEmail;
@@ -21,6 +22,7 @@
     __weak IBOutlet TextFieldValidator *txtPassword;
     __weak IBOutlet TextFieldValidator *txtFirstname;
     __weak IBOutlet TextFieldValidator *txtLastName;
+    __weak IBOutlet TextFieldValidator *txtPhone;
     __weak IBOutlet M13Checkbox *chkboxTogglePasswordSecureEntry;
     
     BOOL isUserNameValid;
@@ -113,12 +115,13 @@
     isUserNameValid = YES;
     
     [txtUsername addRegx:REGEX_USER_NAME_LIMIT withMsg:@"User name needs to be between 3 and 10 characters"];
-    [txtUsername addRegx:REGEX_USER_NAME withMsg:@"Only alpha numeric characters and _ are allowed."];
+    [txtUsername addRegx:REGEX_USER_NAME withMsg:@"Only alpha numeric characters and _ are allowed"];
     
-    [txtEmail addRegx:REGEX_EMAIL withMsg:@"Enter valid email."];
+    [txtEmail addRegx:REGEX_EMAIL withMsg:@"Enter valid email"];
     
     [txtPassword addRegx:REGEX_PASSWORD_LIMIT withMsg:@"Password needs to be between 6 and 20 characters"];
     
+    [txtPhone addRegx:REGEX_PHONE_DEFAULT withMsg:@"Enter valid phone number"];
 }
 
 - (void)checkChangedValue:(id)sender
@@ -144,7 +147,7 @@
 }
 - (IBAction)signUpButtonTapped:(id)sender {
     
-    NSDictionary *params = @{ @"email":txtEmail.text, @"password":txtPassword.text, @"username":txtUsername.text, @"first":txtFirstname.text, @"last":txtLastName.text, @"lat":@"55.7502", @"long":@"37.6168"};
+    NSDictionary *params = @{ @"email":txtEmail.text, @"password":txtPassword.text, @"username":txtUsername.text, @"first":txtFirstname.text, @"last":txtLastName.text, @"phone":txtPhone.text, @"lat":@"55.7502", @"long":@"37.6168"};
     
     
     if ([txtUsername validate] && [txtEmail validate] && [txtPassword validate] && [txtFirstname validate] && [txtLastName validate] && isUserNameValid ) {

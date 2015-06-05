@@ -6,15 +6,18 @@
 //  Copyright (c) 2015 dubb.co. All rights reserved.
 //
 #import <MessageUI/MessageUI.h>
-#import "DubbSingleListingViewController.h"
+#import <AddressBookUI/AddressBookUI.h>
+
 #import "UIScrollView+APParallaxHeader.h"
-#import "ListingTopView.h"
 #import "AXRatingView.h"
+#import "MBProgressHUD.h"
+
+#import "ListingTopView.h"
 #import "DubbAddonCell.h"
 #import "DubbGigQuantityCell.h"
 #import "ChatViewController.h"
-#import "MBProgressHUD.h"
-#import <AddressBookUI/AddressBookUI.h>
+#import "DubbOrderConfirmationViewController.h"
+#import "DubbSingleListingViewController.h"
 
 @interface DubbSingleListingViewController () <QBActionStatusDelegate, MFMailComposeViewControllerDelegate>
 {
@@ -76,6 +79,73 @@ enum DubbSingleListingViewTag {
     
     [self.navigationController popViewControllerAnimated:YES];
 }
+- (IBAction)bookNowButtonTapped:(id)sender {
+    
+    if ([[User currentUser].userID isEqualToString:listingInfo[@"user_id"]]) {
+        [self showMessage:@"You can't book your own service!"];
+        return;
+    }
+    
+    NSMutableArray *purchasedAddOnsDetails = [NSMutableArray array];
+    
+    for (NSDictionary *purchasedAddOn in purchasedAddOns) {
+        
+        BOOL exists = NO;
+        
+        for (NSMutableDictionary *addOnDetail in purchasedAddOnsDetails) {
+            if ([addOnDetail[@"addon_id"] isEqualToString:purchasedAddOn[@"id"]]) {
+                
+                exists = YES;
+                addOnDetail[@"quantity"] = [NSString stringWithFormat:@"%ld", [addOnDetail[@"quantity"] integerValue] + 1];
+                addOnDetail[@"amount"] = [NSString stringWithFormat:@"%ld", [purchasedAddOn[@"price"] integerValue] * [addOnDetail[@"quantity"] integerValue]];
+                break;
+                
+            }
+        }
+        
+        if (!exists) {
+            [purchasedAddOnsDetails addObject:[NSMutableDictionary dictionaryWithDictionary:@{@"addon_id":purchasedAddOn[@"id"],
+                                                                                             @"amount":purchasedAddOn[@"price"],
+                                                                                             @"quantity":@"1",
+                                                                                             @"sequence":purchasedAddOn[@"sequence"],
+                                                                                             @"description":purchasedAddOn[@"description"]}]];
+        }
+        
+    }
+    
+    NSInteger sum = 0;
+    
+    for (NSDictionary * addOnInfo in purchasedAddOns) {
+        sum += [addOnInfo[@"price"] integerValue];
+    }
+    
+
+    [self.backend createOrder:@{@"total_amt": @(sum),
+                                @"listing_id": listingInfo[@"id"],
+                                @"buyer_id": [User currentUser].userID,
+                                @"seller_id": listingInfo[@"user_id"],
+                                @"payment_confirmation_id": @"NA",
+                                @"payment_processor_name": @"paypal",
+                                @"special_instructions": @"there are no any special instructions",
+                                @"details": purchasedAddOnsDetails}
+            CompletionHandler:^(NSDictionary *result) {
+        
+                if (result) {
+                    DubbOrderConfirmationViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"DubbOrderConfirmationViewController"];
+                    vc.listingInfo = listingInfo;
+                    vc.purchasedAddOnsDetails = purchasedAddOnsDetails;
+                    vc.totalAmountPurchased = sum;
+                    vc.orderID = [NSString stringWithFormat:@"%@", result[@"response"][@"id"]];
+                    
+                    [self.navigationController pushViewController: vc animated:YES];
+                } else {
+                    [self showMessage:@"Failed to create an order"];
+                }
+        
+    }];
+    
+}
+
 - (void)flagButtonTapped{
     
     if (![MFMailComposeViewController canSendMail]) {
@@ -118,7 +188,7 @@ enum DubbSingleListingViewTag {
         [self.activityIndicator stopAnimating];
         listingInfo = result[@"response"];
         NSArray *images = listingInfo[@"images"];
-        addOns = listingInfo[@"addon"];
+        addOns = [listingInfo[@"addon"] mutableCopy];
         sellerInfo = listingInfo[@"user"];
         
         if ([sellerInfo isKindOfClass:[NSNull class]]) {

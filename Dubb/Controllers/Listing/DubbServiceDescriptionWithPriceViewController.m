@@ -75,15 +75,20 @@
 #pragma mark - Custom Methods
 
 - (void)initView {
+    
     if (self.titleString) {
+        
         self.titleLabel.text = self.titleString;
         [self.descriptionTextView setPlaceholder:self.placeholderString];
+        
     }
     
     if (self.addOns && self.currentIndex > -1) {
+        
         NSDictionary *addOn = self.addOns[self.currentIndex];
         self.descriptionTextView.text = addOn[@"description"];
         self.priceTextField.text = [NSString stringWithFormat:@"%@", addOn[@"price"]];
+        
     } else if (self.currentIndex == -2){
         
         if (self.baseServicePrice) {

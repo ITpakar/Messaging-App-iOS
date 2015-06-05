@@ -135,4 +135,21 @@ static PHPBackend   *sharedConnection;
     }];
 }
 
+-(void) createOrder:(NSDictionary*)params
+         CompletionHandler:(void (^)(NSDictionary *result))handler
+{
+    NSString *apiPath = [NSString stringWithFormat:@"%@%@", APIURL, @"order"];
+    
+    [self accessAPIbyPost:apiPath Parameters:params CompletionHandler:^(NSDictionary *result, NSData *data, NSError *error) {
+        handler(result);
+    }];
+}
+
+-(void) getAllOrdersForUserType:(NSString *)userType CompletionHandler:(void (^)(NSDictionary *result))handler{
+    NSString *apiPath = [NSString stringWithFormat:@"%@%@", APIURL, @"order"];
+    [self accessAPI:apiPath Parameters:@{@"user_id":[User currentUser].userID, @"user_type":userType, @"with":@"listing,listing.mainImage,listing.user,details.addon"} CompletionHandler:^(NSDictionary *result, NSData *data, NSError *error) {
+        handler(result);
+    }];
+}
+
 @end

@@ -266,6 +266,11 @@
 - (IBAction)menuButtonTapped:(id)sender {
     [self.sideMenuViewController presentLeftMenuViewController];
 }
+- (IBAction)backButtonTapped:(id)sender {
+    
+    [self.navigationController popViewControllerAnimated:YES];
+    
+}
 
 - (IBAction)nextButtonTapped:(id)sender {
     [self.slideShow next];
@@ -313,7 +318,7 @@
         return;
     }
     
-    if ([[self.baseServicePriceLabel.text substringFromIndex:2] intValue] <= 0) {
+    if ([[self.baseServicePriceLabel.text substringFromIndex:1] intValue] <= 0) {
         [self showMessage:@"Please describe your base service price correctly."];
         return;
     }
@@ -326,7 +331,7 @@
     NSMutableArray *imageURLs = [self uploadImages];
     NSArray *tagsArray = [self.tagsLabel.text componentsSeparatedByString:@","];
     NSMutableArray *addonArray = [NSMutableArray arrayWithArray:addOns];
-    [addonArray addObject:@{@"description":self.baseServiceDescriptionLabel.text, @"price":[self.baseServicePriceLabel.text substringFromIndex:2], @"sequence":@"0"}];
+    [addonArray addObject:@{@"description":self.baseServiceDescriptionLabel.text, @"price":[self.baseServicePriceLabel.text substringFromIndex:1], @"sequence":@"0"}];
     
     NSString *apiPath = [NSString stringWithFormat:@"%@%@", APIURL, @"listing"];
     [self showProgress:@"Wait for a moment"];
