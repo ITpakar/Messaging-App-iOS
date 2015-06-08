@@ -67,4 +67,5 @@
                  filename:(NSString*)filename
       CompletionHandler:(void (^)(NSDictionary *result, NSData *data, NSError *error))handler;
 -(void) getAllOrdersForUserType:(NSString *)userType CompletionHandler:(void (^)(NSDictionary *result))handler;
+-(void) getAllMyListingsWithCompletionHandler:(void (^)(NSDictionary *result))handler;
 @end

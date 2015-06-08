@@ -29,6 +29,7 @@ enum DubbListingCellTag {
 @property (strong, nonatomic) IBOutlet UIView *createListingButtonView;
 @property (strong, nonatomic) IBOutlet UIButton *createListingButton;
 @property (strong, nonatomic) IBOutlet UILabel *navigationBarTitleLabel;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *createListingViewHeightConstraint;
 
 @end
 
@@ -37,6 +38,15 @@ enum DubbListingCellTag {
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    
+    if ([self.userType isEqualToString:@"buyer"]) {
+        self.createListingButton.hidden = YES;
+        self.createListingViewHeightConstraint.constant = 0;
+        self.navigationBarTitleLabel.text = @"ORDERS";
+        [self.view layoutIfNeeded];
+    } else {
+        self.navigationBarTitleLabel.text = @"SALES";
+    }
     [self.backend getAllOrdersForUserType:self.userType CompletionHandler:^(NSDictionary *result) {
         
         orderDetails = result[@"response"];
@@ -45,7 +55,6 @@ enum DubbListingCellTag {
     }];
     
 }
-
 
 #pragma mark - Table view data source
 

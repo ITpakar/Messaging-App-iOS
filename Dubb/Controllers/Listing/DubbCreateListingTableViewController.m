@@ -18,7 +18,7 @@
 #import "DubbCreateListingConfirmationViewController.h"
 #import "DubbCreateListingTableViewController.h"
 
-@interface DubbCreateListingTableViewController () <IQDropDownTextFieldDelegate, DubbServiceAreaViewControllerDelegate>
+@interface DubbCreateListingTableViewController () <IQDropDownTextFieldDelegate, DubbServiceAreaViewControllerDelegate, UITextViewDelegate>
 {
     NSArray *categories;
     NSArray *subCategories;
@@ -71,12 +71,12 @@
     radius = @"100";
     isServiceDescriptionEdited = NO;
     
-    [self.serviceDescriptionTextView setPlaceholder:@"to provide a great local service."];
-    UILabel *dollarLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, 80, 15)];
-    dollarLabel.text = @"Hire me ";
+    [self.serviceDescriptionTextView setPlaceholder:@"                 provide a great local service."];
+    UILabel *dollarLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, 80, 15)];
+    dollarLabel.text = @"Hire me to ";
     [self.serviceDescriptionTextView addSubview:dollarLabel];
-    self.serviceDescriptionTextView.textContainerInset = UIEdgeInsetsMake(3, 60, 0, 20);
     self.serviceDescriptionTextView.font = [UIFont systemFontOfSize:16.0f];
+    self.serviceDescriptionTextView.delegate = self;
     // Configure a PickerView for selecting a position
     UIToolbar *toolbar = [[UIToolbar alloc] init];
     [toolbar setBarStyle:UIBarStyleBlackTranslucent];
@@ -85,7 +85,6 @@
     UIBarButtonItem *buttonDone = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneClicked:)];
     
     [toolbar setItems:[NSArray arrayWithObjects:buttonflexible,buttonDone, nil]];
-    
     
     [self.categoryContainerView.layer setCornerRadius:10.0f];
     [self.categoryContainerView.layer setBorderColor:[UIColor colorWithRed:0 green:65/255.0f blue:125.0f/255.0f alpha:1.0f].CGColor];
@@ -119,6 +118,46 @@
     [IQKeyboardManager sharedManager].enable = NO;
     
     [self addTapGestures];
+    
+    if (self.listingDetail) {
+        [self initViewWithValues];
+    }
+    
+}
+
+- (void)initViewWithValues {
+//    @{@"name":[NSString stringWithFormat:@"Hire me to %@", self.serviceDescriptionTextView.text],
+//      @"instructions":self.fulfillmentInfoLabel.text,
+//      @"description":self.baseServiceDescriptionLabel.text,
+//      @"category_id":categories[self.categoryTextField.selectedRow][@"id"],
+//      @"category_edge_id":subCategories[self.subCategoryTextField.selectedRow][@"category_edge_id"],
+//      @"user_id":[User currentUser].userID,
+//      @"lat":[NSString stringWithFormat:@"%f", selectedLocation.locationCoordinates.latitude],
+//      @"long":[NSString stringWithFormat:@"%f", selectedLocation.locationCoordinates.longitude],
+//      @"radius_mi":radius,
+//      @"addon":addonArray,
+//      @"main_image":imageURLs[0],
+//      @"tags":tagsArray
+//      };
+    NSLog(@"%@", self.listingDetail);
+    
+    NSArray *addonArray = self.listingDetail[@"addon"];
+    NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"sequence" ascending:YES];
+    addonArray = [addonArray sortedArrayUsingDescriptors:[NSArray arrayWithObject:descriptor]];
+    self.serviceDescriptionTextView.text = [self.listingDetail[@"name"] substringFromIndex:11];
+    self.serviceDescriptionTextView.text = [self.serviceDescriptionTextView.text stringByReplacingCharactersInRange:NSMakeRange(0,0) withString:@"                 "];
+    self.fulfillmentInfoLabel.text = self.listingDetail[@"instructions"];
+    self.baseServiceDescriptionLabel.text = self.listingDetail[@"description"];
+    self.baseServicePriceLabel.text = [NSString stringWithFormat:@"$%ld", [addonArray[0][@"price"] integerValue]];
+    self.categoryTextField.text = self.listingDetail[@"category"][@"name"];
+    selectedLocation.name = @"";
+    selectedLocation.address = @"";
+    selectedLocation.locationCoordinates = CLLocationCoordinate2DMake([self.listingDetail[@"lat"] floatValue], [self.listingDetail[@"long"] floatValue]);
+    radius = self.listingDetail[@"radius_mi"];
+    addOns = [addonArray mutableCopy];
+    [addOns removeObjectAtIndex:0];
+    [self.tableView reloadData];
+    
 }
 
 - (void)addTapGestures {
@@ -567,7 +606,7 @@
         priceLabel.hidden = NO;
         if (addOns.count > 0) {
             NSDictionary *addOn = addOns[indexPath.row];
-            [priceLabel setText:[NSString stringWithFormat:@"$%@", addOn[@"price"]]];
+            [priceLabel setText:[NSString stringWithFormat:@"$%ld", [addOn[@"price"] integerValue]]];
             [descriptionLabel setText:addOn[@"description"]];
         } else if (addOns.count == 0 && indexPath.row == 0) {
             [priceLabel setText:@"$40"];
@@ -607,6 +646,14 @@
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
+#pragma mark - UITextView Delegate
+- (void)textViewDidChangeSelection:(UITextView *)textView {
+    
+    if (textView.selectedRange.location < 17) {
+        textView.selectedRange = NSMakeRange(17, 0);
+    }
+    
+}
 
 #pragma mark - Navigation
 

@@ -152,4 +152,11 @@ static PHPBackend   *sharedConnection;
     }];
 }
 
+-(void) getAllMyListingsWithCompletionHandler:(void (^)(NSDictionary *result))handler{
+    NSString *apiPath = [NSString stringWithFormat:@"%@%@", APIURL, @"listing"];
+    [self accessAPI:apiPath Parameters:@{@"user_id":[User currentUser].userID} CompletionHandler:^(NSDictionary *result, NSData *data, NSError *error) {
+        handler(result);
+    }];
+}
+
 @end

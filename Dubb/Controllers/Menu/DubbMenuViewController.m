@@ -13,6 +13,7 @@
 #import "AppDelegate.h"
 #import "UserVoice.h"
 #import "DubbSalesOrdersViewController.h"
+#import "DubbMyListingsViewController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
 @interface DubbMenuViewController (){
@@ -115,7 +116,11 @@
             [contentVC setViewControllers:@[vc] animated:NO];
             break;
         
-        
+        case 2:
+            vc = [self.storyboard instantiateViewControllerWithIdentifier:@"DubbMyListingsViewController"];
+            [contentVC setViewControllers:@[vc] animated:NO];
+            break;
+            
         case 3:
             vc = [self.storyboard instantiateViewControllerWithIdentifier:@"DubbSalesOrdersViewController"];
             ((DubbSalesOrdersViewController *)vc).userType = @"buyer";
