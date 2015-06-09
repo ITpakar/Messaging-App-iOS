@@ -28,7 +28,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     self.pastSearchWords = [NSMutableArray array];
     self.pastSearchResults = [NSMutableArray array];
     self.searchTextField.delegate = self;
-    self.selectedLocation = [[SelectedLocation alloc] init];
+    
     
     [self initView];
     
@@ -139,6 +139,28 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     }
     [radiusItems addObjectsFromArray:@[@"250", @"500", @"1000", @"2500", @"5000"]];
     [self.radiusTextField setItemList:radiusItems];
+    
+    if (self.selectedLocation && self.radius) {
+        
+        self.searchTextField.text = self.selectedLocation.name;
+        
+        for (int i = 0; i < radiusItems.count; i++) {
+            if ([self.radius isEqualToString:radiusItems[i]]) {
+                self.radiusTextField.selectedRow = i + 1;
+                break;
+            }
+        }
+        if (self.radiusTextField.selectedRow == 0) {
+            self.radiusTextField.text = self.radius;
+        }
+        
+    } else {
+        
+        self.selectedLocation = [[SelectedLocation alloc] init];
+        
+    }
+    
+    
     
     [self.radiusContainerView.layer setCornerRadius:10.0f];
     [self.radiusContainerView.layer setBorderColor:[UIColor colorWithRed:0 green:65/255.0f blue:125.0f/255.0f alpha:1.0f].CGColor];

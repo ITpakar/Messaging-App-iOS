@@ -6,7 +6,9 @@
 //  Copyright (c) 2015 dubb.co. All rights reserved.
 //
 #import <MobileCoreServices/UTCoreTypes.h>
+#import <AddressBookUI/AddressBookUI.h>
 #import <AWSiOSSDKv2/S3.h>
+#import <SDWebImage/UIImageView+WebCache.h>
 #import "SZTextView.h"
 #import "UIImage+fixOrientation.h"
 #import "IQKeyboardManager.h"
@@ -30,6 +32,7 @@
     BOOL isServiceDescriptionEdited;
     SelectedLocation *selectedLocation;
     NSString *radius;
+    NSString *baseServiceID;
     
     
 }
@@ -71,12 +74,14 @@
     radius = @"100";
     isServiceDescriptionEdited = NO;
     
-    [self.serviceDescriptionTextView setPlaceholder:@"                 provide a great local service."];
+    [self.serviceDescriptionTextView setPlaceholder:@"provide a great local service."];
     UILabel *dollarLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, 80, 15)];
     dollarLabel.text = @"Hire me to ";
     [self.serviceDescriptionTextView addSubview:dollarLabel];
     self.serviceDescriptionTextView.font = [UIFont systemFontOfSize:16.0f];
     self.serviceDescriptionTextView.delegate = self;
+    UIBezierPath *path = [UIBezierPath bezierPathWithRect:CGRectMake(0, 10, 80, 8)];
+    self.serviceDescriptionTextView.textContainer.exclusionPaths = @[path];
     // Configure a PickerView for selecting a position
     UIToolbar *toolbar = [[UIToolbar alloc] init];
     [toolbar setBarStyle:UIBarStyleBlackTranslucent];
@@ -109,8 +114,35 @@
         for (NSDictionary *category in categories) {
             [categoryNames addObject:category[@"name"]];
         }
-        
         [self.categoryTextField setItemList:categoryNames];
+        
+        if (self.listingDetail) {
+            for (int i = 0; i < categoryNames.count; i++) {
+                if ([self.listingDetail[@"category"][@"name"] isEqualToString:categoryNames[i]]) {
+                    self.categoryTextField.selectedRow = i + 1;
+                    NSDictionary *category = [categories objectAtIndex:i];
+                    subCategories = category[@"subcategories"];
+                    
+                    NSMutableArray *subCategoryNames = [NSMutableArray new];
+                    for (NSDictionary *subCategory in subCategories) {
+                        [subCategoryNames addObject:subCategory[@"name"]];
+                    }
+                    
+                    [self.subCategoryTextField setItemList:subCategoryNames];
+                    for (int j = 0; j < subCategoryNames.count; j++) {
+                        
+                        if ([self.listingDetail[@"subcategory"][@"name"] isEqualToString:subCategoryNames[j]]) {
+                            
+                            self.subCategoryTextField.selectedRow = j + 1;
+                            break;
+                        }
+                    }
+                    break;
+                    
+                }
+            }
+        }
+        
     }];
     currentIndexPathRow = -1;
     
@@ -126,37 +158,79 @@
 }
 
 - (void)initViewWithValues {
-//    @{@"name":[NSString stringWithFormat:@"Hire me to %@", self.serviceDescriptionTextView.text],
-//      @"instructions":self.fulfillmentInfoLabel.text,
-//      @"description":self.baseServiceDescriptionLabel.text,
-//      @"category_id":categories[self.categoryTextField.selectedRow][@"id"],
-//      @"category_edge_id":subCategories[self.subCategoryTextField.selectedRow][@"category_edge_id"],
-//      @"user_id":[User currentUser].userID,
-//      @"lat":[NSString stringWithFormat:@"%f", selectedLocation.locationCoordinates.latitude],
-//      @"long":[NSString stringWithFormat:@"%f", selectedLocation.locationCoordinates.longitude],
-//      @"radius_mi":radius,
-//      @"addon":addonArray,
-//      @"main_image":imageURLs[0],
-//      @"tags":tagsArray
-//      };
+
     NSLog(@"%@", self.listingDetail);
     
     NSArray *addonArray = self.listingDetail[@"addon"];
     NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"sequence" ascending:YES];
     addonArray = [addonArray sortedArrayUsingDescriptors:[NSArray arrayWithObject:descriptor]];
     self.serviceDescriptionTextView.text = [self.listingDetail[@"name"] substringFromIndex:11];
-    self.serviceDescriptionTextView.text = [self.serviceDescriptionTextView.text stringByReplacingCharactersInRange:NSMakeRange(0,0) withString:@"                 "];
     self.fulfillmentInfoLabel.text = self.listingDetail[@"instructions"];
     self.baseServiceDescriptionLabel.text = self.listingDetail[@"description"];
     self.baseServicePriceLabel.text = [NSString stringWithFormat:@"$%ld", [addonArray[0][@"price"] integerValue]];
     self.categoryTextField.text = self.listingDetail[@"category"][@"name"];
-    selectedLocation.name = @"";
-    selectedLocation.address = @"";
+
+    baseServiceID = addonArray[0][@"id"];
     selectedLocation.locationCoordinates = CLLocationCoordinate2DMake([self.listingDetail[@"lat"] floatValue], [self.listingDetail[@"long"] floatValue]);
-    radius = self.listingDetail[@"radius_mi"];
+    radius = ([self.listingDetail[@"radius_mi"] integerValue] > 0) ?  self.listingDetail[@"radius_mi"] : [NSString stringWithFormat:@"%.3f", [self.listingDetail[@"radius_km"] integerValue] * 0.621371192];
     addOns = [addonArray mutableCopy];
     [addOns removeObjectAtIndex:0];
     [self.tableView reloadData];
+    
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    CLLocation *location = [[CLLocation alloc] initWithLatitude:[self.listingDetail[@"lat"] floatValue] longitude:[self.listingDetail[@"long"] floatValue]];
+    
+    [geocoder reverseGeocodeLocation:location completionHandler: ^ (NSArray  *placemarks, NSError *error) {
+        
+        CLPlacemark *placemark = [placemarks firstObject];
+        if(placemark) {
+            
+            NSString *city = [placemark.addressDictionary objectForKey:(NSString*)kABPersonAddressCityKey];
+            NSString *state = [placemark.addressDictionary objectForKey:(NSString*)kABPersonAddressStateKey];
+            
+            NSString *locationString = [NSString stringWithFormat:@"%@, %@", city, state];
+            selectedLocation.name = city;
+            selectedLocation.address = locationString;
+            self.fulfillmentAreaLabel.text = [NSString stringWithFormat:@"%@ mile from %@", radius, selectedLocation.address];
+            
+            
+        }
+    }];
+    
+    // initialize with images
+    SDWebImageManager *manager = [SDWebImageManager sharedManager];
+    
+    for (NSDictionary* imageInfo in self.listingDetail[@"images"]) {
+        [manager downloadImageWithURL:imageInfo[@"url"]
+                              options:0
+                             progress:nil
+                            completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+                                if (image) {
+                                    if (self.placeholderButton.hidden == NO) {
+                                        self.placeholderButton.hidden = YES;
+                                    }
+                                    [self.slideShow addImage:image];
+                                    [self updatePageLabel];
+                                }
+                            }];
+    }
+    
+    self.slideShow.delegate = self;
+    [self.slideShow setTransitionType:KASlideShowTransitionSlide]; // Choose a transition type (fade or slide)
+    [self.slideShow setImagesContentMode:UIViewContentModeScaleAspectFill]; // Choose a content mode for images to display
+    [self.slideShow addGesture:KASlideShowGestureSwipe];
+    
+    // initialize with tags
+    NSArray *tagDetails = self.listingDetail[@"tag"];
+    
+    NSMutableString *tagString = [[NSMutableString alloc] init];
+    for (NSDictionary *tag in tagDetails) {
+        [tagString appendFormat:@"%@,", tag[@"name"]];
+    }
+    if ([tagString length] > 0) {
+        tagString = [[tagString substringToIndex:[tagString length] - 1] mutableCopy];
+    }
+    self.tagsLabel.text = tagString;
     
 }
 
@@ -258,6 +332,12 @@
     DubbServiceAreaViewController *dubbServiceAreaViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"DubbServiceAreaViewController"];
     dubbServiceAreaViewController.delegate = self;
     dubbServiceAreaViewController.titleString = titleString;
+
+    if (![self.fulfillmentAreaLabel.text isEqualToString:@"What area is this service for?"]) {
+        dubbServiceAreaViewController.radius = radius;
+        dubbServiceAreaViewController.selectedLocation = selectedLocation;
+    }
+    
     [self.navigationController pushViewController:dubbServiceAreaViewController animated:YES];
 }
 
@@ -274,7 +354,7 @@
         dubbServiceDescriptionViewController.currentIndex = (selectedIndexPath.row < addOns.count) ? selectedIndexPath.row : -1;
     } else {
         dubbServiceDescriptionViewController.currentIndex = -2;
-        if (isServiceDescriptionEdited) {
+        if (![self.baseServiceDescriptionLabel.text isEqualToString:@"Provide an explanation of what you are offering"]) {
             
             dubbServiceDescriptionViewController.baseServicePrice = self.baseServicePriceLabel.text;
             dubbServiceDescriptionViewController.baseServiceDescription = self.baseServiceDescriptionLabel.text;
@@ -288,7 +368,6 @@
 
         [self.baseServicePriceLabel setText:[NSString stringWithFormat:@"%@", price]];
         [self.baseServiceDescriptionLabel setText:description];
-        isServiceDescriptionEdited = YES;
     } else {
         [self.tableView reloadData];
     }
@@ -317,7 +396,7 @@
 }
 - (IBAction)deleteButtonTapped:(id)sender {
     
-    if (self.chosenImages.count > 1) {
+    if (self.slideShow.images.count > 1) {
         [self.slideShow removeObjectFromImagesAtIndex:self.slideShow.currentIndex];
         [self updatePageLabel];
         
@@ -362,7 +441,7 @@
         return;
     }
     
-    if (self.chosenImages.count <= 0) {
+    if (!self.listingDetail && self.chosenImages.count <= 0) {
         [self showMessage:@"Please select at least one image."];
         return;
     }
@@ -370,16 +449,17 @@
     NSMutableArray *imageURLs = [self uploadImages];
     NSArray *tagsArray = [self.tagsLabel.text componentsSeparatedByString:@","];
     NSMutableArray *addonArray = [NSMutableArray arrayWithArray:addOns];
-    [addonArray addObject:@{@"description":self.baseServiceDescriptionLabel.text, @"price":[self.baseServicePriceLabel.text substringFromIndex:1], @"sequence":@"0"}];
+    
+    
     
     NSString *apiPath = [NSString stringWithFormat:@"%@%@", APIURL, @"listing"];
     [self showProgress:@"Wait for a moment"];
     
     NSDictionary *params;
     
-    NSMutableArray *imagesWithoutMainImage = [imageURLs mutableCopy];
-    if (imagesWithoutMainImage.count == 1) {
-        params = @{@"name":[NSString stringWithFormat:@"Hire me to %@", self.serviceDescriptionTextView.text],
+    if (self.listingDetail) {
+        [addonArray insertObject:@{@"id":baseServiceID, @"description":self.baseServiceDescriptionLabel.text, @"price":[self.baseServicePriceLabel.text substringFromIndex:1], @"sequence":@"0"} atIndex:0];
+        params = @{@"name":[NSString stringWithFormat:@"%@", self.serviceDescriptionTextView.text],
                    @"instructions":self.fulfillmentInfoLabel.text,
                    @"description":self.baseServiceDescriptionLabel.text,
                    @"category_id":categories[self.categoryTextField.selectedRow][@"id"],
@@ -389,38 +469,62 @@
                    @"long":[NSString stringWithFormat:@"%f", selectedLocation.locationCoordinates.longitude],
                    @"radius_mi":radius,
                    @"addon":addonArray,
-                   @"main_image":imageURLs[0],
                    @"tags":tagsArray
                    };
+        [self.backend updateListing:self.listingDetail[@"id"] Parameters:params CompletionHandler:^(NSDictionary *result) {
+            [self hideProgress];
+            [self showMessage:@"Successfully updated the listing."];
+            
+        }];
+        
     } else {
-        [imagesWithoutMainImage removeObjectAtIndex:0];
-        params = @{@"name":[NSString stringWithFormat:@"Hire me to %@", self.serviceDescriptionTextView.text],
-                             @"instructions":self.fulfillmentInfoLabel.text,
-                             @"description":self.baseServiceDescriptionLabel.text,
-                             @"category_id":categories[self.categoryTextField.selectedRow][@"id"],
-                             @"category_edge_id":subCategories[self.subCategoryTextField.selectedRow][@"category_edge_id"],
-                             @"user_id":[User currentUser].userID,
-                             @"lat":[NSString stringWithFormat:@"%f", selectedLocation.locationCoordinates.latitude],
-                             @"long":[NSString stringWithFormat:@"%f", selectedLocation.locationCoordinates.longitude],
-                             @"radius_km":radius,
-                             @"addon":addonArray,
-                             @"main_image":imageURLs[0],
-                             @"images":imagesWithoutMainImage,
-                             @"tags":tagsArray
-                             };
-    
+        [addonArray insertObject:@{@"description":self.baseServiceDescriptionLabel.text, @"price":[self.baseServicePriceLabel.text substringFromIndex:1], @"sequence":@"0"} atIndex:0];
+        NSMutableArray *imagesWithoutMainImage = [imageURLs mutableCopy];
+        if (imagesWithoutMainImage.count == 1) {
+            params = @{@"name":[NSString stringWithFormat:@"%@", self.serviceDescriptionTextView.text],
+                       @"instructions":self.fulfillmentInfoLabel.text,
+                       @"description":self.baseServiceDescriptionLabel.text,
+                       @"category_id":categories[self.categoryTextField.selectedRow][@"id"],
+                       @"category_edge_id":subCategories[self.subCategoryTextField.selectedRow][@"category_edge_id"],
+                       @"user_id":[User currentUser].userID,
+                       @"lat":[NSString stringWithFormat:@"%f", selectedLocation.locationCoordinates.latitude],
+                       @"long":[NSString stringWithFormat:@"%f", selectedLocation.locationCoordinates.longitude],
+                       @"radius_mi":radius,
+                       @"addon":addonArray,
+                       @"main_image":imageURLs[0],
+                       @"tags":tagsArray
+                       };
+        } else {
+            [imagesWithoutMainImage removeObjectAtIndex:0];
+            params = @{@"name":[NSString stringWithFormat:@"%@", self.serviceDescriptionTextView.text],
+                       @"instructions":self.fulfillmentInfoLabel.text,
+                       @"description":self.baseServiceDescriptionLabel.text,
+                       @"category_id":categories[self.categoryTextField.selectedRow][@"id"],
+                       @"category_edge_id":subCategories[self.subCategoryTextField.selectedRow][@"category_edge_id"],
+                       @"user_id":[User currentUser].userID,
+                       @"lat":[NSString stringWithFormat:@"%f", selectedLocation.locationCoordinates.latitude],
+                       @"long":[NSString stringWithFormat:@"%f", selectedLocation.locationCoordinates.longitude],
+                       @"radius_km":radius,
+                       @"addon":addonArray,
+                       @"main_image":imageURLs[0],
+                       @"images":imagesWithoutMainImage,
+                       @"tags":tagsArray
+                       };
+            
+        }
+        
+        [[PHPBackend sharedConnection] accessAPIbyPost:apiPath
+                                            Parameters:params
+                                     CompletionHandler:^(NSDictionary *result, NSData *data, NSError *error) {
+                                         [self hideProgress];
+                                         if (result) {
+                                             [self performSegueWithIdentifier:@"displayCreateListingConfirmationSegue" sender:nil];
+                                         }
+                                     }];
+        
+
     }
-    
-    [[PHPBackend sharedConnection] accessAPIbyPost:apiPath
-                                        Parameters:params
-                                 CompletionHandler:^(NSDictionary *result, NSData *data, NSError *error) {
-                                     [self hideProgress];
-                                     if (result) {
-                                         [self performSegueWithIdentifier:@"displayCreateListingConfirmationSegue" sender:nil];
-                                     }
-                                 }];
-    
-    
+   
 }
 
 - (IBAction)launchController
@@ -483,11 +587,12 @@
 - (void)updateSlideShow {
     
     [self.slideShow setImagesDataSource:self.chosenImages];
+    
 }
 
 -(void)updatePageLabel {
     
-    [self.pageLabel setText:[NSString stringWithFormat:@"%lu(%lu)", self.slideShow.currentIndex + 1, (unsigned long)self.chosenImages.count]];
+    [self.pageLabel setText:[NSString stringWithFormat:@"%lu(%lu)", self.slideShow.currentIndex + 1, (unsigned long)self.slideShow.images.count]];
 }
 
 - (void)elcImagePickerControllerDidCancel:(ELCImagePickerController *)picker
@@ -644,15 +749,6 @@
 {
     [self showDescriptionWithPriceViewControllerWithTitleString:@"Add On" WithPlaceholderString:@"Hire me to provide a great local service." forAddOn:YES];
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
-}
-
-#pragma mark - UITextView Delegate
-- (void)textViewDidChangeSelection:(UITextView *)textView {
-    
-    if (textView.selectedRange.location < 17) {
-        textView.selectedRange = NSMakeRange(17, 0);
-    }
-    
 }
 
 #pragma mark - Navigation

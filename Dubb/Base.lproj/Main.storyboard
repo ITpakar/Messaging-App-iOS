@@ -2321,7 +2321,7 @@ Dubb!</string>
                                             </constraints>
                                         </view>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NsX-po-0eO" userLabel="Delete Button">
-                                            <rect key="frame" x="544" y="96" width="25" height="25"/>
+                                            <rect key="frame" x="544" y="100" width="25" height="25"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="25" id="zIt-fU-uqp"/>
                                                 <constraint firstAttribute="height" constant="25" id="zxk-D0-eqq"/>
@@ -2334,7 +2334,7 @@ Dubb!</string>
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iKh-5y-1rs" userLabel="Next Button">
-                                            <rect key="frame" x="549" y="151" width="14" height="37"/>
+                                            <rect key="frame" x="549" y="155" width="14" height="37"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="14" id="Cdp-Ti-q0H"/>
                                                 <constraint firstAttribute="height" constant="37" id="ixr-u1-0di"/>
@@ -2409,12 +2409,6 @@ Dubb!</string>
                                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Provide an explanation of what you are offering" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wN5-Pc-JMS">
-                                                                    <rect key="frame" x="50" y="38" width="187" height="38"/>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="$20" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sr4-LQ-99G">
                                                                     <rect key="frame" x="0.0" y="46" width="42" height="21"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -2434,6 +2428,12 @@ Dubb!</string>
                                                                         <action selector="editServiceDescription:" destination="Q8W-cI-c9P" eventType="touchUpInside" id="uYC-Wm-1LZ"/>
                                                                     </connections>
                                                                 </button>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Provide an explanation of what you are offering" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wN5-Pc-JMS">
+                                                                    <rect key="frame" x="50" y="38" width="187" height="38"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
                                                             </subviews>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <gestureRecognizers/>
@@ -2599,7 +2599,7 @@ Dubb!</string>
                                         <constraint firstItem="4PN-ih-yzj" firstAttribute="leading" secondItem="BbN-nY-0dQ" secondAttribute="leading" id="EqP-CE-dMk"/>
                                         <constraint firstItem="0dT-Pw-2ai" firstAttribute="top" secondItem="fBC-an-nP9" secondAttribute="bottom" constant="5" id="LjW-EQ-bcl"/>
                                         <constraint firstAttribute="bottom" secondItem="eeW-Y3-AkM" secondAttribute="bottom" id="Lux-Of-rK3"/>
-                                        <constraint firstItem="NsX-po-0eO" firstAttribute="top" secondItem="0dT-Pw-2ai" secondAttribute="bottom" constant="11" id="Ohz-V2-eLP"/>
+                                        <constraint firstItem="NsX-po-0eO" firstAttribute="top" secondItem="0dT-Pw-2ai" secondAttribute="bottom" constant="15" id="Ohz-V2-eLP"/>
                                         <constraint firstAttribute="trailing" secondItem="iKh-5y-1rs" secondAttribute="trailing" constant="17" id="P4T-H9-Ozp"/>
                                         <constraint firstAttribute="centerX" secondItem="ub1-7w-5Iw" secondAttribute="centerX" id="TqA-gi-OAe"/>
                                         <constraint firstItem="0cC-JQ-emq" firstAttribute="top" secondItem="0dT-Pw-2ai" secondAttribute="bottom" constant="66" id="UAF-v3-PjA"/>
