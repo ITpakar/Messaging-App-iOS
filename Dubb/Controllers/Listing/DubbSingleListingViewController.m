@@ -16,7 +16,11 @@
 #import "MBProgressHUD.h"
 #import <AddressBookUI/AddressBookUI.h>
 
-@interface DubbSingleListingViewController () <QBActionStatusDelegate, MFMailComposeViewControllerDelegate>
+
+#import "PaypalMobile.h"
+#import "AppDelegate.h"
+
+@interface DubbSingleListingViewController () <QBActionStatusDelegate, MFMailComposeViewControllerDelegate, PayPalPaymentDelegate>
 {
     NSMutableArray *purchasedAddOns;
     NSMutableArray *addOns;
@@ -563,6 +567,65 @@ static bool liked = NO;
     }
     
     [controller dismissViewControllerAnimated:YES completion:NULL];
+}
+
+#pragma mark -
+#pragma mark Payment
+
+- (IBAction)onBookNow:(id)sender {
+    if( !listingInfo ) return;
+    
+    NSInteger price = 0;
+    
+    for (NSDictionary * addOnInfo in purchasedAddOns) {
+        price += [addOnInfo[@"price"] integerValue];
+    }
+    
+    [self onPay:listingInfo Price:price];
+}
+
+
+-(void) onPay:(NSDictionary *)listing Price:(NSInteger) price
+{
+    
+    PayPalPayment *payment = [[PayPalPayment alloc] init];
+    payment.amount = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%lu", price]];
+    payment.currencyCode = @"USD";
+    payment.shortDescription = [NSString stringWithFormat:@"%@ (%@)", listing[@"name"], listing[@"user"][@"username"] ];
+    payment.items = nil;  // if not including multiple items, then leave payment.items as nil
+    payment.paymentDetails = nil; // if not including payment details, then leave payment.paymentDetails as nil
+    
+    AppDelegate *app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    
+    PayPalPaymentViewController *paymentViewController = [[PayPalPaymentViewController alloc] initWithPayment:payment
+                                                                                                configuration:app.payPalConfig
+                                                                                                     delegate:self];
+    [self presentViewController:paymentViewController animated:YES completion:nil];
+    
+}
+
+#pragma mark PayPalPaymentDelegate methods
+
+- (void)payPalPaymentViewController:(PayPalPaymentViewController *)paymentViewController didCompletePayment:(PayPalPayment *)completedPayment {
+//    [completedPayment.confirmation[@"response"] objectForKey:@"id"]
+    NSLog(@"PayPal Payment Success!\n %@", [completedPayment description]);
+    [self showMessage:@"Payment succeed"];
+    
+    [self sendCompletedPaymentToServer:completedPayment]; // Payment was processed successfully; send to server for verification and fulfillment
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)payPalPaymentDidCancel:(PayPalPaymentViewController *)paymentViewController {
+    NSLog(@"PayPal Payment Canceled");
+    [self showMessage:@"Payment cancelled"];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark Proof of payment validation
+
+- (void)sendCompletedPaymentToServer:(PayPalPayment *)completedPayment {
+    // TODO: Send completedPayment.confirmation to server
+    NSLog(@"Here is your proof of payment:\n\n%@\n\nSend this to your server for confirmation and fulfillment.", completedPayment.confirmation);
 }
 
 /*

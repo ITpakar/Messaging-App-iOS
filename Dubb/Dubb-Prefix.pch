@@ -28,7 +28,8 @@
 #define twitterConsumerKey      @"t0edKd5EQ8Fck7DU9SoQAY36b"
 #define twitterConsumerSecret   @"4OSE2H6mn6ZSeD5nRWuYJeSrdTrhZpBuh6r6RmqE0HviKV2IxZ"
 
-#define kGoogleClientID         @"623939172061-02okbe9jhenmjt396lr6r0nacihilg23.apps.googleusercontent.com"
+//623939172061-02okbe9jhenmjt396lr6r0nacihilg23.apps.googleusercontent.com
+#define kGoogleClientID         @"623939172061-ht7pl7n677jo4n2i9onkrgut9mh43dea.apps.googleusercontent.com"
 #define kGoogleAnalyticsTrackId @"UA-60124659-1"
 
 #define kNewRelicToken          @"AA931550a5b1c47c60965612de77ecd35634149874"

@@ -78,7 +78,7 @@
         [btnOrder.titleLabel setShadowOffset:CGSizeMake(1, 1)];
         [btnOrder setBackgroundColor:[UIColor colorWithRed:1.0f green:0.67f blue:0.21 alpha:1.0f]];
         
-        [btnOrder addTarget:self action:@selector(onOrder) forControlEvents:UIControlEventTouchUpInside];
+        //[btnOrder addTarget:self action:@selector(onOrder) forControlEvents:UIControlEventTouchUpInside];
         
         @try{
             profileImageView.image = [UIImage imageNamed:@"portrait.png"];

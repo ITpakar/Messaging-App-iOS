@@ -4116,6 +4116,9 @@ Dubb!</string>
                                         <state key="normal" title="Book Now" backgroundImage="book_now_button.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="onBookNow:" destination="TcD-JJ-32S" eventType="touchUpInside" id="Bku-B9-7aL"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.8784313725490196" green="0.8784313725490196" blue="0.8784313725490196" alpha="1" colorSpace="calibratedRGB"/>
