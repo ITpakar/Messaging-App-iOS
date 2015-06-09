@@ -11,10 +11,9 @@
 #import "M13Checkbox.h"
 
 #define REGEX_USER_NAME_LIMIT @"^.{3,10}$"
-#define REGEX_USER_NAME @"[A-Za-z0-9]{3,10}"
+#define REGEX_USER_NAME @"[A-Za-z0-9_]{3,10}"
 #define REGEX_EMAIL @"[A-Z0-9a-z._%+-]{3,}+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"
-#define REGEX_PASSWORD_LIMIT @"^.{4,20}$"
-#define REGEX_PASSWORD @"[A-Za-z0-9]{6,20}"
+#define REGEX_PASSWORD_LIMIT @"^.{6,20}$"
 #define REGEX_PHONE_DEFAULT @"[0-9]{3}\\-[0-9]{3}\\-[0-9]{4}"
 
 @interface DubbSignUpEmailViewController (){
@@ -23,6 +22,7 @@
     __weak IBOutlet TextFieldValidator *txtPassword;
     __weak IBOutlet TextFieldValidator *txtFirstname;
     __weak IBOutlet TextFieldValidator *txtLastName;
+    __weak IBOutlet TextFieldValidator *txtPhone;
     __weak IBOutlet M13Checkbox *chkboxTogglePasswordSecureEntry;
     
     BOOL isUserNameValid;
@@ -69,6 +69,9 @@
 // Helpers
 
 - (void)validateUserName:(NSString *)userName {
+    if ([userName isEqualToString:@""]) {
+        return;
+    }
     [self.backend checkValidityOfUsername:userName CompletionHandler:^(NSDictionary *result) {
         
         if (![result[@"response"] isKindOfClass:[NSNull class]]) {
@@ -88,31 +91,15 @@
     txtUsername.text = self.userInfo[@"user_name"];
     txtFirstname.text = self.userInfo[@"first"];
     txtLastName.text = self.userInfo[@"last"];
-    
-    
-    
+
 }
 
 
 
 -(void) setupUI
 {
-    CAShapeLayer *topmaskLayer = [CAShapeLayer layer];
-    topmaskLayer.path = [UIBezierPath bezierPathWithRoundedRect:txtEmail.bounds byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(5, 5)].CGPath;
-    
-    txtEmail.layer.mask = topmaskLayer;
-    txtEmail.layer.borderWidth = 1;
-    txtEmail.layer.borderColor = [[UIColor lightGrayColor] CGColor];
-    
-    CAShapeLayer *bottommaskLayer = [CAShapeLayer layer];
-    bottommaskLayer.path = [UIBezierPath bezierPathWithRoundedRect:txtPassword.bounds byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(5, 5)].CGPath;
-    
-    txtPassword.layer.mask = bottommaskLayer;
-    txtPassword.layer.borderWidth = 1;
-    txtPassword.layer.borderColor = [[UIColor lightGrayColor] CGColor];
-    
-    txtUsername.layer.borderWidth = 1;
-    txtUsername.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+    CAShapeLayer *roundedMaskLayer = [CAShapeLayer layer];
+    roundedMaskLayer.path = [UIBezierPath bezierPathWithRoundedRect:txtEmail.bounds byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight | UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(5, 5)].CGPath;
     
     chkboxTogglePasswordSecureEntry.titleLabel.text = @"Show Password";
     chkboxTogglePasswordSecureEntry.titleLabel.textColor = [UIColor whiteColor];
@@ -122,19 +109,19 @@
     chkboxTogglePasswordSecureEntry.checkColor = [UIColor colorWithRed:0 green:167.0f/255.0f blue:10.0f/255.0f alpha:1.0f];
     [chkboxTogglePasswordSecureEntry setCheckState:M13CheckboxStateChecked];
     [chkboxTogglePasswordSecureEntry addTarget:self action:@selector(checkChangedValue:) forControlEvents:UIControlEventValueChanged];
+    
     // Validation Criteria
     
     isUserNameValid = YES;
     
-    [txtUsername addRegx:REGEX_USER_NAME_LIMIT withMsg:@"User name charaters limit should be come between 3-10"];
-    [txtUsername addRegx:REGEX_USER_NAME withMsg:@"Only alpha numeric characters are allowed."];
+    [txtUsername addRegx:REGEX_USER_NAME_LIMIT withMsg:@"User name needs to be between 3 and 10 characters"];
+    [txtUsername addRegx:REGEX_USER_NAME withMsg:@"Only alpha numeric characters and _ are allowed"];
     
-    [txtEmail addRegx:REGEX_EMAIL withMsg:@"Enter valid email."];
+    [txtEmail addRegx:REGEX_EMAIL withMsg:@"Enter valid email"];
     
-    [txtPassword addRegx:REGEX_PASSWORD_LIMIT withMsg:@"Password characters limit should be come between 4-20"];
-    [txtPassword addRegx:REGEX_PASSWORD withMsg:@"Password must contain alpha numeric characters."];
+    [txtPassword addRegx:REGEX_PASSWORD_LIMIT withMsg:@"Password needs to be between 6 and 20 characters"];
     
-    
+    [txtPhone addRegx:REGEX_PHONE_DEFAULT withMsg:@"Enter valid phone number"];
 }
 
 - (void)checkChangedValue:(id)sender
@@ -160,7 +147,7 @@
 }
 - (IBAction)signUpButtonTapped:(id)sender {
     
-    NSDictionary *params = @{ @"email":txtEmail.text, @"password":txtPassword.text, @"username":txtUsername.text, @"first":txtFirstname.text, @"last":txtLastName.text, @"lat":@"55.7502", @"long":@"37.6168"};
+    NSDictionary *params = @{ @"email":txtEmail.text, @"password":txtPassword.text, @"username":txtUsername.text, @"first":txtFirstname.text, @"last":txtLastName.text, @"phone":txtPhone.text, @"lat":@"55.7502", @"long":@"37.6168"};
     
     
     if ([txtUsername validate] && [txtEmail validate] && [txtPassword validate] && [txtFirstname validate] && [txtLastName validate] && isUserNameValid ) {

@@ -57,7 +57,18 @@ static PHPBackend   *sharedConnection;
         }
     }];
 }
-
+-(void) updateListing : (NSString*) listingID
+        Parameters : (NSDictionary*) params
+  CompletionHandler:(void (^)(NSDictionary *result))handler
+{
+    NSString *apiPath = [NSString stringWithFormat:@"%@%@%@", APIURL, @"listing/", listingID];
+    
+    [self accessAPIbyPUT:apiPath Parameters:params CompletionHandler:^(NSDictionary *result, NSData *data, NSError *error) {
+        if (handler) {
+            handler(result);
+        }
+    }];
+}
 
 -(void) getSuggestionList : (NSString*) keyword
          CompletionHandler:(void (^)(NSDictionary *result))handler
@@ -132,6 +143,30 @@ static PHPBackend   *sharedConnection;
         if (handler) {
             handler(result);
         }
+    }];
+}
+
+-(void) createOrder:(NSDictionary*)params
+         CompletionHandler:(void (^)(NSDictionary *result))handler
+{
+    NSString *apiPath = [NSString stringWithFormat:@"%@%@", APIURL, @"order"];
+    
+    [self accessAPIbyPost:apiPath Parameters:params CompletionHandler:^(NSDictionary *result, NSData *data, NSError *error) {
+        handler(result);
+    }];
+}
+
+-(void) getAllOrdersForUserType:(NSString *)userType CompletionHandler:(void (^)(NSDictionary *result))handler{
+    NSString *apiPath = [NSString stringWithFormat:@"%@%@", APIURL, @"order"];
+    [self accessAPI:apiPath Parameters:@{@"user_id":[User currentUser].userID, @"user_type":userType, @"with":@"listing,listing.mainImage,listing.user,details.addon"} CompletionHandler:^(NSDictionary *result, NSData *data, NSError *error) {
+        handler(result);
+    }];
+}
+
+-(void) getAllMyListingsWithCompletionHandler:(void (^)(NSDictionary *result))handler{
+    NSString *apiPath = [NSString stringWithFormat:@"%@%@", APIURL, @"listing"];
+    [self accessAPI:apiPath Parameters:@{@"user_id":[User currentUser].userID} CompletionHandler:^(NSDictionary *result, NSData *data, NSError *error) {
+        handler(result);
     }];
 }
 

@@ -11,5 +11,5 @@
 @interface DubbSingleListingViewController : BaseViewController <KASlideShowDelegate>
 
 @property (weak, nonatomic) NSString *listingID;
-
+- (void)flagButtonTapped;
 @end

@@ -109,7 +109,7 @@ static BackendBase   *sharedConnection;
     
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:apiPath]];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
     
     [manager PUT:@"" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {

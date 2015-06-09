@@ -29,6 +29,7 @@
 @property NSTimer *autoCompleteTimer;
 @property NSString *substring;
 @property CLLocationManager *locationManager;
+@property NSString *radius;
 @property SelectedLocation *selectedLocation;
 @property NSString *titleString;
 @end

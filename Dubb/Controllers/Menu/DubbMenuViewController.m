@@ -12,10 +12,11 @@
 #import <GoogleOpenSource/GoogleOpenSource.h>
 #import "AppDelegate.h"
 #import "UserVoice.h"
+#import "DubbSalesOrdersViewController.h"
+#import "DubbMyListingsViewController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
 @interface DubbMenuViewController (){
-    NSMutableArray *menus;
     NSString *selectedMenu;
     NSString *unreadMessageCount;
     
@@ -30,19 +31,18 @@
 #define kTagMarkView 1000
 #define kTagIconView 1001
 #define kTagMenuItemView 1002
-
+#define menus @[@"HOME", @"SALES", @"MY LISTINGS", @"ORDERS", @"PROFILE", @"SUPPORT", @"INBOX", @"ABOUT"]
+#define menuIcons @[@"home_menu_button.png", @"sales_menu_button.png", @"mylistings_menu_button.png", @"orders_menu_button.png", @"profile_menu_button.png", @"support_menu_button.png", @"inbox_menu_button.png", @"about_menu_button.png"]
 @implementation DubbMenuViewController
 
 -(void) viewDidLoad {
     [super viewDidLoad];
     
     self.sideMenuViewController.delegate = self;
+    selectedMenu = @"HOME";
     
-    menus = [[NSMutableArray alloc] initWithObjects:@"Home", @"Create a Listing", @"Chat", @"Set Offline", @"Support", @"Logout", nil ];
-    selectedMenu = @"Listings";
-    
-    if( [[NSString stringWithFormat:@"%@", [User currentUser].userID] isEqualToString:@""] )
-        menus[4] = @"Login";
+//    if( [[NSString stringWithFormat:@"%@", [User currentUser].userID] isEqualToString:@""] )
+//        menus[4] = @"Login";
     
     [self showProfile];
     
@@ -79,6 +79,7 @@
     
     UIView *markView = [cell viewWithTag:kTagMarkView];
     UILabel *lblMenu = (UILabel*)[cell viewWithTag:kTagMenuItemView];
+    UIImageView *iconImageView = (UIImageView *)[cell viewWithTag:kTagIconView];
     
     if( [menus[indexPath.row] isEqualToString:selectedMenu] ){
         markView.hidden = NO;
@@ -90,7 +91,7 @@
     
     
     lblMenu.text = menus[indexPath.row];
-    
+    iconImageView.image = [UIImage imageNamed:menuIcons[indexPath.row]];
     [cell setBackgroundColor:[UIColor clearColor]];
     
     return cell;
@@ -102,6 +103,7 @@
     
     selectedMenu = menus[indexPath.row];
     UINavigationController *contentVC = (UINavigationController*)self.sideMenuViewController.contentViewController;
+    UIViewController *vc;
     [tableView reloadData];
     
     switch (indexPath.row) {
@@ -109,30 +111,32 @@
             [contentVC setViewControllers:@[[self.storyboard instantiateViewControllerWithIdentifier:@"homeViewController"]] animated:NO];
             break;
         case 1:
-            [contentVC setViewControllers:@[[self.storyboard instantiateViewControllerWithIdentifier:@"listingsController"]] animated:NO];
-            break;
-        case 2:
-            if( [User currentUser].chatUser == nil ) return;
-            
-            [contentVC setViewControllers:@[[self.storyboard instantiateViewControllerWithIdentifier:@"chatNavController"]] animated:NO];
+            vc = [self.storyboard instantiateViewControllerWithIdentifier:@"DubbSalesOrdersViewController"];
+            ((DubbSalesOrdersViewController *)vc).userType = @"seller";
+            [contentVC setViewControllers:@[vc] animated:NO];
             break;
         
+        case 2:
+            vc = [self.storyboard instantiateViewControllerWithIdentifier:@"DubbMyListingsViewController"];
+            [contentVC setViewControllers:@[vc] animated:NO];
+            break;
+            
         case 3:
-            if( [User currentUser].chatUser == nil ) return;
-            if( [selectedMenu isEqualToString:@"Set Offline"] ){
-                menus[indexPath.row] = @"Set Online";
-                [[ChatService instance] setOffline];
-            } else {
-                menus[indexPath.row] = @"Set Offline";
-                [[ChatService instance] setOnline];
-            }
-            [menuTable reloadData];
+            vc = [self.storyboard instantiateViewControllerWithIdentifier:@"DubbSalesOrdersViewController"];
+            ((DubbSalesOrdersViewController *)vc).userType = @"buyer";
+            [contentVC setViewControllers:@[vc] animated:NO];
             
             break;
-        case 4:
+        case 5:
             [UserVoice presentUserVoiceInterfaceForParentViewController:self];
             break;
-        case 5: {
+            
+        case 6:
+            if( [User currentUser].chatUser == nil ) return;
+            [contentVC setViewControllers:@[[self.storyboard instantiateViewControllerWithIdentifier:@"ChatUsersController"]] animated:NO];
+            break;
+            
+        case 7: {
             
             [[GPPSignIn sharedInstance] signOut];
             [FBSession.activeSession closeAndClearTokenInformation];
@@ -154,6 +158,8 @@
             ((AppDelegate*)[[UIApplication sharedApplication] delegate]).window.rootViewController = mainController;
         }
            return;
+            
+        
         default:
             break;
     }

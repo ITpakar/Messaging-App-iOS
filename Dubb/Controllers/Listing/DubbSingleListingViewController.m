@@ -6,15 +6,18 @@
 //  Copyright (c) 2015 dubb.co. All rights reserved.
 //
 #import <MessageUI/MessageUI.h>
-#import "DubbSingleListingViewController.h"
+#import <AddressBookUI/AddressBookUI.h>
+
 #import "UIScrollView+APParallaxHeader.h"
-#import "ListingTopView.h"
 #import "AXRatingView.h"
+#import "MBProgressHUD.h"
+
+#import "ListingTopView.h"
 #import "DubbAddonCell.h"
 #import "DubbGigQuantityCell.h"
 #import "ChatViewController.h"
-#import "MBProgressHUD.h"
-#import <AddressBookUI/AddressBookUI.h>
+#import "DubbOrderConfirmationViewController.h"
+#import "DubbSingleListingViewController.h"
 
 
 #import "PaypalMobile.h"
@@ -36,6 +39,7 @@
 }
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UIButton *bookNowButton;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @end
 
@@ -79,7 +83,25 @@ enum DubbSingleListingViewTag {
     
     [self.navigationController popViewControllerAnimated:YES];
 }
-- (IBAction)flagButtonTapped:(id)sender {
+- (IBAction)bookNowButtonTapped:(id)sender {
+    
+    if ([[User currentUser].userID isEqualToString:listingInfo[@"user_id"]]) {
+        [self showMessage:@"You can't book your own service!"];
+        return;
+    }
+    
+    NSInteger price = 0;
+    
+    for (NSDictionary * addOnInfo in purchasedAddOns) {
+        price += [addOnInfo[@"price"] integerValue];
+    }
+    
+    [self onPay:listingInfo Price:price];
+    
+    
+}
+
+- (void)flagButtonTapped{
     
     if (![MFMailComposeViewController canSendMail]) {
         [self showMessage:@"Your device can't send Email!"];
@@ -106,6 +128,7 @@ enum DubbSingleListingViewTag {
     [self.view setFrame:self.navigationController.view.bounds];
     
     topView = [[[NSBundle mainBundle] loadNibNamed:@"ListingTopView" owner:nil options:nil] objectAtIndex:0];
+    topView.parentViewController = self;
     [topView initViews];
     topView.slideShow.delegate = self;
     [topView.shareSheetButton addTarget:self action:@selector(shareSheetButtonTapped) forControlEvents:UIControlEventTouchUpInside];
@@ -115,13 +138,21 @@ enum DubbSingleListingViewTag {
     isAskingQuestion = NO;
     
     __weak DubbSingleListingViewController * weakSelf = self;
-
+    [self.activityIndicator startAnimating];
     [self.backend getListingWithID:self.listingID CompletionHandler:^(NSDictionary *result) {
-        
+        [self.activityIndicator stopAnimating];
         listingInfo = result[@"response"];
         NSArray *images = listingInfo[@"images"];
-        addOns = listingInfo[@"addon"];
+        addOns = [listingInfo[@"addon"] mutableCopy];
         sellerInfo = listingInfo[@"user"];
+        
+        if ([sellerInfo isKindOfClass:[NSNull class]]) {
+            [self showMessage:@"Invalid Listing"];
+            [self.navigationController popViewControllerAnimated:YES];
+            return;
+        }
+        
+        self.tableView.hidden = NO;
         
         int index = 0;
         for (NSDictionary *addOnInfo in addOns) {
@@ -254,8 +285,8 @@ static bool liked = NO;
         isAskingQuestion = NO;
         
     }else{
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errors"
-                                                        message:[[result errors] componentsJoinedByString:@","]
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                        message:@"You can't chat with yourself"
                                                        delegate:nil
                                               cancelButtonTitle:@"Ok"
                                               otherButtonTitles: nil];
@@ -575,13 +606,7 @@ static bool liked = NO;
 - (IBAction)onBookNow:(id)sender {
     if( !listingInfo ) return;
     
-    NSInteger price = 0;
     
-    for (NSDictionary * addOnInfo in purchasedAddOns) {
-        price += [addOnInfo[@"price"] integerValue];
-    }
-    
-    [self onPay:listingInfo Price:price];
 }
 
 
@@ -607,12 +632,76 @@ static bool liked = NO;
 #pragma mark PayPalPaymentDelegate methods
 
 - (void)payPalPaymentViewController:(PayPalPaymentViewController *)paymentViewController didCompletePayment:(PayPalPayment *)completedPayment {
-//    [completedPayment.confirmation[@"response"] objectForKey:@"id"]
-    NSLog(@"PayPal Payment Success!\n %@", [completedPayment description]);
-    [self showMessage:@"Payment succeed"];
+//
     
+    
+    
+    
+    NSMutableArray *purchasedAddOnsDetails = [NSMutableArray array];
+    
+    for (NSDictionary *purchasedAddOn in purchasedAddOns) {
+        
+        BOOL exists = NO;
+        
+        for (NSMutableDictionary *addOnDetail in purchasedAddOnsDetails) {
+            if ([addOnDetail[@"addon_id"] isEqualToString:purchasedAddOn[@"id"]]) {
+                
+                exists = YES;
+                addOnDetail[@"quantity"] = [NSString stringWithFormat:@"%ld", [addOnDetail[@"quantity"] integerValue] + 1];
+                addOnDetail[@"amount"] = [NSString stringWithFormat:@"%ld", [purchasedAddOn[@"price"] integerValue] * [addOnDetail[@"quantity"] integerValue]];
+                break;
+                
+            }
+        }
+        
+        if (!exists) {
+            [purchasedAddOnsDetails addObject:[NSMutableDictionary dictionaryWithDictionary:@{@"addon_id":purchasedAddOn[@"id"],
+                                                                                              @"amount":purchasedAddOn[@"price"],
+                                                                                              @"quantity":@"1",
+                                                                                              @"sequence":purchasedAddOn[@"sequence"],
+                                                                                              @"description":purchasedAddOn[@"description"]}]];
+        }
+        
+    }
+    
+    NSInteger sum = 0;
+    
+    for (NSDictionary * addOnInfo in purchasedAddOns) {
+        sum += [addOnInfo[@"price"] integerValue];
+    }
+    
+    NSLog(@"PayPal Payment Success!\n %@", [completedPayment description]);
+       
     [self sendCompletedPaymentToServer:completedPayment]; // Payment was processed successfully; send to server for verification and fulfillment
     [self dismissViewControllerAnimated:YES completion:nil];
+    
+    [self showProgress:@"Creating Order..."];
+    [self.backend createOrder:@{@"total_amt": @(sum),
+                                @"listing_id": listingInfo[@"id"],
+                                @"buyer_id": [User currentUser].userID,
+                                @"seller_id": listingInfo[@"user_id"],
+                                @"payment_confirmation_id": [completedPayment.confirmation[@"response"] objectForKey:@"id"],
+                                @"payment_processor_name": @"paypal",
+                                @"special_instructions": completedPayment.description,
+                                @"details": purchasedAddOnsDetails }
+            CompletionHandler:^(NSDictionary *result) {
+
+                [self hideProgress];
+                if (result) {
+                    DubbOrderConfirmationViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"DubbOrderConfirmationViewController"];
+                    vc.listingInfo = listingInfo;
+                    vc.purchasedAddOnsDetails = purchasedAddOnsDetails;
+                    vc.totalAmountPurchased = sum;
+                    vc.orderID = [NSString stringWithFormat:@"%@", result[@"response"][@"id"]];
+                    
+                    [self.navigationController pushViewController: vc animated:YES];
+                } else {
+                    [self showMessage:[NSString stringWithFormat:@"Sorry, server is not responding, please contact administrator to confirm payment.\nYour payment id: %@", [completedPayment.confirmation[@"response"] objectForKey:@"id"]]];
+                }
+                
+            }];
+    
+    
 }
 
 - (void)payPalPaymentDidCancel:(PayPalPaymentViewController *)paymentViewController {
