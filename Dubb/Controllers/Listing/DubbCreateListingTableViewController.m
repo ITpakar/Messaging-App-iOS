@@ -25,7 +25,10 @@
     NSArray *categories;
     NSArray *subCategories;
     NSMutableArray *addOns;
-    
+    NSMutableArray *assetArray;
+    NSMutableArray *originalAddonArray;
+    NSArray *originalAssetArray;
+    NSArray *originalTagArray;
     UILabel *currentDescriptionLabel;
     NSInteger currentIndexPathRow;
     BOOL forAddOn;
@@ -67,6 +70,7 @@
     self.navigationController.navigationBar.translucent = NO;    
     
     addOns = [NSMutableArray array];
+    originalAddonArray = [NSMutableArray array];
     selectedLocation = [[SelectedLocation alloc] init];
     selectedLocation.name = @"Current Location";
     selectedLocation.address = @"";
@@ -164,7 +168,7 @@
     NSArray *addonArray = self.listingDetail[@"addon"];
     NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"sequence" ascending:YES];
     addonArray = [addonArray sortedArrayUsingDescriptors:[NSArray arrayWithObject:descriptor]];
-    self.serviceDescriptionTextView.text = [self.listingDetail[@"name"] substringFromIndex:11];
+    self.serviceDescriptionTextView.text = self.listingDetail[@"name"];
     self.fulfillmentInfoLabel.text = self.listingDetail[@"instructions"];
     self.baseServiceDescriptionLabel.text = self.listingDetail[@"description"];
     self.baseServicePriceLabel.text = [NSString stringWithFormat:@"$%ld", [addonArray[0][@"price"] integerValue]];
@@ -175,6 +179,7 @@
     radius = ([self.listingDetail[@"radius_mi"] integerValue] > 0) ?  self.listingDetail[@"radius_mi"] : [NSString stringWithFormat:@"%.3f", [self.listingDetail[@"radius_km"] integerValue] * 0.621371192];
     addOns = [addonArray mutableCopy];
     [addOns removeObjectAtIndex:0];
+    originalAddonArray = [addonArray mutableCopy];
     [self.tableView reloadData];
     
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
@@ -199,7 +204,8 @@
     
     // initialize with images
     SDWebImageManager *manager = [SDWebImageManager sharedManager];
-    
+    originalAssetArray = self.listingDetail[@"images"];
+    assetArray = [originalAssetArray mutableCopy];
     for (NSDictionary* imageInfo in self.listingDetail[@"images"]) {
         [manager downloadImageWithURL:imageInfo[@"url"]
                               options:0
@@ -222,6 +228,7 @@
     
     // initialize with tags
     NSArray *tagDetails = self.listingDetail[@"tag"];
+    originalTagArray = tagDetails;
     
     NSMutableString *tagString = [[NSMutableString alloc] init];
     for (NSDictionary *tag in tagDetails) {
@@ -398,9 +405,11 @@
     
     if (self.slideShow.images.count > 1) {
         [self.slideShow removeObjectFromImagesAtIndex:self.slideShow.currentIndex];
+        [assetArray removeObjectAtIndex:self.slideShow.currentIndex];
         [self updatePageLabel];
         
     } else {
+        [assetArray removeAllObjects];
         [self.chosenImages removeAllObjects];
         [self.placeholderButton setHidden:NO];
     }
@@ -441,7 +450,7 @@
         return;
     }
     
-    if (!self.listingDetail && self.chosenImages.count <= 0) {
+    if ((!self.listingDetail && self.chosenImages.count <= 0) || (assetArray.count == 0 && self.chosenImages.count == 0)) {
         [self showMessage:@"Please select at least one image."];
         return;
     }
@@ -458,7 +467,69 @@
     NSDictionary *params;
     
     if (self.listingDetail) {
+        
         [addonArray insertObject:@{@"id":baseServiceID, @"description":self.baseServiceDescriptionLabel.text, @"price":[self.baseServicePriceLabel.text substringFromIndex:1], @"sequence":@"0"} atIndex:0];
+        for (NSDictionary *originalAddon in originalAddonArray) {
+            BOOL found = NO;
+            for (NSDictionary *addon in addonArray) {
+                if ([addon objectForKey:@"id"] && [addon[@"id"] isEqualToString:originalAddon[@"id"]]) {
+                    found = YES;
+                    break;
+                }
+            }
+            if (!found) {
+                [addonArray addObject:@{@"id":originalAddon[@"id"], @"delete":@"true"}];
+            }
+        }
+        
+        NSMutableArray *tagArrayForUpdate = [NSMutableArray array];
+        for (NSDictionary *originalTag in originalTagArray) {
+            BOOL found = NO;
+            for (NSString *tag in tagsArray) {
+                if ([tag isEqualToString:originalTag[@"name"]]) {
+                    found = YES;
+                    break;
+                }
+            }
+            if (!found) {
+                [tagArrayForUpdate addObject:@{@"id":originalTag[@"id"], @"delete":@"true"}];
+            }
+        }
+        
+        for (NSString *tag in tagsArray) {
+            BOOL found = NO;
+            for (NSDictionary *originalTag in originalTagArray) {
+                if ([tag isEqualToString:originalTag[@"name"]]) {
+                    found = YES;
+                    break;
+                }
+            }
+            if (!found) {
+                [tagArrayForUpdate addObject:@{@"name":tag}];
+            }
+        }
+        
+        NSMutableArray *assetArrayForUpdate = [NSMutableArray array];
+        for (NSDictionary *originalAsset in originalAssetArray) {
+            BOOL found = NO;
+            for (NSDictionary *asset in assetArray) {
+                if ([asset[@"id"] isEqualToString:originalAsset[@"id"]]) {
+                    found = YES;
+                    break;
+                }
+            }
+            if (!found) {
+                [assetArrayForUpdate addObject:@{@"id":originalAsset[@"id"], @"delete":@"true"}];
+            }
+        }
+        
+        for (NSString *newImageURL in imageURLs) {
+            
+            [assetArrayForUpdate addObject:@{@"url":newImageURL, @"type":@"image"}];
+            
+        }
+        
+        
         params = @{@"name":[NSString stringWithFormat:@"%@", self.serviceDescriptionTextView.text],
                    @"instructions":self.fulfillmentInfoLabel.text,
                    @"description":self.baseServiceDescriptionLabel.text,
@@ -469,7 +540,8 @@
                    @"long":[NSString stringWithFormat:@"%f", selectedLocation.locationCoordinates.longitude],
                    @"radius_mi":radius,
                    @"addon":addonArray,
-                   @"tags":tagsArray
+                   @"tag":tagArrayForUpdate,
+                   @"asset":assetArrayForUpdate
                    };
         [self.backend updateListing:self.listingDetail[@"id"] Parameters:params CompletionHandler:^(NSDictionary *result) {
             [self hideProgress];
@@ -705,16 +777,15 @@
     currentIndexPathRow = indexPath.row;
     
     if (indexPath.row == [self.tableView numberOfRowsInSection:0] - 1 && addOns.count < 5) {
-        priceLabel.hidden = YES;
+        priceLabel.text = @"$0";
         descriptionLabel.text = @"Add another add-on";
     } else {
-        priceLabel.hidden = NO;
         if (addOns.count > 0) {
             NSDictionary *addOn = addOns[indexPath.row];
             [priceLabel setText:[NSString stringWithFormat:@"$%ld", [addOn[@"price"] integerValue]]];
             [descriptionLabel setText:addOn[@"description"]];
         } else if (addOns.count == 0 && indexPath.row == 0) {
-            [priceLabel setText:@"$40"];
+            [priceLabel setText:@"$0"];
             [descriptionLabel setText:@"Describe your add - on"];
         }
     }

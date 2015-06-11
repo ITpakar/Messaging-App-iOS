@@ -26,12 +26,15 @@ enum DubbListingCellTag {
     
     [super viewDidLoad];
     
+}
 
+- (void)viewWillAppear:(BOOL)animated {
+    
     [self.backend getAllMyListingsWithCompletionHandler:^(NSDictionary *result) {
         
         listingDetails = result[@"response"];
         if (listingDetails.count > 0) {
-
+            
             [self.tableView reloadData];
             
         } else {
@@ -39,9 +42,10 @@ enum DubbListingCellTag {
             self.emptyView.hidden = NO;
             
         }
-
+        
         
     }];
+
     
 }
 
