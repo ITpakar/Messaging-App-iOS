@@ -19,7 +19,11 @@
 #import "DubbOrderConfirmationViewController.h"
 #import "DubbSingleListingViewController.h"
 
-@interface DubbSingleListingViewController () <QBActionStatusDelegate, MFMailComposeViewControllerDelegate>
+
+#import "PaypalMobile.h"
+#import "AppDelegate.h"
+
+@interface DubbSingleListingViewController () <QBActionStatusDelegate, MFMailComposeViewControllerDelegate, PayPalPaymentDelegate>
 {
     NSMutableArray *purchasedAddOns;
     NSMutableArray *addOns;
@@ -86,63 +90,14 @@ enum DubbSingleListingViewTag {
         return;
     }
     
-    NSMutableArray *purchasedAddOnsDetails = [NSMutableArray array];
-    
-    for (NSDictionary *purchasedAddOn in purchasedAddOns) {
-        
-        BOOL exists = NO;
-        
-        for (NSMutableDictionary *addOnDetail in purchasedAddOnsDetails) {
-            if ([addOnDetail[@"addon_id"] isEqualToString:purchasedAddOn[@"id"]]) {
-                
-                exists = YES;
-                addOnDetail[@"quantity"] = [NSString stringWithFormat:@"%ld", [addOnDetail[@"quantity"] integerValue] + 1];
-                addOnDetail[@"amount"] = [NSString stringWithFormat:@"%ld", [purchasedAddOn[@"price"] integerValue] * [addOnDetail[@"quantity"] integerValue]];
-                break;
-                
-            }
-        }
-        
-        if (!exists) {
-            [purchasedAddOnsDetails addObject:[NSMutableDictionary dictionaryWithDictionary:@{@"addon_id":purchasedAddOn[@"id"],
-                                                                                             @"amount":purchasedAddOn[@"price"],
-                                                                                             @"quantity":@"1",
-                                                                                             @"sequence":purchasedAddOn[@"sequence"],
-                                                                                             @"description":purchasedAddOn[@"description"]}]];
-        }
-        
-    }
-    
-    NSInteger sum = 0;
+    NSInteger price = 0;
     
     for (NSDictionary * addOnInfo in purchasedAddOns) {
-        sum += [addOnInfo[@"price"] integerValue];
+        price += [addOnInfo[@"price"] integerValue];
     }
     
-
-    [self.backend createOrder:@{@"total_amt": @(sum),
-                                @"listing_id": listingInfo[@"id"],
-                                @"buyer_id": [User currentUser].userID,
-                                @"seller_id": listingInfo[@"user_id"],
-                                @"payment_confirmation_id": @"NA",
-                                @"payment_processor_name": @"paypal",
-                                @"special_instructions": @"there are no any special instructions",
-                                @"details": purchasedAddOnsDetails}
-            CompletionHandler:^(NSDictionary *result) {
-        
-                if (result) {
-                    DubbOrderConfirmationViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"DubbOrderConfirmationViewController"];
-                    vc.listingInfo = listingInfo;
-                    vc.purchasedAddOnsDetails = purchasedAddOnsDetails;
-                    vc.totalAmountPurchased = sum;
-                    vc.orderID = [NSString stringWithFormat:@"%@", result[@"response"][@"id"]];
-                    
-                    [self.navigationController pushViewController: vc animated:YES];
-                } else {
-                    [self showMessage:@"Failed to create an order"];
-                }
-        
-    }];
+    [self onPay:listingInfo Price:price];
+    
     
 }
 
@@ -643,6 +598,123 @@ static bool liked = NO;
     }
     
     [controller dismissViewControllerAnimated:YES completion:NULL];
+}
+
+#pragma mark -
+#pragma mark Payment
+
+- (IBAction)onBookNow:(id)sender {
+    if( !listingInfo ) return;
+    
+    
+}
+
+
+-(void) onPay:(NSDictionary *)listing Price:(NSInteger) price
+{
+    
+    PayPalPayment *payment = [[PayPalPayment alloc] init];
+    payment.amount = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%lu", price]];
+    payment.currencyCode = @"USD";
+    payment.shortDescription = [NSString stringWithFormat:@"%@ (%@)", listing[@"name"], listing[@"user"][@"username"] ];
+    payment.items = nil;  // if not including multiple items, then leave payment.items as nil
+    payment.paymentDetails = nil; // if not including payment details, then leave payment.paymentDetails as nil
+    
+    AppDelegate *app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    
+    PayPalPaymentViewController *paymentViewController = [[PayPalPaymentViewController alloc] initWithPayment:payment
+                                                                                                configuration:app.payPalConfig
+                                                                                                     delegate:self];
+    [self presentViewController:paymentViewController animated:YES completion:nil];
+    
+}
+
+#pragma mark PayPalPaymentDelegate methods
+
+- (void)payPalPaymentViewController:(PayPalPaymentViewController *)paymentViewController didCompletePayment:(PayPalPayment *)completedPayment {
+//
+    
+    
+    
+    
+    NSMutableArray *purchasedAddOnsDetails = [NSMutableArray array];
+    
+    for (NSDictionary *purchasedAddOn in purchasedAddOns) {
+        
+        BOOL exists = NO;
+        
+        for (NSMutableDictionary *addOnDetail in purchasedAddOnsDetails) {
+            if ([addOnDetail[@"addon_id"] isEqualToString:purchasedAddOn[@"id"]]) {
+                
+                exists = YES;
+                addOnDetail[@"quantity"] = [NSString stringWithFormat:@"%ld", [addOnDetail[@"quantity"] integerValue] + 1];
+                addOnDetail[@"amount"] = [NSString stringWithFormat:@"%ld", [purchasedAddOn[@"price"] integerValue] * [addOnDetail[@"quantity"] integerValue]];
+                break;
+                
+            }
+        }
+        
+        if (!exists) {
+            [purchasedAddOnsDetails addObject:[NSMutableDictionary dictionaryWithDictionary:@{@"addon_id":purchasedAddOn[@"id"],
+                                                                                              @"amount":purchasedAddOn[@"price"],
+                                                                                              @"quantity":@"1",
+                                                                                              @"sequence":purchasedAddOn[@"sequence"],
+                                                                                              @"description":purchasedAddOn[@"description"]}]];
+        }
+        
+    }
+    
+    NSInteger sum = 0;
+    
+    for (NSDictionary * addOnInfo in purchasedAddOns) {
+        sum += [addOnInfo[@"price"] integerValue];
+    }
+    
+    NSLog(@"PayPal Payment Success!\n %@", [completedPayment description]);
+       
+    [self sendCompletedPaymentToServer:completedPayment]; // Payment was processed successfully; send to server for verification and fulfillment
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+    [self showProgress:@"Creating Order..."];
+    [self.backend createOrder:@{@"total_amt": @(sum),
+                                @"listing_id": listingInfo[@"id"],
+                                @"buyer_id": [User currentUser].userID,
+                                @"seller_id": listingInfo[@"user_id"],
+                                @"payment_confirmation_id": [completedPayment.confirmation[@"response"] objectForKey:@"id"],
+                                @"payment_processor_name": @"paypal",
+                                @"special_instructions": completedPayment.description,
+                                @"details": purchasedAddOnsDetails }
+            CompletionHandler:^(NSDictionary *result) {
+
+                [self hideProgress];
+                if (result) {
+                    DubbOrderConfirmationViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"DubbOrderConfirmationViewController"];
+                    vc.listingInfo = listingInfo;
+                    vc.purchasedAddOnsDetails = purchasedAddOnsDetails;
+                    vc.totalAmountPurchased = sum;
+                    vc.orderID = [NSString stringWithFormat:@"%@", result[@"response"][@"id"]];
+                    
+                    [self.navigationController pushViewController: vc animated:YES];
+                } else {
+                    [self showMessage:[NSString stringWithFormat:@"Sorry, server is not responding, please contact administrator to confirm payment.\nYour payment id: %@", [completedPayment.confirmation[@"response"] objectForKey:@"id"]]];
+                }
+                
+            }];
+    
+    
+}
+
+- (void)payPalPaymentDidCancel:(PayPalPaymentViewController *)paymentViewController {
+    NSLog(@"PayPal Payment Canceled");
+    [self showMessage:@"Payment cancelled"];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark Proof of payment validation
+
+- (void)sendCompletedPaymentToServer:(PayPalPayment *)completedPayment {
+    // TODO: Send completedPayment.confirmation to server
+    NSLog(@"Here is your proof of payment:\n\n%@\n\nSend this to your server for confirmation and fulfillment.", completedPayment.confirmation);
 }
 
 /*

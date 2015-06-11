@@ -18,7 +18,7 @@
 #import "DubbCategoriesViewController.h"
 #import "DubbSingleListingViewController.h"
 
-@interface DubbListingsViewController (){
+@interface DubbListingsViewController () {
     
     __weak IBOutlet UIButton *btnMenuBar;
     __weak IBOutlet UIButton *btnRightMenuBar;
@@ -373,8 +373,9 @@
         NSString *cellIdentifier = [NSString stringWithFormat:@"listing%@", item[@"id"]];
         cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         
-        if( !cell )
+        if( !cell ){
             cell = [[DubbListingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier listingInfo:item];
+        }
     }
     return cell;
 }
@@ -494,5 +495,8 @@
     }
     
 }
+/*
+
+*/
 
 @end

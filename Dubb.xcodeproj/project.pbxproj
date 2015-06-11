@@ -1521,7 +1521,7 @@
 				TargetAttributes = {
 					7CA773A21AB1C2AF00F6D631 = {
 						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = 93D6ZD3D4Y;
+						DevelopmentTeam = 6822BLGBTR;
 					};
 					7CA773BB1AB1C2AF00F6D631 = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -1948,7 +1948,7 @@
 			baseConfigurationReference = 3FC747553FC9F4473463E4B0 /* Pods-Dubb.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Venk Tatineni (L996VHMYTF)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Venk Tatineni (L996VHMYTF)";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1970,7 +1970,7 @@
 					"$(PROJECT_DIR)/Dubb/ExtraFrameworks/Library",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9ddca4ac-eb3c-4c03-9ed0-cac5e2cd9914";
+				PROVISIONING_PROFILE = "02db9c51-93aa-4ca1-ac08-6115a91c1704";
 			};
 			name = Debug;
 		};
@@ -1979,7 +1979,7 @@
 			baseConfigurationReference = D1E8AA2095BD41F943711C81 /* Pods-Dubb.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Illumified Inc (93D6ZD3D4Y)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Illumified Inc (93D6ZD3D4Y)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2000,7 +2000,7 @@
 					"$(PROJECT_DIR)/Dubb/ExtraFrameworks/Library",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a98b398e-090d-44a2-a7e6-34fa60550810";
+				PROVISIONING_PROFILE = "1999291a-e60d-4e79-96e4-e8ba46ed02da";
 			};
 			name = Release;
 		};

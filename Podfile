@@ -10,5 +10,7 @@ pod 'NewRelicAgent'
 pod 'QuickBlox'
 pod 'AXRatingView'
 pod 'uservoice-iphone-sdk'
+pod 'PayPal-iOS-SDK'
+
 end
 

@@ -47,8 +47,10 @@ enum DubbListingCellTag {
     } else {
         self.navigationBarTitleLabel.text = @"SALES";
     }
+    
+    [self showProgress:@"Loading..."];
     [self.backend getAllOrdersForUserType:self.userType CompletionHandler:^(NSDictionary *result) {
-        
+        [self hideProgress];
         orderDetails = result[@"response"];
         [self.tableView reloadData];
         
