@@ -232,6 +232,7 @@
 		7CBE24321AD6B8D700DA0A12 /* DubbImageBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CBE24311AD6B8D700DA0A12 /* DubbImageBrowser.m */; };
 		DC26C2101B050C7B00F9385A /* DubbCategoriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC26C20F1B050C7B00F9385A /* DubbCategoriesViewController.m */; };
 		DC26C2141B050CAB00F9385A /* DubbCategoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DC26C2131B050CAB00F9385A /* DubbCategoryCell.m */; };
+		DC2BE6621B2F3F3B009B7303 /* DubbSubCategoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC2BE6611B2F3F3B009B7303 /* DubbSubCategoryController.m */; };
 		DC63FC761AD7B5EA00A505B8 /* DubbOverlayProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC63FC751AD7B5EA00A505B8 /* DubbOverlayProgressView.m */; };
 		DC63FC781AD7BBF900A505B8 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC63FC771AD7BBF900A505B8 /* ImageIO.framework */; };
 		DC63FC7B1AD7EE7D00A505B8 /* play@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC63FC791AD7EE7D00A505B8 /* play@2x.png */; };
@@ -594,6 +595,8 @@
 		DC26C20F1B050C7B00F9385A /* DubbCategoriesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DubbCategoriesViewController.m; path = Listing/DubbCategoriesViewController.m; sourceTree = "<group>"; };
 		DC26C2121B050CAB00F9385A /* DubbCategoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DubbCategoryCell.h; sourceTree = "<group>"; };
 		DC26C2131B050CAB00F9385A /* DubbCategoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DubbCategoryCell.m; sourceTree = "<group>"; };
+		DC2BE6601B2F3F3B009B7303 /* DubbSubCategoryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DubbSubCategoryController.h; path = Listing/DubbSubCategoryController.h; sourceTree = "<group>"; };
+		DC2BE6611B2F3F3B009B7303 /* DubbSubCategoryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DubbSubCategoryController.m; path = Listing/DubbSubCategoryController.m; sourceTree = "<group>"; };
 		DC63FC741AD7B5EA00A505B8 /* DubbOverlayProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DubbOverlayProgressView.h; sourceTree = "<group>"; };
 		DC63FC751AD7B5EA00A505B8 /* DubbOverlayProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DubbOverlayProgressView.m; sourceTree = "<group>"; };
 		DC63FC771AD7BBF900A505B8 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
@@ -1164,6 +1167,8 @@
 				0D6B7D631B151B51000B0352 /* DubbOrderConfirmationViewController.m */,
 				0D5653A61B24494500444999 /* DubbMyListingsViewController.h */,
 				0D5653A71B24494500444999 /* DubbMyListingsViewController.m */,
+				DC2BE6601B2F3F3B009B7303 /* DubbSubCategoryController.h */,
+				DC2BE6611B2F3F3B009B7303 /* DubbSubCategoryController.m */,
 			);
 			name = Listing;
 			sourceTree = "<group>";
@@ -1793,6 +1798,7 @@
 				0D1FA6541ACA183D00079C79 /* RECommonFunctions.m in Sources */,
 				0D1FA68F1ACA18DA00079C79 /* SelectedLocation.m in Sources */,
 				0D1FA40D1ACA17EB00079C79 /* DubbServiceAreaViewController.m in Sources */,
+				DC2BE6621B2F3F3B009B7303 /* DubbSubCategoryController.m in Sources */,
 				7C09A5FA1AB29E4B00218127 /* DubbMenuViewController.m in Sources */,
 				0D6B7D641B151B51000B0352 /* DubbOrderConfirmationViewController.m in Sources */,
 				0DFCB17C1AFFDAF0001F2820 /* DubbSingleListingViewController.m in Sources */,
@@ -1949,7 +1955,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Venk Tatineni (L996VHMYTF)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Venk Tatineni (QYZW6DXNWC)";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1980,7 +1986,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Illumified Inc (93D6ZD3D4Y)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Venk Tatineni (6822BLGBTR)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Dubb/ExtraFrameworks/**",
@@ -2000,7 +2006,7 @@
 					"$(PROJECT_DIR)/Dubb/ExtraFrameworks/Library",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1999291a-e60d-4e79-96e4-e8ba46ed02da";
+				PROVISIONING_PROFILE = "02a5b663-9e92-49b7-b4d2-592d793d2b75";
 			};
 			name = Release;
 		};
