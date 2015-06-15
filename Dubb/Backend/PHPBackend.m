@@ -57,6 +57,20 @@ static PHPBackend   *sharedConnection;
         }
     }];
 }
+
+-(void) getUser : (NSString*) userID
+         CompletionHandler:(void (^)(NSDictionary *result))handler
+{
+    NSString *apiPath = [NSString stringWithFormat:@"%@%@%@", APIURL, @"user/",userID];
+    NSDictionary *params = @{@"with":@"preferences"};
+    
+    [self accessAPI:apiPath Parameters:params CompletionHandler:^(NSDictionary *result, NSData *data, NSError *error) {
+        if (handler) {
+            handler(result);
+        }
+        
+    }];
+}
 -(void) updateListing : (NSString*) listingID
         Parameters : (NSDictionary*) params
   CompletionHandler:(void (^)(NSDictionary *result))handler

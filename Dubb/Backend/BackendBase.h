@@ -23,6 +23,9 @@
 -(void) updateUser : (NSString*) userID Parameters : (NSDictionary*) params
   CompletionHandler:(void (^)(NSDictionary *result))handler;
 
+-(void) getUser : (NSString*) userID
+CompletionHandler:(void (^)(NSDictionary *result))handler;
+
 -(void) getSuggestionList : (NSString*) keyword
   CompletionHandler:(void (^)(NSDictionary *result))handler;
 

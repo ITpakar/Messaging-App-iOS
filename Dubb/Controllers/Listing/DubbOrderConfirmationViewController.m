@@ -302,7 +302,7 @@ enum DubbOrderConfirmationViewTag {
     
     if ([self.userType isEqualToString:@"seller"]) {
         CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-        CLLocation *location = [[CLLocation alloc] initWithLatitude:[self.buyerInfo[@"lat"] doubleValue] longitude:[self.buyerInfo[@"long"] doubleValue]];
+        CLLocation *location = [[CLLocation alloc] initWithLatitude:[self.buyerInfo[@"lat"] doubleValue] longitude:[self.buyerInfo[@"longitude"] doubleValue]];
         
         [geocoder reverseGeocodeLocation:location completionHandler: ^ (NSArray  *placemarks, NSError *error) {
             

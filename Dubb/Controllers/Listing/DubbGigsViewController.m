@@ -120,7 +120,7 @@
         NSArray* location = [item[@"latlon"] componentsSeparatedByString:@","];
         if(location.count == 2){
             [gigItem setObject:location[0] forKey:@"lat"];
-            [gigItem setObject:location[1] forKey:@"long"];
+            [gigItem setObject:location[1] forKey:@"longitude"];
         }
     }
     if( item[@"category"] )

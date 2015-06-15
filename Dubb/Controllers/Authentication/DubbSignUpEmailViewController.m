@@ -9,6 +9,7 @@
 #import "DubbSignUpEmailViewController.h"
 #import "TextFieldValidator.h"
 #import "M13Checkbox.h"
+#import "AppDelegate.h"
 
 #define REGEX_USER_NAME_LIMIT @"^.{3,10}$"
 #define REGEX_USER_NAME @"[A-Za-z0-9_]{3,10}"
@@ -109,7 +110,7 @@
     chkboxTogglePasswordSecureEntry.checkColor = [UIColor colorWithRed:0 green:167.0f/255.0f blue:10.0f/255.0f alpha:1.0f];
     [chkboxTogglePasswordSecureEntry setCheckState:M13CheckboxStateChecked];
     [chkboxTogglePasswordSecureEntry addTarget:self action:@selector(checkChangedValue:) forControlEvents:UIControlEventValueChanged];
-    
+    [chkboxTogglePasswordSecureEntry setCheckState:M13CheckboxStateUnchecked];
     // Validation Criteria
     
     isUserNameValid = YES;
@@ -147,16 +148,19 @@
 }
 - (IBAction)signUpButtonTapped:(id)sender {
     
-    NSDictionary *params = @{ @"email":txtEmail.text, @"password":txtPassword.text, @"username":txtUsername.text, @"first":txtFirstname.text, @"last":txtLastName.text, @"phone":txtPhone.text, @"lat":@"55.7502", @"long":@"37.6168"};
+    
     
     
     if ([txtUsername validate] && [txtEmail validate] && [txtPassword validate] && [txtFirstname validate] && [txtLastName validate] && isUserNameValid ) {
+        
+        NSDictionary *params = @{ @"email":txtEmail.text, @"password":txtPassword.text, @"username":txtUsername.text, @"first":txtFirstname.text, @"last":txtLastName.text, @"phone":txtPhone.text, @"lat":([User currentUser].latitude == nil) ? @"37.33" : [User currentUser].latitude, @"longitude":([User currentUser].longitude == nil) ? @"-122.03" : [User currentUser].longitude};
         if (self.userInfo) {
             
             [self updateUserToDubbWithUserID:self.userId params:params];
             
         } else {
-            
+            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"SHOWN_INTRODUCTION"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
             [self registerUserToDubb:params];
             
         }
@@ -174,6 +178,8 @@
     if (isFirstResponder) [textField resignFirstResponder]; //resign first responder if needed, so that setting the attribute to YES works
     textField.secureTextEntry = !textField.secureTextEntry; //change the secureText attribute to opposite
     if (isFirstResponder) [textField becomeFirstResponder]; //give the field focus again, if it was first responder initially
+    
+    
 }
 
 /*

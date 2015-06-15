@@ -10,7 +10,7 @@
 #import "DubbCreateListingConfirmationViewController.h"
 
 #define commonShareText(listingTitle)  [NSString stringWithFormat:@"%@ - Dubb Mobile Marketplace for Creative Freelancers - http://www.dubb.co/app", listingTitle]
-#define disablingReasonText  @"For your Post to go live, we require that you share this through atleast one of the of the channels listed on this page"
+#define disablingReasonText  @"For your Post to go live, we require that you share this through at least one of the of the channels listed on this page"
 
 @interface DubbCreateListingConfirmationViewController () {
     SLComposeViewControllerCompletionHandler __block completionHandler;

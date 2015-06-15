@@ -5,6 +5,7 @@
 //  Created by andikabijaya on 5/29/15.
 //  Copyright (c) 2015 dubb.co. All rights reserved.
 //
+#import <SDWebImage/UIImageView+WebCache.h>
 #import "NSDate+Helper.h"
 #import "DubbOrderConfirmationViewController.h"
 #import "DubbSalesOrdersViewController.h"
@@ -102,6 +103,11 @@ enum DubbListingCellTag {
         amountLabel.text = [NSString stringWithFormat:@"$%@", orderDetail[@"total_amt"]];
         NSString *imageName = ([orderDetail[@"order_delivery_status"] isEqualToString:@"inprogress"]) ? @"in_progress_indicator.png" : @"complete_indicator.png";
         progressIndicatorImageView.image = [UIImage imageNamed:imageName];
+        if ([orderDetail[@"seller"] objectForKey:@"image"] && ![[orderDetail[@"seller"] objectForKey:@"image"] isKindOfClass:[NSNull class]]) {
+            [profileImageView sd_setImageWithURL:[NSURL URLWithString:orderDetail[@"seller"][@"image"][@"url"]]];
+        }
+
+        
     }
     return cell;
 }
@@ -117,7 +123,7 @@ enum DubbListingCellTag {
         vc.purchasedAddOnsDetails = orderDetail[@"details"];
         vc.totalAmountPurchased = [orderDetail[@"total_amt"] integerValue];
         vc.orderID = [NSString stringWithFormat:@"%@", orderDetail[@"details"][0][@"order_id"]];
-        vc.userImageURL = orderDetail[@"seller"][@"image"][@"url"];
+        vc.userImageURL = ([[orderDetail[@"seller"] objectForKey:@"image"] isKindOfClass:[NSNull class]]) ? @"" : orderDetail[@"seller"][@"image"][@"url"];
         vc.opponentQuickbloxID = orderDetail[opponentType][@"quickblox_id"];
         vc.buyerInfo = orderDetail[@"buyer"];
     }

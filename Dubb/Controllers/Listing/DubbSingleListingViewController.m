@@ -85,7 +85,7 @@ enum DubbSingleListingViewTag {
 }
 - (IBAction)bookNowButtonTapped:(id)sender {
     
-    if ([[User currentUser].userID isEqualToString:listingInfo[@"user_id"]]) {
+    if ([[User currentUser].userID integerValue] == [listingInfo[@"user_id"] integerValue]) {
         [self showMessage:@"You can't book your own service!"];
         return;
     }
@@ -499,7 +499,7 @@ static bool liked = NO;
     profileImageView.clipsToBounds = YES;
     
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-    CLLocation *location = [[CLLocation alloc] initWithLatitude:[listingInfo[@"lat"] doubleValue] longitude:[listingInfo[@"long"] doubleValue]];
+    CLLocation *location = [[CLLocation alloc] initWithLatitude:[listingInfo[@"lat"] doubleValue] longitude:[listingInfo[@"longitude"] doubleValue]];
     
     [geocoder reverseGeocodeLocation:location completionHandler: ^ (NSArray  *placemarks, NSError *error) {
         
@@ -632,11 +632,7 @@ static bool liked = NO;
 #pragma mark PayPalPaymentDelegate methods
 
 - (void)payPalPaymentViewController:(PayPalPaymentViewController *)paymentViewController didCompletePayment:(PayPalPayment *)completedPayment {
-//
-    
-    
-    
-    
+
     NSMutableArray *purchasedAddOnsDetails = [NSMutableArray array];
     
     for (NSDictionary *purchasedAddOn in purchasedAddOns) {
@@ -693,7 +689,7 @@ static bool liked = NO;
                     vc.purchasedAddOnsDetails = purchasedAddOnsDetails;
                     vc.totalAmountPurchased = sum;
                     vc.orderID = [NSString stringWithFormat:@"%@", result[@"response"][@"id"]];
-                    
+                    [[iRate sharedInstance] promptIfNetworkAvailable];
                     [self.navigationController pushViewController: vc animated:YES];
                 } else {
                     [self showMessage:[NSString stringWithFormat:@"Sorry, server is not responding, please contact administrator to confirm payment.\nYour payment id: %@", [completedPayment.confirmation[@"response"] objectForKey:@"id"]]];

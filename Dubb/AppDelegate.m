@@ -40,9 +40,11 @@
     //as it is picked up automatically from your Info.plist file
     //but we want to test with an app that's actually on the store
     [iRate sharedInstance].onlyPromptIfLatestVersion = NO;
+    [iRate sharedInstance].daysUntilPrompt = 5;
+    [iRate sharedInstance].remindPeriod = 5;
     
-    //enable preview mode
-    //[iRate sharedInstance].previewMode = YES;
+
+    
 }
 
 

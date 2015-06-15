@@ -175,7 +175,7 @@
     self.categoryTextField.text = self.listingDetail[@"category"][@"name"];
 
     baseServiceID = addonArray[0][@"id"];
-    selectedLocation.locationCoordinates = CLLocationCoordinate2DMake([self.listingDetail[@"lat"] floatValue], [self.listingDetail[@"long"] floatValue]);
+    selectedLocation.locationCoordinates = CLLocationCoordinate2DMake([self.listingDetail[@"lat"] floatValue], [self.listingDetail[@"longitude"] floatValue]);
     radius = ([self.listingDetail[@"radius_mi"] integerValue] > 0) ?  self.listingDetail[@"radius_mi"] : [NSString stringWithFormat:@"%.3f", [self.listingDetail[@"radius_km"] integerValue] * 0.621371192];
     addOns = [addonArray mutableCopy];
     [addOns removeObjectAtIndex:0];
@@ -183,7 +183,7 @@
     [self.tableView reloadData];
     
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-    CLLocation *location = [[CLLocation alloc] initWithLatitude:[self.listingDetail[@"lat"] floatValue] longitude:[self.listingDetail[@"long"] floatValue]];
+    CLLocation *location = [[CLLocation alloc] initWithLatitude:[self.listingDetail[@"lat"] floatValue] longitude:[self.listingDetail[@"longitude"] floatValue]];
     
     [geocoder reverseGeocodeLocation:location completionHandler: ^ (NSArray  *placemarks, NSError *error) {
         
@@ -537,7 +537,7 @@
                    @"category_edge_id":subCategories[self.subCategoryTextField.selectedRow][@"category_edge_id"],
                    @"user_id":[User currentUser].userID,
                    @"lat":[NSString stringWithFormat:@"%f", selectedLocation.locationCoordinates.latitude],
-                   @"long":[NSString stringWithFormat:@"%f", selectedLocation.locationCoordinates.longitude],
+                   @"longitude":[NSString stringWithFormat:@"%f", selectedLocation.locationCoordinates.longitude],
                    @"radius_mi":radius,
                    @"addon":addonArray,
                    @"tag":tagArrayForUpdate,
@@ -560,7 +560,7 @@
                        @"category_edge_id":subCategories[self.subCategoryTextField.selectedRow][@"category_edge_id"],
                        @"user_id":[User currentUser].userID,
                        @"lat":[NSString stringWithFormat:@"%f", selectedLocation.locationCoordinates.latitude],
-                       @"long":[NSString stringWithFormat:@"%f", selectedLocation.locationCoordinates.longitude],
+                       @"longitude":[NSString stringWithFormat:@"%f", selectedLocation.locationCoordinates.longitude],
                        @"radius_mi":radius,
                        @"addon":addonArray,
                        @"main_image":imageURLs[0],
@@ -575,7 +575,7 @@
                        @"category_edge_id":subCategories[self.subCategoryTextField.selectedRow][@"category_edge_id"],
                        @"user_id":[User currentUser].userID,
                        @"lat":[NSString stringWithFormat:@"%f", selectedLocation.locationCoordinates.latitude],
-                       @"long":[NSString stringWithFormat:@"%f", selectedLocation.locationCoordinates.longitude],
+                       @"longitude":[NSString stringWithFormat:@"%f", selectedLocation.locationCoordinates.longitude],
                        @"radius_km":radius,
                        @"addon":addonArray,
                        @"main_image":imageURLs[0],

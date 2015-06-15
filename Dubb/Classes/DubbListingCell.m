@@ -84,7 +84,7 @@
             CLGeocoder *geocoder = [[CLGeocoder alloc] init];
             CLLocationCoordinate2D myCoOrdinate;
             myCoOrdinate.latitude = [listing[@"lat"] floatValue];
-            myCoOrdinate.longitude = [listing[@"long"] floatValue];
+            myCoOrdinate.longitude = [listing[@"longitude"] floatValue];
             CLLocation *location = [[CLLocation alloc] initWithLatitude:myCoOrdinate.latitude longitude:myCoOrdinate.longitude];
             
             [geocoder reverseGeocodeLocation:location completionHandler: ^ (NSArray  *placemarks, NSError *error) {

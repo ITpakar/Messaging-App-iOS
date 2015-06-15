@@ -127,6 +127,11 @@
             [contentVC setViewControllers:@[vc] animated:NO];
             
             break;
+            
+        case 4:
+            [contentVC setViewControllers:@[[self.storyboard instantiateViewControllerWithIdentifier:@"DubbProfileViewController"]] animated:NO];
+            break;
+            
         case 5:
             [UserVoice presentUserVoiceInterfaceForParentViewController:self];
             break;

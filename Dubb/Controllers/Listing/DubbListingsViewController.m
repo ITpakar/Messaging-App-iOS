@@ -33,6 +33,7 @@
     
     __weak IBOutlet UITextField *locationSearchBar;
     
+    IBOutlet UIView *introductionView;
     UIView *overlayView;
     UITapGestureRecognizer *tapGestureRecognizer;
     
@@ -62,6 +63,17 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"SHOWN_INTRODUCTION"]) {
+        introductionView.hidden = NO;
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"SHOWN_INTRODUCTION"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+    } else {
+        
+        introductionView.hidden = YES;
+        
+    }
+        
     [self setupSearch];
     [self setupListingTableView];
 }
@@ -493,6 +505,11 @@
     } else { //Category
         [self.navigationController pushViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"categoriesController"] animated:YES];
     }
+    
+}
+- (IBAction)closeInstructionViewButtonTapped:(id)sender {
+    
+    introductionView.hidden = YES;
     
 }
 /*

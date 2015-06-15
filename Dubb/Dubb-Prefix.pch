@@ -29,7 +29,7 @@
 #define twitterConsumerSecret   @"4OSE2H6mn6ZSeD5nRWuYJeSrdTrhZpBuh6r6RmqE0HviKV2IxZ"
 
 //623939172061-02okbe9jhenmjt396lr6r0nacihilg23.apps.googleusercontent.com
-#define kGoogleClientID         @"623939172061-ht7pl7n677jo4n2i9onkrgut9mh43dea.apps.googleusercontent.com"
+#define kGoogleClientID         @"1089085998653-1e3nfq8k6ng3l2rnm46b0ru1hliaqe87.apps.googleusercontent.com"
 #define kGoogleAnalyticsTrackId @"UA-60124659-1"
 
 #define kNewRelicToken          @"AA931550a5b1c47c60965612de77ecd35634149874"
@@ -39,8 +39,8 @@
 #define DEFAULTS_DEVICE_TOKEN @"default device token"
 #define googleLocationServiceKey @"AIzaSyBqO1R2q7YGqnEAegFiA4vbHo7oLn8IqV0"
 
-//#define APIURL                  @"http://devd.dubb.co/v1/"
-#define APIURL                  @"http://devd-dubb-co-d9hg85ewhstw.runscope.net/v1/"
+#define APIURL                  @"http://devd.dubb.co/v1/"
+//#define APIURL                  @"http://devd-dubb-co-d9hg85ewhstw.runscope.net/v1/"
 #define kNotificationDidReceiveNewMessage           @"kNotificationDidReceiveNewMessage"
 
 #define kNotificationDidCheckAddon               @"kNotificationDidCheckAddon"
@@ -50,10 +50,10 @@
 #define kMessage                                    @"kMessage"
 
 #define kNotificationDidLocationUpdated             @"kNotificationDidLocationUpdated"
-#define qbAppID                 20732
-#define qbServiceKey            @"rFnQPECabCam7aD"
-#define qbServiceSecret         @"pGtKhO3fFQWK3fr"
-#define qbAccountKey            @"hz65Y6mgMKfDG8ysjPPa"
+#define qbAppID                 20827
+#define qbServiceKey            @"tgOftRKGa6WR6Et"
+#define qbServiceSecret         @"jbhtk2dKJMK4Wqx"
+#define qbAccountKey            @"oL9Rx31fqifsg4pSPEjB"
 
 #define qbDefaultPassword       @"dubb@345"
 
