@@ -1479,7 +1479,6 @@ Dubb!</string>
                     <connections>
                         <outlet property="btnMenuBar" destination="lbh-zS-vld" id="k2o-a4-Bm7"/>
                         <outlet property="btnRightMenuBar" destination="QNy-go-PEr" id="wGI-k8-vz5"/>
-                        <outlet property="introductionView" destination="bKy-04-eYo" id="FTf-pG-hE6"/>
                         <outlet property="listingsTableView" destination="9qx-DV-Wj0" id="vbz-vF-lCX"/>
                         <outlet property="locationSearchBar" destination="tNK-79-5mb" id="1s5-RQ-xX5"/>
                         <outlet property="searchBar" destination="r90-7z-DBN" id="GFX-3A-9eQ"/>

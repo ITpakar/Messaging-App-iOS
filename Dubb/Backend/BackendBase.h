@@ -35,6 +35,8 @@ CompletionHandler:(void (^)(NSDictionary *result))handler;
 
 -(void) getAllCategories :(void (^)(NSDictionary *result))handler;
 
+-(void) getListingsWithCategoryID : (NSString*) category_id Page:(NSInteger)page CompletionHandler:(void (^)(NSDictionary *result))handler;
+
 -(void) getListingWithID:(NSString *)listingID CompletionHandler:(void (^)(NSDictionary *result))handler;
 
 -(void) updateListing : (NSString*) listingID Parameters : (NSDictionary*) params CompletionHandler:(void (^)(NSDictionary *result))handler;

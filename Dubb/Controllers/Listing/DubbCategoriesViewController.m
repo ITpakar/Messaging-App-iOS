@@ -31,6 +31,7 @@
         [self hideProgress];
         if( ![result[@"error"] boolValue] ){
             categoryList = [NSMutableArray arrayWithArray:result[@"response"]];
+            NSLog(@"%@", categoryList);
             [categoryCollectionView reloadData];
         }
     }];
