@@ -33,23 +33,28 @@
     _categoryNameLabel.text = category[@"name"];
     
     [_activityIndicator stopAnimating];
-    [_activityIndicator startAnimating];
-    [[SDImageCache sharedImageCache] queryDiskCacheForKey:_categoryData[@"image"][@"url"] done:^(UIImage *image, SDImageCacheType cacheType) {
-        if( image != nil){
-            [_activityIndicator stopAnimating];
-            _categoryImageView.image = image;
-        } else {
-            [SDWebImageDownloader.sharedDownloader downloadImageWithURL: [NSURL URLWithString:_categoryData[@"image"][@"url"]] options:0 progress:nil completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
+    
+    if ([_categoryData objectForKey:@"url"] && [_categoryData[@"url"] isKindOfClass:[NSNull class]]) {
+        [_activityIndicator startAnimating];
+        [[SDImageCache sharedImageCache] queryDiskCacheForKey:_categoryData[@"image"][@"url"] done:^(UIImage *image, SDImageCacheType cacheType) {
+            if( image != nil){
                 [_activityIndicator stopAnimating];
-                
-                if( image == nil )
-                    image = [UIImage imageNamed:@"placeholder_image.png"];
-                
                 _categoryImageView.image = image;
-                [[SDImageCache sharedImageCache] storeImage:image forKey:_categoryData[@"image"][@"url"]];
-            }];
-        }
-    }];
+            } else {
+                [SDWebImageDownloader.sharedDownloader downloadImageWithURL: [NSURL URLWithString:_categoryData[@"image"][@"url"]] options:0 progress:nil completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
+                    [_activityIndicator stopAnimating];
+                    
+                    if( image == nil )
+                        image = [UIImage imageNamed:@"placeholder_image.png"];
+                    
+                    _categoryImageView.image = image;
+                    [[SDImageCache sharedImageCache] storeImage:image forKey:_categoryData[@"image"][@"url"]];
+                }];
+            }
+        }];
+
+    }
+    
 }
 
 @end

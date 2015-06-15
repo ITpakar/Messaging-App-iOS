@@ -118,7 +118,7 @@ static PHPBackend   *sharedConnection;
 
 
 -(void) getAllCategories :(void (^)(NSDictionary *result))handler{
-    NSString *apiPath = [NSString stringWithFormat:@"%@%@", APIURL, @"category"];
+    NSString *apiPath = [NSString stringWithFormat:@"%@%@", APIURL, @"categories"];
     [self accessAPI:apiPath Parameters:@{@"width":@"image"} CompletionHandler:^(NSDictionary *result, NSData *data, NSError *error) {
         handler(result);
     }];
