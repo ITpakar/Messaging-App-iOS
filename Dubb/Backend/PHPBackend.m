@@ -118,8 +118,17 @@ static PHPBackend   *sharedConnection;
 
 
 -(void) getAllCategories :(void (^)(NSDictionary *result))handler{
-    NSString *apiPath = [NSString stringWithFormat:@"%@%@", APIURL, @"category"];
-    [self accessAPI:apiPath Parameters:@{@"width":@"image"} CompletionHandler:^(NSDictionary *result, NSData *data, NSError *error) {
+    NSString *apiPath = [NSString stringWithFormat:@"%@%@", APIURL, @"categories"];
+    [self accessAPI:apiPath Parameters:nil CompletionHandler:^(NSDictionary *result, NSData *data, NSError *error) {
+        handler(result);
+    }];
+}
+
+
+-(void) getListingsWithCategoryID : (NSString*) category_id Page:(NSInteger)page CompletionHandler:(void (^)(NSDictionary *result))handler
+{
+    NSString *apiPath = [NSString stringWithFormat:@"%@category/%@/listing?sortby=created_at&order=desc&page=%lu&limit=25", APIURL, category_id, page];
+    [self accessAPI:apiPath Parameters:nil CompletionHandler:^(NSDictionary *result, NSData *data, NSError *error) {
         handler(result);
     }];
 }

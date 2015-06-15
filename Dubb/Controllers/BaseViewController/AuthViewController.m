@@ -174,11 +174,11 @@
     if( userType == kFacebookUser ){
         currentUser.fbID = userid;
         
-        params = @{ @"email":email, @"password":qbDefaultPassword, @"first":fname, @"last":lname, @"lat":@"55.7502", @"longitude":@"37.6168", @"facebook_token":userid, @"gender":gender, @"image": url};
+        params = @{ @"email":email, @"password":qbDefaultPassword, @"first":fname, @"last":lname, @"lat":currentUser.latitude, @"long":currentUser.longitude, @"facebook_token":userid, @"gender":gender, @"image": url};
         
     } else {
         currentUser.gpID = userid;
-        params = @{ @"email":email, @"password":qbDefaultPassword, @"first":fname, @"last":lname, @"lat":@"55.7502", @"longitude":@"37.6168", @"gplus_token":userid, @"image": url};
+        params = @{ @"email":email, @"password":qbDefaultPassword, @"first":fname, @"last":lname, @"lat":currentUser.latitude, @"long":currentUser.longitude, @"gplus_token":userid, @"image": url};
     }
                              
     if( currentUser.latitude.intValue + currentUser.longitude.intValue != 0 )
