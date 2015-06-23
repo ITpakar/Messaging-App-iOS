@@ -39,6 +39,7 @@
     _profileImageURL = @"";
     _chatUser = nil;
     _profileImage = nil;
+    _quickbloxID = @"";
 }
 
 
