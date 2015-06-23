@@ -283,7 +283,12 @@ enum DubbOrderConfirmationViewTag {
     // Set orderDescriptionLabel text
     if (self.userType && [self.userType isEqualToString:@"seller"]) {
         self.orderDescriptionLabel.text = @"You Have a New Order!";
+    } else if (self.orderDeliveryStatus && [self.orderDeliveryStatus isEqualToString:@"completed"]) {
+        self.orderDescriptionLabel.text = @"Your Order has been completed!";
+    } else {
+        self.orderDescriptionLabel.text = @"Your Order is Placed";
     }
+    
     
     // Get current date
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];

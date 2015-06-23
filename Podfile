@@ -11,6 +11,6 @@ pod 'QuickBlox'
 pod 'AXRatingView'
 pod 'uservoice-iphone-sdk'
 pod 'PayPal-iOS-SDK'
-
+pod 'UIActivityIndicator-for-SDWebImage'
 end
 

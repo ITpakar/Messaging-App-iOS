@@ -8,6 +8,7 @@
 
 #import "BaseViewController.h"
 #import "PaypalMobile.h"
+#import "SZTextView.h"
 @interface DubbProfileViewController : BaseViewController <PayPalFuturePaymentDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate>
 {
     UIImage *chosenImage;
@@ -22,5 +23,7 @@
 @property (strong, nonatomic) IBOutlet UITextField *mobileTextField;
 @property (strong, nonatomic) IBOutlet UITextField *zipCodeTextField;
 @property (strong, nonatomic) IBOutlet UIImageView *profileImageView;
+@property (strong, nonatomic) IBOutlet SZTextView *bioTextView;
+@property (strong, nonatomic) IBOutlet UILabel *availableCharacterNumberLabel;
 
 @end

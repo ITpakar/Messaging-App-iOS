@@ -181,6 +181,11 @@
     
     
 }
+- (IBAction)termsOfServiceButtonTapped:(id)sender {
+    
+     [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"http://Dubb.co/terms"]];
+    
+}
 
 /*
 #pragma mark - Navigation

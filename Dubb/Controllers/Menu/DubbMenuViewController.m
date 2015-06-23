@@ -5,7 +5,7 @@
 //  Created by Oleg Koshkin on 16/03/15.
 //  Copyright (c) 2015 dubb.co. All rights reserved.
 //
-
+#import "UIImageView+UIActivityIndicatorForSDWebImage.h"
 #import "DubbMenuViewController.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import <GooglePlus/GooglePlus.h>
@@ -16,7 +16,7 @@
 #import "DubbMyListingsViewController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
-@interface DubbMenuViewController (){
+@interface DubbMenuViewController () <UVDelegate>{
     NSString *selectedMenu;
     NSString *unreadMessageCount;
     
@@ -51,7 +51,7 @@
 -(void) showProfile
 {
     lblUserName.text = [NSString stringWithFormat:@"%@ %@", [[User currentUser].firstName capitalizedString], [[User currentUser].lastName capitalizedString]];
-    profileImageView.image =[User currentUser].profileImage;
+    
 }
 
 #pragma mark -
@@ -106,65 +106,85 @@
     UIViewController *vc;
     [tableView reloadData];
     
+    Boolean isAnonymous = [[NSString stringWithFormat:@"%@", [User currentUser].userID] isEqualToString:@""];
     switch (indexPath.row) {
         case 0:
             [contentVC setViewControllers:@[[self.storyboard instantiateViewControllerWithIdentifier:@"homeViewController"]] animated:NO];
             break;
+            
         case 1:
-            vc = [self.storyboard instantiateViewControllerWithIdentifier:@"DubbSalesOrdersViewController"];
-            ((DubbSalesOrdersViewController *)vc).userType = @"seller";
-            [contentVC setViewControllers:@[vc] animated:NO];
+            if (isAnonymous) {
+                
+                [self showAlertForLogIn];
+                
+            } else {
+                
+                vc = [self.storyboard instantiateViewControllerWithIdentifier:@"DubbSalesOrdersViewController"];
+                ((DubbSalesOrdersViewController *)vc).userType = @"seller";
+                [contentVC setViewControllers:@[vc] animated:NO];
+                
+            }
+
             break;
         
         case 2:
-            vc = [self.storyboard instantiateViewControllerWithIdentifier:@"DubbMyListingsViewController"];
-            [contentVC setViewControllers:@[vc] animated:NO];
+            if (isAnonymous) {
+                
+                [self showAlertForLogIn];
+                
+            } else {
+                
+                vc = [self.storyboard instantiateViewControllerWithIdentifier:@"DubbMyListingsViewController"];
+                [contentVC setViewControllers:@[vc] animated:NO];
+                
+            }
+            
             break;
             
         case 3:
-            vc = [self.storyboard instantiateViewControllerWithIdentifier:@"DubbSalesOrdersViewController"];
-            ((DubbSalesOrdersViewController *)vc).userType = @"buyer";
-            [contentVC setViewControllers:@[vc] animated:NO];
+            if (isAnonymous) {
+                
+                [self showAlertForLogIn];
+                
+            } else {
+                
+                vc = [self.storyboard instantiateViewControllerWithIdentifier:@"DubbSalesOrdersViewController"];
+                ((DubbSalesOrdersViewController *)vc).userType = @"buyer";
+                [contentVC setViewControllers:@[vc] animated:NO];
             
+            }
             break;
             
         case 4:
-            [contentVC setViewControllers:@[[self.storyboard instantiateViewControllerWithIdentifier:@"DubbProfileViewController"]] animated:NO];
+            if (isAnonymous) {
+                
+                [self showAlertForLogIn];
+                
+            } else {
+                
+                [contentVC setViewControllers:@[[self.storyboard instantiateViewControllerWithIdentifier:@"DubbProfileViewController"]] animated:NO];
+                
+            }
             break;
             
         case 5:
             [UserVoice presentUserVoiceInterfaceForParentViewController:self];
+            [UserVoice setDelegate:self];
             break;
             
         case 6:
-            if( [User currentUser].chatUser == nil ) return;
-            [contentVC setViewControllers:@[[self.storyboard instantiateViewControllerWithIdentifier:@"ChatUsersController"]] animated:NO];
+            if (isAnonymous) {
+                
+                [self showAlertForLogIn];
+                
+            } else {
+                
+                if( [User currentUser].chatUser == nil ) return;
+                [contentVC setViewControllers:@[[self.storyboard instantiateViewControllerWithIdentifier:@"ChatUsersController"]] animated:NO];
+                
+            }
             break;
             
-        case 7: {
-            
-            [[GPPSignIn sharedInstance] signOut];
-            [FBSession.activeSession closeAndClearTokenInformation];
-            
-            [[SDImageCache sharedImageCache] clearDisk];
-            [[SDImageCache sharedImageCache] clearMemory];
-            
-            if([[QBChat instance] isLoggedIn]){
-                [[ChatService instance] logout];
-            }
-            
-            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-            [defaults removeObjectForKey:@"DubbUser"];
-            [defaults synchronize];
-            
-            [[User currentUser] initialize];
-            
-            UIViewController *mainController = [self.storyboard instantiateViewControllerWithIdentifier:@"mainController"];
-            ((AppDelegate*)[[UIApplication sharedApplication] delegate]).window.rootViewController = mainController;
-        }
-           return;
-            
-        
         default:
             break;
     }
@@ -177,6 +197,38 @@
     selectedMenu = menus[item];
     [menuTable reloadData];
 }
+- (void)sideMenu:(RESideMenu *)sideMenu willShowMenuViewController:(UIViewController *)menuViewController {
+    
+    if ([[NSString stringWithFormat:@"%@", [User currentUser].userID] isEqualToString:@""]) {
+        
+        return;
+        
+    }
+    
+    [self.backend getUser:[User currentUser].userID CompletionHandler:^(NSDictionary *result) {
+        
+        if (result) {
+            
+            NSDictionary *userInfo = result[@"response"];
+            if (![userInfo[@"image"] isKindOfClass:[NSNull class]]) {
+                [profileImageView sd_setImageWithURL:[NSURL URLWithString:userInfo[@"image"][@"url"]]];
+            }
+            
+        }
+        
+    }];
+}
 
+
+#pragma mark - UVDelegate methods
+
+- (void)userVoiceWasDismissed {
+    
+    UINavigationController *contentVC = (UINavigationController*)self.sideMenuViewController.contentViewController;
+    [contentVC setViewControllers:@[[self.storyboard instantiateViewControllerWithIdentifier:@"homeViewController"]] animated:NO];
+    
+    [self.sideMenuViewController hideMenuViewController];
+    
+}
 
 @end

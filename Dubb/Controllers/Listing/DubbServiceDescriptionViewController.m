@@ -55,7 +55,7 @@
     self.navigationItem.title = self.titleString;
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     [self.descriptionTextView setPlaceholder:self.placeholderString];
-    if (![self.descriptionString isEqualToString:@"What area is this service for?"] && ![self.descriptionString isEqualToString:@"Add tags separated by commas."]) {
+    if (![self.descriptionString isEqualToString:@"What information you need from buyers?"] && ![self.descriptionString isEqualToString:@"Add tags separated by commas."]) {
         self.descriptionTextView.text = self.descriptionString;
     }
     

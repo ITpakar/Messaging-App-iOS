@@ -30,7 +30,8 @@
     NSArray *reviews;
     ListingTopView *topView;
     NSDictionary *baseService;
-    
+    NSMutableArray *expansionFlags;
+    NSMutableArray *extraQuantityCellIndexPaths;
     
     NSDictionary *sellerInfo;
     NSDictionary *listingInfo;
@@ -144,6 +145,11 @@ enum DubbSingleListingViewTag {
         listingInfo = result[@"response"];
         NSArray *images = listingInfo[@"images"];
         addOns = [listingInfo[@"addon"] mutableCopy];
+        for (int i = 0; i < addOns.count; i++) {
+            
+            [expansionFlags setObject:[NSNumber numberWithBool:NO] atIndexedSubscript:i];
+            
+        }
         sellerInfo = listingInfo[@"user"];
         
         if ([sellerInfo isKindOfClass:[NSNull class]]) {
@@ -173,8 +179,8 @@ enum DubbSingleListingViewTag {
         [weakSelf configureBookNowButton];
         
     }];	
-    
-    // Do any additional setup after loading the view.
+    expansionFlags = [NSMutableArray array];
+    extraQuantityCellIndexPaths = [NSMutableArray array];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -205,22 +211,58 @@ enum DubbSingleListingViewTag {
 - (void) checkedAddon:(NSNotification *)notif {
     NSDictionary *addOnInfo = notif.userInfo;
     [purchasedAddOns addObject:addOnInfo];
+
     
+    [expansionFlags setObject:[NSNumber numberWithBool:YES] atIndexedSubscript:[addOnInfo[@"sequence"] integerValue] - 1];
+    [self showNewExtraQuantityCellAtIndex:[self calculateIndexPathWithAddonInfo:addOnInfo]];
+
     [self configureBookNowButton];
 }
 
 - (void) uncheckedAddon:(NSNotification *)notif {
-    int index = 0;
-    for (NSDictionary *addOnInfo in purchasedAddOns) {
+
+    for (int i=0;i<[purchasedAddOns count]; i++) {
+        NSDictionary *addOnInfo = [purchasedAddOns objectAtIndex:i];
         if ([addOnInfo[@"id"] isEqualToString:notif.userInfo[@"id"]]) {
-            [purchasedAddOns removeObjectAtIndex:index];
-            break;
+            [purchasedAddOns removeObject:addOnInfo];
+            i--;
         }
-        index ++;
     }
+    if ([expansionFlags[[notif.userInfo[@"sequence"] integerValue] - 1] boolValue]) {
+        [expansionFlags setObject:[NSNumber numberWithBool:NO] atIndexedSubscript:[notif.userInfo[@"sequence"] integerValue] - 1];
+        [self hideExtraQuantityCellAtIndexPath:[self calculateIndexPathWithAddonInfo:notif.userInfo]];
+
+    }
+    
     [self configureBookNowButton];
 }
 
+
+- (NSIndexPath *)calculateIndexPathWithAddonInfo:(NSDictionary *)addonInfo {
+    
+    NSInteger sequenceNumber = [addonInfo[@"sequence"] integerValue];
+    
+    int r = 1, c = 0;
+    
+    while (c < sequenceNumber - 1) {
+        
+        if ([expansionFlags[c++] boolValue]) {
+            
+            r += 2;
+            
+        } else {
+            
+            r ++;
+            
+        }
+        
+    }
+    
+    
+    return [NSIndexPath indexPathForRow:r inSection:kDubbSingleListingSectionAddons];
+    
+    
+}
 - (void) plusButtonTapped:(NSNotification *)notif {
     NSDictionary *addOnInfo = notif.userInfo;
     [purchasedAddOns addObject:addOnInfo];
@@ -336,10 +378,21 @@ static bool liked = NO;
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
+
+    NSInteger expandedRowCount = 0;
     switch (section) {
         case kDubbSingleListingSectionAddons:
-            NSLog(@"%ld", (addOns.count == 0) ? 0 : addOns.count + 1);
-            return (addOns.count == 0) ? 0 : addOns.count + 1;
+            
+
+            for (NSNumber *expansionFlag in expansionFlags) {
+                
+                if ([expansionFlag boolValue]) {
+                    expandedRowCount ++;
+                }
+            
+                
+            }
+            return (addOns.count == 0) ? 0 : addOns.count + expandedRowCount + 1;
         case kDubbSingleListingSectionReviews:
             return 2; //(reviews.count == 0) ? 0 : reviews.count + 1;
         default:
@@ -379,13 +432,42 @@ static bool liked = NO;
             cell = [self configureHeaderCell];
             break;
         case kDubbSingleListingSectionGigQuantity:
-            cell = [self configureGigQuantityCell];
+            cell = [self configureGigQuantityCellWithTitle:@"Gig Quantity" WithAddonInfo:baseService];
             break;
         case kDubbSingleListingSectionAddons:
             if (indexPath.row == 0) {
+                
                 cell = [self configureAddonsSectionHeaderCell];
+                
             } else {
-                cell = [self configureAddonsSectionContentCellForIndexPath:indexPath];
+                
+                int c = 0, r = 1;
+                
+                while (r < indexPath.row) {
+                    
+                    if ([expansionFlags[c++] boolValue]) {
+                        
+                        r += 2;
+                        
+                    } else {
+                        
+                        r ++;
+                        
+                    }
+                    
+                }
+                
+
+                if (r == indexPath.row) {
+                    
+                    cell = [self configureAddonsSectionContentCellForIndexPath:[NSIndexPath indexPathForRow:c inSection:kDubbSingleListingSectionAddons]];
+                    
+                } else {
+                    
+                    cell = [self configureGigQuantityCellWithTitle:@"Extra Quantity" WithAddonInfo:addOns[c - 1]];
+                    
+                }
+                
             }
             break;
         case kDubbSingleListingSectionSellerIntroduction:
@@ -404,6 +486,58 @@ static bool liked = NO;
     
     return cell;
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == kDubbSingleListingSectionAddons && indexPath.row > 0) {
+        
+        UITableViewCell * cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        if ([cell isKindOfClass:[DubbAddonCell class]]) {
+            
+            DubbAddonCell *addonCell = (DubbAddonCell *)cell;
+            if ([[expansionFlags objectAtIndex:[addonCell.addonInfo[@"sequence"] integerValue] - 1] boolValue]) {
+                
+                // if expanded
+                
+                
+                
+                [expansionFlags setObject:[NSNumber numberWithBool:NO] atIndexedSubscript:[addonCell.addonInfo[@"sequence"] integerValue] - 1];
+                [self hideExtraQuantityCellAtIndexPath:indexPath];
+                
+                
+                
+            } else {
+                
+                // if collapsed
+                
+                BOOL exists = NO;
+                for (NSDictionary *purchasedAddOn in purchasedAddOns) {
+                    
+                    if ([addonCell.addonInfo[@"id"] isEqualToString:purchasedAddOn[@"id"]]) {
+                        
+                        exists = YES;
+                        break;
+                        
+                    }
+                    
+                }
+                if (!exists) {
+                    [purchasedAddOns addObject:addonCell.addonInfo];
+                    [self configureBookNowButton];
+                }
+                [expansionFlags setObject:[NSNumber numberWithBool:YES] atIndexedSubscript:[addonCell.addonInfo[@"sequence"] integerValue] - 1];
+                [self showNewExtraQuantityCellAtIndex:indexPath];
+                
+                
+            }
+            
+        }
+        
+    }
+    
+    [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
+}
+
 
 #pragma mark - Custom Helpers
 
@@ -439,17 +573,34 @@ static bool liked = NO;
     
 }
 
-- (UITableViewCell *)configureGigQuantityCell {
+- (UITableViewCell *)configureGigQuantityCellWithTitle:(NSString *)titleString WithAddonInfo:(NSDictionary *)addonInfo {
     
     static NSString *cellIdentifier = @"DubbGigQuantityCell";
     
-    DubbAddonCell *cell = (DubbAddonCell *)[self.tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    DubbGigQuantityCell *cell = (DubbGigQuantityCell *)[self.tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil)
     {
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"DubbGigQuantityCell" owner:self options:nil];
         cell = [nib objectAtIndex:0];
     }
-    cell.addonInfo = baseService;
+    cell.addonInfo = addonInfo;
+    cell.titleLabel.text = titleString;
+    
+    NSInteger purchasedCount = 0;
+    for (NSDictionary *purchasedAddon in purchasedAddOns) {
+        
+        if ([purchasedAddon[@"id"] isEqualToString:addonInfo[@"id"]]) {
+            purchasedCount ++;
+        }
+        
+    }
+    if ([titleString isEqualToString:@"Extra Quantity"]) {
+        cell.backgroundColor = [UIColor lightGrayColor];
+    } else {
+        cell.backgroundColor = [UIColor whiteColor];
+    }
+    
+    cell.quantityLabel.text = [NSString stringWithFormat:@"%ld", purchasedCount];
     return cell;
 }
 
@@ -473,7 +624,7 @@ static bool liked = NO;
         cell = [nib objectAtIndex:0];
     }
     
-    [cell initViewWithAddonInfo:addOns[indexPath.row - 1]];
+    [cell initViewWithAddonInfo:addOns[indexPath.row]];
     return cell;
 }
 
@@ -603,12 +754,6 @@ static bool liked = NO;
 #pragma mark -
 #pragma mark Payment
 
-- (IBAction)onBookNow:(id)sender {
-    if( !listingInfo ) return;
-    
-    
-}
-
 
 -(void) onPay:(NSDictionary *)listing Price:(NSInteger) price
 {
@@ -711,6 +856,32 @@ static bool liked = NO;
 - (void)sendCompletedPaymentToServer:(PayPalPayment *)completedPayment {
     // TODO: Send completedPayment.confirmation to server
     NSLog(@"Here is your proof of payment:\n\n%@\n\nSend this to your server for confirmation and fulfillment.", completedPayment.confirmation);
+}
+
+- (void)hideExtraQuantityCellAtIndexPath:(NSIndexPath *)indexPath {
+    
+    [self.tableView beginUpdates];
+    [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:indexPath.row + 1 inSection:kDubbSingleListingSectionAddons]]
+                          withRowAnimation:UITableViewRowAnimationFade];
+    [self.tableView endUpdates];
+    
+    
+}
+
+- (void)showNewExtraQuantityCellAtIndex:(NSIndexPath *)indexPath {
+    
+    [self.tableView beginUpdates];
+    NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:indexPath.row + 1 inSection:kDubbSingleListingSectionAddons];
+    [self.tableView insertRowsAtIndexPaths:@[newIndexPath]
+                          withRowAnimation:UITableViewRowAnimationFade];
+    [self.tableView endUpdates];
+}
+
+- (BOOL)checkIfExpandedForIndexPath:(NSIndexPath *)indexPath {
+    
+    
+    return NO;
+    
 }
 
 /*

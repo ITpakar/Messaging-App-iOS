@@ -34,7 +34,6 @@
 		0D1FA5A91ACA183C00079C79 /* Overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D1FA43D1ACA183B00079C79 /* Overlay.png */; };
 		0D1FA5AA1ACA183C00079C79 /* Overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D1FA43E1ACA183B00079C79 /* Overlay@2x.png */; };
 		0D1FA6521ACA183C00079C79 /* IQDropDownTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D1FA55D1ACA183C00079C79 /* IQDropDownTextField.m */; };
-		0D1FA6531ACA183C00079C79 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D1FA5691ACA183C00079C79 /* libGoogleAnalyticsServices.a */; };
 		0D1FA6541ACA183D00079C79 /* RECommonFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D1FA56C1ACA183C00079C79 /* RECommonFunctions.m */; };
 		0D1FA6551ACA183D00079C79 /* RESideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D1FA56E1ACA183C00079C79 /* RESideMenu.m */; };
 		0D1FA6561ACA183D00079C79 /* UIViewController+RESideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D1FA5701ACA183C00079C79 /* UIViewController+RESideMenu.m */; };
@@ -107,6 +106,8 @@
 		0D3626F61B0C377E002A7814 /* iRate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D3626F41B0C377E002A7814 /* iRate.m */; };
 		0D5653A41B1FE04A00444999 /* NSDate+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D5653A31B1FE04A00444999 /* NSDate+Helper.m */; };
 		0D5653A81B24494500444999 /* DubbMyListingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D5653A71B24494500444999 /* DubbMyListingsViewController.m */; };
+		0D5FF55F1B3485BD005DE762 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D5FF55E1B3485BD005DE762 /* TPKeyboardAvoidingScrollView.m */; };
+		0D5FF5621B348B3A005DE762 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D5FF5611B348B3A005DE762 /* UIScrollView+TPKeyboardAvoidingAdditions.m */; };
 		0D6B7D5F1B143D3B000B0352 /* signup_textfield_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D6B7D5E1B143D3B000B0352 /* signup_textfield_background@2x.png */; };
 		0D6B7D611B14401C000B0352 /* signup_textfield_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D6B7D601B14401C000B0352 /* signup_textfield_background.png */; };
 		0D6B7D641B151B51000B0352 /* DubbOrderConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D6B7D631B151B51000B0352 /* DubbOrderConfirmationViewController.m */; };
@@ -137,6 +138,9 @@
 		0D6B7D991B179E05000B0352 /* DubbSalesOrdersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D6B7D981B179E05000B0352 /* DubbSalesOrdersViewController.m */; };
 		0D76B5021B12510F00D24BFA /* TextFieldValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D76B5011B12510F00D24BFA /* TextFieldValidator.m */; };
 		0D79C46A1B12DBD80021AAE4 /* M13Checkbox.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D79C4691B12DBD80021AAE4 /* M13Checkbox.m */; };
+		0DAC05D41B2FD566007D4234 /* DubbProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DAC05D31B2FD566007D4234 /* DubbProfileViewController.m */; };
+		0DAC05DA1B317757007D4234 /* DubbExtraQuantityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DAC05D81B317757007D4234 /* DubbExtraQuantityCell.m */; };
+		0DAC05DB1B317757007D4234 /* DubbExtraQuantityCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0DAC05D91B317757007D4234 /* DubbExtraQuantityCell.xib */; };
 		0DFCB1641AFFD9FE001F2820 /* ask_question_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DFCB14E1AFFD9FE001F2820 /* ask_question_button.png */; };
 		0DFCB1651AFFD9FE001F2820 /* ask_question_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DFCB14F1AFFD9FE001F2820 /* ask_question_button@2x.png */; };
 		0DFCB1661AFFD9FE001F2820 /* book_now_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DFCB1501AFFD9FE001F2820 /* book_now_button.png */; };
@@ -413,6 +417,10 @@
 		0D5653A31B1FE04A00444999 /* NSDate+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Helper.m"; sourceTree = "<group>"; };
 		0D5653A61B24494500444999 /* DubbMyListingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DubbMyListingsViewController.h; path = Listing/DubbMyListingsViewController.h; sourceTree = "<group>"; };
 		0D5653A71B24494500444999 /* DubbMyListingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DubbMyListingsViewController.m; path = Listing/DubbMyListingsViewController.m; sourceTree = "<group>"; };
+		0D5FF55D1B3485BD005DE762 /* TPKeyboardAvoidingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingScrollView.h; sourceTree = "<group>"; };
+		0D5FF55E1B3485BD005DE762 /* TPKeyboardAvoidingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingScrollView.m; sourceTree = "<group>"; };
+		0D5FF5601B348B3A005DE762 /* UIScrollView+TPKeyboardAvoidingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+TPKeyboardAvoidingAdditions.h"; sourceTree = "<group>"; };
+		0D5FF5611B348B3A005DE762 /* UIScrollView+TPKeyboardAvoidingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+TPKeyboardAvoidingAdditions.m"; sourceTree = "<group>"; };
 		0D6B7D5E1B143D3B000B0352 /* signup_textfield_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "signup_textfield_background@2x.png"; sourceTree = "<group>"; };
 		0D6B7D601B14401C000B0352 /* signup_textfield_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = signup_textfield_background.png; sourceTree = "<group>"; };
 		0D6B7D621B151B51000B0352 /* DubbOrderConfirmationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DubbOrderConfirmationViewController.h; path = Listing/DubbOrderConfirmationViewController.h; sourceTree = "<group>"; };
@@ -447,6 +455,11 @@
 		0D76B5011B12510F00D24BFA /* TextFieldValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFieldValidator.m; sourceTree = "<group>"; };
 		0D79C4681B12DBD80021AAE4 /* M13Checkbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M13Checkbox.h; sourceTree = "<group>"; };
 		0D79C4691B12DBD80021AAE4 /* M13Checkbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M13Checkbox.m; sourceTree = "<group>"; };
+		0DAC05D21B2FD566007D4234 /* DubbProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DubbProfileViewController.h; sourceTree = "<group>"; };
+		0DAC05D31B2FD566007D4234 /* DubbProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DubbProfileViewController.m; sourceTree = "<group>"; };
+		0DAC05D71B317757007D4234 /* DubbExtraQuantityCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DubbExtraQuantityCell.h; sourceTree = "<group>"; };
+		0DAC05D81B317757007D4234 /* DubbExtraQuantityCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DubbExtraQuantityCell.m; sourceTree = "<group>"; };
+		0DAC05D91B317757007D4234 /* DubbExtraQuantityCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DubbExtraQuantityCell.xib; sourceTree = "<group>"; };
 		0DFCB14E1AFFD9FE001F2820 /* ask_question_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ask_question_button.png; sourceTree = "<group>"; };
 		0DFCB14F1AFFD9FE001F2820 /* ask_question_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ask_question_button@2x.png"; sourceTree = "<group>"; };
 		0DFCB1501AFFD9FE001F2820 /* book_now_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = book_now_button.png; sourceTree = "<group>"; };
@@ -653,7 +666,6 @@
 				0D1FA65A1ACA183D00079C79 /* FMDB.framework in Frameworks */,
 				7C0DDA5A1ABF9F1800CDBA56 /* GoogleOpenSource.framework in Frameworks */,
 				0D1FA66F1ACA183D00079C79 /* XMLDictionary.framework in Frameworks */,
-				0D1FA6531ACA183C00079C79 /* libGoogleAnalyticsServices.a in Frameworks */,
 				44ADE96B435F087DF53501F7 /* libPods-Dubb.a in Frameworks */,
 				0D1FA6701ACA183D00079C79 /* AWSiOSSDKv2.framework in Frameworks */,
 			);
@@ -875,6 +887,17 @@
 			name = "NSDate+Helper";
 			sourceTree = "<group>";
 		};
+		0D5FF55C1B3485BD005DE762 /* TPKeyboardAvoiding */ = {
+			isa = PBXGroup;
+			children = (
+				0D5FF5601B348B3A005DE762 /* UIScrollView+TPKeyboardAvoidingAdditions.h */,
+				0D5FF5611B348B3A005DE762 /* UIScrollView+TPKeyboardAvoidingAdditions.m */,
+				0D5FF55D1B3485BD005DE762 /* TPKeyboardAvoidingScrollView.h */,
+				0D5FF55E1B3485BD005DE762 /* TPKeyboardAvoidingScrollView.m */,
+			);
+			path = TPKeyboardAvoiding;
+			sourceTree = "<group>";
+		};
 		0D6B7D951B179DC4000B0352 /* Sales */ = {
 			isa = PBXGroup;
 			children = (
@@ -907,6 +930,15 @@
 				0D79C4691B12DBD80021AAE4 /* M13Checkbox.m */,
 			);
 			path = M13Checkbox;
+			sourceTree = "<group>";
+		};
+		0DAC05D11B2FD566007D4234 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				0DAC05D21B2FD566007D4234 /* DubbProfileViewController.h */,
+				0DAC05D31B2FD566007D4234 /* DubbProfileViewController.m */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		0DFCB1891AFFDB3B001F2820 /* ListingTopView */ = {
@@ -1335,6 +1367,7 @@
 		7CA773CE1AB1C30000F6D631 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				0DAC05D11B2FD566007D4234 /* Profile */,
 				0D6B7D961B179DCD000B0352 /* Orders */,
 				0D6B7D951B179DC4000B0352 /* Sales */,
 				7C09A5CE1AB1F7E400218127 /* BaseViewController */,
@@ -1349,25 +1382,26 @@
 		7CA773CF1AB1C35300F6D631 /* ExFrameworks */ = {
 			isa = PBXGroup;
 			children = (
-				0D79C4671B12DBD80021AAE4 /* M13Checkbox */,
-				0D76B4FF1B12510F00D24BFA /* TextFieldValidator */,
-				0D3626F11B0C377E002A7814 /* iRate */,
-				0DFCB18A1AFFDB8B001F2820 /* APParallaxHeader */,
-				7C0E429E1AD61B36000CF83E /* FIxOrientation */,
 				0D1FA4101ACA183B00079C79 /* AFNetworking */,
+				0DFCB18A1AFFDB8B001F2820 /* APParallaxHeader */,
 				0D1FA4241ACA183B00079C79 /* AsyncImageView */,
-				0D1FA4271ACA183B00079C79 /* ELCImagePicker */,
-				0D1FA55B1ACA183C00079C79 /* IQDropDownTextField */,
-				0D1FA55E1ACA183C00079C79 /* Library */,
-				0D1FA56A1ACA183C00079C79 /* ResideMenu */,
-				0D1FA5711ACA183C00079C79 /* SZTextView */,
-				0D1FA5741ACA183C00079C79 /* Twitter */,
 				0D1FA5791ACA183C00079C79 /* AWS Dependencies */,
 				0D1FA5911ACA183C00079C79 /* AWSiOSSDKv2.framework */,
-				0D1FA5921ACA183C00079C79 /* KASlideShow */,
-				7C09A5E11AB2993A00218127 /* MBProgress */,
-				7CA773D61AB1C7F800F6D631 /* GoogleAnalytics */,
+				0D1FA4271ACA183B00079C79 /* ELCImagePicker */,
 				7CA773D01AB1C3CB00F6D631 /* FacebookSDK.framework */,
+				7C0E429E1AD61B36000CF83E /* FIxOrientation */,
+				7CA773D61AB1C7F800F6D631 /* GoogleAnalytics */,
+				0D1FA55B1ACA183C00079C79 /* IQDropDownTextField */,
+				0D3626F11B0C377E002A7814 /* iRate */,
+				0D1FA5921ACA183C00079C79 /* KASlideShow */,
+				0D1FA55E1ACA183C00079C79 /* Library */,
+				0D79C4671B12DBD80021AAE4 /* M13Checkbox */,
+				7C09A5E11AB2993A00218127 /* MBProgress */,
+				0D1FA56A1ACA183C00079C79 /* ResideMenu */,
+				0D1FA5711ACA183C00079C79 /* SZTextView */,
+				0D76B4FF1B12510F00D24BFA /* TextFieldValidator */,
+				0D5FF55C1B3485BD005DE762 /* TPKeyboardAvoiding */,
+				0D1FA5741ACA183C00079C79 /* Twitter */,
 			);
 			name = ExFrameworks;
 			path = ExtraFrameworks;
@@ -1470,6 +1504,9 @@
 				0D344D811B026A480069D816 /* DubbGigQuantityCell.h */,
 				0D344D821B026A480069D816 /* DubbGigQuantityCell.m */,
 				0D344D831B026A480069D816 /* DubbGigQuantityCell.xib */,
+				0DAC05D71B317757007D4234 /* DubbExtraQuantityCell.h */,
+				0DAC05D81B317757007D4234 /* DubbExtraQuantityCell.m */,
+				0DAC05D91B317757007D4234 /* DubbExtraQuantityCell.xib */,
 			);
 			name = Listings;
 			sourceTree = "<group>";
@@ -1521,7 +1558,7 @@
 		7CA7739B1AB1C2AF00F6D631 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = dubb.co;
 				TargetAttributes = {
 					7CA773A21AB1C2AF00F6D631 = {
@@ -1665,6 +1702,7 @@
 				0D2BC8C81AE00878004880E7 /* btn_prevnavigation_white.png in Resources */,
 				7CA773B71AB1C2AF00F6D631 /* LaunchScreen.xib in Resources */,
 				0D1FA6B01ACA23CA00079C79 /* next_button.png in Resources */,
+				0DAC05DB1B317757007D4234 /* DubbExtraQuantityCell.xib in Resources */,
 				0D6B7D661B154824000B0352 /* order_completion_header@2x.png in Resources */,
 				0D6B7D6B1B165CF7000B0352 /* uparrow_button.png in Resources */,
 				0D1FA6A51ACA23CA00079C79 /* arrow@2x.png in Resources */,
@@ -1756,18 +1794,21 @@
 				0D1FA5A51ACA183C00079C79 /* ELCOverlayImageView.m in Sources */,
 				7C4A0ACA1AC1D744007DA690 /* ChatHistoryController.m in Sources */,
 				0D1FA6561ACA183D00079C79 /* UIViewController+RESideMenu.m in Sources */,
+				0DAC05DA1B317757007D4234 /* DubbExtraQuantityCell.m in Sources */,
 				7C09A5DC1AB2259B00218127 /* DubbTextField.m in Sources */,
 				0D79C46A1B12DBD80021AAE4 /* M13Checkbox.m in Sources */,
 				0D1FA59A1ACA183C00079C79 /* AFURLConnectionOperation.m in Sources */,
 				7C09A6031AB2A36C00218127 /* ChatViewController.m in Sources */,
 				7C09A5E41AB2994500218127 /* MBProgressHUD.m in Sources */,
 				0D1FA59B1ACA183C00079C79 /* AFURLRequestSerialization.m in Sources */,
+				0DAC05D41B2FD566007D4234 /* DubbProfileViewController.m in Sources */,
 				7C4A0AC11AC1D450007DA690 /* NMPaginator.m in Sources */,
 				0D344D9E1B068DD40069D816 /* UIImage+fixOrientation.m in Sources */,
 				7CB88E7A1AC34CE1005195AF /* NotificationView.m in Sources */,
 				0D1FA40F1ACA17EB00079C79 /* DubbServiceDescriptionWithPriceViewController.m in Sources */,
 				0D1FA5A01ACA183C00079C79 /* ELCAsset.m in Sources */,
 				0D1FA5A21ACA183C00079C79 /* ELCAssetTablePicker.m in Sources */,
+				0D5FF55F1B3485BD005DE762 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				DC26C2101B050C7B00F9385A /* DubbCategoriesViewController.m in Sources */,
 				0D1FA5961ACA183C00079C79 /* AFHTTPRequestOperationManager.m in Sources */,
 				7C4A0ABE1AC1D2D1007DA690 /* CharactersEscapeService.m in Sources */,
@@ -1800,6 +1841,7 @@
 				0D1FA40D1ACA17EB00079C79 /* DubbServiceAreaViewController.m in Sources */,
 				DC2BE6621B2F3F3B009B7303 /* DubbSubCategoryController.m in Sources */,
 				7C09A5FA1AB29E4B00218127 /* DubbMenuViewController.m in Sources */,
+				0D5FF5621B348B3A005DE762 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
 				0D6B7D641B151B51000B0352 /* DubbOrderConfirmationViewController.m in Sources */,
 				0DFCB17C1AFFDAF0001F2820 /* DubbSingleListingViewController.m in Sources */,
 				7C09A5A91AB1E93C00218127 /* DubbSignUpEmailViewController.m in Sources */,
@@ -1976,7 +2018,7 @@
 					"$(PROJECT_DIR)/Dubb/ExtraFrameworks/Library",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "02db9c51-93aa-4ca1-ac08-6115a91c1704";
+				PROVISIONING_PROFILE = "9ec935c3-c29e-457c-8f38-fa17fdb452e0";
 			};
 			name = Debug;
 		};
@@ -2006,7 +2048,7 @@
 					"$(PROJECT_DIR)/Dubb/ExtraFrameworks/Library",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "02a5b663-9e92-49b7-b4d2-592d793d2b75";
+				PROVISIONING_PROFILE = "5b662867-888e-4bdb-a9cb-4bccd7ca48d0";
 			};
 			name = Release;
 		};

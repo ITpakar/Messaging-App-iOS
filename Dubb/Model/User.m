@@ -36,6 +36,7 @@
     _gpID = [NSString stringWithFormat:@"%@", @""];
     _zipCode = [NSString stringWithFormat:@"%@", @""];
     _countryCode = [NSString stringWithFormat:@"%@", @""];
+    _profileImageURL = @"";
     _chatUser = nil;
     _profileImage = nil;
 }
@@ -65,6 +66,8 @@
     if( dic[@"last"] && ![dic[@"last"] isKindOfClass:[NSNull class]] ){
         user.lastName = dic[@"last"];
     }
+    
+
 
     return user;
     /*

@@ -66,6 +66,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    
+    
+    
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:48.0f/255.0f green:48.0f/255.0f blue:50.0f/255.0f alpha:1.0f];
     self.navigationController.navigationBar.translucent = NO;    
     

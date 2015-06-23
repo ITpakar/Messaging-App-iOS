@@ -1,21 +1,18 @@
 //
-//  DubbAddonCell.h
+//  DubbExtraQuantityCell.h
 //  Dubb
 //
-//  Created by andikabijaya on 5/11/15.
+//  Created by andikabijaya on 6/17/15.
 //  Copyright (c) 2015 dubb.co. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface DubbGigQuantityCell : UITableViewCell
+@interface DubbExtraQuantityCell : UITableViewCell
 @property (strong, nonatomic) IBOutlet UILabel *quantityLabel;
 
 @property (weak, nonatomic) NSDictionary *addonInfo;
-@property (weak, nonatomic) NSString *title;
 @property (nonatomic) NSInteger quantity;
-@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
-
 
 - (void)initViewWithAddonInfo:(NSDictionary *)addonInfo;
 @end

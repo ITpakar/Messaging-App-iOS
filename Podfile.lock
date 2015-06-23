@@ -8,6 +8,8 @@ PODS:
     - SDWebImage/Core (= 3.7.2)
   - SDWebImage/Core (3.7.2)
   - SVPullToRefresh (0.4.1)
+  - UIActivityIndicator-for-SDWebImage (1.2):
+    - SDWebImage (~> 3.7)
   - uservoice-iphone-sdk (3.2.3)
 
 DEPENDENCIES:
@@ -18,6 +20,7 @@ DEPENDENCIES:
   - QuickBlox
   - SDWebImage (~> 3.7)
   - SVPullToRefresh
+  - UIActivityIndicator-for-SDWebImage
   - uservoice-iphone-sdk
 
 SPEC CHECKSUMS:
@@ -28,6 +31,7 @@ SPEC CHECKSUMS:
   QuickBlox: f3a8cd60af97ee673ef589d2c884713633aefa31
   SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
   SVPullToRefresh: ba2e718695a43253d8bea6852d2960097dc15d8c
+  UIActivityIndicator-for-SDWebImage: 7bf7ebbf0ed1747dedc0d6e949c4603a6d0f9e0c
   uservoice-iphone-sdk: 349d9ef36d3c43939d28390b9e86bb32b65fe983
 
-COCOAPODS: 0.37.1
+COCOAPODS: 0.36.4

@@ -99,5 +99,10 @@ enum DubbListingCellTag {
     [self.navigationController pushViewController:vc animated:YES];
     
 }
+- (IBAction)createListingBarTapped:(id)sender {
+    
+    [self showCreateListingTableViewController];
+    
+}
 
 @end

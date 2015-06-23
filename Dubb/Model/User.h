@@ -41,6 +41,7 @@
 
 
 @property (nonatomic, strong) UIImage *profileImage;
+@property (nonatomic, strong) NSString *profileImageURL;
 
 @property (nonatomic, strong) QBUUser* chatUser;
 

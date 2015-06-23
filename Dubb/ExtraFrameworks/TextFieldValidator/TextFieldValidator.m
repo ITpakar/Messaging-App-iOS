@@ -223,7 +223,12 @@
 - (CGRect)editingRectForBounds:(CGRect)bounds {
     return CGRectInset( bounds , 10 , 10 );
 }
-
+- (CGRect) rightViewRectForBounds:(CGRect)bounds {
+    
+    CGRect textRect = [super rightViewRectForBounds:bounds];
+    textRect.origin.x -= 10;
+    return textRect;
+}
 #pragma mark - Public methods
 -(void)addRegx:(NSString *)strRegx withMsg:(NSString *)msg{
     NSDictionary *dic=[[NSDictionary alloc] initWithObjectsAndKeys:strRegx,@"regx",msg,@"msg", nil];

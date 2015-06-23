@@ -1,0 +1,24 @@
+//
+//  UIScrollView+TPKeyboardAvoidingAdditions.h
+//  ZergID
+//
+//  Created by Oleg Koshkin on 05/02/15.
+//  Copyright (c) 2015 ZergID. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+
+
+@interface UIScrollView (TPKeyboardAvoidingAdditions)
+- (BOOL)TPKeyboardAvoiding_focusNextTextField;
+- (void)TPKeyboardAvoiding_scrollToActiveTextField;
+
+- (void)TPKeyboardAvoiding_keyboardWillShow:(NSNotification*)notification;
+- (void)TPKeyboardAvoiding_keyboardWillHide:(NSNotification*)notification;
+- (void)TPKeyboardAvoiding_updateContentInset;
+- (void)TPKeyboardAvoiding_updateFromContentSizeChange;
+- (void)TPKeyboardAvoiding_assignTextDelegateForViewsBeneathView:(UIView*)view;
+- (UIView*)TPKeyboardAvoiding_findFirstResponderBeneathView:(UIView*)view;
+-(CGSize)TPKeyboardAvoiding_calculatedContentSizeFromSubviewFrames;
+@end

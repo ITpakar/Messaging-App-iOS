@@ -29,7 +29,7 @@
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 }
 
--(void) onMenu
+- (void)onMenu
 {
     if (self.reasonForDisablingMenu) {
         
@@ -59,12 +59,54 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void) showMessage:(NSString *)message
+- (void)showMessage:(NSString *)message
 {
     UIAlertView *msgView = [[UIAlertView alloc] initWithTitle:@"" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
     [msgView show];
 }
 
+- (void)showCreateListingTableViewController {
+    
+    if ([[NSString stringWithFormat:@"%@", [User currentUser].userID] isEqualToString:@""]) {
+        
+        [self showAlertForLogIn];
+        
+    } else {
+        
+        [self performSegueWithIdentifier:@"showCreateListingTableViewControllerSegue" sender:nil];
+        
+        
+    }
+    
+    
+}
+
+- (void)showAlertForLogIn {
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Warning"
+                                                                             message:@"Please Sign In/Sign Up first to access this feature."
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *logInAction = [UIAlertAction
+                                  actionWithTitle:@"Log In"
+                                  style:UIAlertActionStyleDefault
+                                  handler:^(UIAlertAction *action)
+                                  {
+                                      UIViewController *mainController = [self.storyboard instantiateViewControllerWithIdentifier:@"mainController"];
+                                      ((AppDelegate*)[[UIApplication sharedApplication] delegate]).window.rootViewController = mainController;
+                                  }];
+    [alertController addAction:logInAction];
+    UIAlertAction *cancelAction = [UIAlertAction
+                                   actionWithTitle:@"Cancel"
+                                   style:UIAlertActionStyleDefault
+                                   handler:^(UIAlertAction *action)
+                                   {
+                                       NSLog(@"Cancel action");
+                                   }];
+    
+    [alertController addAction:cancelAction];
+    [self presentViewController:alertController animated:YES completion:nil];
+
+}
 
 
 #pragma mark -

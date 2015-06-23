@@ -18,7 +18,13 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
-    // Configure the view for the selected state
+    if (selected) {
+        
+        [self.checkButton setImage:[UIImage imageNamed:@"addon_checked"] forState:UIControlStateNormal];
+        self.checked = YES;
+        
+    }
+
 }
 
 - (void)initViewWithAddonInfo:(NSDictionary *)addonInfo {
@@ -41,7 +47,7 @@
     
     [self.checkButton setImage:[UIImage imageNamed:buttonImageName] forState:UIControlStateNormal];
     [[NSNotificationCenter defaultCenter] postNotificationName:notificationKey object:nil userInfo:self.addonInfo];
-    
+
     
 }
 @end

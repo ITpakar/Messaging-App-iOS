@@ -13,6 +13,8 @@
 #import <GooglePlus/GooglePlus.h>
 #import <GoogleOpenSource/GoogleOpenSource.h>
 #import <AWSiOSSDKv2/S3.h>
+
+#define MAX_CHARACTER_NUMBER 144
 @implementation DubbProfileViewController
 
 - (void)viewDidLoad {
@@ -39,10 +41,12 @@
     self.mobileTextField.text = [self stringValueForKey:@"phone" from:userInfo];
     self.userNameTextField.text = [self stringValueForKey:@"username" from:userInfo];
     self.zipCodeTextField.text = [self stringValueForKey:@"zip" from:userInfo];
-    
+    self.bioTextView.text = [self stringValueForKey:@"bio" from:userInfo];
     if (![userInfo[@"image"] isKindOfClass:[NSNull class]]) {
         [self.profileImageView sd_setImageWithURL:[NSURL URLWithString:userInfo[@"image"][@"url"]]];
     }
+    
+    [self.bioTextView setPlaceholder:@"Bio - MAX 144 Characters"];
     
 }
 
@@ -75,6 +79,10 @@
     
     if (![self.mobileTextField.text isEqualToString:[self stringValueForKey:@"phone" from:userInfo]]) {
         params[@"phone"] = self.mobileTextField.text;
+    }
+    
+    if (![self.bioTextView.text isEqualToString:[self stringValueForKey:@"bio" from:userInfo]]) {
+        params[@"bio"] = self.bioTextView.text;
     }
     
     if (![self.zipCodeTextField.text isEqualToString:[self stringValueForKey:@"zip" from:userInfo]]) {
@@ -110,7 +118,9 @@
     }
     [self showProgress:@"Saving profile changes"];
     [self.backend updateUser:[User currentUser].userID Parameters:params CompletionHandler:^(NSDictionary *result) {
-        
+        if (result) {
+            [User currentUser].profileImage = chosenImage;
+        }
         [self hideProgress];
     }];
     
@@ -283,6 +293,20 @@
     }];
     
 }
+#pragma mark - UITextView Delegate
 
+- (void)textViewDidChange:(UITextView *)textView {
+    [self.availableCharacterNumberLabel setText:[NSString stringWithFormat:@"%ld", MAX_CHARACTER_NUMBER - [textView.text length]]];
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    if(range.length + range.location > textView.text.length)
+    {
+        return NO;
+    }
+    
+    NSUInteger newLength = [textView.text length] + [text length] - range.length;
+    return (newLength > MAX_CHARACTER_NUMBER) ? NO : YES;
+}
 
 @end

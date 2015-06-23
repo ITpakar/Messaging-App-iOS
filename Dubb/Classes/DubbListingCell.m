@@ -165,19 +165,21 @@
                 listingImageView.image = [UIImage imageNamed:@"placeholder_image.png"];
            
             
-            if( listing[@"baseprice"] )
-                [btnOrder setTitle:[NSString stringWithFormat:@"ORDER ($%d)", (int)[listing[@"baseprice"] integerValue]]  forState:UIControlStateNormal];
+            if( listing[@"addon"][0] )
+                [btnOrder setTitle:[NSString stringWithFormat:@"ORDER $%d", (int)[listing[@"addon"][0][@"price"] integerValue]]  forState:UIControlStateNormal];
             else
-                [btnOrder setTitle:@"ORDER ($20)" forState:UIControlStateNormal];
+                [btnOrder setTitle:@"ORDER $20" forState:UIControlStateNormal];
         
         }@catch(NSException *e){
             
             profileImageView.image = [UIImage imageNamed:@"portrait.png"];
             listingImageView.image = [UIImage imageNamed:@"placeholder_image.png"];
-            [btnOrder setTitle:@"ORDER ($20)" forState:UIControlStateNormal];
+            [btnOrder setTitle:@"ORDER $20" forState:UIControlStateNormal];
             
             NSLog(@"Exception: %@", e.description);
         }
+        
+        btnOrder.userInteractionEnabled = NO;
         
         [containerView addSubview:profileImageView];
         [containerView addSubview:titleLabel];

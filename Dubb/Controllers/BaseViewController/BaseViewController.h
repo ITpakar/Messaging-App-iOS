@@ -15,11 +15,12 @@
 
 @property BackendBase           *backend;
 @property(nonatomic, strong) NSString *reasonForDisablingMenu;
--(void) showMessage : (NSString *)message;
-
+- (void)showMessage : (NSString *)message;
+- (void)showCreateListingTableViewController ;
+- (void)showAlertForLogIn;
 
 //MB Progres
--(void) showProgress:(NSString *)message;
--(void) hideProgress;
+- (void)showProgress:(NSString *)message;
+- (void)hideProgress;
 
 @end

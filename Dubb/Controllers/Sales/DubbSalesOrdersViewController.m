@@ -51,6 +51,7 @@ enum DubbListingCellTag {
     
     [self showProgress:@"Loading..."];
     [self.backend getAllOrdersForUserType:self.userType CompletionHandler:^(NSDictionary *result) {
+        
         [self hideProgress];
         orderDetails = result[@"response"];
         [self.tableView reloadData];
@@ -106,8 +107,6 @@ enum DubbListingCellTag {
         if ([orderDetail[@"seller"] objectForKey:@"image"] && ![[orderDetail[@"seller"] objectForKey:@"image"] isKindOfClass:[NSNull class]]) {
             [profileImageView sd_setImageWithURL:[NSURL URLWithString:orderDetail[@"seller"][@"image"][@"url"]]];
         }
-
-        
     }
     return cell;
 }
@@ -126,7 +125,13 @@ enum DubbListingCellTag {
         vc.userImageURL = ([[orderDetail[@"seller"] objectForKey:@"image"] isKindOfClass:[NSNull class]]) ? @"" : orderDetail[@"seller"][@"image"][@"url"];
         vc.opponentQuickbloxID = orderDetail[opponentType][@"quickblox_id"];
         vc.buyerInfo = orderDetail[@"buyer"];
+        vc.orderDeliveryStatus = orderDetail[@"order_delivery_status"];
     }
+}
+- (IBAction)createListingBarTapped:(id)sender {
+    
+    [self showCreateListingTableViewController];
+    
 }
 
 @end

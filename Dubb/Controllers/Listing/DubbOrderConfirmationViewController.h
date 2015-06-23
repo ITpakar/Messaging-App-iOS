@@ -28,6 +28,7 @@
 @property (strong, nonatomic) NSString *orderID;
 @property (strong, nonatomic) NSString *opponentQuickbloxID;
 @property (strong, nonatomic) NSString *userImageURL;
+@property (strong, nonatomic) NSString *orderDeliveryStatus;
 @property (strong, nonatomic) NSDictionary *buyerInfo;
 @property (nonatomic)         NSInteger totalAmountPurchased;
 @end

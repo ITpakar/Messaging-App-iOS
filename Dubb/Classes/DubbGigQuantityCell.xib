@@ -39,16 +39,6 @@
                             <action selector="minusButtonTapped:" destination="Rpe-N4-5kA" eventType="touchUpInside" id="mVS-FB-OkN"/>
                         </connections>
                     </button>
-                    <label opaque="NO" userInteractionEnabled="NO" tag="106" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7aQ-M4-4TC">
-                        <rect key="frame" x="239" y="10" width="30" height="21"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="21" id="ipp-Rt-Jm4"/>
-                            <constraint firstAttribute="width" constant="30" id="vq2-1s-ZOT"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GFI-IM-ODU" userLabel="Separator">
                         <rect key="frame" x="13" y="0.0" width="294" height="1"/>
                         <color key="backgroundColor" white="0.66666666669999997" alpha="0.26000000000000001" colorSpace="calibratedWhite"/>
@@ -59,6 +49,16 @@
                     <label opaque="NO" userInteractionEnabled="NO" tag="104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gig Quantity" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="11d-nx-4dQ">
                         <rect key="frame" x="8" y="2" width="168" height="38"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" tag="106" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7aQ-M4-4TC">
+                        <rect key="frame" x="239" y="10" width="30" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="ipp-Rt-Jm4"/>
+                            <constraint firstAttribute="width" constant="30" id="vq2-1s-ZOT"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
@@ -80,7 +80,9 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="quantityLabel" destination="7aQ-M4-4TC" id="Yqc-Og-Qgf"/>
+                <outlet property="titleLabel" destination="11d-nx-4dQ" id="EVP-xF-jf7"/>
             </connections>
+            <point key="canvasLocation" x="128" y="158"/>
         </tableViewCell>
     </objects>
     <resources>
