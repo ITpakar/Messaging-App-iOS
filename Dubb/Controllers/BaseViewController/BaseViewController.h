@@ -18,7 +18,7 @@
 - (void)showMessage : (NSString *)message;
 - (void)showCreateListingTableViewController ;
 - (void)showAlertForLogIn;
-
+- (void)showLoginView;
 //MB Progres
 - (void)showProgress:(NSString *)message;
 - (void)hideProgress;

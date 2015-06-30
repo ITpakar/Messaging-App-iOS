@@ -14,9 +14,9 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" tag="107" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yJ3-hJ-DLy">
-                        <rect key="frame" x="277" y="9" width="30" height="24"/>
+                        <rect key="frame" x="282" y="9" width="25" height="24"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="30" id="48e-sw-wgn"/>
+                            <constraint firstAttribute="width" constant="25" id="48e-sw-wgn"/>
                             <constraint firstAttribute="height" constant="24" id="utY-p2-0lY"/>
                         </constraints>
                         <state key="normal" image="plus_button.png">
@@ -27,9 +27,9 @@
                         </connections>
                     </button>
                     <button opaque="NO" tag="105" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6sc-xx-gqX">
-                        <rect key="frame" x="201" y="9" width="30" height="24"/>
+                        <rect key="frame" x="211" y="9" width="25" height="24"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="30" id="MM0-8k-dId"/>
+                            <constraint firstAttribute="width" constant="25" id="MM0-8k-dId"/>
                             <constraint firstAttribute="height" constant="24" id="V4s-Js-Jzf"/>
                         </constraints>
                         <state key="normal" image="minus_button.png">
@@ -46,21 +46,37 @@
                             <constraint firstAttribute="height" constant="1" id="iyl-dQ-ZRf"/>
                         </constraints>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" tag="104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gig Quantity" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="11d-nx-4dQ">
-                        <rect key="frame" x="8" y="2" width="168" height="38"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" tag="104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gig Quantity" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="11d-nx-4dQ">
+                        <rect key="frame" x="8" y="2" width="178" height="38"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" tag="106" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7aQ-M4-4TC">
-                        <rect key="frame" x="239" y="10" width="30" height="21"/>
+                        <rect key="frame" x="244" y="10" width="30" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="ipp-Rt-Jm4"/>
                             <constraint firstAttribute="width" constant="30" id="vq2-1s-ZOT"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" red="0.21176470588235294" green="0.21176470588235294" blue="0.21176470588235294" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dxp-BY-0f2">
+                        <rect key="frame" x="8" y="9" width="160" height="21"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="subitem_icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="K7z-4f-Z0H">
+                                <rect key="frame" x="5" y="6" width="8" height="10"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Quantity" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ULD-TY-0cY">
+                                <rect key="frame" x="20" y="0.0" width="75" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="0.58431372549019611" green="0.58431372549019611" blue="0.58431372549019611" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="6sc-xx-gqX" firstAttribute="leading" secondItem="11d-nx-4dQ" secondAttribute="trailing" constant="25" id="7Ov-bk-Xgv"/>
@@ -79,6 +95,7 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="addonQuantityContainer" destination="dxp-BY-0f2" id="wGN-Vj-WTi"/>
                 <outlet property="quantityLabel" destination="7aQ-M4-4TC" id="Yqc-Og-Qgf"/>
                 <outlet property="titleLabel" destination="11d-nx-4dQ" id="EVP-xF-jf7"/>
             </connections>
@@ -86,7 +103,8 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="minus_button.png" width="31" height="25"/>
-        <image name="plus_button.png" width="31" height="25"/>
+        <image name="minus_button.png" width="25" height="25"/>
+        <image name="plus_button.png" width="25" height="25"/>
+        <image name="subitem_icon.png" width="8" height="10"/>
     </resources>
 </document>

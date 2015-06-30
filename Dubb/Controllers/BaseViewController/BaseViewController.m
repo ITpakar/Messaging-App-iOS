@@ -91,8 +91,7 @@
                                   style:UIAlertActionStyleDefault
                                   handler:^(UIAlertAction *action)
                                   {
-                                      UIViewController *mainController = [self.storyboard instantiateViewControllerWithIdentifier:@"mainController"];
-                                      ((AppDelegate*)[[UIApplication sharedApplication] delegate]).window.rootViewController = mainController;
+                                      [self showLoginView];
                                   }];
     [alertController addAction:logInAction];
     UIAlertAction *cancelAction = [UIAlertAction
@@ -108,6 +107,12 @@
 
 }
 
+- (void)showLoginView {
+    
+    UIViewController *mainController = [self.storyboard instantiateViewControllerWithIdentifier:@"mainController"];
+    ((AppDelegate*)[[UIApplication sharedApplication] delegate]).window.rootViewController = mainController;
+    
+}
 
 #pragma mark -
 #pragma mark - MBProgressHUD

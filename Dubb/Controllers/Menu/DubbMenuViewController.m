@@ -115,7 +115,7 @@
         case 1:
             if (isAnonymous) {
                 
-                [self showAlertForLogIn];
+                [self showLoginView];
                 
             } else {
                 
@@ -130,7 +130,7 @@
         case 2:
             if (isAnonymous) {
                 
-                [self showAlertForLogIn];
+                [self showLoginView];
                 
             } else {
                 
@@ -144,7 +144,7 @@
         case 3:
             if (isAnonymous) {
                 
-                [self showAlertForLogIn];
+                [self showLoginView];
                 
             } else {
                 
@@ -158,7 +158,7 @@
         case 4:
             if (isAnonymous) {
                 
-                [self showAlertForLogIn];
+                [self showLoginView];
                 
             } else {
                 
@@ -175,7 +175,7 @@
         case 6:
             if (isAnonymous) {
                 
-                [self showAlertForLogIn];
+                [self showLoginView];
                 
             } else {
                 

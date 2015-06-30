@@ -16,6 +16,7 @@
 @property (strong, nonatomic) IBOutlet UIView *extraControlsContainerView;
 @property (strong, nonatomic) IBOutlet UIButton *backButton;
 @property (strong, nonatomic) IBOutlet UILabel *pageLabel;
+@property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (strong, nonatomic) IBOutlet UIButton *shareSheetButton;
 @property (strong, nonatomic) IBOutlet UIButton *likeButton;
 

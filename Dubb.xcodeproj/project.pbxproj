@@ -106,6 +106,14 @@
 		0D3626F61B0C377E002A7814 /* iRate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D3626F41B0C377E002A7814 /* iRate.m */; };
 		0D5653A41B1FE04A00444999 /* NSDate+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D5653A31B1FE04A00444999 /* NSDate+Helper.m */; };
 		0D5653A81B24494500444999 /* DubbMyListingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D5653A71B24494500444999 /* DubbMyListingsViewController.m */; };
+		0D5ABFEF1B4224F400D20241 /* export_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D5ABFED1B4224F400D20241 /* export_button.png */; };
+		0D5ABFF01B4224F400D20241 /* export_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D5ABFEE1B4224F400D20241 /* export_button@2x.png */; };
+		0D5ABFF51B424CBF00D20241 /* seller_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D5ABFF11B424CBF00D20241 /* seller_background.png */; };
+		0D5ABFF61B424CBF00D20241 /* seller_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D5ABFF21B424CBF00D20241 /* seller_background@2x.png */; };
+		0D5ABFF71B424CBF00D20241 /* subitem_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D5ABFF31B424CBF00D20241 /* subitem_icon.png */; };
+		0D5ABFF81B424CBF00D20241 /* subitem_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D5ABFF41B424CBF00D20241 /* subitem_icon@2x.png */; };
+		0D5ABFFB1B42540400D20241 /* booknow_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D5ABFF91B42540400D20241 /* booknow_button.png */; };
+		0D5ABFFC1B42540400D20241 /* booknow_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D5ABFFA1B42540400D20241 /* booknow_button@2x.png */; };
 		0D5FF55F1B3485BD005DE762 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D5FF55E1B3485BD005DE762 /* TPKeyboardAvoidingScrollView.m */; };
 		0D5FF5621B348B3A005DE762 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D5FF5611B348B3A005DE762 /* UIScrollView+TPKeyboardAvoidingAdditions.m */; };
 		0D6B7D5F1B143D3B000B0352 /* signup_textfield_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D6B7D5E1B143D3B000B0352 /* signup_textfield_background@2x.png */; };
@@ -417,6 +425,14 @@
 		0D5653A31B1FE04A00444999 /* NSDate+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Helper.m"; sourceTree = "<group>"; };
 		0D5653A61B24494500444999 /* DubbMyListingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DubbMyListingsViewController.h; path = Listing/DubbMyListingsViewController.h; sourceTree = "<group>"; };
 		0D5653A71B24494500444999 /* DubbMyListingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DubbMyListingsViewController.m; path = Listing/DubbMyListingsViewController.m; sourceTree = "<group>"; };
+		0D5ABFED1B4224F400D20241 /* export_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = export_button.png; sourceTree = "<group>"; };
+		0D5ABFEE1B4224F400D20241 /* export_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "export_button@2x.png"; sourceTree = "<group>"; };
+		0D5ABFF11B424CBF00D20241 /* seller_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = seller_background.png; sourceTree = "<group>"; };
+		0D5ABFF21B424CBF00D20241 /* seller_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "seller_background@2x.png"; sourceTree = "<group>"; };
+		0D5ABFF31B424CBF00D20241 /* subitem_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = subitem_icon.png; sourceTree = "<group>"; };
+		0D5ABFF41B424CBF00D20241 /* subitem_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "subitem_icon@2x.png"; sourceTree = "<group>"; };
+		0D5ABFF91B42540400D20241 /* booknow_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = booknow_button.png; sourceTree = "<group>"; };
+		0D5ABFFA1B42540400D20241 /* booknow_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "booknow_button@2x.png"; sourceTree = "<group>"; };
 		0D5FF55D1B3485BD005DE762 /* TPKeyboardAvoidingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingScrollView.h; sourceTree = "<group>"; };
 		0D5FF55E1B3485BD005DE762 /* TPKeyboardAvoidingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingScrollView.m; sourceTree = "<group>"; };
 		0D5FF5601B348B3A005DE762 /* UIScrollView+TPKeyboardAvoidingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+TPKeyboardAvoidingAdditions.h"; sourceTree = "<group>"; };
@@ -982,6 +998,14 @@
 		7C09A5971AB1CFE200218127 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				0D5ABFF91B42540400D20241 /* booknow_button.png */,
+				0D5ABFFA1B42540400D20241 /* booknow_button@2x.png */,
+				0D5ABFF11B424CBF00D20241 /* seller_background.png */,
+				0D5ABFF21B424CBF00D20241 /* seller_background@2x.png */,
+				0D5ABFF31B424CBF00D20241 /* subitem_icon.png */,
+				0D5ABFF41B424CBF00D20241 /* subitem_icon@2x.png */,
+				0D5ABFED1B4224F400D20241 /* export_button.png */,
+				0D5ABFEE1B4224F400D20241 /* export_button@2x.png */,
 				0D6B7D8D1B17404A000B0352 /* complete_indicator.png */,
 				0D6B7D8E1B17404A000B0352 /* complete_indicator@2x.png */,
 				0D6B7D8F1B17404A000B0352 /* in_progress_indicator.png */,
@@ -1633,6 +1657,7 @@
 				0D344D8B1B026DA90069D816 /* addon_checked@2x.png in Resources */,
 				0D6B7D841B17326F000B0352 /* profile_menu_button@2x.png in Resources */,
 				DC675A601AE7DAF500E5CBDA /* close@2x.png in Resources */,
+				0D5ABFF71B424CBF00D20241 /* subitem_icon.png in Resources */,
 				7C09A6051AB2A7E400218127 /* icon_menu@2x.png in Resources */,
 				0D6B7D921B17404A000B0352 /* complete_indicator@2x.png in Resources */,
 				0D6B7D7C1B17326F000B0352 /* home_menu_button@2x.png in Resources */,
@@ -1644,12 +1669,14 @@
 				0D6B7D861B17326F000B0352 /* sales_menu_button@2x.png in Resources */,
 				0D344D8D1B026DA90069D816 /* addon_unchecked@2x.png in Resources */,
 				0DFCB1771AFFD9FE001F2820 /* share_sheet_button@2x.png in Resources */,
+				0D5ABFFB1B42540400D20241 /* booknow_button.png in Resources */,
 				0D1FA6B51ACA23CA00079C79 /* separator_line.png in Resources */,
 				0D344D991B027E750069D816 /* share_twitter_button.png in Resources */,
 				0D1FA66B1ACA183D00079C79 /* sqs-2012-11-05.json in Resources */,
 				0D1FA5A91ACA183C00079C79 /* Overlay.png in Resources */,
 				0D1FA6B31ACA23CA00079C79 /* prev_button.png in Resources */,
 				0D6B7D931B17404A000B0352 /* in_progress_indicator.png in Resources */,
+				0D5ABFF01B4224F400D20241 /* export_button@2x.png in Resources */,
 				0DFCB16E1AFFD9FE001F2820 /* minus_button.png in Resources */,
 				0D1FA6671ACA183D00079C79 /* monitoring-2010-08-01.json in Resources */,
 				0DFCB1671AFFD9FE001F2820 /* book_now_button@2x.png in Resources */,
@@ -1684,6 +1711,7 @@
 				7C09A61C1AB33A5300218127 /* attachment@2x.png in Resources */,
 				0DFCB1791AFFD9FE001F2820 /* star@2x.png in Resources */,
 				DC675A451AE4BEE000E5CBDA /* btn_category@2x.png in Resources */,
+				0D5ABFF51B424CBF00D20241 /* seller_background.png in Resources */,
 				0D1FA66C1ACA183D00079C79 /* sts-2011-06-15.json in Resources */,
 				0D1FA6A41ACA23CA00079C79 /* arrow.png in Resources */,
 				0D6B7D7F1B17326F000B0352 /* mylistings_menu_button.png in Resources */,
@@ -1698,11 +1726,13 @@
 				DC63FC7C1AD7EE7D00A505B8 /* refresh@2x.png in Resources */,
 				0DFCB1651AFFD9FE001F2820 /* ask_question_button@2x.png in Resources */,
 				0DFCB16A1AFFD9FE001F2820 /* heart_button.png in Resources */,
+				0D5ABFF81B424CBF00D20241 /* subitem_icon@2x.png in Resources */,
 				0D1FA6691ACA183D00079C79 /* sdb-2009-04-15.json in Resources */,
 				0D2BC8C81AE00878004880E7 /* btn_prevnavigation_white.png in Resources */,
 				7CA773B71AB1C2AF00F6D631 /* LaunchScreen.xib in Resources */,
 				0D1FA6B01ACA23CA00079C79 /* next_button.png in Resources */,
 				0DAC05DB1B317757007D4234 /* DubbExtraQuantityCell.xib in Resources */,
+				0D5ABFEF1B4224F400D20241 /* export_button.png in Resources */,
 				0D6B7D661B154824000B0352 /* order_completion_header@2x.png in Resources */,
 				0D6B7D6B1B165CF7000B0352 /* uparrow_button.png in Resources */,
 				0D1FA6A51ACA23CA00079C79 /* arrow@2x.png in Resources */,
@@ -1720,7 +1750,9 @@
 				0D1FA6B41ACA23CA00079C79 /* prev_button@2x.png in Resources */,
 				DC675A4B1AE5FAB400E5CBDA /* CountryPicker.bundle in Resources */,
 				DC675A661AE8163C00E5CBDA /* btn_search@2x.png in Resources */,
+				0D5ABFF61B424CBF00D20241 /* seller_background@2x.png in Resources */,
 				0D6B7D881B17326F000B0352 /* support_menu_button@2x.png in Resources */,
+				0D5ABFFC1B42540400D20241 /* booknow_button@2x.png in Resources */,
 				0D6B7D7D1B17326F000B0352 /* inbox_menu_button.png in Resources */,
 				7C09A6181AB3299500218127 /* receiver_bubble@2x.png in Resources */,
 				0DFCB1731AFFD9FE001F2820 /* overall_score_green@2x.png in Resources */,

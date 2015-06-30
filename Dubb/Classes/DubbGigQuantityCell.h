@@ -15,6 +15,7 @@
 @property (weak, nonatomic) NSString *title;
 @property (nonatomic) NSInteger quantity;
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+@property (strong, nonatomic) IBOutlet UIView *addonQuantityContainer;
 
 
 - (void)initViewWithAddonInfo:(NSDictionary *)addonInfo;

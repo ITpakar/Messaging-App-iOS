@@ -39,7 +39,7 @@
     BOOL isAskingQuestion;
 }
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) IBOutlet UIButton *bookNowButton;
+@property (strong, nonatomic) IBOutlet UILabel *totalPriceLabel;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @end
@@ -181,6 +181,7 @@ enum DubbSingleListingViewTag {
     }];	
     expansionFlags = [NSMutableArray array];
     extraQuantityCellIndexPaths = [NSMutableArray array];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -404,7 +405,7 @@ static bool liked = NO;
 {
     switch (indexPath.section) {
         case kDubbSingleListingSectionHeader:
-            return 160;
+            return 200;
         case kDubbSingleListingSectionGigQuantity:
             return 45;
         case kDubbSingleListingSectionAddons:
@@ -413,10 +414,10 @@ static bool liked = NO;
             else
                 return 45;
         case kDubbSingleListingSectionSellerIntroduction:
-            return 165;
+            return 232;
         case kDubbSingleListingSectionReviews:
             if (indexPath.row == 0)
-                return 90;
+                return 44;
             else
                 return 133;
         default:
@@ -552,7 +553,7 @@ static bool liked = NO;
         sum += [addOnInfo[@"price"] integerValue];
     }
     
-    [self.bookNowButton setTitle:[NSString stringWithFormat:@"Book Now($%ld)", sum] forState:UIControlStateNormal];
+    [self.totalPriceLabel setText:[NSString stringWithFormat:@"$%ld", sum]];
 }
 
 // Configure Cells
@@ -584,7 +585,6 @@ static bool liked = NO;
         cell = [nib objectAtIndex:0];
     }
     cell.addonInfo = addonInfo;
-    cell.titleLabel.text = titleString;
     
     NSInteger purchasedCount = 0;
     for (NSDictionary *purchasedAddon in purchasedAddOns) {
@@ -595,11 +595,15 @@ static bool liked = NO;
         
     }
     if ([titleString isEqualToString:@"Extra Quantity"]) {
-        cell.backgroundColor = [UIColor lightGrayColor];
+        cell.titleLabel.hidden = YES;
+        cell.addonQuantityContainer.hidden = NO;
+        cell.backgroundColor = [UIColor colorWithRed:245.0f/255.0f green:248.0f/255.0f blue:250.0f/255.0f alpha:1.0];
     } else {
+        cell.titleLabel.hidden = NO;
+        cell.addonQuantityContainer.hidden = YES;
         cell.backgroundColor = [UIColor whiteColor];
     }
-    
+    cell.quantity = purchasedCount;
     cell.quantityLabel.text = [NSString stringWithFormat:@"%ld", purchasedCount];
     return cell;
 }
@@ -637,16 +641,18 @@ static bool liked = NO;
     UILabel *nameLabel     = (UILabel *)[cell viewWithTag:kDubbSingleListingSectionSellerIntroductionUserNameLabelTag];
     UIButton *askQuestionButton = (UIButton *)[cell viewWithTag:kDubbSingleListingSectionSellerIntroductionAskQuestionButtonTag];
     __weak UILabel *locationLabel = (UILabel *)[cell viewWithTag:kDubbSingleListingSectionSellerIntroductionLocationLabelTag];
+    askQuestionButton.enabled = ![[NSString stringWithFormat:@"%@", [User currentUser].userID] isEqualToString:@""];
+    
     
     NSDictionary *userInfo = listingInfo[@"user"];
     nameLabel.text = [NSString stringWithFormat:@"%@ %@", userInfo[@"first"], userInfo[@"last"]];
     
     [askQuestionButton addTarget:self action:@selector(askQuestionButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     
-    CGFloat borderWidth = 4.0f;
+    CGFloat borderWidth = 2.0f;
     profileImageView.layer.borderColor = [UIColor lightGrayColor].CGColor;
     profileImageView.layer.borderWidth = borderWidth;
-    profileImageView.layer.cornerRadius = 27;
+    profileImageView.layer.cornerRadius = 31;
     profileImageView.clipsToBounds = YES;
     
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];

@@ -25,8 +25,9 @@
 }
 
 -(void)updatePageLabel {
-    
-    [self.pageLabel setText:[NSString stringWithFormat:@"%lu / %lu", self.slideShow.currentIndex + 1, (unsigned long)self.imagesCount]];
+    self.pageControl.currentPage = self.slideShow.currentIndex;
+    self.pageControl.numberOfPages = self.imagesCount;
+//    [self.pageLabel setText:[NSString stringWithFormat:@"%lu / %lu", self.slideShow.currentIndex + 1, (unsigned long)self.imagesCount]];
 }
 
 - (void)initImagesWithInfoArray:(NSArray *)imageInfoSet {
