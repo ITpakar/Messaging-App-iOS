@@ -12,11 +12,6 @@
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lnf-f2-iFv" customClass="KASlideShow">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
-                    <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="placeholder_image.png" translatesAutoresizingMaskIntoConstraints="NO" id="l59-qX-cEr">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
-                        </imageView>
-                    </subviews>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y6g-SM-BL2" userLabel="Extra Info and Buttons Container">
@@ -61,41 +56,17 @@
                         <constraint firstAttribute="height" constant="65" id="ubb-XF-gEw"/>
                     </constraints>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NhW-uF-zCF" userLabel="Flag Button">
-                    <rect key="frame" x="283" y="30" width="29" height="29"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="29" id="0fW-zh-nya"/>
-                        <constraint firstAttribute="width" constant="29" id="8Hc-Ka-L0t"/>
-                    </constraints>
-                    <state key="normal" image="flag.png">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="flagButtonTapped:" destination="Ejd-8z-5Xx" eventType="touchUpInside" id="dUw-fE-qxy"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WiF-Rx-tio" userLabel="Share Sheet Button">
-                    <rect key="frame" x="235" y="30" width="30" height="29"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="29" id="eav-DJ-c3R"/>
-                        <constraint firstAttribute="width" constant="30" id="wQf-7g-ndj"/>
-                    </constraints>
-                    <state key="normal" image="export_button.png">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="placeholder_image.png" translatesAutoresizingMaskIntoConstraints="NO" id="l59-qX-cEr">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="NhW-uF-zCF" firstAttribute="top" secondItem="Ejd-8z-5Xx" secondAttribute="top" constant="30" id="64S-hP-Olr"/>
                 <constraint firstAttribute="bottom" secondItem="Y6g-SM-BL2" secondAttribute="bottom" id="6OX-ei-7zL"/>
                 <constraint firstItem="Lnf-f2-iFv" firstAttribute="top" secondItem="Ejd-8z-5Xx" secondAttribute="top" id="INd-9K-BwL"/>
                 <constraint firstAttribute="bottom" secondItem="Lnf-f2-iFv" secondAttribute="bottom" id="Mv2-8X-zFL"/>
                 <constraint firstItem="Y6g-SM-BL2" firstAttribute="leading" secondItem="Ejd-8z-5Xx" secondAttribute="leading" id="VaK-kG-RKG"/>
-                <constraint firstItem="NhW-uF-zCF" firstAttribute="leading" secondItem="WiF-Rx-tio" secondAttribute="trailing" constant="18" id="XY2-K8-mrM"/>
                 <constraint firstAttribute="trailing" secondItem="Y6g-SM-BL2" secondAttribute="trailing" id="Xd7-f7-H2u"/>
-                <constraint firstItem="WiF-Rx-tio" firstAttribute="top" secondItem="Ejd-8z-5Xx" secondAttribute="top" constant="30" id="bvF-no-z6z"/>
-                <constraint firstAttribute="trailing" secondItem="NhW-uF-zCF" secondAttribute="trailing" constant="8" id="gsJ-YL-miO"/>
                 <constraint firstAttribute="trailing" secondItem="Lnf-f2-iFv" secondAttribute="trailing" id="j8p-Nb-hJ6"/>
                 <constraint firstItem="Lnf-f2-iFv" firstAttribute="leading" secondItem="Ejd-8z-5Xx" secondAttribute="leading" id="qDT-VR-h39"/>
             </constraints>
@@ -107,15 +78,12 @@
                 <outlet property="pageControl" destination="Yia-LM-RB7" id="B0X-P4-VTW"/>
                 <outlet property="pageLabel" destination="hUz-Lz-ete" id="mXO-JC-9u6"/>
                 <outlet property="placeholderImageView" destination="l59-qX-cEr" id="OMY-nr-3h3"/>
-                <outlet property="shareSheetButton" destination="WiF-Rx-tio" id="37T-PW-NRo"/>
                 <outlet property="slideShow" destination="Lnf-f2-iFv" id="uRO-FF-9Ga"/>
             </connections>
             <point key="canvasLocation" x="197" y="166"/>
         </view>
     </objects>
     <resources>
-        <image name="export_button.png" width="30" height="29"/>
-        <image name="flag.png" width="29" height="29"/>
         <image name="heart_button.png" width="22" height="21"/>
         <image name="placeholder_image.png" width="1900" height="1200"/>
     </resources>

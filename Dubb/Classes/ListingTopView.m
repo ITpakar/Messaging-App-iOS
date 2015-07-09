@@ -51,11 +51,5 @@
     self.imagesCount = imageInfoSet.count;
     [self updatePageLabel];
 }
-- (IBAction)flagButtonTapped:(id)sender {
-    
-    [self.parentViewController flagButtonTapped];
-    
-    
-}
 
 @end

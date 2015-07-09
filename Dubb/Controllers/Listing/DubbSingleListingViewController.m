@@ -11,6 +11,8 @@
 #import "UIScrollView+APParallaxHeader.h"
 #import "AXRatingView.h"
 #import "MBProgressHUD.h"
+#import "TTTAttributedLabel.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 #import "ListingTopView.h"
 #import "DubbAddonCell.h"
@@ -23,7 +25,7 @@
 #import "PaypalMobile.h"
 #import "AppDelegate.h"
 
-@interface DubbSingleListingViewController () <QBActionStatusDelegate, MFMailComposeViewControllerDelegate, PayPalPaymentDelegate>
+@interface DubbSingleListingViewController () <QBActionStatusDelegate, MFMailComposeViewControllerDelegate, UIScrollViewDelegate, PayPalPaymentDelegate, TTTAttributedLabelDelegate>
 {
     NSMutableArray *purchasedAddOns;
     NSMutableArray *addOns;
@@ -35,12 +37,15 @@
     
     NSDictionary *sellerInfo;
     NSDictionary *listingInfo;
-    
+    CAGradientLayer *maskLayer;
+    NSInteger numberOfLinesForHeaderCellDescriptionLabel;
+    NSInteger numberOfLinesForReviewContentDescriptionLabel;
     BOOL isAskingQuestion;
 }
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UILabel *totalPriceLabel;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (strong, nonatomic) IBOutlet UIView *gradientView;
 
 @end
 
@@ -78,7 +83,8 @@ enum DubbSingleListingViewTag {
     kDubbSingleListingSectionReviewsUserNameLabelTag,
     kDubbSingleListingSectionReviewsLocationLabelTag,
     kDubbSingleListingSectionReviewsContentRatingControlTag,
-    kDubbSingleListingSectionReviewsDescriptionLabelTag
+    kDubbSingleListingSectionReviewsDescriptionLabelTag,
+    kDubbSingleListingSectionSellerIntroductionBackgroundImageViewTag
 };
 - (IBAction)backButtonTapped:(id)sender {
     
@@ -101,8 +107,37 @@ enum DubbSingleListingViewTag {
     
     
 }
+- (IBAction)shareSheetButtonTapped:(id)sender{
+    
+    NSString *textToShare = listingInfo[@"name"];
+    NSArray *objectsToShare = @[textToShare];
+    
+    
+    UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
+    
+    NSArray *excludeActivities = @[UIActivityTypeAirDrop,
+                                   UIActivityTypePrint,
+                                   UIActivityTypeCopyToPasteboard,
+                                   UIActivityTypeAssignToContact,
+                                   UIActivityTypeAddToReadingList,
+                                   UIActivityTypePostToFlickr,
+                                   UIActivityTypePostToVimeo];
+    
+    activityVC.excludedActivityTypes = excludeActivities;
+    
+    [self presentViewController:activityVC animated:YES completion:nil];
+    
+    
+    [activityVC setCompletionWithItemsHandler:^(NSString *act, BOOL done, NSArray *returnedItems, NSError *activity)
+     {
+         NSString *ServiceMsg = @"Message Has Been Shared!";
+         [self showMessage:ServiceMsg];
+         
+     }];
+    
+}
 
-- (void)flagButtonTapped{
+- (IBAction)flagButtonTapped{
     
     if (![MFMailComposeViewController canSendMail]) {
         [self showMessage:@"Your device can't send Email!"];
@@ -128,13 +163,15 @@ enum DubbSingleListingViewTag {
     purchasedAddOns = [NSMutableArray array];
     [self.view setFrame:self.navigationController.view.bounds];
     
+    numberOfLinesForHeaderCellDescriptionLabel = 4;
+    numberOfLinesForReviewContentDescriptionLabel = 4;
     topView = [[[NSBundle mainBundle] loadNibNamed:@"ListingTopView" owner:nil options:nil] objectAtIndex:0];
     topView.parentViewController = self;
     [topView initViews];
     topView.slideShow.delegate = self;
-    [topView.shareSheetButton addTarget:self action:@selector(shareSheetButtonTapped) forControlEvents:UIControlEventTouchUpInside];
     [topView.likeButton addTarget:self action:@selector(likeButtonTapped) forControlEvents:UIControlEventTouchUpInside];
     [self.tableView addParallaxWithView:topView andHeight:200];
+    //[self addScrollingGradientToView:topView];
     
     isAskingQuestion = NO;
     
@@ -161,6 +198,8 @@ enum DubbSingleListingViewTag {
         self.tableView.hidden = NO;
         
         int index = 0;
+        NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"sequence" ascending:YES];
+        addOns = [[addOns sortedArrayUsingDescriptors:[NSArray arrayWithObject:descriptor]] mutableCopy];
         for (NSDictionary *addOnInfo in addOns) {
             if ([addOnInfo[@"sequence"] integerValue] == 0) {
                 baseService = addOns[index];
@@ -192,7 +231,11 @@ enum DubbSingleListingViewTag {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(plusButtonTapped:) name:kNotificationDidTapPlusButton object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(minusButtonTapped:) name:kNotificationDidTapMinusButton object:nil];
     
+    [self addGradientToView:self.gradientView];
+    
 }
+
+
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
@@ -337,36 +380,6 @@ static bool liked = NO;
     }
 }
 
-- (void)shareSheetButtonTapped {
-    
-    NSString *textToShare = listingInfo[@"name"];
-    NSArray *objectsToShare = @[textToShare];
-
-    
-    UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
-    
-    NSArray *excludeActivities = @[UIActivityTypeAirDrop,
-                                   UIActivityTypePrint,
-                                   UIActivityTypeCopyToPasteboard,
-                                   UIActivityTypeAssignToContact,
-                                   UIActivityTypeAddToReadingList,
-                                   UIActivityTypePostToFlickr,
-                                   UIActivityTypePostToVimeo];
-    
-    activityVC.excludedActivityTypes = excludeActivities;
-    
-    [self presentViewController:activityVC animated:YES completion:nil];
-    
-    
-    [activityVC setCompletionWithItemsHandler:^(NSString *act, BOOL done, NSArray *returnedItems, NSError *activity)
-     {
-         NSString *ServiceMsg = @"Message Has Been Shared!";
-         [self showMessage:ServiceMsg];
-         
-     }];
-
-}
-
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -403,9 +416,15 @@ static bool liked = NO;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSString *description = @"Here is where a lovely service description goes describing the talent of the provider and their past experience. Here is where a lovely service description goes describing the talent of the provider and their past experience. Here is where a lovely service description goes describing the talent of the provider and their past experience.";
     switch (indexPath.section) {
-        case kDubbSingleListingSectionHeader:
-            return 200;
+        case kDubbSingleListingSectionHeader: {
+            if (numberOfLinesForHeaderCellDescriptionLabel == 0 && listingInfo && [listingInfo[@"description"] length] > 0) {
+                return 220 + [self heightOfLabelWithText:listingInfo[@"description"] Width:sWidth - 29] - 60 > 220 ? 220 + [self heightOfLabelWithText:listingInfo[@"description"] Width:sWidth - 29] - 60 : 220;
+            } else
+                return 220;
+        }
+            
         case kDubbSingleListingSectionGigQuantity:
             return 45;
         case kDubbSingleListingSectionAddons:
@@ -416,10 +435,14 @@ static bool liked = NO;
         case kDubbSingleListingSectionSellerIntroduction:
             return 232;
         case kDubbSingleListingSectionReviews:
+            
             if (indexPath.row == 0)
                 return 44;
             else
-                return 133;
+                if (numberOfLinesForReviewContentDescriptionLabel == 0) {
+                    return 133 + [self heightOfLabelWithText:description Width:sWidth - 29] - 60 > 133 ? 133 + [self heightOfLabelWithText:description Width:sWidth - 29] - 60 : 133;
+                } else
+                    return 133;
         default:
             return 0;
     }
@@ -564,12 +587,24 @@ static bool liked = NO;
     
     UILabel *titleLabel = (UILabel *)[cell viewWithTag:kDubbSingleListingSectionHeaderTitleLabelTag];
     UILabel *categoryLabel = (UILabel *)[cell viewWithTag:kDubbSingleListingSectionHeaderCategoryLabelTag];
-    UILabel *descriptionLabel = (UILabel *)[cell viewWithTag:kDubbSingleListingSectionHeaderDescriptionLabelTag];
+    TTTAttributedLabel *descriptionLabel = (TTTAttributedLabel *)[cell viewWithTag:kDubbSingleListingSectionHeaderDescriptionLabelTag];
     
     titleLabel.text = listingInfo[@"name"];
-    categoryLabel.text = [NSString stringWithFormat:@"%@ > %@", listingInfo[@"category"][@"name"], listingInfo[@"subcategory"][@"name"]];
+    categoryLabel.text = [[NSString stringWithFormat:@"%@ > %@", listingInfo[@"category"][@"name"], listingInfo[@"subcategory"][@"name"]] uppercaseString];
     descriptionLabel.text = listingInfo[@"description"];
-    
+    descriptionLabel.userInteractionEnabled = YES;
+    descriptionLabel.lineHeightMultiple = 1.2;
+    descriptionLabel.delegate = self;
+    descriptionLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    descriptionLabel.enabledTextCheckingTypes = NSTextCheckingTypeLink;
+    NSAttributedString *finalString = [[NSAttributedString alloc]
+                                       initWithString:@"... more"
+                                       attributes:@{
+                                                    NSForegroundColorAttributeName : [UIColor colorWithRed:69/255.0f green:140.0f/255.0f blue:204.0f/255.0f alpha:1.0f],
+                                                    NSFontAttributeName : descriptionLabel.font,
+                                                    NSLinkAttributeName : [NSURL URLWithString:@"header"]
+                                                    }];
+    descriptionLabel.attributedTruncationToken = finalString;
     return cell;
     
 }
@@ -594,17 +629,26 @@ static bool liked = NO;
         }
         
     }
+    
     if ([titleString isEqualToString:@"Extra Quantity"]) {
         cell.titleLabel.hidden = YES;
         cell.addonQuantityContainer.hidden = NO;
-        cell.backgroundColor = [UIColor colorWithRed:245.0f/255.0f green:248.0f/255.0f blue:250.0f/255.0f alpha:1.0];
+        NSInteger sequenceNumber = [cell.addonInfo[@"sequence"] integerValue];
+        if (sequenceNumber % 2 == 0) {
+            cell.backgroundColor = [UIColor colorWithRed:245.0f/255.0f green:248.0f/255.0f blue:250.0f/255.0f alpha:1.0];
+        } else {
+            cell.backgroundColor = [UIColor whiteColor];
+        }
     } else {
         cell.titleLabel.hidden = NO;
         cell.addonQuantityContainer.hidden = YES;
         cell.backgroundColor = [UIColor whiteColor];
     }
+
+    
+
     cell.quantity = purchasedCount;
-    cell.quantityLabel.text = [NSString stringWithFormat:@"%ld", purchasedCount];
+    cell.quantityLabel.text = [NSString stringWithFormat:@"%ld", (long)purchasedCount];
     return cell;
 }
 
@@ -629,6 +673,13 @@ static bool liked = NO;
     }
     
     [cell initViewWithAddonInfo:addOns[indexPath.row]];
+    NSInteger sequenceNumber = [cell.addonInfo[@"sequence"] integerValue];
+    if (sequenceNumber % 2 == 0) {
+        cell.backgroundColor = [UIColor colorWithRed:245.0f/255.0f green:248.0f/255.0f blue:250.0f/255.0f alpha:1.0];
+    } else {
+        cell.backgroundColor = [UIColor whiteColor];
+    }
+
     return cell;
 }
 
@@ -637,15 +688,24 @@ static bool liked = NO;
     static NSString *CellIdentifier = @"sellerIntroductionSectionCell";
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
+    UIImageView *backgroundImageView = (UIImageView *)[cell viewWithTag:kDubbSingleListingSectionSellerIntroductionBackgroundImageViewTag];
     UIImageView *profileImageView = (UIImageView *)[cell viewWithTag:kDubbSingleListingSectionSellerIntroductionProfileImageViewTag];
     UILabel *nameLabel     = (UILabel *)[cell viewWithTag:kDubbSingleListingSectionSellerIntroductionUserNameLabelTag];
+    UILabel *bioLabel     = (UILabel *)[cell viewWithTag:kDubbSingleListingSectionSellerIntroductionDescriptionLabelTag];
     UIButton *askQuestionButton = (UIButton *)[cell viewWithTag:kDubbSingleListingSectionSellerIntroductionAskQuestionButtonTag];
     __weak UILabel *locationLabel = (UILabel *)[cell viewWithTag:kDubbSingleListingSectionSellerIntroductionLocationLabelTag];
+    
     askQuestionButton.enabled = ![[NSString stringWithFormat:@"%@", [User currentUser].userID] isEqualToString:@""];
     
     
     NSDictionary *userInfo = listingInfo[@"user"];
     nameLabel.text = [NSString stringWithFormat:@"%@ %@", userInfo[@"first"], userInfo[@"last"]];
+
+    if ([userInfo[@"bio"] isKindOfClass:[NSNull class]]) {
+        bioLabel.text = @"Seller has not entered a bio";
+    } else {
+        bioLabel.text = userInfo[@"bio"];
+    }
     
     [askQuestionButton addTarget:self action:@selector(askQuestionButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -654,6 +714,16 @@ static bool liked = NO;
     profileImageView.layer.borderWidth = borderWidth;
     profileImageView.layer.cornerRadius = 31;
     profileImageView.clipsToBounds = YES;
+    if (![[userInfo objectForKey:@"image"] isKindOfClass:[NSNull class]]) {
+        [profileImageView sd_setImageWithURL:userInfo[@"image"][@"url"]];
+    }
+    
+    NSArray *images = listingInfo[@"images"];
+    if (images.count > 1) {
+        [backgroundImageView sd_setImageWithURL:images[0][@"url"]];
+    } else {
+        [backgroundImageView sd_setImageWithURL:images[1][@"url"]];
+    }
     
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
     CLLocation *location = [[CLLocation alloc] initWithLatitude:[listingInfo[@"lat"] doubleValue] longitude:[listingInfo[@"longitude"] doubleValue]];
@@ -671,9 +741,8 @@ static bool liked = NO;
         }
     }];
 
-    
+    [self addGradientToView:backgroundImageView];
     return cell;
-    
 }
 
 - (UITableViewCell *)configureReviewsSectionHeaderCell {
@@ -717,6 +786,19 @@ static bool liked = NO;
     profileImageView.layer.borderWidth = borderWidth;
     profileImageView.layer.cornerRadius = 27;
     profileImageView.clipsToBounds = YES;
+    TTTAttributedLabel *descriptionLabel = (TTTAttributedLabel *)[cell viewWithTag:kDubbSingleListingSectionReviewsDescriptionLabelTag];
+    descriptionLabel.userInteractionEnabled = YES;
+    descriptionLabel.lineHeightMultiple = 1.2;
+    descriptionLabel.delegate = self;
+    descriptionLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    NSAttributedString *finalString = [[NSAttributedString alloc]
+                                       initWithString:@"... more"
+                                       attributes:@{
+                                                    NSForegroundColorAttributeName : [UIColor colorWithRed:69/255.0f green:140.0f/255.0f blue:204.0f/255.0f alpha:1.0f],
+                                                    NSFontAttributeName : descriptionLabel.font,
+                                                    NSLinkAttributeName : [NSURL URLWithString:@"review"]
+                                                    }];
+    descriptionLabel.attributedTruncationToken = finalString;
     return cell;
     
 }
@@ -890,6 +972,59 @@ static bool liked = NO;
     
 }
 
+- (void)attributedLabel:(TTTAttributedLabel *)label
+   didSelectLinkWithURL:(NSURL *)url
+{
+    label.numberOfLines = 0;
+    if ([[url absoluteString] isEqualToString:@"header"]) {
+        numberOfLinesForHeaderCellDescriptionLabel = 0;
+    } else {
+        numberOfLinesForReviewContentDescriptionLabel = 0;
+    }
+    
+    [self.tableView reloadData];
+}
+
+-(void)groupFeedCellDidClickUrl:(NSURL*)urlToOpen
+{
+    NSLog(@"selected url : %@", urlToOpen);
+    [self.view layoutIfNeeded];
+    [self.view layoutSubviews];
+}
+
+
+- (void)addGradientToView:(UIView*)view
+{
+    //add in the gradient to show scrolling
+    maskLayer = [CAGradientLayer layer];
+    
+    CGColorRef outerColor = [UIColor colorWithWhite:0.0 alpha:0.5].CGColor;
+    CGColorRef innerColor = [UIColor colorWithWhite:0.0 alpha:0.0].CGColor;
+    
+    maskLayer.colors = [NSArray arrayWithObjects:(__bridge id)outerColor,
+                        (__bridge id)innerColor, nil];
+    maskLayer.locations = [NSArray arrayWithObjects:[NSNumber numberWithFloat:0.0],
+                           [NSNumber numberWithFloat:1.0], nil];
+    
+    maskLayer.bounds = CGRectMake(0, 0,
+                                  sWidth,
+                                  160);
+    maskLayer.anchorPoint = CGPointZero;
+    
+    [view.layer addSublayer:maskLayer];
+
+}
+
+
+- (CGFloat)heightOfLabelWithText:(NSString *)text Width:(CGFloat)width {
+    
+    UILabel *contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, width, self.view.bounds.size.height)];
+    contentLabel.text = text;
+    contentLabel.numberOfLines = 0;
+    [contentLabel sizeToFit];
+    return contentLabel.frame.size.height;
+    
+}
 /*
 #pragma mark - Navigation
 

@@ -7,7 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="addonsSectionContentCell" rowHeight="42" id="Rpe-N4-5kA" userLabel="Gig Quantity Cell" customClass="DubbGigQuantityCell">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="addonsSectionContentCell" rowHeight="42" id="Rpe-N4-5kA" userLabel="Gig Quantity Cell" customClass="DubbGigQuantityCell">
             <rect key="frame" x="0.0" y="0.0" width="320" height="42"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Rpe-N4-5kA" id="tgB-J4-Dq9">
@@ -19,9 +19,11 @@
                             <constraint firstAttribute="width" constant="25" id="48e-sw-wgn"/>
                             <constraint firstAttribute="height" constant="24" id="utY-p2-0lY"/>
                         </constraints>
-                        <state key="normal" image="plus_button.png">
+                        <state key="normal" image="AddDefault">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
+                        <state key="selected" image="AddPressed"/>
+                        <state key="highlighted" image="AddPressed"/>
                         <connections>
                             <action selector="plusButtonTapped:" destination="Rpe-N4-5kA" eventType="touchUpInside" id="OBr-z6-wqC"/>
                         </connections>
@@ -32,9 +34,11 @@
                             <constraint firstAttribute="width" constant="25" id="MM0-8k-dId"/>
                             <constraint firstAttribute="height" constant="24" id="V4s-Js-Jzf"/>
                         </constraints>
-                        <state key="normal" image="minus_button.png">
+                        <state key="normal" image="SubtractDefault">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
+                        <state key="selected" image="SubtractPressed"/>
+                        <state key="highlighted" image="SubtractPressed"/>
                         <connections>
                             <action selector="minusButtonTapped:" destination="Rpe-N4-5kA" eventType="touchUpInside" id="mVS-FB-OkN"/>
                         </connections>
@@ -103,8 +107,10 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="minus_button.png" width="25" height="25"/>
-        <image name="plus_button.png" width="25" height="25"/>
+        <image name="AddDefault" width="27" height="27"/>
+        <image name="AddPressed" width="27" height="27"/>
+        <image name="SubtractDefault" width="27" height="27"/>
+        <image name="SubtractPressed" width="27" height="27"/>
         <image name="subitem_icon.png" width="8" height="10"/>
     </resources>
 </document>

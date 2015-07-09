@@ -149,6 +149,9 @@
 		0DAC05D41B2FD566007D4234 /* DubbProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DAC05D31B2FD566007D4234 /* DubbProfileViewController.m */; };
 		0DAC05DA1B317757007D4234 /* DubbExtraQuantityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DAC05D81B317757007D4234 /* DubbExtraQuantityCell.m */; };
 		0DAC05DB1B317757007D4234 /* DubbExtraQuantityCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0DAC05D91B317757007D4234 /* DubbExtraQuantityCell.xib */; };
+		0DFAD6AA1B4DB24B008BF474 /* right_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DFAD6A81B4DB24B008BF474 /* right_arrow.png */; };
+		0DFAD6AB1B4DB24B008BF474 /* right_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DFAD6A91B4DB24B008BF474 /* right_arrow@2x.png */; };
+		0DFAD6AF1B4DC0A7008BF474 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DFAD6AE1B4DC0A7008BF474 /* TTTAttributedLabel.m */; };
 		0DFCB1641AFFD9FE001F2820 /* ask_question_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DFCB14E1AFFD9FE001F2820 /* ask_question_button.png */; };
 		0DFCB1651AFFD9FE001F2820 /* ask_question_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DFCB14F1AFFD9FE001F2820 /* ask_question_button@2x.png */; };
 		0DFCB1661AFFD9FE001F2820 /* book_now_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DFCB1501AFFD9FE001F2820 /* book_now_button.png */; };
@@ -476,6 +479,10 @@
 		0DAC05D71B317757007D4234 /* DubbExtraQuantityCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DubbExtraQuantityCell.h; sourceTree = "<group>"; };
 		0DAC05D81B317757007D4234 /* DubbExtraQuantityCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DubbExtraQuantityCell.m; sourceTree = "<group>"; };
 		0DAC05D91B317757007D4234 /* DubbExtraQuantityCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DubbExtraQuantityCell.xib; sourceTree = "<group>"; };
+		0DFAD6A81B4DB24B008BF474 /* right_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = right_arrow.png; sourceTree = "<group>"; };
+		0DFAD6A91B4DB24B008BF474 /* right_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right_arrow@2x.png"; sourceTree = "<group>"; };
+		0DFAD6AD1B4DC0A7008BF474 /* TTTAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTAttributedLabel.h; sourceTree = "<group>"; };
+		0DFAD6AE1B4DC0A7008BF474 /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTAttributedLabel.m; sourceTree = "<group>"; };
 		0DFCB14E1AFFD9FE001F2820 /* ask_question_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ask_question_button.png; sourceTree = "<group>"; };
 		0DFCB14F1AFFD9FE001F2820 /* ask_question_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ask_question_button@2x.png"; sourceTree = "<group>"; };
 		0DFCB1501AFFD9FE001F2820 /* book_now_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = book_now_button.png; sourceTree = "<group>"; };
@@ -957,6 +964,15 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
+		0DFAD6AC1B4DC0A7008BF474 /* TTTAttributedLabel */ = {
+			isa = PBXGroup;
+			children = (
+				0DFAD6AD1B4DC0A7008BF474 /* TTTAttributedLabel.h */,
+				0DFAD6AE1B4DC0A7008BF474 /* TTTAttributedLabel.m */,
+			);
+			path = TTTAttributedLabel;
+			sourceTree = "<group>";
+		};
 		0DFCB1891AFFDB3B001F2820 /* ListingTopView */ = {
 			isa = PBXGroup;
 			children = (
@@ -998,6 +1014,8 @@
 		7C09A5971AB1CFE200218127 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				0DFAD6A81B4DB24B008BF474 /* right_arrow.png */,
+				0DFAD6A91B4DB24B008BF474 /* right_arrow@2x.png */,
 				0D5ABFF91B42540400D20241 /* booknow_button.png */,
 				0D5ABFFA1B42540400D20241 /* booknow_button@2x.png */,
 				0D5ABFF11B424CBF00D20241 /* seller_background.png */,
@@ -1425,6 +1443,7 @@
 				0D1FA5711ACA183C00079C79 /* SZTextView */,
 				0D76B4FF1B12510F00D24BFA /* TextFieldValidator */,
 				0D5FF55C1B3485BD005DE762 /* TPKeyboardAvoiding */,
+				0DFAD6AC1B4DC0A7008BF474 /* TTTAttributedLabel */,
 				0D1FA5741ACA183C00079C79 /* Twitter */,
 			);
 			name = ExFrameworks;
@@ -1668,6 +1687,7 @@
 				7C09A61A1AB331D800218127 /* portrait.png in Resources */,
 				0D6B7D861B17326F000B0352 /* sales_menu_button@2x.png in Resources */,
 				0D344D8D1B026DA90069D816 /* addon_unchecked@2x.png in Resources */,
+				0DFAD6AA1B4DB24B008BF474 /* right_arrow.png in Resources */,
 				0DFCB1771AFFD9FE001F2820 /* share_sheet_button@2x.png in Resources */,
 				0D5ABFFB1B42540400D20241 /* booknow_button.png in Resources */,
 				0D1FA6B51ACA23CA00079C79 /* separator_line.png in Resources */,
@@ -1738,6 +1758,7 @@
 				0D1FA6A51ACA23CA00079C79 /* arrow@2x.png in Resources */,
 				0D344D981B027E750069D816 /* share_sms_button.png in Resources */,
 				0D1FA6A91ACA23CA00079C79 /* map_icon@2x.png in Resources */,
+				0DFAD6AB1B4DB24B008BF474 /* right_arrow@2x.png in Resources */,
 				0D6B7D5F1B143D3B000B0352 /* signup_textfield_background@2x.png in Resources */,
 				0D344D9A1B027E750069D816 /* share_whatsapp_button.png in Resources */,
 				0D6B7D8B1B173B80000B0352 /* about_menu_button.png in Resources */,
@@ -1856,6 +1877,7 @@
 				7C09A6161AB31C7F00218127 /* DubbReceiverTableViewCell.m in Sources */,
 				7C81E24C1AC1FFF3007F49E3 /* DubbChatCell.m in Sources */,
 				0D1FA59E1ACA183C00079C79 /* AsyncImageView.m in Sources */,
+				0DFAD6AF1B4DC0A7008BF474 /* TTTAttributedLabel.m in Sources */,
 				0D3626F61B0C377E002A7814 /* iRate.m in Sources */,
 				7CA27DFA1AC78FDB00B56AB9 /* DubbSignupUsernameViewController.m in Sources */,
 				0D1FA5991ACA183C00079C79 /* AFSecurityPolicy.m in Sources */,
@@ -2059,8 +2081,8 @@
 			baseConfigurationReference = D1E8AA2095BD41F943711C81 /* Pods-Dubb.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Venk Tatineni (6822BLGBTR)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Illumified Inc (93D6ZD3D4Y)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Illumified Inc (93D6ZD3D4Y)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Dubb/ExtraFrameworks/**",
@@ -2080,7 +2102,7 @@
 					"$(PROJECT_DIR)/Dubb/ExtraFrameworks/Library",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5b662867-888e-4bdb-a9cb-4bccd7ca48d0";
+				PROVISIONING_PROFILE = "2b721936-772f-4805-9e68-07934ac87a55";
 			};
 			name = Release;
 		};
