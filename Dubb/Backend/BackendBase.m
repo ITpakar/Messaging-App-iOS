@@ -37,7 +37,6 @@ static BackendBase   *sharedConnection;
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:apiPath]];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    
     [manager POST:@"" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
         id response = [NSJSONSerialization JSONObjectWithData: responseObject options:NSJSONReadingMutableContainers error:nil];
         handler(response, nil, nil);
@@ -107,12 +106,12 @@ static BackendBase   *sharedConnection;
       CompletionHandler:(void (^)(NSDictionary *result, NSData *data, NSError *error))handler
 {
     
-    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:apiPath]];
+    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:APIURL]];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
     
-    [manager PUT:@"" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
+    [manager PUT:apiPath parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
         
         id response = [NSJSONSerialization JSONObjectWithData: responseObject options:NSJSONReadingMutableContainers error:nil];
         

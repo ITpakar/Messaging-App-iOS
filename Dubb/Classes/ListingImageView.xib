@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clipsSubviews="YES" contentMode="scaleToFill" id="te2-mZ-bUe" customClass="ListingImageView">
+            <rect key="frame" x="0.0" y="0.0" width="75" height="75"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hzz-LS-l6w">
+                    <rect key="frame" x="0.0" y="0.0" width="75" height="75"/>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="BaY-hP-Ivc" appends="YES" id="m1U-fU-Jun"/>
+                    </connections>
+                </imageView>
+                <visualEffectView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rwy-bO-hRs">
+                    <rect key="frame" x="0.0" y="0.0" width="75" height="75"/>
+                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Dbr-pC-dO7">
+                        <rect key="frame" x="0.0" y="0.0" width="75" height="75"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="recycle_bin.png" translatesAutoresizingMaskIntoConstraints="NO" id="XTD-tO-Q0N">
+                                <rect key="frame" x="0.0" y="0.0" width="75" height="75"/>
+                            </imageView>
+                        </subviews>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="XTD-tO-Q0N" secondAttribute="trailing" id="ITZ-Fe-0EL"/>
+                            <constraint firstAttribute="bottom" secondItem="XTD-tO-Q0N" secondAttribute="bottom" id="OBh-36-rPw"/>
+                            <constraint firstItem="XTD-tO-Q0N" firstAttribute="top" secondItem="Dbr-pC-dO7" secondAttribute="top" id="VIe-25-9KM"/>
+                            <constraint firstItem="XTD-tO-Q0N" firstAttribute="leading" secondItem="Dbr-pC-dO7" secondAttribute="leading" id="zs8-iw-HqW"/>
+                        </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="yKy-kf-sjU" appends="YES" id="Uv5-n3-yMf"/>
+                        </connections>
+                    </view>
+                    <blurEffect style="light"/>
+                </visualEffectView>
+                <button hidden="YES" opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DeS-dM-cvs" userLabel="AddPhoto Button">
+                    <rect key="frame" x="0.0" y="0.0" width="75" height="75"/>
+                    <state key="normal" image="add_photo.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="addPhotoButtonTapped:" destination="te2-mZ-bUe" eventType="touchUpInside" id="GAM-SN-jHZ"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="DeS-dM-cvs" secondAttribute="trailing" id="SIn-uk-joi"/>
+                <constraint firstItem="hzz-LS-l6w" firstAttribute="top" secondItem="te2-mZ-bUe" secondAttribute="top" id="SNk-wi-SdV"/>
+                <constraint firstItem="DeS-dM-cvs" firstAttribute="top" secondItem="te2-mZ-bUe" secondAttribute="top" id="WMc-Yj-nAf"/>
+                <constraint firstAttribute="bottom" secondItem="hzz-LS-l6w" secondAttribute="bottom" id="cHa-OB-ksi"/>
+                <constraint firstAttribute="bottom" secondItem="DeS-dM-cvs" secondAttribute="bottom" id="dE4-SD-dGs"/>
+                <constraint firstAttribute="bottom" secondItem="rwy-bO-hRs" secondAttribute="bottom" id="erf-mv-mS5"/>
+                <constraint firstAttribute="trailing" secondItem="rwy-bO-hRs" secondAttribute="trailing" id="fya-Zt-yOs"/>
+                <constraint firstAttribute="trailing" secondItem="hzz-LS-l6w" secondAttribute="trailing" id="gB4-Nq-bzM"/>
+                <constraint firstItem="DeS-dM-cvs" firstAttribute="leading" secondItem="te2-mZ-bUe" secondAttribute="leading" id="lrr-GF-Jyr"/>
+                <constraint firstItem="hzz-LS-l6w" firstAttribute="leading" secondItem="te2-mZ-bUe" secondAttribute="leading" id="mKR-5w-uat"/>
+                <constraint firstItem="rwy-bO-hRs" firstAttribute="top" secondItem="te2-mZ-bUe" secondAttribute="top" id="mgb-eg-xnG"/>
+                <constraint firstItem="rwy-bO-hRs" firstAttribute="leading" secondItem="te2-mZ-bUe" secondAttribute="leading" id="mnF-Bl-7gC"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="5"/>
+                <userDefinedRuntimeAttribute type="string" keyPath="layer.borderWidth" value="0"/>
+            </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="addPhotoButton" destination="DeS-dM-cvs" id="aLw-bx-X6W"/>
+                <outlet property="imageView" destination="hzz-LS-l6w" id="LzG-j6-G5w"/>
+                <outlet property="recycleBinContainerView" destination="rwy-bO-hRs" id="yJj-12-CJY"/>
+            </connections>
+            <point key="canvasLocation" x="196.5" y="165.5"/>
+        </view>
+        <tapGestureRecognizer id="yKy-kf-sjU">
+            <connections>
+                <action selector="recycleBinTapped:" destination="te2-mZ-bUe" id="fHm-oB-FjY"/>
+            </connections>
+        </tapGestureRecognizer>
+        <tapGestureRecognizer id="BaY-hP-Ivc">
+            <connections>
+                <action selector="imageViewTapped:" destination="te2-mZ-bUe" id="xec-7o-dvE"/>
+            </connections>
+        </tapGestureRecognizer>
+    </objects>
+    <resources>
+        <image name="add_photo.png" width="76" height="76"/>
+        <image name="recycle_bin.png" width="20" height="21"/>
+    </resources>
+</document>

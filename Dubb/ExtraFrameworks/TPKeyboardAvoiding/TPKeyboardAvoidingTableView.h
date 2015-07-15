@@ -1,5 +1,5 @@
 //
-//  TPKeyboardAvoidingScrollView.h
+//  TPKeyboardAvoidingTableView.h
 //  TPKeyboardAvoiding
 //
 //  Created by Michael Tyson on 30/09/2013.
@@ -9,8 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "UIScrollView+TPKeyboardAvoidingAdditions.h"
 
-@interface TPKeyboardAvoidingScrollView : UIScrollView <UITextFieldDelegate, UITextViewDelegate>
-- (void)contentSizeToFit;
+@interface TPKeyboardAvoidingTableView : UITableView <UITextFieldDelegate, UITextViewDelegate>
 - (BOOL)focusNextTextField;
 - (void)scrollToActiveTextField;
 @end

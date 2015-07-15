@@ -12,21 +12,32 @@
 #import "SZTextView.h"
 #import "UIImage+fixOrientation.h"
 #import "IQKeyboardManager.h"
+#import "TLTagsControl.h"
 #import "IQTextView.h"
 #import "IQDropDownTextField.h"
 #import "DubbServiceDescriptionViewController.h"
 #import "DubbServiceAreaViewController.h"
 #import "DubbServiceDescriptionWithPriceViewController.h"
 #import "DubbCreateListingConfirmationViewController.h"
+#import "ListingImageView.h"
 #import "DubbCreateListingTableViewController.h"
 
-@interface DubbCreateListingTableViewController () <IQDropDownTextFieldDelegate, DubbServiceAreaViewControllerDelegate, UITextViewDelegate>
+NSString *const apiKey = @"AIzaSyBqO1R2q7YGqnEAegFiA4vbHo7oLn8IqV0";
+
+typedef NS_ENUM(NSUInteger, TableViewSection){
+    TableViewSectionCurrentLocation,
+    TableViewSectionMain,
+    TableViewSectionCount
+};
+
+@interface DubbCreateListingTableViewController () <UINavigationControllerDelegate, IQDropDownTextFieldDelegate, UITextViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate>
 {
     NSArray *categories;
     NSArray *subCategories;
     NSMutableArray *addOns;
     NSMutableArray *assetArray;
     NSMutableArray *originalAddonArray;
+    NSMutableArray *listingImageViewArray;
     NSArray *originalAssetArray;
     NSArray *originalTagArray;
     UILabel *currentDescriptionLabel;
@@ -36,21 +47,26 @@
     SelectedLocation *selectedLocation;
     NSString *radius;
     NSString *baseServiceID;
-    
+    UITextField *prevFocusedTextField;
     
 }
+@property (strong, nonatomic) IBOutlet UILabel *navigationTitleLabel;
 @property (strong, nonatomic) IBOutlet UILabel *tagsLabel;
-@property (strong, nonatomic) IBOutlet UIView *categoryContainerView;
-@property (strong, nonatomic) IBOutlet UIView *subcategoryContainerView;
-
-@property (strong, nonatomic) IBOutlet UILabel *fulfillmentInfoLabel;
+@property (strong, nonatomic) IBOutlet TLTagsControl *tagsControl;
+@property (strong, nonatomic) IBOutlet UILabel *imagesCountLabel;
+@property (strong, nonatomic) IBOutlet UIScrollView *imagesScrollView;
+@property (strong, nonatomic) IBOutlet SZTextView *fulfillmentInfoTextView;
+@property (strong, nonatomic) IBOutlet UITextField *radiusTextField;
+@property (strong, nonatomic) IBOutlet UITextField *searchTextField;
 @property (strong, nonatomic) IBOutlet UILabel *fulfillmentAreaLabel;
 @property (strong, nonatomic) IBOutlet KASlideShow *slideShow;
 @property (strong, nonatomic) IBOutlet UIButton *placeholderButton;
 @property (strong, nonatomic) IBOutlet UILabel *pageLabel;
 @property (strong, nonatomic) IBOutlet IQDropDownTextField *categoryTextField;
 @property (strong, nonatomic) IBOutlet IQDropDownTextField *subCategoryTextField;
-@property (strong, nonatomic) IBOutlet SZTextView *serviceDescriptionTextView;
+@property (strong, nonatomic) IBOutlet UITextField *titleTextField;
+@property (strong, nonatomic) IBOutlet SZTextView *baseServiceDescriptionTextView;
+@property (strong, nonatomic) IBOutlet UITextField *baseServicePriceTextField;
 @property (strong, nonatomic) IBOutlet UILabel *baseServicePriceLabel;
 @property (strong, nonatomic) IBOutlet UILabel *baseServiceDescriptionLabel;
 @property (strong, nonatomic) IBOutlet UIView *serviceDescriptionContainerView;
@@ -59,6 +75,7 @@
 @property (strong, nonatomic) IBOutlet UIView *tagsContainerView;
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) IBOutlet UITableView *locationSearchTableView;
 @end
 
 @implementation DubbCreateListingTableViewController
@@ -67,11 +84,15 @@
     [super viewDidLoad];
     
     
-    
+    self.localSearchQueries = [NSMutableArray array];
+    self.pastSearchWords = [NSMutableArray array];
+    self.pastSearchResults = [NSMutableArray array];
+    self.searchTextField.delegate = self;
     
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:48.0f/255.0f green:48.0f/255.0f blue:50.0f/255.0f alpha:1.0f];
     self.navigationController.navigationBar.translucent = NO;    
     
+    _listingImages = [NSMutableArray array];
     addOns = [NSMutableArray array];
     originalAddonArray = [NSMutableArray array];
     selectedLocation = [[SelectedLocation alloc] init];
@@ -81,14 +102,18 @@
     radius = @"100";
     isServiceDescriptionEdited = NO;
     
-    [self.serviceDescriptionTextView setPlaceholder:@"provide a great local service."];
-    UILabel *dollarLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, 80, 15)];
-    dollarLabel.text = @"Hire me to ";
-    [self.serviceDescriptionTextView addSubview:dollarLabel];
-    self.serviceDescriptionTextView.font = [UIFont systemFontOfSize:16.0f];
-    self.serviceDescriptionTextView.delegate = self;
-    UIBezierPath *path = [UIBezierPath bezierPathWithRect:CGRectMake(0, 10, 80, 8)];
-    self.serviceDescriptionTextView.textContainer.exclusionPaths = @[path];
+    UILabel *dollarLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 10, self.baseServicePriceTextField.frame.size.height)];
+    dollarLabel.text = @"$";
+    dollarLabel.font = [UIFont boldSystemFontOfSize:16.0f];
+    self.baseServicePriceTextField.leftView = dollarLabel;
+    self.baseServicePriceTextField.leftViewMode = UITextFieldViewModeAlways;
+    
+    UILabel *hireMeToLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 80, self.titleTextField.frame.size.height)];
+    hireMeToLabel.text = @"Hire me to ";
+    hireMeToLabel.font = [UIFont boldSystemFontOfSize:16.0f];
+    self.titleTextField.leftView = hireMeToLabel;
+    self.titleTextField.leftViewMode = UITextFieldViewModeAlways;
+    
     // Configure a PickerView for selecting a position
     UIToolbar *toolbar = [[UIToolbar alloc] init];
     [toolbar setBarStyle:UIBarStyleBlackTranslucent];
@@ -97,16 +122,6 @@
     UIBarButtonItem *buttonDone = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneClicked:)];
     
     [toolbar setItems:[NSArray arrayWithObjects:buttonflexible,buttonDone, nil]];
-    
-    [self.categoryContainerView.layer setCornerRadius:10.0f];
-    [self.categoryContainerView.layer setBorderColor:[UIColor colorWithRed:0 green:65/255.0f blue:125.0f/255.0f alpha:1.0f].CGColor];
-    [self.categoryContainerView.layer setMasksToBounds:YES];
-    [self.categoryContainerView.layer setBorderWidth:1.0f];
-    
-    [self.subcategoryContainerView.layer setCornerRadius:10.0f];
-    [self.subcategoryContainerView.layer setBorderColor:[UIColor colorWithRed:0 green:65/255.0f blue:125.0f/255.0f alpha:1.0f].CGColor];
-    [self.subcategoryContainerView.layer setBorderWidth:1.0f];
-    [self.subcategoryContainerView.layer setMasksToBounds:YES];
     
     self.categoryTextField.inputAccessoryView = toolbar;
     self.subCategoryTextField.inputAccessoryView = toolbar;
@@ -153,14 +168,23 @@
     }];
     currentIndexPathRow = -1;
     
+    self.tagsControl.tags = [NSMutableArray array];
+    self.tagsControl.tagPlaceholder = @"Add a new tag here";
+    self.tagsControl.tagsBackgroundColor = [UIColor colorWithRed:54.0/255.0 green:54.0/255.0 blue:54.0/255.0 alpha:1];
+    self.tagsControl.tagsTextColor = [UIColor whiteColor];
+    
     [IQKeyboardManager sharedManager].shouldShowTextFieldPlaceholder = NO;
     [IQKeyboardManager sharedManager].enable = NO;
     
-    [self addTapGestures];
     
+    [self.fulfillmentInfoTextView setPlaceholder:@"What information you need from buyers in order to provide your services (dates, number of attendees, location, parking, entrance information, etc.)"];
+    [self.baseServiceDescriptionTextView setPlaceholder:@"Provide an explanation of what are you offering."];
     if (self.listingDetail) {
         [self initViewWithValues];
+    } else{
+        [addOns addObject:[NSMutableDictionary dictionaryWithDictionary:@{@"description":@"", @"price":@12}]];
     }
+    [self setupImagesScrollView];
     
 }
 
@@ -171,10 +195,11 @@
     NSArray *addonArray = self.listingDetail[@"addon"];
     NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"sequence" ascending:YES];
     addonArray = [addonArray sortedArrayUsingDescriptors:[NSArray arrayWithObject:descriptor]];
-    self.serviceDescriptionTextView.text = self.listingDetail[@"name"];
-    self.fulfillmentInfoLabel.text = self.listingDetail[@"instructions"];
-    self.baseServiceDescriptionLabel.text = self.listingDetail[@"description"];
-    self.baseServicePriceLabel.text = [NSString stringWithFormat:@"$%ld", [addonArray[0][@"price"] integerValue]];
+    self.navigationTitleLabel.text = @"Edit Listing";
+    self.titleTextField.text = self.listingDetail[@"name"];
+    self.fulfillmentInfoTextView.text = self.listingDetail[@"instructions"];
+    self.baseServiceDescriptionTextView.text = self.listingDetail[@"description"];
+    self.baseServicePriceTextField.text = [NSString stringWithFormat:@"%ld", [addonArray[0][@"price"] integerValue]];
     self.categoryTextField.text = self.listingDetail[@"category"][@"name"];
 
     baseServiceID = addonArray[0][@"id"];
@@ -199,64 +224,33 @@
             NSString *locationString = [NSString stringWithFormat:@"%@, %@", city, state];
             selectedLocation.name = city;
             selectedLocation.address = locationString;
-            self.fulfillmentAreaLabel.text = [NSString stringWithFormat:@"%@ mile from %@", radius, selectedLocation.address];
-            
+            self.searchTextField.text = selectedLocation.address;
+            self.radiusTextField.text = radius;
             
         }
     }];
     
     // initialize with images
-    SDWebImageManager *manager = [SDWebImageManager sharedManager];
-    originalAssetArray = self.listingDetail[@"images"];
-    assetArray = [originalAssetArray mutableCopy];
-    for (NSDictionary* imageInfo in self.listingDetail[@"images"]) {
-        [manager downloadImageWithURL:imageInfo[@"url"]
-                              options:0
-                             progress:nil
-                            completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
-                                if (image) {
-                                    if (self.placeholderButton.hidden == NO) {
-                                        self.placeholderButton.hidden = YES;
-                                    }
-                                    [self.slideShow addImage:image];
-                                    [self updatePageLabel];
-                                }
-                            }];
-    }
     
-    self.slideShow.delegate = self;
-    [self.slideShow setTransitionType:KASlideShowTransitionSlide]; // Choose a transition type (fade or slide)
-    [self.slideShow setImagesContentMode:UIViewContentModeScaleAspectFill]; // Choose a content mode for images to display
-    [self.slideShow addGesture:KASlideShowGestureSwipe];
+    originalAssetArray = self.listingDetail[@"images"];
+    [self downloadImages:[originalAssetArray mutableCopy] completion:^(id result) {
+        
+        [self setupImagesScrollView];
+        
+    }];
     
     // initialize with tags
     NSArray *tagDetails = self.listingDetail[@"tag"];
     originalTagArray = tagDetails;
     
-    NSMutableString *tagString = [[NSMutableString alloc] init];
+    NSMutableArray *tagNames = [NSMutableArray array];
     for (NSDictionary *tag in tagDetails) {
-        [tagString appendFormat:@"%@,", tag[@"name"]];
+        [tagNames addObject:tag[@"name"]];
     }
-    if ([tagString length] > 0) {
-        tagString = [[tagString substringToIndex:[tagString length] - 1] mutableCopy];
-    }
-    self.tagsLabel.text = tagString;
-    
+    self.tagsControl.tags = tagNames;
+    [self.tagsControl reloadTagSubviews];
 }
 
-- (void)addTapGestures {
-    UITapGestureRecognizer *serviceDescriptionTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(editServiceDescription:)];
-    [self.serviceDescriptionContainerView addGestureRecognizer:serviceDescriptionTapGestureRecognizer];
-    
-    UITapGestureRecognizer *fulfillmentInfoTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(editFulfillmentInfo:)];
-    [self.fulfillmentInfoContainerView addGestureRecognizer:fulfillmentInfoTapGestureRecognizer];
-    
-    UITapGestureRecognizer *fulfillmentAreaTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(editFulfillmentArea:)];
-    [self.fulfillmentAreaContainerView addGestureRecognizer:fulfillmentAreaTapGestureRecognizer];
-    
-    UITapGestureRecognizer *tagsTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(editTags:)];
-    [self.tagsContainerView addGestureRecognizer:tagsTapGestureRecognizer];
-}
 
 - (void)doneClicked:(UIBarButtonItem*)button {
     [self.view endEditing:YES];
@@ -264,10 +258,84 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    [self.localSearchQueries removeAllObjects];
+    [self.pastSearchResults removeAllObjects];
+    [self.pastSearchWords removeAllObjects];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLocationUpdated) name:kNotificationDidLocationUpdated object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(recycleBinButtonTapped:) name:kNotificationDidTapRecycleBinButton object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addPhotoButtonClicked:) name:kNotificationDidTapAddPhotoButton object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(listingImageViewTapped:) name:kNotificationDidTapListingImageView object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark - Notification Observer
+- (void)userLocationUpdated {
+    selectedLocation.locationCoordinates = CLLocationCoordinate2DMake([[User currentUser].latitude floatValue], [[User currentUser].longitude floatValue]);
+}
+
+- (void) recycleBinButtonTapped:(NSNotification *)notif {
+    NSInteger index = [notif.object integerValue];
+    [self.listingImages removeObjectAtIndex:index];
+    [self setupImagesScrollView];
+    NSLog(@"%ld", index);
+}
+
+- (void) addPhotoButtonClicked:(NSNotification *)notif {
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Where do you want to get photo?"
+                                                             delegate:self
+                                                    cancelButtonTitle:@"Cancel"
+                                               destructiveButtonTitle:nil
+                                                    otherButtonTitles:@"Camera", @"Gallery", nil];
+    actionSheet.delegate = self;
+    [actionSheet showInView:self.view];
+}
+- (void) listingImageViewTapped:(NSNotification *)notif {
+    NSInteger index = [notif.object integerValue];
+    for (ListingImageView *listingImageView in listingImageViewArray) {
+        if (listingImageView.index != index) {
+            listingImageView.selected = NO;
+        }
+    }
+}
+#pragma mark - UIActionSheetDelegate methods
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+    picker.allowsEditing = YES;
+    switch (buttonIndex) {
+        case 0:
+            
+            picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+            
+            [self presentViewController:picker animated:YES completion:NULL];
+            break;
+        case 1:
+            picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            
+            [self presentViewController:picker animated:YES completion:NULL];
+            
+            break;
+        default:
+            break;
+    }
+    
+}
+
+#pragma mark - UIImagePickerControllerDelegate methods
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    
+    UIImage *chosenImage = [info[UIImagePickerControllerEditedImage] fixOrientation];
+    [self.listingImages addObject:@{@"uploaded": @NO, @"image":chosenImage}];
+    [self setupImagesScrollView];
+    
+    [picker dismissViewControllerAnimated:YES completion:NULL];
+    
 }
 
 #pragma mark - IQDropDownTextField delegate
@@ -293,104 +361,6 @@
     }
 }
 
-
-#pragma mark - KASlideShow delegate
-
-- (void) kaSlideShowDidNext:(KASlideShow *)slideShow
-{
-    [self updatePageLabel];
-}
-
--(void)kaSlideShowDidPrevious:(KASlideShow *)slideShow
-{
-    [self updatePageLabel];
-}
-
-
-#pragma mark - Custom Actions
-
-- (IBAction)editServiceDescription:(id)sender {
-    
-    [self showDescriptionWithPriceViewControllerWithTitleString:@"Service Description" WithPlaceholderString:@"Hire me to provide a local service" forAddOn:NO];
-}
-
-- (IBAction)editFulfillmentArea:(id)sender {
-    [self showServiceAreaViewControllerWithTitleString:@"Select a radius and an area"];
-}
-
-- (IBAction)editTags:(id)sender {
-    [self showDescriptionViewControllerWithTitleString:@"Tags" WithPlaceholderString:@"Add a minimum of three tags to describe your service.(separated by commas).(E.g. photographer, outdoors, family)" WithCurrentDescriptionLabel:self.tagsLabel];
-}
-
-- (IBAction)editFulfillmentInfo:(id)sender {
-    
-    [self showDescriptionViewControllerWithTitleString:@"Fulfillment Info" WithPlaceholderString:@"What information you need from buyers in order to provide your service." WithCurrentDescriptionLabel:self.fulfillmentInfoLabel];
-    
-}
-
-- (void) showDescriptionViewControllerWithTitleString:(NSString *)titleString WithPlaceholderString:(NSString *)placeholderString WithCurrentDescriptionLabel:(UILabel *)descriptionLabel {
-    DubbServiceDescriptionViewController *dubbServiceDescriptionViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"DubbServiceDescriptionViewController"];
-    dubbServiceDescriptionViewController.delegate = self;
-    dubbServiceDescriptionViewController.titleString = titleString;
-    dubbServiceDescriptionViewController.placeholderString = placeholderString;
-    currentDescriptionLabel = descriptionLabel;
-    dubbServiceDescriptionViewController.descriptionString = currentDescriptionLabel.text;
-    [self.navigationController pushViewController:dubbServiceDescriptionViewController animated:YES];
-}
-
-- (void) showServiceAreaViewControllerWithTitleString:(NSString *)titleString{
-    DubbServiceAreaViewController *dubbServiceAreaViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"DubbServiceAreaViewController"];
-    dubbServiceAreaViewController.delegate = self;
-    dubbServiceAreaViewController.titleString = titleString;
-
-    if (![self.fulfillmentAreaLabel.text isEqualToString:@"What area is this service for?"]) {
-        dubbServiceAreaViewController.radius = radius;
-        dubbServiceAreaViewController.selectedLocation = selectedLocation;
-    }
-    
-    [self.navigationController pushViewController:dubbServiceAreaViewController animated:YES];
-}
-
-- (void) showDescriptionWithPriceViewControllerWithTitleString:(NSString *)titleString WithPlaceholderString:(NSString *)placeholderString forAddOn:(BOOL)isForAddOn {
-    DubbServiceDescriptionWithPriceViewController *dubbServiceDescriptionViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"DubbServiceDescriptionWithPriceViewController"];
-    dubbServiceDescriptionViewController.delegate = self;
-    dubbServiceDescriptionViewController.titleString = titleString;
-    dubbServiceDescriptionViewController.placeholderString = placeholderString;
-    
-    forAddOn = isForAddOn;
-    if (forAddOn) {
-        dubbServiceDescriptionViewController.addOns = addOns;
-        NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
-        dubbServiceDescriptionViewController.currentIndex = (selectedIndexPath.row < addOns.count) ? selectedIndexPath.row : -1;
-    } else {
-        dubbServiceDescriptionViewController.currentIndex = -2;
-        if (![self.baseServiceDescriptionLabel.text isEqualToString:@"Provide an explanation of what you are offering"]) {
-            
-            dubbServiceDescriptionViewController.baseServicePrice = self.baseServicePriceLabel.text;
-            dubbServiceDescriptionViewController.baseServiceDescription = self.baseServiceDescriptionLabel.text;
-        }
-    }
-    [self.navigationController pushViewController:dubbServiceDescriptionViewController animated:YES];
-}
-
-- (void) completedWithDescription:(NSString*)description WithPrice:(NSString *)price {
-    if (!forAddOn) {
-
-        [self.baseServicePriceLabel setText:[NSString stringWithFormat:@"%@", price]];
-        [self.baseServiceDescriptionLabel setText:description];
-    } else {
-        [self.tableView reloadData];
-    }
-}
-- (void) completedWithDescription:(NSString*)description {
-    currentDescriptionLabel.text = description;
-}
-
-- (void) completedWithRadius:(NSString*)radiusString WithLocation:(SelectedLocation *)location {
-    radius = radiusString;
-    selectedLocation = location;
-    self.fulfillmentAreaLabel.text = [NSString stringWithFormat:@"%@ mile from %@", radius, location.address];
-}
 - (IBAction)menuButtonTapped:(id)sender {
     [self.sideMenuViewController presentLeftMenuViewController];
 }
@@ -400,67 +370,49 @@
     
 }
 
-- (IBAction)nextButtonTapped:(id)sender {
-    [self.slideShow next];
-    
-}
-- (IBAction)deleteButtonTapped:(id)sender {
-    
-    if (self.slideShow.images.count > 1) {
-        [self.slideShow removeObjectFromImagesAtIndex:self.slideShow.currentIndex];
-        [assetArray removeObjectAtIndex:self.slideShow.currentIndex];
-        [self updatePageLabel];
-        
-    } else {
-        [assetArray removeAllObjects];
-        [self.chosenImages removeAllObjects];
-        [self.placeholderButton setHidden:NO];
-    }
-}
-
-- (IBAction)prevButtonTapped:(id)sender {
-    [self.slideShow previous];
-}
-
 - (IBAction)submitButtonTapped:(id)sender {
     
-    NSString* title = self.serviceDescriptionTextView.text;
-    NSString* tags = self.tagsLabel.text;
-    
+    NSString* title = self.titleTextField.text;
 
+    NSMutableArray *addonArray = [NSMutableArray array];
+    for (NSMutableDictionary *addon in addOns) {
+        if (![addon[@"description"] isEqualToString:@""]) {
+            [addonArray addObject:addon];
+        }
+    }
+    
     if (title.length <= 0) {
         [self showMessage:@"Please enter the title for this listing"];
         return;
     }
-    
     if (self.categoryTextField.selectedRow == -1 || self.subCategoryTextField.selectedRow == -1) {
         [self showMessage:@"Please select one category."];
     }
     
-    if (tags.length <= 0 || [tags componentsSeparatedByString:@","].count < 3) {
+    if (self.tagsControl.tags.count < 3) {
         
-        [self showMessage:@"Please add minimum 3 tags separated with commas."];
+        [self showMessage:@"Please add minimum 3 tags."];
         return;
     }
     
-    if (self.baseServiceDescriptionLabel.text.length <= 0) {
+    if (self.baseServiceDescriptionTextView.text.length <= 0) {
         [self showMessage:@"Please describe your base service."];
         return;
     }
     
-    if ([[self.baseServicePriceLabel.text substringFromIndex:1] intValue] <= 0) {
+    if (![self.baseServicePriceTextField.text containsNumbersOnly]) {
         [self showMessage:@"Please describe your base service price correctly."];
         return;
     }
     
-    if ((!self.listingDetail && self.chosenImages.count <= 0) || (assetArray.count == 0 && self.chosenImages.count == 0)) {
+    if (self.listingImages.count == 0) {
         [self showMessage:@"Please select at least one image."];
         return;
     }
     
     NSMutableArray *imageURLs = [self uploadImages];
-    NSArray *tagsArray = [self.tagsLabel.text componentsSeparatedByString:@","];
-    NSMutableArray *addonArray = [NSMutableArray arrayWithArray:addOns];
+    NSArray *tagsArray = self.tagsControl.tags;
+    radius = self.radiusTextField.text;
     
     
     
@@ -471,7 +423,7 @@
     
     if (self.listingDetail) {
         
-        [addonArray insertObject:@{@"id":baseServiceID, @"description":self.baseServiceDescriptionLabel.text, @"price":[self.baseServicePriceLabel.text substringFromIndex:1], @"sequence":@"0"} atIndex:0];
+        [addonArray insertObject:@{@"id":baseServiceID, @"description":self.baseServiceDescriptionTextView.text, @"price":self.baseServicePriceTextField.text, @"sequence":@"0"} atIndex:0];
         for (NSDictionary *originalAddon in originalAddonArray) {
             BOOL found = NO;
             for (NSDictionary *addon in addonArray) {
@@ -515,8 +467,8 @@
         NSMutableArray *assetArrayForUpdate = [NSMutableArray array];
         for (NSDictionary *originalAsset in originalAssetArray) {
             BOOL found = NO;
-            for (NSDictionary *asset in assetArray) {
-                if ([asset[@"id"] isEqualToString:originalAsset[@"id"]]) {
+            for (NSDictionary *listingImage in self.listingImages) {
+                if ([listingImage[@"id"] isEqualToString:originalAsset[@"id"]]) {
                     found = YES;
                     break;
                 }
@@ -533,9 +485,9 @@
         }
         
         
-        params = @{@"name":[NSString stringWithFormat:@"%@", self.serviceDescriptionTextView.text],
-                   @"instructions":self.fulfillmentInfoLabel.text,
-                   @"description":self.baseServiceDescriptionLabel.text,
+        params = @{@"name":[NSString stringWithFormat:@"%@", self.titleTextField.text],
+                   @"instructions":self.fulfillmentInfoTextView.text,
+                   @"description":self.baseServiceDescriptionTextView.text,
                    @"category_id":categories[self.categoryTextField.selectedRow][@"id"],
                    @"category_edge_id":subCategories[self.subCategoryTextField.selectedRow][@"category_edge_id"],
                    @"user_id":[User currentUser].userID,
@@ -553,12 +505,13 @@
         }];
         
     } else {
-        [addonArray insertObject:@{@"description":self.baseServiceDescriptionLabel.text, @"price":[self.baseServicePriceLabel.text substringFromIndex:1], @"sequence":@"0"} atIndex:0];
+        
+        [addonArray insertObject:@{@"description":self.baseServiceDescriptionTextView.text, @"price":self.baseServicePriceTextField.text, @"sequence":@"0"} atIndex:0];
         NSMutableArray *imagesWithoutMainImage = [imageURLs mutableCopy];
         if (imagesWithoutMainImage.count == 1) {
-            params = @{@"name":[NSString stringWithFormat:@"%@", self.serviceDescriptionTextView.text],
-                       @"instructions":self.fulfillmentInfoLabel.text,
-                       @"description":self.baseServiceDescriptionLabel.text,
+            params = @{@"name":[NSString stringWithFormat:@"%@", self.titleTextField.text],
+                       @"instructions":self.fulfillmentInfoTextView.text,
+                       @"description":self.baseServiceDescriptionTextView.text,
                        @"category_id":categories[self.categoryTextField.selectedRow][@"id"],
                        @"category_edge_id":subCategories[self.subCategoryTextField.selectedRow][@"category_edge_id"],
                        @"user_id":[User currentUser].userID,
@@ -571,15 +524,15 @@
                        };
         } else {
             [imagesWithoutMainImage removeObjectAtIndex:0];
-            params = @{@"name":[NSString stringWithFormat:@"%@", self.serviceDescriptionTextView.text],
-                       @"instructions":self.fulfillmentInfoLabel.text,
-                       @"description":self.baseServiceDescriptionLabel.text,
+            params = @{@"name":[NSString stringWithFormat:@"%@", self.titleTextField.text],
+                       @"instructions":self.fulfillmentInfoTextView.text,
+                       @"description":self.baseServiceDescriptionTextView.text,
                        @"category_id":categories[self.categoryTextField.selectedRow][@"id"],
                        @"category_edge_id":subCategories[self.subCategoryTextField.selectedRow][@"category_edge_id"],
                        @"user_id":[User currentUser].userID,
                        @"lat":[NSString stringWithFormat:@"%f", selectedLocation.locationCoordinates.latitude],
                        @"longitude":[NSString stringWithFormat:@"%f", selectedLocation.locationCoordinates.longitude],
-                       @"radius_km":radius,
+                       @"radius_mi":radius,
                        @"addon":addonArray,
                        @"main_image":imageURLs[0],
                        @"images":imagesWithoutMainImage,
@@ -602,103 +555,64 @@
    
 }
 
-- (IBAction)launchController
+- (void)setupImagesScrollView
 {
-    ELCImagePickerController *elcPicker = [[ELCImagePickerController alloc] initImagePicker];
+    self.imagesScrollView.delegate = self;
+    [self.imagesScrollView setCanCancelContentTouches:NO];
+    self.imagesScrollView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
+    self.imagesScrollView.clipsToBounds = NO;
+    self.imagesScrollView.scrollEnabled = YES;
     
-    elcPicker.maximumImagesCount = 100; //Set the maximum number of images to select to 100
-    elcPicker.returnsOriginalImage = YES; //Only return the fullScreenImage, not the fullResolutionImage
-    elcPicker.returnsImage = YES; //Return UIimage if YES. If NO, only return asset location information
-    elcPicker.onOrder = YES; //For multiple image selection, display and return order of selected images
-    elcPicker.mediaTypes = @[(NSString *)kUTTypeImage, (NSString *)kUTTypeMovie]; //Supports image and movie types
+    for(UIView *subview in [self.imagesScrollView subviews]) {
+        [subview removeFromSuperview];
+    }
+    listingImageViewArray = [NSMutableArray array];
+    NSInteger tot=0;
     
-    elcPicker.imagePickerDelegate = self;
+    CGFloat cx = 0;
     
-    [self presentViewController:elcPicker animated:YES completion:nil];
-}
+    ListingImageView *addPhotoView = [[[NSBundle mainBundle] loadNibNamed:@"ListingImageView" owner:nil options:nil] firstObject];
+    CGRect rect = addPhotoView.frame;
+    rect.origin.x = 0;
+    rect.origin.y = 0;
+    addPhotoView.frame = rect;
+    [addPhotoView showAddPhotoView];
+    UIView *view1 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 75, 75)];
+    [view1 addSubview:addPhotoView];
+    [self.imagesScrollView addSubview:view1];
 
-- (void)elcImagePickerController:(ELCImagePickerController *)picker didFinishPickingMediaWithInfo:(NSArray *)info
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
-    
-    NSMutableArray *images = [NSMutableArray arrayWithCapacity:[info count]];
-    for (NSDictionary *dict in info) {
-        if ([dict objectForKey:UIImagePickerControllerMediaType] == ALAssetTypePhoto){
-            if ([dict objectForKey:UIImagePickerControllerOriginalImage]){
-                UIImage* image=[[dict objectForKey:UIImagePickerControllerOriginalImage] fixOrientation];
-                [images addObject:image];
-                
-            }
-            
-        } else if ([dict objectForKey:UIImagePickerControllerMediaType] == ALAssetTypeVideo){
-            if ([dict objectForKey:UIImagePickerControllerOriginalImage]){
-                UIImage* image=[dict objectForKey:UIImagePickerControllerOriginalImage];
-                [images addObject:image];
-            }
-        } else {
-            NSLog(@"Uknown asset type");
-        }
+    cx += addPhotoView.frame.size.width + 4;
+
+    for (NSDictionary *listingImage in self.listingImages) {
+        UIImage *image = listingImage[@"image"];
+        ListingImageView *listingImageView = [[[NSBundle mainBundle] loadNibNamed:@"ListingImageView" owner:nil options:nil] firstObject];
+        CGRect rect = listingImageView.frame;
+        rect.origin.x = cx;
+        rect.origin.y = 0;
+        listingImageView.imageView.image = image;
+        listingImageView.index = tot;
+        [listingImageViewArray addObject:listingImageView];
+        UIView *view2 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 75, 75)];
+        [view2 addSubview:listingImageView];
+        view2.frame = rect;
+        [self.imagesScrollView addSubview:view2];
+        cx += listingImageView.frame.size.width + 4;
+        tot++;
     }
     
-    self.chosenImages = images;
-    [self.placeholderButton setHidden:YES];
-    
-    [self initSlideShow];
-    
-    
-}
-- (void)initSlideShow {
-    
-    self.slideShow.delegate = self;
-    [self.slideShow setTransitionType:KASlideShowTransitionSlide]; // Choose a transition type (fade or slide)
-    [self.slideShow setImagesContentMode:UIViewContentModeScaleAspectFill]; // Choose a content mode for images to display
-    [self.slideShow addGesture:KASlideShowGestureSwipe];
-    
-    [self updateSlideShow];
-    [self updatePageLabel];
-    
-}
-
-- (void)updateSlideShow {
-    
-    [self.slideShow setImagesDataSource:self.chosenImages];
-    
-}
-
--(void)updatePageLabel {
-    
-    [self.pageLabel setText:[NSString stringWithFormat:@"%lu(%lu)", self.slideShow.currentIndex + 1, (unsigned long)self.slideShow.images.count]];
-}
-
-- (void)elcImagePickerControllerDidCancel:(ELCImagePickerController *)picker
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-
-
-- (void)submitTagInfoWithListingID:(NSString *)listingID{
-    
-    NSArray *tagsArray = [self.tagsLabel.text componentsSeparatedByString:@","];
-    for (NSString *tag in tagsArray) {
-        NSString *apiPath = [NSString stringWithFormat:@"%@%@", APIURL, @"tag"];
-        [[PHPBackend sharedConnection] accessAPIbyPost:apiPath
-                                            Parameters:@{@"name":tag,
-                                                         @"user_id":[User currentUser].userID
-                                                         }
-                                     CompletionHandler:^(NSDictionary *result, NSData *data, NSError *error) {
-                                         
-                                     }];
-    }
-    
+    [self.imagesScrollView setContentSize:CGSizeMake(cx, [self.imagesScrollView bounds].size.height)];
+    self.imagesCountLabel.text = [NSString stringWithFormat:@"%ld IMAGES", self.listingImages.count];
 }
 - (NSMutableArray *) uploadImages{
     
     NSMutableArray *imageURLs = [NSMutableArray array];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     
-    for (UIImage *image in self.chosenImages) {
-        
+    for (NSDictionary *listingImage in self.listingImages) {
+        if ([listingImage[@"uploaded"] boolValue]) {
+            continue;
+        }
+        UIImage *image = listingImage[@"image"];
         NSData *data = UIImageJPEGRepresentation(image, 0.7);
         NSString *fileName = [NSString stringWithFormat:@"%@.jpg", [[NSUUID UUID] UUIDString]];
         NSString *tempFilePath = [NSTemporaryDirectory() stringByAppendingPathComponent:fileName];
@@ -759,44 +673,82 @@
 #pragma mark - UITableView Data Source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSInteger numberOfRows = 2;
-    
-    if (addOns.count > 1) {
-        numberOfRows = addOns.count < 5 ? addOns.count + 1 : addOns.count;
+
+    if (tableView == self.locationSearchTableView) {
+        switch (section) {
+            case TableViewSectionCurrentLocation:
+                return 1;
+                break;
+            case TableViewSectionMain:
+                return self.localSearchQueries.count;
+                break;
+        }
+        
+        return 0;
     } else {
-        numberOfRows = 2;
+        return addOns.count;
     }
-    return numberOfRows;
+    
 }
 
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AddOnCell"];
-    if (!cell)
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AddOnCell"];
     
-    UILabel *priceLabel = (UILabel *)[cell viewWithTag:100];
-    UILabel *descriptionLabel = (UILabel *)[cell viewWithTag:101];
-    currentIndexPathRow = indexPath.row;
+    UITableViewCell *cell;
     
-    if (indexPath.row == [self.tableView numberOfRowsInSection:0] - 1 && addOns.count < 5) {
-        priceLabel.text = @"$0";
-        descriptionLabel.text = @"Add another add-on";
-    } else {
-        if (addOns.count > 0) {
-            NSDictionary *addOn = addOns[indexPath.row];
-            [priceLabel setText:[NSString stringWithFormat:@"$%ld", [addOn[@"price"] integerValue]]];
-            [descriptionLabel setText:addOn[@"description"]];
-        } else if (addOns.count == 0 && indexPath.row == 0) {
-            [priceLabel setText:@"$0"];
-            [descriptionLabel setText:@"Describe your add - on"];
+    if (tableView == self.locationSearchTableView) {
+        switch (indexPath.section) {
+            case TableViewSectionCurrentLocation: {
+                cell = [tableView dequeueReusableCellWithIdentifier:@"CurrentLocationCell" forIndexPath:indexPath];
+                
+            }break;
+            case TableViewSectionMain: {
+                cell =  [tableView dequeueReusableCellWithIdentifier:@"SearchCell" forIndexPath:indexPath];
+                NSDictionary *searchResult = [self.localSearchQueries objectAtIndex:indexPath.row];
+                cell.textLabel.text = [searchResult[@"terms"] objectAtIndex:0][@"value"];
+                cell.detailTextLabel.text = searchResult[@"description"];
+                cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Thin" size:16.0];
+                cell.detailTextLabel.font = [UIFont fontWithName:@"HelveticaNeue-Thin" size:10.0];
+            }break;
+            default:
+                break;
         }
+
+    } else{
+        
+        cell = [tableView dequeueReusableCellWithIdentifier:@"AddOnCell"];
+        if (!cell)
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AddOnCell"];
+        
+        UILabel *addonNumberLabel = (UILabel *)[cell viewWithTag:100];
+        UITextField *descriptionTextField = (UITextField *)[cell viewWithTag:101];
+        UITextField *priceTextField = (UITextField *)[cell viewWithTag:102];
+        
+        UILabel *dollarLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 10, priceTextField.frame.size.height)];
+        dollarLabel.text = @"$";
+        dollarLabel.font = [UIFont boldSystemFontOfSize:16.0f];
+        priceTextField.leftView = dollarLabel;
+        priceTextField.leftViewMode = UITextFieldViewModeAlways;
+        
+        addonNumberLabel.text = [NSString stringWithFormat:@"ADD-ON%@%ld", @"\u00B0", indexPath.row + 1];
+        
+        NSDictionary *addOn = addOns[indexPath.row];
+        [priceTextField setText:[NSString stringWithFormat:@"%ld", [addOn[@"price"] integerValue]]];
+        [descriptionTextField setText:addOn[@"description"]];
+
+        // add UITextField delegate to last row
+        priceTextField.tag = indexPath.row;
+        descriptionTextField.tag = indexPath.row;
+        
+        [priceTextField addTarget:self action:@selector(textFieldEditingDidEnd:) forControlEvents:UIControlEventEditingDidEnd];
+        [descriptionTextField addTarget:self action:@selector(textFieldEditingDidEnd:) forControlEvents:UIControlEventEditingDidEnd];
+
     }
     return cell;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row < addOns.count) {
+    if (addOns.count > 1) {
         return YES;
     }
     
@@ -806,23 +758,279 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         
         [addOns removeObjectAtIndex:indexPath.row];
-        if (addOns.count > 0 && indexPath.row < addOns.count) {
+        if (addOns.count > 0 && indexPath.row < addOns.count - 1) {
             [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [self.tableView reloadData];
         } else {
             [self.tableView reloadData];
         }
 
     }
 }
-#pragma mark - UITableView Delegate
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 43;
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    
+    if (tableView == self.locationSearchTableView) {
+        return TableViewSectionCount;
+    } else {
+        return 1;
+    }
+    
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (tableView == self.tableView) {
+        return;
+    }
+    
+    switch (indexPath.section) {
+        case TableViewSectionMain: {
+            //this is where it broke
+            NSDictionary *searchResult = [self.localSearchQueries objectAtIndex:indexPath.row];
+            NSString *placeID = [searchResult objectForKey:@"place_id"];
+            [self.searchTextField resignFirstResponder];
+            [self retrieveJSONDetailsAbout:placeID withCompletion:^(NSArray *place) {
+                
+                
+                selectedLocation.name = [place valueForKey:@"name"];
+                selectedLocation.address = [place valueForKey:@"formatted_address"];
+                NSString *latitude = [NSString stringWithFormat:@"%@,",[place valueForKey:@"geometry"][@"location"][@"lat"]];
+                NSString *longitude = [NSString stringWithFormat:@"%@",[place valueForKey:@"geometry"][@"location"][@"lng"]];
+                
+                selectedLocation.locationCoordinates = CLLocationCoordinate2DMake(latitude.doubleValue, longitude.doubleValue);
+                NSLog(@"Location Info: %@",selectedLocation);
+                
+                [self.searchTextField setText:[NSString stringWithFormat:@"%@",selectedLocation.address]];
+                
+            }];
+        }break;
+            
+        case TableViewSectionCurrentLocation: {
+            
+            selectedLocation.name = @"Current Location";
+            selectedLocation.address = [NSString stringWithFormat:@"%@, %@", [User currentUser].city, [User currentUser].state];
+            selectedLocation.locationCoordinates = CLLocationCoordinate2DMake([[User currentUser].latitude floatValue], [[User currentUser].longitude floatValue]);
+            
+            [self.searchTextField setText:@"Current Location"];
+        }break;
+        default:
+            break;
+    }
+    
+    [self.locationSearchTableView deselectRowAtIndexPath:indexPath animated:NO];
+    self.locationSearchTableView.hidden = YES;
+}
+
+
+#pragma mark - UITableView Delegate
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (tableView == self.locationSearchTableView) {
+        return 44;
+    } else{
+        return 128;
+    }
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)text {
+    
+    if (textField == self.searchTextField) {
+        self.substring = [NSString stringWithString:self.searchTextField.text];
+        self.substring = [self.substring stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+        self.substring = [self.substring stringByReplacingCharactersInRange:range withString:text];
+        
+        if ([self.substring hasPrefix:@"+"] && self.substring.length >1) {
+            self.substring  = [self.substring substringFromIndex:1];
+            NSLog(@"This string: %@ had a space at the begining.",self.substring);
+        }
+        
+        if ([self.searchTextField.text isEqualToString:@"Current Location"]) {
+            self.searchTextField.text = text;
+            return NO;
+        }
+    }
+    return YES;
+    
+}
+
+// hide keyboard when the background is tapped
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    NSLog(@"touchesBegan:withEvent:");
+    [self.view endEditing:YES];
+    [super touchesBegan:touches withEvent:event];
+}
+
+- (void)runScript{
+    
+    [self.autoCompleteTimer invalidate];
+    self.autoCompleteTimer = [NSTimer scheduledTimerWithTimeInterval:0.65f
+                                                              target:self
+                                                            selector:@selector(searchAutocompleteLocationsWithSubstring:)
+                                                            userInfo:nil
+                                                             repeats:NO];
+}
+
+#pragma mark - UITextField Delegate
+- (IBAction)textFieldDidChange:(id)sender {
+    
+    NSString *searchWordProtection = [self.searchTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""];
+    NSLog(@"Length: %lu",(unsigned long)searchWordProtection.length);
+    
+    if (searchWordProtection.length != 0) {
+        
+        [self runScript];
+        
+    } else {
+        NSLog(@"The searcTextField is empty.");
+    }
+    
+}
+- (IBAction)textFieldEditingDidBegin:(id)sender {
+    if (sender == self.radiusTextField) {
+        self.locationSearchTableView.hidden = YES;
+    } else {
+        self.locationSearchTableView.hidden = NO;
+    }
+}
+
+- (void)textFieldEditingDidEnd:(UITextField *)sender {
+    
+    if (sender.superview.tag == 103) {
+        addOns[sender.tag][@"description"] = sender.text;
+    } else {
+        addOns[sender.tag][@"price"] = sender.text;
+    }
+    
+    if (sender.tag == addOns.count - 1) {
+        [addOns addObject:[NSMutableDictionary dictionaryWithDictionary:@{@"description":@"", @"price":@12}]];
+        [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:addOns.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
+}
+
+- (void)searchAutocompleteLocationsWithSubstring:(NSString *)substring
 {
-    [self showDescriptionWithPriceViewControllerWithTitleString:@"Add On" WithPlaceholderString:@"Hire me to provide a great local service." forAddOn:YES];
-    [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
+    [self.localSearchQueries removeAllObjects];
+    [self.locationSearchTableView reloadData];
+    
+    if (![self.pastSearchWords containsObject:self.substring]) {
+        [self.pastSearchWords addObject:self.substring];
+        NSLog(@"Search: %lu",(unsigned long)self.pastSearchResults.count);
+        [self retrieveGooglePlaceInformation:self.substring withCompletion:^(NSArray * results) {
+            [self.localSearchQueries addObjectsFromArray:results];
+            NSDictionary *searchResult = @{@"keyword":self.substring,@"results":results};
+            [self.pastSearchResults addObject:searchResult];
+            [self.locationSearchTableView reloadData ];
+            
+        }];
+        
+    }else {
+        
+        for (NSDictionary *pastResult in self.pastSearchResults) {
+            if([[pastResult objectForKey:@"keyword"] isEqualToString:self.substring]){
+                [self.localSearchQueries addObjectsFromArray:[pastResult objectForKey:@"results"]];
+                [self.locationSearchTableView reloadData];
+            }
+        }
+    }
+}
+
+#pragma mark - Google API Requests
+
+
+-(void)retrieveGooglePlaceInformation:(NSString *)searchWord withCompletion:(void (^)(NSArray *))complete{
+    NSString *searchWordProtection = [searchWord stringByReplacingOccurrencesOfString:@" " withString:@""];
+    
+    if (searchWordProtection.length != 0) {
+        
+        CLLocation *userLocation = self.locationManager.location;
+        NSString *currentLatitude = @(userLocation.coordinate.latitude).stringValue;
+        NSString *currentLongitude = @(userLocation.coordinate.longitude).stringValue;
+        
+        NSString *urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/autocomplete/json?input=%@&types=establishment|geocode&location=%@,%@&radius=500&language=en&key=%@",searchWord,currentLatitude,currentLongitude,apiKey];
+        NSLog(@"AutoComplete URL: %@",urlString);
+        NSURL *url = [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding]];
+        NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
+        NSURLSession *delegateFreeSession = [NSURLSession sessionWithConfiguration: defaultConfigObject delegate: nil delegateQueue: [NSOperationQueue mainQueue]];
+        NSURLRequest *request = [NSURLRequest requestWithURL:url];
+        NSURLSessionDataTask *task = [delegateFreeSession dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+            NSDictionary *jSONresult = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+            NSArray *results = [jSONresult valueForKey:@"predictions"];
+            
+            if (error || [jSONresult[@"status"] isEqualToString:@"NOT_FOUND"] || [jSONresult[@"status"] isEqualToString:@"REQUEST_DENIED"]){
+                if (!error){
+                    NSDictionary *userInfo = @{@"error":jSONresult[@"status"]};
+                    NSError *newError = [NSError errorWithDomain:@"API Error" code:666 userInfo:userInfo];
+                    complete(@[@"API Error", newError]);
+                    return;
+                }
+                complete(@[@"Actual Error", error]);
+                return;
+            }else{
+                complete(results);
+            }
+        }];
+        
+        [task resume];
+    }
+    
+}
+
+-(void)retrieveJSONDetailsAbout:(NSString *)place withCompletion:(void (^)(NSArray *))complete {
+    NSString *urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/details/json?placeid=%@&key=%@",place,apiKey];
+    NSURL *url = [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding]];
+    NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession *delegateFreeSession = [NSURLSession sessionWithConfiguration: defaultConfigObject delegate: nil delegateQueue: [NSOperationQueue mainQueue]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    NSURLSessionDataTask *task = [delegateFreeSession dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        NSDictionary *jSONresult = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+        NSArray *results = [jSONresult valueForKey:@"result"];
+        
+        if (error || [jSONresult[@"status"] isEqualToString:@"NOT_FOUND"] || [jSONresult[@"status"] isEqualToString:@"REQUEST_DENIED"]){
+            if (!error){
+                NSDictionary *userInfo = @{@"error":jSONresult[@"status"]};
+                NSError *newError = [NSError errorWithDomain:@"API Error" code:666 userInfo:userInfo];
+                complete(@[@"API Error", newError]);
+                return;
+            }
+            complete(@[@"Actual Error", error]);
+            return;
+        }else{
+            complete(results);
+        }
+    }];
+    
+    [task resume];
+}
+
+typedef void (^completion_t)(id result);
+- (void) downloadImages:(NSMutableArray*)images
+          completion:(completion_t)completionHandler {
+    
+    if ([images count] == 0) {
+        if (completionHandler) {
+            // Signal completion to the call-site. Use an appropriate result,
+            // instead of @"finished" possibly pass an array of URLs and NSErrors
+            // generated below  in "handle URL or error".
+            completionHandler(@"finished");
+        }
+        return;
+    }
+    
+    NSDictionary* imageInfo = [images firstObject];
+    [images removeObjectAtIndex:0];
+    
+    SDWebImageManager *manager = [SDWebImageManager sharedManager];
+    [manager downloadImageWithURL:imageInfo[@"url"]
+                          options:0
+                         progress:nil
+                        completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+                            if (image) {
+                                [self.listingImages addObject:@{@"id":imageInfo[@"id"], @"image":image, @"uploaded":@YES}];
+                            }
+                            NSLog(@"remaining count : %ld", images.count);
+                            [self downloadImages:images completion:completionHandler];
+                        }];
+    
 }
 
 #pragma mark - Navigation
@@ -832,10 +1040,10 @@
     if ([segue.identifier isEqualToString:@"displayCreateListingConfirmationSegue"]) {
         DubbCreateListingConfirmationViewController *viewController = segue.destinationViewController;
         
-        NSString *string = self.serviceDescriptionTextView.text;
+        NSString *string = self.titleTextField.text;
         viewController.listingTitle = string;
         viewController.listingLocation = selectedLocation;
-        viewController.mainImage = self.chosenImages[0];
+        viewController.mainImage = self.listingImages[0][@"image"];
         viewController.categoryDescription = [NSString stringWithFormat:@"%@ / %@", self.categoryTextField.text, self.subCategoryTextField.text];
 
     }

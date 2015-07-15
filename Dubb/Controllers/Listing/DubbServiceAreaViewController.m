@@ -8,7 +8,7 @@
 #import "AppDelegate.h"
 #import "DubbServiceAreaViewController.h"
 
-NSString *const apiKey = @"AIzaSyBqO1R2q7YGqnEAegFiA4vbHo7oLn8IqV0";
+//NSString *const apiKey = @"AIzaSyBqO1R2q7YGqnEAegFiA4vbHo7oLn8IqV0";
 
 typedef NS_ENUM(NSUInteger, TableViewSection){
     TableViewSectionCurrentLocation,
@@ -160,8 +160,6 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
         
     }
     
-    
-    
     [self.radiusContainerView.layer setCornerRadius:10.0f];
     [self.radiusContainerView.layer setBorderColor:[UIColor colorWithRed:0 green:65/255.0f blue:125.0f/255.0f alpha:1.0f].CGColor];
     [self.radiusContainerView.layer setMasksToBounds:YES];
@@ -227,10 +225,10 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     
     if (searchWordProtection.length != 0) {
         
+        NSString *apiKey = @"";
         CLLocation *userLocation = self.locationManager.location;
         NSString *currentLatitude = @(userLocation.coordinate.latitude).stringValue;
         NSString *currentLongitude = @(userLocation.coordinate.longitude).stringValue;
-        
         NSString *urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/autocomplete/json?input=%@&types=establishment|geocode&location=%@,%@&radius=500&language=en&key=%@",searchWord,currentLatitude,currentLongitude,apiKey];
         NSLog(@"AutoComplete URL: %@",urlString);
         NSURL *url = [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding]];
@@ -261,6 +259,8 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
 }
 
 -(void)retrieveJSONDetailsAbout:(NSString *)place withCompletion:(void (^)(NSArray *))complete {
+
+    NSString *apiKey = @"";
     NSString *urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/details/json?placeid=%@&key=%@",place,apiKey];
     NSURL *url = [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding]];
     NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];

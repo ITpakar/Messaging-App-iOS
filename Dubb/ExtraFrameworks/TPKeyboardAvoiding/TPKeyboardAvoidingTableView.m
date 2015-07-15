@@ -1,21 +1,23 @@
 //
-//  TPKeyboardAvoidingScrollView.m
+//  TPKeyboardAvoidingTableView.m
 //  TPKeyboardAvoiding
 //
 //  Created by Michael Tyson on 30/09/2013.
 //  Copyright 2015 A Tasty Pixel. All rights reserved.
 //
 
-#import "TPKeyboardAvoidingScrollView.h"
+#import "TPKeyboardAvoidingTableView.h"
 
-@interface TPKeyboardAvoidingScrollView () <UITextFieldDelegate, UITextViewDelegate>
+@interface TPKeyboardAvoidingTableView () <UITextFieldDelegate, UITextViewDelegate>
 @end
 
-@implementation TPKeyboardAvoidingScrollView
+@implementation TPKeyboardAvoidingTableView
 
 #pragma mark - Setup/Teardown
 
 - (void)setup {
+    if ( [self hasAutomaticKeyboardAvoidingBehaviour] ) return;
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(TPKeyboardAvoiding_keyboardWillShow:) name:UIKeyboardWillChangeFrameNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(TPKeyboardAvoiding_keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(scrollToActiveTextField) name:UITextViewTextDidBeginEditingNotification object:nil];
@@ -24,6 +26,12 @@
 
 -(id)initWithFrame:(CGRect)frame {
     if ( !(self = [super initWithFrame:frame]) ) return nil;
+    [self setup];
+    return self;
+}
+
+-(id)initWithFrame:(CGRect)frame style:(UITableViewStyle)withStyle {
+    if ( !(self = [super initWithFrame:frame style:withStyle]) ) return nil;
     [self setup];
     return self;
 }
@@ -39,18 +47,37 @@
 #endif
 }
 
+-(BOOL)hasAutomaticKeyboardAvoidingBehaviour {
+#if defined(__IPHONE_8_3)
+    if ( [self.delegate isKindOfClass:[UITableViewController class]] ) {
+        // Theory: Apps built using the iOS 8.3 SDK (probably: older SDKs not tested) seem to handle keyboard
+        // avoiding automatically with UITableViewController. This doesn't seem to be documented anywhere
+        // by Apple, so results obtained only empirically.
+        return YES;
+    }
+#endif
+
+    return NO;
+}
+
 -(void)setFrame:(CGRect)frame {
     [super setFrame:frame];
+    if ( [self hasAutomaticKeyboardAvoidingBehaviour] ) return;
     [self TPKeyboardAvoiding_updateContentInset];
 }
 
 -(void)setContentSize:(CGSize)contentSize {
+    if ( [self hasAutomaticKeyboardAvoidingBehaviour] ) {
+        [super setContentSize:contentSize];
+        return;
+    }
+	if (CGSizeEqualToSize(contentSize, self.contentSize)) {
+		// Prevent triggering contentSize when it's already the same
+		// this cause table view to scroll to top on contentInset changes
+		return;
+	}
     [super setContentSize:contentSize];
-    [self TPKeyboardAvoiding_updateFromContentSizeChange];
-}
-
-- (void)contentSizeToFit {
-    self.contentSize = [self TPKeyboardAvoiding_calculatedContentSizeFromSubviewFrames];
+    [self TPKeyboardAvoiding_updateContentInset];
 }
 
 - (BOOL)focusNextTextField {

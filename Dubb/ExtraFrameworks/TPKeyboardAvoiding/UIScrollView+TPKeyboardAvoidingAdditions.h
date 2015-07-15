@@ -1,14 +1,12 @@
 //
 //  UIScrollView+TPKeyboardAvoidingAdditions.h
-//  ZergID
+//  TPKeyboardAvoiding
 //
-//  Created by Oleg Koshkin on 05/02/15.
-//  Copyright (c) 2015 ZergID. All rights reserved.
+//  Created by Michael Tyson on 30/09/2013.
+//  Copyright 2015 A Tasty Pixel. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import <Foundation/Foundation.h>
-
 
 @interface UIScrollView (TPKeyboardAvoidingAdditions)
 - (BOOL)TPKeyboardAvoiding_focusNextTextField;

@@ -75,7 +75,7 @@
     [AWSServiceManager defaultServiceManager].defaultServiceConfiguration = configuration;
     
     
-    [NRLogger setLogLevels:NRLogLevelALL];
+    [NRLogger setLogLevels:NRLogLevelError];
     [NewRelicAgent startWithApplicationToken:kNewRelicToken];
     
     // Setup for APN

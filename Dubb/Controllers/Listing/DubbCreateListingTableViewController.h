@@ -12,11 +12,18 @@
 #import "DubbServiceDescriptionViewController.h"
 #import "DubbServiceDescriptionWithPriceViewController.h"
 #import "BaseViewController.h"
+#import "SelectedLocation.h"
 
-@interface DubbCreateListingTableViewController : BaseViewController <ELCImagePickerControllerDelegate, KASlideShowDelegate, UITableViewDataSource, UITableViewDelegate, DubbServiceDescriptionViewControllerDelegate, DubbServiceDescriptionWithPriceViewControllerDelegate>
+@interface DubbCreateListingTableViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, strong) NSMutableArray *chosenImages;
+@property (nonatomic, strong) NSMutableArray *listingImages;
 @property (nonatomic, strong) NSDictionary *listingDetail;
-- (void) completedWithDescription:(NSString*)description;
-- (void) completedWithDescription:(NSString*)description WithPrice:(NSString *)price;
+@property NSMutableArray *pastSearchResults;
+@property NSMutableArray *pastSearchWords;
+@property NSMutableArray *localSearchQueries;
+@property NSTimer *autoCompleteTimer;
+@property NSString *substring;
+@property CLLocationManager *locationManager;
+@property NSString *radius;
+@property NSString *titleString;
 @end

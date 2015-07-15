@@ -75,7 +75,7 @@ static PHPBackend   *sharedConnection;
         Parameters : (NSDictionary*) params
   CompletionHandler:(void (^)(NSDictionary *result))handler
 {
-    NSString *apiPath = [NSString stringWithFormat:@"%@%@%@", APIURL, @"listing/", listingID];
+    NSString *apiPath = [NSString stringWithFormat:@"%@%@", @"listing/", listingID];
     
     [self accessAPIbyPUT:apiPath Parameters:params CompletionHandler:^(NSDictionary *result, NSData *data, NSError *error) {
         if (handler) {
