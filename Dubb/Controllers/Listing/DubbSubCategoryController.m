@@ -376,7 +376,7 @@
         cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         
         if( !cell )
-            cell = [[DubbListingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier listingInfo:item];
+            cell = [[DubbListingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier listingInfo:[self convertGigData:item]];
     }
     return cell;
 }
@@ -407,6 +407,29 @@
         
         [self.navigationController pushViewController:vc animated:YES];
     }
+}
+
+-(NSDictionary *) convertGigData : (NSDictionary*) item{
+
+    NSMutableDictionary* gigItem = [NSMutableDictionary dictionaryWithDictionary:item];
+    NSArray *names = [item[@"username"] componentsSeparatedByString:@" "];
+
+    if( [names count] > 0 ) [gigItem setObject:@{@"username":names[0]} forKey:@"user"];
+    if( item[@"main_image"] ) [gigItem setObject:@{@"url":item[@"main_image"]} forKey:@"mainimage"];
+    if( item[@"latlon"] ){
+        NSArray* location = [item[@"latlon"] componentsSeparatedByString:@","];
+        if(location.count == 2){
+            [gigItem setObject:location[0] forKey:@"lat"];
+            [gigItem setObject:location[1] forKey:@"longitude"];
+        }
+    }
+    if( item[@"category"] )
+        [gigItem setObject:@{@"name":item[@"category"]} forKey:@"category"];
+
+    if( item[@"sub_category"] )
+        [gigItem setObject:@{@"name":item[@"sub_category"]} forKey:@"subcategory"];
+
+    return gigItem;
 }
 
 
