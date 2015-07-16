@@ -416,7 +416,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     
     
     
-    NSString *apiPath = [NSString stringWithFormat:@"%@%@", APIURL, @"listing"];
+    NSString *apiPath = [NSString stringWithFormat:@"%@", @"listing"];
     [self showProgress:@"Wait for a moment"];
     
     NSDictionary *params;
