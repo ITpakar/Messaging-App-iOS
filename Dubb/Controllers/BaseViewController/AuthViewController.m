@@ -14,6 +14,7 @@
 #import "AppDelegate.h"
 
 @interface AuthViewController ()< GPPSignInDelegate, QBChatDelegate>
+
 @end
 
 @implementation AuthViewController
@@ -108,6 +109,7 @@
 -(void) getFacebookUserInfo
 {
     
+    
     FBRequestConnection *connection = [[FBRequestConnection alloc] init];
     FBRequest *request = [FBRequest requestForMe];
     
@@ -135,6 +137,7 @@
         [self showMessage:@"Facebook session expires"];
     }
 }
+
 
 
 #pragma mark -

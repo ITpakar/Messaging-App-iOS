@@ -18,11 +18,4 @@
 -(void) onAuthenticationSuccess : (BOOL)chatLogged;
 -(int) registerUserToDubb : (NSDictionary*) params;
 -(int) updateUserToDubbWithUserID: (NSString *)userID params: (NSDictionary*) params;
--(void) signUpWithSocial : (NSInteger) userType
-                 socialID:(NSString*)userid
-                    email:(NSString*)email
-                firstName:(NSString*)fname
-                 lastName:(NSString*)lname
-          profileImageURL:(NSString*)url
-                   gender:(NSString*)gender;
 @end

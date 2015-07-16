@@ -8,8 +8,8 @@
 
 #import "DubbSignUpViewController.h"
 
+
 @interface DubbSignUpViewController (){
-    
     
 }
 
@@ -20,7 +20,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
 }
 
 -(void) viewWillAppear:(BOOL)animated
@@ -51,6 +50,8 @@
     [self facebookLogin];
     
 }
+
+
 #pragma mark -
 #pragma mark Navigation
 
