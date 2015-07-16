@@ -172,7 +172,7 @@ static PHPBackend   *sharedConnection;
 -(void) createOrder:(NSDictionary*)params
          CompletionHandler:(void (^)(NSDictionary *result))handler
 {
-    NSString *apiPath = [NSString stringWithFormat:@"%@%@", APIURL, @"order"];
+    NSString *apiPath = [NSString stringWithFormat:@"%@", @"order"];
     
     [self accessAPIbyPost:apiPath Parameters:params CompletionHandler:^(NSDictionary *result, NSData *data, NSError *error) {
         handler(result);
