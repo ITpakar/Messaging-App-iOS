@@ -125,6 +125,9 @@
     }
     if( item[@"category"] )
         [gigItem setObject:@{@"name":item[@"category"]} forKey:@"category"];
+
+    if( item[@"sub_category"] )
+        [gigItem setObject:@{@"name":item[@"sub_category"]} forKey:@"subcategory"];
     
     return gigItem;
 }
