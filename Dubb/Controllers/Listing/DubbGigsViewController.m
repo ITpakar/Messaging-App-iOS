@@ -52,7 +52,7 @@
         [self.backend getAllListings:self.keyword Page:@"0" CompletionHandler:^(NSDictionary *result) {
             [self hideProgress];
             [gigsTableView.pullToRefreshView stopAnimating];
-            if( ![result[@"error"] boolValue] ){
+            if( ![result[@"error"] boolValue] && ![result[@"response"] isKindOfClass: [NSNull class]]){
                 listings = [NSMutableArray arrayWithArray:result[@"response"][@"hits"][@"hit"]];
                 [gigsTableView reloadData];
             }
@@ -114,7 +114,7 @@
     NSMutableDictionary* gigItem = [NSMutableDictionary dictionaryWithDictionary:item];
     NSArray *names = [item[@"username"] componentsSeparatedByString:@" "];
     
-    if( [names count] > 0 ) [gigItem setObject:@{@"first":names[0]} forKey:@"user"];
+    if( [names count] > 0 ) [gigItem setObject:@{@"username":names[0]} forKey:@"user"];
     if( item[@"main_image"] ) [gigItem setObject:@{@"url":item[@"main_image"]} forKey:@"mainimage"];
     if( item[@"latlon"] ){
         NSArray* location = [item[@"latlon"] componentsSeparatedByString:@","];
