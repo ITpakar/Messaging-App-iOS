@@ -76,6 +76,16 @@
         [btnOrder.titleLabel setFont:[UIFont systemFontOfSize:10.0f]];
         [btnOrder.titleLabel setShadowOffset:CGSizeMake(1, 1)];
         [btnOrder setBackgroundColor:[UIColor colorWithRed:1.0f green:0.67f blue:0.21 alpha:1.0f]];
+
+        userLabel = [[UILabel alloc] init];
+        NSString *username = _listing[@"user"][@"username"] ?: @"Unknown";
+        
+        NSDictionary *usernameAttributes = @{NSForegroundColorAttributeName : [UIColor grayColor], NSFontAttributeName: [UIFont systemFontOfSize:12.0f]};
+        NSMutableAttributedString *userText = [[NSMutableAttributedString alloc] initWithString:username attributes:usernameAttributes];
+        [userText addAttribute:NSForegroundColorAttributeName value:[UIColor blueColor] range:NSMakeRange(0, [username length])];
+        userLabel.attributedText = userText;
+        [containerView addSubview:userLabel];
+        [self layoutSubviews];
         
         @try{
             profileImageView.image = [UIImage imageNamed:@"portrait.png"];
@@ -88,14 +98,13 @@
             CLLocation *location = [[CLLocation alloc] initWithLatitude:myCoOrdinate.latitude longitude:myCoOrdinate.longitude];
             
             [geocoder reverseGeocodeLocation:location completionHandler: ^ (NSArray  *placemarks, NSError *error) {
-                
                 CLPlacemark *placemark = [placemarks firstObject];
                 if(placemark) {
                     //NSMutableString *location = [[NSMutableString alloc] init];
                     NSString *location = @"";
                     @try{
                         if( placemark.addressDictionary[(NSString*)kABPersonAddressCityKey] && placemark.addressDictionary[(NSString*)kABPersonAddressStateKey])
-                            location = [NSString stringWithFormat:@"%@, %@", placemark.addressDictionary[(NSString*)kABPersonAddressCityKey], placemark.addressDictionary[(NSString*)kABPersonAddressStateKey]];
+                            location = [NSString stringWithFormat:@" %@, %@", placemark.addressDictionary[(NSString*)kABPersonAddressCityKey], placemark.addressDictionary[(NSString*)kABPersonAddressStateKey]];
                         
                         /*NSArray *locations = placemark.addressDictionary[@"FormattedAddressLines"];
                         int lower_range = (locations.count > 2 ? 1: 0);
@@ -109,12 +118,9 @@
                                 [location appendFormat:@", %@", loc];
                         }*/
                         
-                        userLabel = [[UILabel alloc] init];
-                        NSMutableAttributedString *userText = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ %@", _listing[@"user"][@"username"], location] attributes:@{NSForegroundColorAttributeName : [UIColor grayColor], NSFontAttributeName: [UIFont systemFontOfSize:12.0f]}];
-                        [userText addAttribute:NSForegroundColorAttributeName value:[UIColor blueColor] range:NSMakeRange(0, [_listing[@"user"][@"username"] length])];
+                        [userText appendAttributedString:[[NSAttributedString alloc] initWithString:location attributes:usernameAttributes]];
                         userLabel.attributedText = userText;
-                        [containerView addSubview:userLabel];
-                        [self layoutSubviews];
+                        
                     }@catch(NSException *e){
                         
                     }
