@@ -181,6 +181,9 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     [self.baseServiceDescriptionTextView setPlaceholder:@"Provide an explanation of what are you offering."];
     if (self.listingDetail) {
         [self initViewWithValues];
+        if (addOns.count == 0) {
+            [addOns addObject:[NSMutableDictionary dictionaryWithDictionary:@{@"description":@"", @"price":@12}]];
+        }
     } else{
         [addOns addObject:[NSMutableDictionary dictionaryWithDictionary:@{@"description":@"", @"price":@12}]];
     }
@@ -501,6 +504,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
         [self.backend updateListing:self.listingDetail[@"id"] Parameters:params CompletionHandler:^(NSDictionary *result) {
             [self hideProgress];
             [self showMessage:@"Successfully updated the listing."];
+            [self.navigationController popViewControllerAnimated:YES];
             
         }];
         

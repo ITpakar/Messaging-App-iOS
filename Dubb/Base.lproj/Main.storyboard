@@ -666,16 +666,6 @@ Dubb!</string>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </button>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="N3w-kV-2q7" customClass="DubbTextField">
-                                                <rect key="frame" x="176" y="335" width="249" height="39"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="249" id="TGH-My-jYt"/>
-                                                    <constraint firstAttribute="height" constant="39" id="iXK-xu-g38"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
-                                            </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mpS-wn-KBC">
                                                 <rect key="frame" x="176" y="382" width="249" height="40"/>
                                                 <color key="backgroundColor" red="0.0" green="0.65792713989999996" blue="0.038326280929999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -726,7 +716,17 @@ Dubb!</string>
                                                     <constraint firstAttribute="height" constant="39" id="tiy-PY-1bA"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                            </textField>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="N3w-kV-2q7" customClass="DubbTextField">
+                                                <rect key="frame" x="176" y="335" width="249" height="39"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="249" id="TGH-My-jYt"/>
+                                                    <constraint firstAttribute="height" constant="39" id="iXK-xu-g38"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" secureTextEntry="YES"/>
                                             </textField>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1425,9 +1425,20 @@ Dubb!</string>
                                     <outlet property="delegate" destination="1ku-cf-tzo" id="DTH-Sz-7du"/>
                                 </connections>
                             </tableView>
-                            <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bKy-04-eYo" userLabel="Shadow View">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bKy-04-eYo" userLabel="Shadow View">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gradient_background.png" translatesAutoresizingMaskIntoConstraints="NO" id="DWd-Fk-11t">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="DWd-Fk-11t" firstAttribute="leading" secondItem="bKy-04-eYo" secondAttribute="leading" id="9dh-1W-rPp"/>
+                                    <constraint firstItem="DWd-Fk-11t" firstAttribute="top" secondItem="bKy-04-eYo" secondAttribute="top" id="ieQ-KF-Q7q"/>
+                                    <constraint firstAttribute="bottom" secondItem="DWd-Fk-11t" secondAttribute="bottom" id="pBp-6C-ydh"/>
+                                    <constraint firstAttribute="trailing" secondItem="DWd-Fk-11t" secondAttribute="trailing" id="t4q-SN-2ax"/>
+                                </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h3H-GX-aQg" userLabel="Introduction View">
                                 <rect key="frame" x="135" y="42" width="330" height="517"/>
@@ -1454,6 +1465,12 @@ Dubb!</string>
                                             <action selector="closeInstructionViewButtonTapped:" destination="1ku-cf-tzo" eventType="touchUpInside" id="yWs-mW-gIg"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Dear Paul," lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EZp-az-BWX">
+                                        <rect key="frame" x="48" y="146" width="208" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="11"/>
+                                        <color key="textColor" red="0.58431372549019611" green="0.58431372549019611" blue="0.58431372549019611" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -1490,6 +1507,7 @@ Dubb!</string>
                         <outlet property="introductionView" destination="h3H-GX-aQg" id="X8c-D6-cJP"/>
                         <outlet property="listingsTableView" destination="9qx-DV-Wj0" id="vbz-vF-lCX"/>
                         <outlet property="locationSearchBar" destination="tNK-79-5mb" id="1s5-RQ-xX5"/>
+                        <outlet property="nameLabel" destination="EZp-az-BWX" id="AL3-74-nOE"/>
                         <outlet property="searchBar" destination="r90-7z-DBN" id="GFX-3A-9eQ"/>
                         <outlet property="searchBarConstraint" destination="wMe-ec-Egu" id="4Vl-Lg-iCp"/>
                         <outlet property="searchBarLeftConstraint" destination="2xI-pr-vzO" id="U0M-iH-hex"/>
@@ -2028,7 +2046,7 @@ Dubb!</string>
         <!--Chat History Controller-->
         <scene sceneID="9e4-l5-osz">
             <objects>
-                <viewController id="Iwb-TH-ChO" customClass="ChatHistoryController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChatHistoryController" id="Iwb-TH-ChO" customClass="ChatHistoryController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="RED-4U-A0B"/>
                         <viewControllerLayoutGuide type="bottom" id="eSI-J4-1WO"/>
@@ -2393,7 +2411,7 @@ Dubb!</string>
                                                         <constraint firstAttribute="height" constant="1" id="1ni-gx-qCC"/>
                                                     </constraints>
                                                 </view>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="to provide a great local service." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tPw-Pe-Y71">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="provide a great local service." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tPw-Pe-Y71">
                                                     <rect key="frame" x="12" y="8" width="576" height="30"/>
                                                     <color key="textColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -3145,7 +3163,7 @@ Dubb!</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TDe-EO-DUp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2034" y="4213"/>
+            <point key="canvasLocation" x="2035" y="4495"/>
         </scene>
         <!--Dubb Service Description With Price View Controller-->
         <scene sceneID="4Ce-Q4-blc">
@@ -6360,6 +6378,7 @@ Dubb!</string>
         <image name="divisor.png" width="1" height="45"/>
         <image name="filter.png" width="45" height="45"/>
         <image name="geo_icon.png" width="14" height="19"/>
+        <image name="gradient_background.png" width="320" height="576"/>
         <image name="home_background.jpg" width="1536" height="2048"/>
         <image name="icon_menu.png" width="22" height="16"/>
         <image name="in_progress_indicator.png" width="80" height="22"/>

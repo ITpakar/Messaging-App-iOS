@@ -152,6 +152,8 @@
 		0D8C17571B57062F00C3FC98 /* TPKeyboardAvoidingTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D8C17551B57062F00C3FC98 /* TPKeyboardAvoidingTableView.m */; };
 		0D9994141B5DE0BF0067744B /* tutorialBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D9994131B5DE0BF0067744B /* tutorialBackground@2x.png */; };
 		0D9994161B5DE1400067744B /* dealButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D9994151B5DE1400067744B /* dealButton@2x.png */; };
+		0D9994181B5E106F0067744B /* gradient_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D9994171B5E106F0067744B /* gradient_background@2x.png */; };
+		0D99941A1B5E3E270067744B /* delete_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D9994191B5E3E270067744B /* delete_icon@2x.png */; };
 		0DAC05D41B2FD566007D4234 /* DubbProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DAC05D31B2FD566007D4234 /* DubbProfileViewController.m */; };
 		0DAC05DA1B317757007D4234 /* DubbExtraQuantityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DAC05D81B317757007D4234 /* DubbExtraQuantityCell.m */; };
 		0DAC05DB1B317757007D4234 /* DubbExtraQuantityCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0DAC05D91B317757007D4234 /* DubbExtraQuantityCell.xib */; };
@@ -497,6 +499,8 @@
 		0D8C17551B57062F00C3FC98 /* TPKeyboardAvoidingTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingTableView.m; sourceTree = "<group>"; };
 		0D9994131B5DE0BF0067744B /* tutorialBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tutorialBackground@2x.png"; sourceTree = "<group>"; };
 		0D9994151B5DE1400067744B /* dealButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dealButton@2x.png"; sourceTree = "<group>"; };
+		0D9994171B5E106F0067744B /* gradient_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gradient_background@2x.png"; sourceTree = "<group>"; };
+		0D9994191B5E3E270067744B /* delete_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delete_icon@2x.png"; sourceTree = "<group>"; };
 		0DAC05D21B2FD566007D4234 /* DubbProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DubbProfileViewController.h; sourceTree = "<group>"; };
 		0DAC05D31B2FD566007D4234 /* DubbProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DubbProfileViewController.m; sourceTree = "<group>"; };
 		0DAC05D71B317757007D4234 /* DubbExtraQuantityCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DubbExtraQuantityCell.h; sourceTree = "<group>"; };
@@ -1091,6 +1095,8 @@
 		7C09A5971AB1CFE200218127 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				0D9994191B5E3E270067744B /* delete_icon@2x.png */,
+				0D9994171B5E106F0067744B /* gradient_background@2x.png */,
 				0D9994151B5DE1400067744B /* dealButton@2x.png */,
 				0D9994131B5DE0BF0067744B /* tutorialBackground@2x.png */,
 				0DFAD7B21B51FDDD008BF474 /* recycle_bin@2x.png */,
@@ -1799,6 +1805,7 @@
 				0D1FA6AA1ACA23CA00079C79 /* add_button.png in Resources */,
 				0D9994141B5DE0BF0067744B /* tutorialBackground@2x.png in Resources */,
 				DC63FC7B1AD7EE7D00A505B8 /* play@2x.png in Resources */,
+				0D9994181B5E106F0067744B /* gradient_background@2x.png in Resources */,
 				DC675A5E1AE7CB9F00E5CBDA /* pin_icon@2x.png in Resources */,
 				0D344D971B027E750069D816 /* share_facebook_button.png in Resources */,
 				0D1FA6B71ACA23CA00079C79 /* submit_button@2x.png in Resources */,
@@ -1822,6 +1829,7 @@
 				0DFCB1791AFFD9FE001F2820 /* star@2x.png in Resources */,
 				DC675A451AE4BEE000E5CBDA /* btn_category@2x.png in Resources */,
 				0D5ABFF51B424CBF00D20241 /* seller_background.png in Resources */,
+				0D99941A1B5E3E270067744B /* delete_icon@2x.png in Resources */,
 				0D1FA66C1ACA183D00079C79 /* sts-2011-06-15.json in Resources */,
 				0D1FA6A41ACA23CA00079C79 /* arrow.png in Resources */,
 				0D6B7D7F1B17326F000B0352 /* mylistings_menu_button.png in Resources */,

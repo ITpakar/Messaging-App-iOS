@@ -345,7 +345,7 @@
 -(void) loginWithUser:(NSMutableDictionary*) params
 {
     [[User currentUser] initialize];
-    [self showProgress:@"Loggin in..."];
+    [self showProgress:@"Logging in..."];
     [self.backend loginWithUsername:params CompletionHandler:^(NSDictionary *result) {
         if( result ){
             [User initialize:result[@"response"]];

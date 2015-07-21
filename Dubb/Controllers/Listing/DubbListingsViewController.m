@@ -31,6 +31,7 @@
     
     __weak IBOutlet UILabel *titleLabel;   
     
+    IBOutlet UILabel *nameLabel;
     IBOutlet UIView *shadowView;
     IBOutlet UIView *introductionView;
     __weak IBOutlet UITextField *locationSearchBar;
@@ -63,6 +64,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    nameLabel.text =  [NSString stringWithFormat:@"Dear %@,", [User currentUser].firstName];
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"SHOWN_INTRODUCTION"]) {
         introductionView.hidden = NO;
         shadowView.hidden = NO;
@@ -74,7 +76,6 @@
         introductionView.hidden = YES;
         
     }
-
     [self setupSearch];
     [self setupListingTableView];
 }

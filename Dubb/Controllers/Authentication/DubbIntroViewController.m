@@ -25,7 +25,7 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     id loggedUser = [defaults objectForKey:@"DubbUser"];
     if( loggedUser ){
-        [self showProgress:@"Loggin in..."];
+        [self showProgress:@"Logging in..."];
         [User initialize: (NSDictionary*)loggedUser];
         [self loginToQuickBlox];
     }
