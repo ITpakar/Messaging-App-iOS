@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="9mC-Dp-d8L">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="9mC-Dp-d8L">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -882,7 +882,7 @@ Dubb!</string>
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="By signing up, you agree to the" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UGs-oP-yKW">
-                                                        <rect key="frame" x="22" y="309" width="277" height="38"/>
+                                                        <rect key="frame" x="22" y="268" width="277" height="38"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
@@ -900,7 +900,7 @@ Dubb!</string>
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wjE-Qr-3wx" customClass="TextFieldValidator">
-                                                        <rect key="frame" x="36" y="223" width="249" height="40"/>
+                                                        <rect key="frame" x="36" y="182" width="249" height="40"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
@@ -910,7 +910,7 @@ Dubb!</string>
                                                         </connections>
                                                     </textField>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SPB-FY-xGM" customClass="TextFieldValidator">
-                                                        <rect key="frame" x="36" y="182" width="249" height="40"/>
+                                                        <rect key="frame" x="36" y="141" width="249" height="40"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
@@ -951,7 +951,7 @@ Dubb!</string>
                                                         </connections>
                                                     </textField>
                                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nBy-z9-biz" customClass="M13Checkbox">
-                                                        <rect key="frame" x="46" y="269" width="160" height="20"/>
+                                                        <rect key="frame" x="46" y="228" width="160" height="20"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </view>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="First Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8bo-jZ-pFZ" customClass="TextFieldValidator">
@@ -974,16 +974,6 @@ Dubb!</string>
                                                             <outlet property="presentInView" destination="kDk-Y8-awY" id="aNj-bE-7kB"/>
                                                         </connections>
                                                     </textField>
-                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Phone" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tBy-gy-TTm" customClass="TextFieldValidator">
-                                                        <rect key="frame" x="36" y="141" width="249" height="40"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
-                                                        <connections>
-                                                            <outlet property="delegate" destination="Dad-qT-83G" id="iTs-uc-U4V"/>
-                                                            <outlet property="presentInView" destination="kDk-Y8-awY" id="blJ-d4-co6"/>
-                                                        </connections>
-                                                    </textField>
                                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l4A-CS-SJk">
                                                         <rect key="frame" x="36" y="393" width="249" height="40"/>
                                                         <color key="backgroundColor" red="0.0" green="0.65490196078431373" blue="0.039215686274509803" alpha="1" colorSpace="calibratedRGB"/>
@@ -996,7 +986,7 @@ Dubb!</string>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wSf-yI-Af3">
-                                                        <rect key="frame" x="75" y="342" width="171" height="38"/>
+                                                        <rect key="frame" x="75" y="301" width="171" height="38"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                         <state key="normal" title="Terms of Service">
                                                             <color key="titleColor" red="0.0" green="0.8803710938" blue="0.051284325899999997" alpha="1" colorSpace="calibratedRGB"/>
@@ -1118,7 +1108,6 @@ Dubb!</string>
                         <outlet property="txtFirstname" destination="8bo-jZ-pFZ" id="Yav-WZ-pzn"/>
                         <outlet property="txtLastName" destination="eSP-6W-Fwd" id="obc-P5-iec"/>
                         <outlet property="txtPassword" destination="wjE-Qr-3wx" id="Hv1-83-kco"/>
-                        <outlet property="txtPhone" destination="tBy-gy-TTm" id="beO-ce-nxj"/>
                         <outlet property="txtUsername" destination="SPB-FY-xGM" id="1JX-75-LjG"/>
                     </connections>
                 </viewController>
@@ -1298,7 +1287,7 @@ Dubb!</string>
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NbQ-Ci-W8W">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NbQ-Ci-W8W" userLabel="Navigation View">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
                                 <subviews>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SEARCH" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xMD-nV-Q5t">
@@ -1436,29 +1425,28 @@ Dubb!</string>
                                     <outlet property="delegate" destination="1ku-cf-tzo" id="DTH-Sz-7du"/>
                                 </connections>
                             </tableView>
-                            <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bKy-04-eYo">
+                            <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bKy-04-eYo" userLabel="Shadow View">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h3H-GX-aQg" userLabel="Introduction View">
+                                <rect key="frame" x="135" y="42" width="330" height="517"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rIt-e5-3Nd">
-                                        <rect key="frame" x="145" y="118" width="311" height="363"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorialBackground.png" translatesAutoresizingMaskIntoConstraints="NO" id="ylR-EX-L5s">
+                                        <rect key="frame" x="20" y="34" width="290" height="410"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="311" id="j8S-FG-sqP"/>
-                                            <constraint firstAttribute="height" constant="363" id="yR9-0M-dIi"/>
+                                            <constraint firstAttribute="width" constant="290" id="LDG-0A-ITi"/>
+                                            <constraint firstAttribute="height" constant="410" id="R8K-EU-Uxj"/>
                                         </constraints>
-                                        <string key="text">We are continuously working on making Dubb better, and your 5-star reviews are our main motivator...   If you want to post a review with less than 5 stars, please give us a chance to talk to you first:  Just post your feedback using "Support" button in the side navigation and we promise to get back to you within 1 business day.  </string>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8X5-K0-p7w">
-                                        <rect key="frame" x="371" y="527" width="74" height="30"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8X5-K0-p7w">
+                                        <rect key="frame" x="20" y="466" width="290" height="45"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="74" id="RVH-oP-D8M"/>
-                                            <constraint firstAttribute="height" constant="30" id="lUc-yb-dMh"/>
+                                            <constraint firstAttribute="width" constant="290" id="RVH-oP-D8M"/>
+                                            <constraint firstAttribute="height" constant="45" id="lUc-yb-dMh"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                        <state key="normal" title="OK">
+                                        <state key="normal" image="dealButton.png">
                                             <color key="titleColor" red="0.0" green="0.65490196079999996" blue="0.039215686270000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -1467,12 +1455,14 @@ Dubb!</string>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="8X5-K0-p7w" firstAttribute="top" secondItem="rIt-e5-3Nd" secondAttribute="bottom" constant="46" id="Jdl-4u-5kW"/>
-                                    <constraint firstItem="8X5-K0-p7w" firstAttribute="trailing" secondItem="rIt-e5-3Nd" secondAttribute="trailing" constant="-11" id="Kw8-wd-9nJ"/>
-                                    <constraint firstAttribute="centerX" secondItem="rIt-e5-3Nd" secondAttribute="centerX" id="Neq-a1-Gfd"/>
-                                    <constraint firstAttribute="centerY" secondItem="rIt-e5-3Nd" secondAttribute="centerY" id="sPd-3X-5IR"/>
+                                    <constraint firstAttribute="centerY" secondItem="ylR-EX-L5s" secondAttribute="centerY" constant="20" id="1VK-yG-Xcy"/>
+                                    <constraint firstAttribute="centerX" secondItem="8X5-K0-p7w" secondAttribute="centerX" id="2h2-rU-bDb"/>
+                                    <constraint firstAttribute="height" constant="517" id="4fM-sM-g9P"/>
+                                    <constraint firstAttribute="centerX" secondItem="ylR-EX-L5s" secondAttribute="centerX" id="QAM-W1-dla"/>
+                                    <constraint firstItem="8X5-K0-p7w" firstAttribute="top" secondItem="ylR-EX-L5s" secondAttribute="bottom" constant="22" id="Ro9-n7-NfP"/>
+                                    <constraint firstAttribute="width" constant="330" id="tV8-xZ-P3C"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -1482,9 +1472,11 @@ Dubb!</string>
                             <constraint firstItem="bKy-04-eYo" firstAttribute="leading" secondItem="o1S-yG-Rkq" secondAttribute="leading" id="FF4-z9-CyY"/>
                             <constraint firstItem="NbQ-Ci-W8W" firstAttribute="leading" secondItem="o1S-yG-Rkq" secondAttribute="leading" id="HXS-MK-TRq"/>
                             <constraint firstItem="bKy-04-eYo" firstAttribute="top" secondItem="o1S-yG-Rkq" secondAttribute="top" id="Opr-nq-hMI"/>
+                            <constraint firstAttribute="centerX" secondItem="h3H-GX-aQg" secondAttribute="centerX" id="W2W-Ru-9Qf"/>
                             <constraint firstItem="sBD-6H-tqO" firstAttribute="top" secondItem="bKy-04-eYo" secondAttribute="bottom" id="XMg-xs-hjL"/>
                             <constraint firstAttribute="trailing" secondItem="NbQ-Ci-W8W" secondAttribute="trailing" id="Xrt-7q-AN6"/>
                             <constraint firstItem="sBD-6H-tqO" firstAttribute="top" secondItem="9qx-DV-Wj0" secondAttribute="bottom" id="ZfF-lZ-ffY"/>
+                            <constraint firstAttribute="centerY" secondItem="h3H-GX-aQg" secondAttribute="centerY" id="dmf-ol-sPV"/>
                             <constraint firstAttribute="trailing" secondItem="9qx-DV-Wj0" secondAttribute="trailing" id="fSQ-7G-XFf"/>
                             <constraint firstAttribute="trailing" secondItem="bKy-04-eYo" secondAttribute="trailing" id="nz1-yk-z3h"/>
                             <constraint firstItem="NbQ-Ci-W8W" firstAttribute="top" secondItem="o1S-yG-Rkq" secondAttribute="top" id="tbL-WD-GzI"/>
@@ -1495,7 +1487,7 @@ Dubb!</string>
                     <connections>
                         <outlet property="btnMenuBar" destination="lbh-zS-vld" id="k2o-a4-Bm7"/>
                         <outlet property="btnRightMenuBar" destination="QNy-go-PEr" id="wGI-k8-vz5"/>
-                        <outlet property="introductionView" destination="bKy-04-eYo" id="PKn-dA-UFf"/>
+                        <outlet property="introductionView" destination="h3H-GX-aQg" id="X8c-D6-cJP"/>
                         <outlet property="listingsTableView" destination="9qx-DV-Wj0" id="vbz-vF-lCX"/>
                         <outlet property="locationSearchBar" destination="tNK-79-5mb" id="1s5-RQ-xX5"/>
                         <outlet property="searchBar" destination="r90-7z-DBN" id="GFX-3A-9eQ"/>
@@ -1504,6 +1496,7 @@ Dubb!</string>
                         <outlet property="searchBarTopConstraint" destination="X0B-Ke-eOY" id="24L-AX-vwf"/>
                         <outlet property="searchContainerViewConstraint" destination="TvK-bW-Txs" id="UMx-W5-MfP"/>
                         <outlet property="searchDisplayController" destination="bLx-V6-bne" id="EQM-wV-MUS"/>
+                        <outlet property="shadowView" destination="bKy-04-eYo" id="MSo-0I-vwV"/>
                         <outlet property="titleLabel" destination="xMD-nV-Q5t" id="D9w-fj-SwQ"/>
                     </connections>
                 </viewController>
@@ -4120,7 +4113,7 @@ Dubb!</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ABOUT IT" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XY0-Ly-Apv">
-                                                    <rect key="frame" x="13" y="126" width="224" height="21"/>
+                                                    <rect key="frame" x="13" y="130" width="224" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="HxI-Qp-AUg"/>
                                                         <constraint firstAttribute="width" constant="224" id="dnQ-E8-Ffr"/>
@@ -4130,22 +4123,33 @@ Dubb!</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9u4-r2-gV2" userLabel="Separator">
-                                                    <rect key="frame" x="13" y="107" width="294" height="1"/>
+                                                    <rect key="frame" x="13" y="111" width="294" height="1"/>
                                                     <color key="backgroundColor" white="0.66666666669999997" alpha="0.17999999999999999" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="1" id="6SF-82-JLa"/>
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" tag="102" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="4" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jZr-SR-H08" customClass="TTTAttributedLabel">
-                                                    <rect key="frame" x="13" y="149" width="291" height="69"/>
+                                                    <rect key="frame" x="13" y="153" width="291" height="65"/>
                                                     <string key="text">Here is where a lovely service description goes describing the talent of the provider and their  past experience. Here is where a lovely service description goes describing the talent of the provider and their past experience.Here is where a lovely service description goes describing the talent of the provider and their past experience.</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="124" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vwb-ec-yXL">
+                                                    <rect key="frame" x="13" y="91" width="228" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="2cA-ND-AHb"/>
+                                                        <constraint firstAttribute="width" constant="228" id="KoX-N4-R36"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="11"/>
+                                                    <color key="textColor" red="0.58431372550000005" green="0.58431372550000005" blue="0.58431372550000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="9u4-r2-gV2" firstAttribute="leading" secondItem="93p-t6-JPK" secondAttribute="leading" constant="13" id="0TN-bn-ogB"/>
+                                                <constraint firstItem="Vwb-ec-yXL" firstAttribute="leading" secondItem="93p-t6-JPK" secondAttribute="leading" constant="13" id="35t-WH-uVv"/>
                                                 <constraint firstItem="jZr-SR-H08" firstAttribute="leading" secondItem="93p-t6-JPK" secondAttribute="leading" constant="13" id="4D9-1r-jNL"/>
                                                 <constraint firstAttribute="trailing" secondItem="9u4-r2-gV2" secondAttribute="trailing" constant="13" id="5Jt-rQ-WEA"/>
                                                 <constraint firstItem="VXr-sd-R6k" firstAttribute="top" secondItem="lTy-up-00F" secondAttribute="bottom" constant="12" id="Asv-Kf-CaQ"/>
@@ -4155,10 +4159,11 @@ Dubb!</string>
                                                 <constraint firstAttribute="bottom" secondItem="jZr-SR-H08" secondAttribute="bottom" constant="2" id="MRL-oB-LeM"/>
                                                 <constraint firstItem="lTy-up-00F" firstAttribute="top" secondItem="93p-t6-JPK" secondAttribute="top" constant="19" id="Wjw-7c-zo4"/>
                                                 <constraint firstItem="lTy-up-00F" firstAttribute="leading" secondItem="93p-t6-JPK" secondAttribute="leading" constant="13" id="ZGq-UQ-jUp"/>
-                                                <constraint firstItem="9u4-r2-gV2" firstAttribute="top" secondItem="VXr-sd-R6k" secondAttribute="bottom" constant="13" id="bhF-ec-PWa"/>
+                                                <constraint firstItem="9u4-r2-gV2" firstAttribute="top" secondItem="VXr-sd-R6k" secondAttribute="bottom" constant="17" id="bhF-ec-PWa"/>
                                                 <constraint firstItem="VXr-sd-R6k" firstAttribute="leading" secondItem="93p-t6-JPK" secondAttribute="leading" constant="13" id="ddM-vr-1by"/>
                                                 <constraint firstAttribute="trailing" secondItem="lTy-up-00F" secondAttribute="trailing" constant="79" id="jXC-ba-dg0"/>
                                                 <constraint firstItem="XY0-Ly-Apv" firstAttribute="top" secondItem="9u4-r2-gV2" secondAttribute="bottom" constant="18" id="phi-sA-vQa"/>
+                                                <constraint firstItem="Vwb-ec-yXL" firstAttribute="top" secondItem="VXr-sd-R6k" secondAttribute="bottom" constant="-3" id="sMu-wc-3ur"/>
                                                 <constraint firstItem="jZr-SR-H08" firstAttribute="top" secondItem="XY0-Ly-Apv" secondAttribute="bottom" constant="2" id="ydi-Kx-E8T"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -6351,6 +6356,7 @@ Dubb!</string>
         <image name="btn_prevnavigation_white.png" width="15" height="18"/>
         <image name="checkmark.png" width="23" height="19"/>
         <image name="close_icon.png" width="24" height="24"/>
+        <image name="dealButton.png" width="290" height="45"/>
         <image name="divisor.png" width="1" height="45"/>
         <image name="filter.png" width="45" height="45"/>
         <image name="geo_icon.png" width="14" height="19"/>
@@ -6374,6 +6380,7 @@ Dubb!</string>
         <image name="share_sms_button.png" width="55" height="55"/>
         <image name="share_twitter_button.png" width="55" height="55"/>
         <image name="share_whatsapp_button.png" width="55" height="55"/>
+        <image name="tutorialBackground.png" width="290" height="410"/>
         <image name="uparrow_button.png" width="60" height="60"/>
     </resources>
     <inferredMetricsTieBreakers>

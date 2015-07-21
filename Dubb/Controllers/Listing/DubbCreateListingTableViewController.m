@@ -423,7 +423,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     
     if (self.listingDetail) {
         
-        [addonArray insertObject:@{@"id":baseServiceID, @"description":self.baseServiceDescriptionTextView.text, @"price":self.baseServicePriceTextField.text, @"sequence":@"0"} atIndex:0];
+        [addonArray insertObject:@{@"id":baseServiceID, @"description":self.baseServiceDescriptionTextView.text, @"price":self.baseServicePriceTextField.text} atIndex:0];
         for (NSDictionary *originalAddon in originalAddonArray) {
             BOOL found = NO;
             for (NSDictionary *addon in addonArray) {
@@ -506,7 +506,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
         
     } else {
         
-        [addonArray insertObject:@{@"description":self.baseServiceDescriptionTextView.text, @"price":self.baseServicePriceTextField.text, @"sequence":@"0"} atIndex:0];
+        [addonArray insertObject:@{@"description":self.baseServiceDescriptionTextView.text, @"price":self.baseServicePriceTextField.text} atIndex:0];
         NSMutableArray *imagesWithoutMainImage = [imageURLs mutableCopy];
         if (imagesWithoutMainImage.count == 1) {
             params = @{@"name":[NSString stringWithFormat:@"%@", self.titleTextField.text],

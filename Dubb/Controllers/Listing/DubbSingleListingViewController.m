@@ -84,7 +84,8 @@ enum DubbSingleListingViewTag {
     kDubbSingleListingSectionReviewsLocationLabelTag,
     kDubbSingleListingSectionReviewsContentRatingControlTag,
     kDubbSingleListingSectionReviewsDescriptionLabelTag,
-    kDubbSingleListingSectionSellerIntroductionBackgroundImageViewTag
+    kDubbSingleListingSectionSellerIntroductionBackgroundImageViewTag,
+    kDubbSingleListingSectionHeaderLocationLabelTag
 };
 - (IBAction)backButtonTapped:(id)sender {
     
@@ -585,8 +586,9 @@ static bool liked = NO;
     static NSString *CellIdentifier = @"headerSectionCell";
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-    UILabel *titleLabel = (UILabel *)[cell viewWithTag:kDubbSingleListingSectionHeaderTitleLabelTag];
+    UILabel *titleLabel    = (UILabel *)[cell viewWithTag:kDubbSingleListingSectionHeaderTitleLabelTag];
     UILabel *categoryLabel = (UILabel *)[cell viewWithTag:kDubbSingleListingSectionHeaderCategoryLabelTag];
+    UILabel *locationLabel = (UILabel *)[cell viewWithTag:kDubbSingleListingSectionHeaderLocationLabelTag];
     TTTAttributedLabel *descriptionLabel = (TTTAttributedLabel *)[cell viewWithTag:kDubbSingleListingSectionHeaderDescriptionLabelTag];
     
     titleLabel.text = listingInfo[@"name"];
@@ -605,6 +607,23 @@ static bool liked = NO;
                                                     NSLinkAttributeName : [NSURL URLWithString:@"header"]
                                                     }];
     descriptionLabel.attributedTruncationToken = finalString;
+    
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    CLLocation *location = [[CLLocation alloc] initWithLatitude:[listingInfo[@"lat"] doubleValue] longitude:[listingInfo[@"longitude"] doubleValue]];
+    
+    [geocoder reverseGeocodeLocation:location completionHandler: ^ (NSArray  *placemarks, NSError *error) {
+        
+        CLPlacemark *placemark = [placemarks firstObject];
+        if(placemark) {
+            
+            NSString *city = [placemark.addressDictionary objectForKey:(NSString*)kABPersonAddressCityKey];
+            NSString *state = [placemark.addressDictionary objectForKey:(NSString*)kABPersonAddressStateKey];
+            
+            locationLabel.text = [NSString stringWithFormat:@"%@, %@", city, state];
+            
+        }
+    }];
+
     return cell;
     
 }

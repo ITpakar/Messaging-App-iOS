@@ -77,6 +77,7 @@
     
     if (FBSession.activeSession.state == FBSessionStateOpen || FBSession.activeSession.state == FBSessionStateOpenTokenExtended ||
         FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded ) {
+        [FBSession.activeSession closeAndClearTokenInformation];
         [FBSession openActiveSessionWithReadPermissions:@[@"public_profile", @"email", @"user_birthday"] allowLoginUI:NO completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
             [self FBSessionStateChanged:session state:status error:error];
         }];

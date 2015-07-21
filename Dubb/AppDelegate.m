@@ -128,8 +128,11 @@
 
  - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-    //return [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
-    return [GPPURLHandler handleURL:url sourceApplication:sourceApplication annotation:annotation];
+    if ([[url absoluteString] containsString:@"fb409528732547423"]) {
+        return [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
+    } else {
+        return [GPPURLHandler handleURL:url sourceApplication:sourceApplication annotation:annotation];
+    }
 }
 
 #pragma mark -

@@ -31,6 +31,7 @@
     
     __weak IBOutlet UILabel *titleLabel;   
     
+    IBOutlet UIView *shadowView;
     IBOutlet UIView *introductionView;
     __weak IBOutlet UITextField *locationSearchBar;
     
@@ -64,15 +65,15 @@
     // Do any additional setup after loading the view.
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"SHOWN_INTRODUCTION"]) {
         introductionView.hidden = NO;
+        shadowView.hidden = NO;
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"SHOWN_INTRODUCTION"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
     } else {
-        
+        shadowView.hidden = YES;
         introductionView.hidden = YES;
         
     }
-    
 
     [self setupSearch];
     [self setupListingTableView];
@@ -509,6 +510,7 @@
 }
 - (IBAction)closeInstructionViewButtonTapped:(id)sender {
     
+    shadowView.hidden = YES;
     introductionView.hidden = YES;
     
 }
