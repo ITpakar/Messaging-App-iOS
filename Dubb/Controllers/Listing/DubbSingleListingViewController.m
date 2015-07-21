@@ -720,9 +720,7 @@ static bool liked = NO;
     NSDictionary *userInfo = listingInfo[@"user"];
     nameLabel.text = [NSString stringWithFormat:@"%@ %@", userInfo[@"first"], userInfo[@"last"]];
 
-    if ([userInfo[@"bio"] isKindOfClass:[NSNull class]]) {
-        bioLabel.text = @"Seller has not entered a bio";
-    } else {
+    if (![userInfo[@"bio"] isKindOfClass:[NSNull class]]) {
         bioLabel.text = userInfo[@"bio"];
     }
     

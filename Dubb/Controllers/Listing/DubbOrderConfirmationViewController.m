@@ -68,7 +68,7 @@ enum DubbOrderConfirmationViewTag {
         SLComposeViewController *tweetSheet = [SLComposeViewController
                                                composeViewControllerForServiceType:SLServiceTypeTwitter];
         
-        [tweetSheet setInitialText:[NSString stringWithFormat:@"%@ - @dubbapp - http://www.dubb.co/app", self.listingTitle]];
+        [tweetSheet setInitialText:[NSString stringWithFormat:@"Checkout %@ - @dubbapp creative freelancer marketplace http://www.dubb.com/app", self.listingTitle]];
         [self presentViewController:tweetSheet animated:YES completion:nil];
     }else{
         [[[UIAlertView alloc] initWithTitle:nil message:@"Twitter is not installed on this device! Please install first." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
@@ -96,7 +96,7 @@ enum DubbOrderConfirmationViewTag {
     // Email Subject
     NSString *emailTitle = [NSString stringWithFormat:@"%@ - Dubb Mobile Marketplace for Creative Freelancers -", self.listingTitle];
     // Email Content
-    NSString *messageBody = [NSString stringWithFormat:@"Check out this listing on Dubb:\n\n%@\nDubb is a Mobile Marketplace for Creative Freelancers\nhttp://www.dubb.co/app", self.listingTitle];
+    NSString *messageBody = [NSString stringWithFormat:@"Checkout %@ - @dubbapp creative freelancer marketplace http://www.dubb.com/app", self.listingTitle];
     // To address
     NSArray *toRecipents = [NSArray arrayWithObject:@""];
     

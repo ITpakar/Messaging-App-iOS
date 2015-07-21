@@ -410,7 +410,7 @@
     
     if( chatLogged == NO ) {
         user.chatUser = nil;
-        [self showMessage:@"Chat is not available"];
+//        [self showMessage:@"Chat is not available"];
     } else {
         [((AppDelegate*)[[UIApplication sharedApplication] delegate]) registerForRemoteNotifications];
         
