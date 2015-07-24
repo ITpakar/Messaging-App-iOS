@@ -881,8 +881,8 @@ Dubb!</string>
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="By signing up, you agree to the" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UGs-oP-yKW">
-                                                        <rect key="frame" x="22" y="268" width="277" height="38"/>
+                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="By signing up, you agree to the" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UGs-oP-yKW">
+                                                        <rect key="frame" x="22" y="264" width="277" height="38"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
@@ -951,7 +951,7 @@ Dubb!</string>
                                                         </connections>
                                                     </textField>
                                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nBy-z9-biz" customClass="M13Checkbox">
-                                                        <rect key="frame" x="46" y="228" width="160" height="20"/>
+                                                        <rect key="frame" x="46" y="230" width="160" height="20"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </view>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="First Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8bo-jZ-pFZ" customClass="TextFieldValidator">
@@ -986,7 +986,7 @@ Dubb!</string>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wSf-yI-Af3">
-                                                        <rect key="frame" x="75" y="301" width="171" height="38"/>
+                                                        <rect key="frame" x="74" y="301" width="171" height="38"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                         <state key="normal" title="Terms of Service">
                                                             <color key="titleColor" red="0.0" green="0.8803710938" blue="0.051284325899999997" alpha="1" colorSpace="calibratedRGB"/>
@@ -1006,6 +1006,10 @@ Dubb!</string>
                                                             <action selector="termsOfServiceButtonTapped:" destination="Dad-qT-83G" eventType="touchUpInside" id="TB6-W0-0f7"/>
                                                         </connections>
                                                     </button>
+                                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ROS-kX-fX1" customClass="M13Checkbox">
+                                                        <rect key="frame" x="46" y="310" width="21" height="20"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </view>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
@@ -1103,6 +1107,7 @@ Dubb!</string>
                     <connections>
                         <outlet property="alreadyMemberLabel" destination="4vs-s7-Qxl" id="VDf-uv-TEH"/>
                         <outlet property="chkboxTogglePasswordSecureEntry" destination="nBy-z9-biz" id="R90-vX-qrU"/>
+                        <outlet property="chkboxToggleTermsOfService" destination="ROS-kX-fX1" id="2u6-GV-13K"/>
                         <outlet property="signInButton" destination="FiI-4l-Uwc" id="vI4-1w-s69"/>
                         <outlet property="txtEmail" destination="foi-S4-2Hi" id="Hwn-kF-alD"/>
                         <outlet property="txtFirstname" destination="8bo-jZ-pFZ" id="Yav-WZ-pzn"/>
@@ -2344,20 +2349,6 @@ Dubb!</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WMg-5s-t1X">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="65"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gz1-07-gfx">
-                                        <rect key="frame" x="8" y="32" width="17" height="17"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="17" id="dj7-p8-xFJ"/>
-                                            <constraint firstAttribute="height" constant="17" id="kl7-wn-qE5"/>
-                                        </constraints>
-                                        <state key="normal" image="Cancel">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="backButtonTapped:" destination="xzN-HF-2Nc" eventType="touchUpInside" id="HA4-3z-9nz"/>
-                                            <action selector="backButtonTapped:" destination="Q8W-cI-c9P" eventType="touchUpInside" id="TYD-CP-FhS"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KRB-PY-yb3">
                                         <rect key="frame" x="546" y="26" width="46" height="30"/>
                                         <constraints>
@@ -2382,6 +2373,20 @@ Dubb!</string>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gz1-07-gfx">
+                                        <rect key="frame" x="8" y="32" width="17" height="17"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="17" id="dj7-p8-xFJ"/>
+                                            <constraint firstAttribute="height" constant="17" id="kl7-wn-qE5"/>
+                                        </constraints>
+                                        <state key="normal" image="Cancel">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="backButtonTapped:" destination="xzN-HF-2Nc" eventType="touchUpInside" id="HA4-3z-9nz"/>
+                                            <action selector="backButtonTapped:" destination="Q8W-cI-c9P" eventType="touchUpInside" id="TYD-CP-FhS"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.18823529410000001" green="0.18823529410000001" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -6359,6 +6364,75 @@ Dubb!</string>
                 </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1539" y="1335"/>
+        </scene>
+        <!--Dubb Web View-->
+        <scene sceneID="PPm-6C-qSP">
+            <objects>
+                <viewController storyboardIdentifier="DubbWebViewController" id="1ed-Ok-ewA" userLabel="Dubb Web View" customClass="DubbWebViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="A44-9r-8gr"/>
+                        <viewControllerLayoutGuide type="bottom" id="eUS-VZ-DQE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="5rP-c3-dsY">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ypo-Fa-HUU">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="65"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Terms of Service" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aUB-HC-XRp">
+                                        <rect key="frame" x="81" y="31" width="159" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="cqR-H4-UYE"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h9O-4C-gN4">
+                                        <rect key="frame" x="8" y="31" width="22" height="22"/>
+                                        <state key="normal" image="Cancel">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="closeButtonTapped:" destination="1ed-Ok-ewA" eventType="touchUpInside" id="3ME-Ta-oLM"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.18823529410000001" green="0.18823529410000001" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="aUB-HC-XRp" firstAttribute="leading" secondItem="Ypo-Fa-HUU" secondAttribute="leading" constant="81" id="7F5-W8-ZT8"/>
+                                    <constraint firstAttribute="trailing" secondItem="aUB-HC-XRp" secondAttribute="trailing" constant="80" id="Y64-8d-r6x"/>
+                                    <constraint firstItem="aUB-HC-XRp" firstAttribute="top" secondItem="Ypo-Fa-HUU" secondAttribute="top" constant="31" id="tMa-Dc-qgD"/>
+                                    <constraint firstAttribute="height" constant="65" id="zhx-Jg-N0o"/>
+                                </constraints>
+                            </view>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UIp-6r-a4z">
+                                <rect key="frame" x="0.0" y="65" width="320" height="503"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.91749395720000004" green="0.91749395720000004" blue="0.91749395720000004" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="Ypo-Fa-HUU" firstAttribute="top" secondItem="5rP-c3-dsY" secondAttribute="top" id="80o-HD-P1x"/>
+                            <constraint firstItem="UIp-6r-a4z" firstAttribute="top" secondItem="Ypo-Fa-HUU" secondAttribute="bottom" id="Mhc-TX-YEa"/>
+                            <constraint firstAttribute="trailing" secondItem="Ypo-Fa-HUU" secondAttribute="trailing" id="NXB-ho-hrg"/>
+                            <constraint firstItem="Ypo-Fa-HUU" firstAttribute="leading" secondItem="5rP-c3-dsY" secondAttribute="leading" id="acF-fj-drp"/>
+                            <constraint firstAttribute="bottom" secondItem="UIp-6r-a4z" secondAttribute="bottom" id="kTt-1z-vFs"/>
+                            <constraint firstItem="UIp-6r-a4z" firstAttribute="leading" secondItem="5rP-c3-dsY" secondAttribute="leading" id="qCJ-DO-fPb"/>
+                            <constraint firstAttribute="trailing" secondItem="UIp-6r-a4z" secondAttribute="trailing" id="zS9-pz-FXA"/>
+                        </constraints>
+                    </view>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="titleLabel" destination="aUB-HC-XRp" id="A2j-SX-dYO"/>
+                        <outlet property="webView" destination="UIp-6r-a4z" id="Pi6-oQ-QqN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Wv8-JC-TjW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1410" y="1978"/>
         </scene>
     </scenes>
     <resources>

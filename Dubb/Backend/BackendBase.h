@@ -41,7 +41,7 @@ CompletionHandler:(void (^)(NSDictionary *result))handler;
 
 -(void) updateListing : (NSString*) listingID Parameters : (NSDictionary*) params CompletionHandler:(void (^)(NSDictionary *result))handler;
 
--(void) checkValidityOfUsername:(NSString *)userName CompletionHandler:(void (^)(NSDictionary *result))handler;
+-(void) checkValidityOfUsernameOrEmail:(NSString *)userNameOrEmail CompletionHandler:(void (^)(NSDictionary *result))handler;
 
 -(void) registerDeviceToken:(NSString *)deviceToken forUser:(NSString *)userID CompletionHandler:(void (^)(NSDictionary *result))handler;
 

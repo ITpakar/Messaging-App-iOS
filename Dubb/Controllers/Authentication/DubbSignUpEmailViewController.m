@@ -9,6 +9,7 @@
 #import "DubbSignUpEmailViewController.h"
 #import "TextFieldValidator.h"
 #import "M13Checkbox.h"
+#import "DubbWebViewController.h"
 #import "AppDelegate.h"
 
 #define REGEX_USER_NAME_LIMIT @"^.{3,10}$"
@@ -24,7 +25,9 @@
     __weak IBOutlet TextFieldValidator *txtLastName;
     __weak IBOutlet M13Checkbox *chkboxTogglePasswordSecureEntry;
     
+    IBOutlet M13Checkbox *chkboxToggleTermsOfService;
     BOOL isUserNameValid;
+    BOOL isEmailValid;
 }
 @property (strong, nonatomic) IBOutlet UILabel *alreadyMemberLabel;
 @property (strong, nonatomic) IBOutlet UIButton *signInButton;
@@ -53,6 +56,8 @@
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)replacementString {
     if (textField == txtUsername) {
         [self validateUserName:[[textField text] stringByReplacingCharactersInRange:range withString:replacementString]];
+    }else if (textField == txtUsername) {
+        [self validateEmail:[[textField text] stringByReplacingCharactersInRange:range withString:replacementString]];
     }
     
     return YES;
@@ -62,6 +67,8 @@
     
     if (textField == txtUsername) {
         [self validateUserName:textField.text];
+    } else {
+        [self validateEmail:textField.text];
     }
 }
 
@@ -71,7 +78,7 @@
     if ([userName isEqualToString:@""]) {
         return;
     }
-    [self.backend checkValidityOfUsername:userName CompletionHandler:^(NSDictionary *result) {
+    [self.backend checkValidityOfUsernameOrEmail:userName CompletionHandler:^(NSDictionary *result) {
         
         if (![result[@"response"] isKindOfClass:[NSNull class]]) {
             [txtUsername showErrorIconForMsg:@"This username is already taken"];
@@ -82,6 +89,23 @@
         
     }];
 }
+
+- (void)validateEmail:(NSString *)email {
+    if ([email isEqualToString:@""]) {
+        return;
+    }
+    [self.backend checkValidityOfUsernameOrEmail:email CompletionHandler:^(NSDictionary *result) {
+        
+        if (![result[@"response"] isKindOfClass:[NSNull class]]) {
+            [txtEmail showErrorIconForMsg:@"This email is already taken"];
+            isEmailValid = NO;
+        } else {
+            isEmailValid = YES;
+        }
+        
+    }];
+}
+
 
 -(void) initView {
     
@@ -109,21 +133,29 @@
     [chkboxTogglePasswordSecureEntry setCheckState:M13CheckboxStateChecked];
     [chkboxTogglePasswordSecureEntry addTarget:self action:@selector(checkChangedValue:) forControlEvents:UIControlEventValueChanged];
     [chkboxTogglePasswordSecureEntry setCheckState:M13CheckboxStateUnchecked];
+    
+    chkboxToggleTermsOfService.tintColor = [UIColor clearColor];
+    chkboxToggleTermsOfService.strokeColor = [UIColor whiteColor];
+    chkboxToggleTermsOfService.checkColor = [UIColor colorWithRed:0 green:167.0f/255.0f blue:10.0f/255.0f alpha:1.0f];
+    [chkboxToggleTermsOfService addTarget:self action:@selector(checkChangedValue:) forControlEvents:UIControlEventValueChanged];
+    [chkboxToggleTermsOfService setCheckState:M13CheckboxStateUnchecked];
     // Validation Criteria
     
     isUserNameValid = YES;
+    isEmailValid = YES;
     
     [txtUsername addRegx:REGEX_USER_NAME_LIMIT withMsg:@"User name needs to be between 3 and 10 characters"];
     [txtUsername addRegx:REGEX_USER_NAME withMsg:@"Only alpha numeric characters and _ are allowed"];
-    
     [txtEmail addRegx:REGEX_EMAIL withMsg:@"Enter valid email"];
-    
     [txtPassword addRegx:REGEX_PASSWORD_LIMIT withMsg:@"Password needs to be between 6 and 20 characters"];
 }
 
 - (void)checkChangedValue:(id)sender
 {
-    [self toggleTextFieldSecureEntry:txtPassword];
+    if (sender == chkboxTogglePasswordSecureEntry) {
+        [self toggleTextFieldSecureEntry:txtPassword];
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -146,8 +178,13 @@
     
     
     
+    BOOL isAgreedToTermsOfService = chkboxToggleTermsOfService.checkState == M13CheckboxStateChecked;
+    if (!isAgreedToTermsOfService) {
+        [self showMessage:@"Please read our terms of service and agree to it."];
+        return;
+    }
     
-    if ([txtUsername validate] && [txtEmail validate] && [txtPassword validate] && [txtFirstname validate] && [txtLastName validate] && isUserNameValid ) {
+    if ([txtUsername validate] && [txtEmail validate] && [txtPassword validate] && [txtFirstname validate] && [txtLastName validate] && isUserNameValid && isEmailValid ) {
         
         NSDictionary *params = @{ @"email":txtEmail.text,
                                   @"password":txtPassword.text,
@@ -187,8 +224,10 @@
 }
 - (IBAction)termsOfServiceButtonTapped:(id)sender {
     
-     [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"http://Dubb.co/terms"]];
-    
+    DubbWebViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"DubbWebViewController"];
+    vc.titleString = @"Terms of Service";
+    [self presentViewController:vc animated:YES completion:nil];
+
 }
 
 /*

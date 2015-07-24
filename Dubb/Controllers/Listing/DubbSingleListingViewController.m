@@ -15,6 +15,7 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 
 #import "ListingTopView.h"
+#import "DubbActivityProvider.h"
 #import "DubbAddonCell.h"
 #import "DubbGigQuantityCell.h"
 #import "ChatViewController.h"
@@ -110,8 +111,10 @@ enum DubbSingleListingViewTag {
 }
 - (IBAction)shareSheetButtonTapped:(id)sender{
     
-    NSString *textToShare = listingInfo[@"name"];
-    NSArray *objectsToShare = @[textToShare];
+    NSString *listingTitle = listingInfo[@"name"];
+    DubbActivityProvider *activityProvider = [[DubbActivityProvider alloc] initWithListingTitle:listingTitle];
+    
+    NSArray *objectsToShare = @[activityProvider, listingTitle];
     
     
     UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
@@ -131,8 +134,11 @@ enum DubbSingleListingViewTag {
     
     [activityVC setCompletionWithItemsHandler:^(NSString *act, BOOL done, NSArray *returnedItems, NSError *activity)
      {
-         NSString *ServiceMsg = @"Message Has Been Shared!";
-         [self showMessage:ServiceMsg];
+         if (done) {
+             NSString *ServiceMsg = @"Message Has Been Shared!";
+             [self showMessage:ServiceMsg];
+         }
+         
          
      }];
     
@@ -733,6 +739,8 @@ static bool liked = NO;
     profileImageView.clipsToBounds = YES;
     if (![[userInfo objectForKey:@"image"] isKindOfClass:[NSNull class]]) {
         [profileImageView sd_setImageWithURL:userInfo[@"image"][@"url"]];
+    } else {
+        [profileImageView setImage:[UIImage imageNamed:@"placeholder_image.png"]];
     }
     
     NSArray *images = listingInfo[@"images"];

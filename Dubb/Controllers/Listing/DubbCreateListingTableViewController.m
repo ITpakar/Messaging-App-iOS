@@ -181,12 +181,8 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     [self.baseServiceDescriptionTextView setPlaceholder:@"Provide an explanation of what are you offering."];
     if (self.listingDetail) {
         [self initViewWithValues];
-        if (addOns.count == 0) {
-            [addOns addObject:[NSMutableDictionary dictionaryWithDictionary:@{@"description":@"", @"price":@12}]];
-        }
-    } else{
-        [addOns addObject:[NSMutableDictionary dictionaryWithDictionary:@{@"description":@"", @"price":@12}]];
     }
+    [addOns addObject:[NSMutableDictionary dictionaryWithDictionary:@{@"description":@"", @"price":@12}]];
     [self setupImagesScrollView];
     
 }

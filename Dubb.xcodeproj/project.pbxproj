@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D0914301B61F08E001FF79E /* DubbActivityProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D09142F1B61F08E001FF79E /* DubbActivityProvider.m */; };
+		0D0914341B61F8D3001FF79E /* DubbWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0914331B61F8D3001FF79E /* DubbWebViewController.m */; };
 		0D1FA40C1ACA17EB00079C79 /* DubbCreateListingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D1FA4051ACA17EB00079C79 /* DubbCreateListingTableViewController.m */; };
 		0D1FA40D1ACA17EB00079C79 /* DubbServiceAreaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D1FA4071ACA17EB00079C79 /* DubbServiceAreaViewController.m */; };
 		0D1FA40E1ACA17EB00079C79 /* DubbServiceDescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D1FA4091ACA17EB00079C79 /* DubbServiceDescriptionViewController.m */; };
@@ -292,6 +294,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0D09142E1B61F08E001FF79E /* DubbActivityProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DubbActivityProvider.h; sourceTree = "<group>"; };
+		0D09142F1B61F08E001FF79E /* DubbActivityProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DubbActivityProvider.m; sourceTree = "<group>"; };
+		0D0914321B61F8D3001FF79E /* DubbWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DubbWebViewController.h; path = WebView/DubbWebViewController.h; sourceTree = "<group>"; };
+		0D0914331B61F8D3001FF79E /* DubbWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DubbWebViewController.m; path = WebView/DubbWebViewController.m; sourceTree = "<group>"; };
 		0D1FA4041ACA17EB00079C79 /* DubbCreateListingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DubbCreateListingTableViewController.h; path = Listing/DubbCreateListingTableViewController.h; sourceTree = "<group>"; };
 		0D1FA4051ACA17EB00079C79 /* DubbCreateListingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DubbCreateListingTableViewController.m; path = Listing/DubbCreateListingTableViewController.m; sourceTree = "<group>"; };
 		0D1FA4061ACA17EB00079C79 /* DubbServiceAreaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DubbServiceAreaViewController.h; path = Listing/DubbServiceAreaViewController.h; sourceTree = "<group>"; };
@@ -740,6 +746,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0D09142D1B61F081001FF79E /* ShareSheet */ = {
+			isa = PBXGroup;
+			children = (
+				0D09142E1B61F08E001FF79E /* DubbActivityProvider.h */,
+				0D09142F1B61F08E001FF79E /* DubbActivityProvider.m */,
+			);
+			name = ShareSheet;
+			sourceTree = "<group>";
+		};
+		0D0914311B61F775001FF79E /* WebView */ = {
+			isa = PBXGroup;
+			children = (
+				0D0914321B61F8D3001FF79E /* DubbWebViewController.h */,
+				0D0914331B61F8D3001FF79E /* DubbWebViewController.m */,
+			);
+			name = WebView;
+			sourceTree = "<group>";
+		};
 		0D1FA4101ACA183B00079C79 /* AFNetworking */ = {
 			isa = PBXGroup;
 			children = (
@@ -1257,6 +1281,7 @@
 		7C09A5D71AB20C2700218127 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				0D09142D1B61F081001FF79E /* ShareSheet */,
 				0D8C17361B56FCE200C3FC98 /* Utils */,
 				0DFAD7AA1B51F713008BF474 /* ListingImageView */,
 				0DFCB1891AFFDB3B001F2820 /* ListingTopView */,
@@ -1498,6 +1523,7 @@
 		7CA773CE1AB1C30000F6D631 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				0D0914311B61F775001FF79E /* WebView */,
 				0DAC05D11B2FD566007D4234 /* Profile */,
 				0D6B7D961B179DCD000B0352 /* Orders */,
 				0D6B7D951B179DC4000B0352 /* Sales */,
@@ -1993,6 +2019,7 @@
 				0D1FA59F1ACA183C00079C79 /* ELCAlbumPickerController.m in Sources */,
 				0D1FA6541ACA183D00079C79 /* RECommonFunctions.m in Sources */,
 				0D8C17511B57030E00C3FC98 /* NSString+Helpers.m in Sources */,
+				0D0914341B61F8D3001FF79E /* DubbWebViewController.m in Sources */,
 				0D1FA68F1ACA18DA00079C79 /* SelectedLocation.m in Sources */,
 				0D1FA40D1ACA17EB00079C79 /* DubbServiceAreaViewController.m in Sources */,
 				DC2BE6621B2F3F3B009B7303 /* DubbSubCategoryController.m in Sources */,
@@ -2027,6 +2054,7 @@
 				DC63FC761AD7B5EA00A505B8 /* DubbOverlayProgressView.m in Sources */,
 				7C09A5FB1AB29E4B00218127 /* DubbRootViewController.m in Sources */,
 				0D1FA59C1ACA183C00079C79 /* AFURLResponseSerialization.m in Sources */,
+				0D0914301B61F08E001FF79E /* DubbActivityProvider.m in Sources */,
 				0DFAD7A91B4FEF11008BF474 /* TLTagsControl.m in Sources */,
 				0DFAD7AD1B51F78C008BF474 /* ListingImageView.m in Sources */,
 				0D1FA6711ACA183D00079C79 /* KASlideShow.m in Sources */,

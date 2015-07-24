@@ -14,6 +14,7 @@
 #import "UserVoice.h"
 #import "DubbSalesOrdersViewController.h"
 #import "DubbMyListingsViewController.h"
+#import "DubbWebViewController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
 @interface DubbMenuViewController () <UVDelegate>{
@@ -184,7 +185,10 @@
                 
             }
             break;
-            
+        case 7:
+            vc = [self.storyboard instantiateViewControllerWithIdentifier:@"DubbWebViewController"];
+            ((DubbWebViewController *)vc).titleString = @"Privacy";
+            [contentVC setViewControllers:@[vc] animated:NO];
         default:
             break;
     }

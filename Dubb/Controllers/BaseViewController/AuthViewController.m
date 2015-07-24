@@ -75,16 +75,13 @@
     // If the session state is any of the two "open" states when the button is clicked
     [[User currentUser] initialize];
     
-    if (FBSession.activeSession.state == FBSessionStateOpen || FBSession.activeSession.state == FBSessionStateOpenTokenExtended ||
-        FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded ) {
+    if ( FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded ) {
         [FBSession.activeSession closeAndClearTokenInformation];
-        [FBSession openActiveSessionWithReadPermissions:@[@"public_profile", @"email", @"user_birthday"] allowLoginUI:NO completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+        [FBSession openActiveSessionWithReadPermissions:@[@"public_profile", @"email"] allowLoginUI:NO completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
             [self FBSessionStateChanged:session state:status error:error];
         }];
     } else {
-        // Open a session showing the user the login UI
-        // You must ALWAYS ask for public_profile permissions when opening a session
-        [FBSession openActiveSessionWithReadPermissions:@[@"public_profile", @"email", @"user_birthday"]
+        [FBSession openActiveSessionWithReadPermissions:@[@"public_profile", @"email"]
                                            allowLoginUI:YES
                                       completionHandler:
          ^(FBSession *session, FBSessionState state, NSError *error) {
@@ -92,7 +89,10 @@
              [self FBSessionStateChanged:session state:state error:error];
              
          }];
+        
     }
+    
+
 }
 
 

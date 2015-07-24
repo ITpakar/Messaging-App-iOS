@@ -144,9 +144,9 @@ static PHPBackend   *sharedConnection;
 }
 
 
--(void) checkValidityOfUsername:(NSString *)userName CompletionHandler:(void (^)(NSDictionary *result))handler{
+-(void) checkValidityOfUsernameOrEmail:(NSString *)userNameOrEmail CompletionHandler:(void (^)(NSDictionary *result))handler{
     
-    NSString *apiPath = [NSString stringWithFormat:@"%@%@/%@", APIURL, @"user", userName];
+    NSString *apiPath = [NSString stringWithFormat:@"%@%@/%@", APIURL, @"user", userNameOrEmail];
     
     [self accessAPI:apiPath Parameters:nil CompletionHandler:^(NSDictionary *result, NSData *data, NSError *error) {
         if (handler) {

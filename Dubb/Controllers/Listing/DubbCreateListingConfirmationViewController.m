@@ -9,7 +9,7 @@
 
 #import "DubbCreateListingConfirmationViewController.h"
 
-#define commonShareText(listingTitle)  [NSString stringWithFormat:@"Checkout %@ - @dubbapp creative freelancer marketplace http://www.dubb.com/app", listingTitle]
+#define commonShareText(listingTitle)  [NSString stringWithFormat:@"Checkout this listing %@. Download app at http://www.dubb.com/app", listingTitle]
 #define disablingReasonText  @"For your Post to go live, we require that you share this through at least one of the of the channels listed on this page"
 
 @interface DubbCreateListingConfirmationViewController () {
@@ -76,7 +76,7 @@
         SLComposeViewController *tweetSheet = [SLComposeViewController
                                                composeViewControllerForServiceType:SLServiceTypeTwitter];
 
-        [tweetSheet setInitialText:[NSString stringWithFormat:@"Checkout %@ - @dubbapp creative freelancer marketplace http://www.dubb.com/app", self.listingTitle]];
+        [tweetSheet setInitialText:[NSString stringWithFormat:@"Checkout %@ - @dubbapp creative freelancer marketplace. Download http://www.dubb.com/app", self.listingTitle]];
         [self presentViewController:tweetSheet animated:YES completion:nil];
         tweetSheet.completionHandler = completionHandler;
     }else{
@@ -103,9 +103,9 @@
 }
 - (IBAction)shareOnEmailButtonTapped:(id)sender {
     // Email Subject
-    NSString *emailTitle = [NSString stringWithFormat:@"%@ - Dubb Mobile Marketplace for Creative Freelancers -", self.listingTitle];
+    NSString *emailTitle = [NSString stringWithFormat:@"Checkout this listing %@ On Dubb", self.listingTitle];
     // Email Content
-    NSString *messageBody = [NSString stringWithFormat:@"Checkout %@ - @dubbapp creative freelancer marketplace http://www.dubb.com/app", self.listingTitle];
+    NSString *messageBody = @"You can download the app at http://www.dubb.com/app";
     // To address
     NSArray *toRecipents = [NSArray arrayWithObject:@""];
     
