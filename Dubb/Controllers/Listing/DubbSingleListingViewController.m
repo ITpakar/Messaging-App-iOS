@@ -93,6 +93,11 @@ enum DubbSingleListingViewTag {
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (IBAction)bookNowButtonTapped:(id)sender {
+    Boolean isAnonymous = [[NSString stringWithFormat:@"%@", [User currentUser].userID] isEqualToString:@""];
+    
+    if(isAnonymous){
+        [self showLoginView];
+    }
     
     if ([[User currentUser].userID integerValue] == [listingInfo[@"user_id"] integerValue]) {
         [self showMessage:@"You can't book your own service!"];
@@ -348,6 +353,13 @@ static bool liked = NO;
 }
 
 - (void)askQuestionButtonTapped:(id)sender {
+
+    Boolean isAnonymous = [[NSString stringWithFormat:@"%@", [User currentUser].userID] isEqualToString:@""];
+    
+    if(isAnonymous){
+        [self showLoginView];
+        return;
+    }
     
     if (isAskingQuestion == NO) {
         
@@ -720,7 +732,7 @@ static bool liked = NO;
     UIButton *askQuestionButton = (UIButton *)[cell viewWithTag:kDubbSingleListingSectionSellerIntroductionAskQuestionButtonTag];
     __weak UILabel *locationLabel = (UILabel *)[cell viewWithTag:kDubbSingleListingSectionSellerIntroductionLocationLabelTag];
     
-    askQuestionButton.enabled = ![[NSString stringWithFormat:@"%@", [User currentUser].userID] isEqualToString:@""];
+//    askQuestionButton.enabled = ![[NSString stringWithFormat:@"%@", [User currentUser].userID] isEqualToString:@""];
     
     
     NSDictionary *userInfo = listingInfo[@"user"];
