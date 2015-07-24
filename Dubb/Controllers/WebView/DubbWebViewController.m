@@ -10,7 +10,8 @@
 
 @interface DubbWebViewController ()
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
-@property (strong, nonatomic) IBOutlet UIWebView *webView;
+@property (strong, nonatomic) IBOutlet UITextView *privacyTextView;
+@property (strong, nonatomic) IBOutlet UITextView *termsOfServiceTextView;
 
 @end
 
@@ -20,15 +21,11 @@
     [super viewDidLoad];
     
     self.titleLabel.text = self.titleString;
-    
-    NSURL *url;
-    if ([self.title isEqualToString:@"Terms of Service"]) {
-        url = [NSURL URLWithString:@"http://dubb.com/terms.php"];
+    if ([self.title isEqualToString:@"Privacy"]) {
+        self.privacyTextView.hidden = NO;
     } else {
-        url = [NSURL URLWithString:@"http://dubb.com/privacy.php"];
+        self.privacyTextView.hidden = YES;
     }
-    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
-    [self.webView loadRequest:urlRequest];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -36,12 +33,7 @@
     // Dispose of any resources that can be recreated.
 }
 - (IBAction)closeButtonTapped:(id)sender {
-    if ([self.titleString isEqualToString:@"Terms of Service"]) {
-        [self dismissViewControllerAnimated:YES completion:nil];
-    } else {
-        [self.sideMenuViewController presentLeftMenuViewController];
-    }
-    
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 /*

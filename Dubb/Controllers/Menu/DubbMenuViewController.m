@@ -186,8 +186,7 @@
             }
             break;
         case 7:
-            vc = [self.storyboard instantiateViewControllerWithIdentifier:@"DubbWebViewController"];
-            ((DubbWebViewController *)vc).titleString = @"Privacy";
+            vc = [self.storyboard instantiateViewControllerWithIdentifier:@"DubbAboutViewController"];
             [contentVC setViewControllers:@[vc] animated:NO];
         default:
             break;

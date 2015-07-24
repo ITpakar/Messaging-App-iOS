@@ -881,8 +881,8 @@ Dubb!</string>
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
-                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="By signing up, you agree to the" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UGs-oP-yKW">
-                                                        <rect key="frame" x="22" y="264" width="277" height="38"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Agree to the" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UGs-oP-yKW">
+                                                        <rect key="frame" x="67" y="345" width="99" height="18"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
@@ -951,7 +951,11 @@ Dubb!</string>
                                                         </connections>
                                                     </textField>
                                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nBy-z9-biz" customClass="M13Checkbox">
-                                                        <rect key="frame" x="46" y="230" width="160" height="20"/>
+                                                        <rect key="frame" x="38" y="230" width="160" height="20"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ROS-kX-fX1" customClass="M13Checkbox">
+                                                        <rect key="frame" x="38" y="352" width="21" height="20"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </view>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="First Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8bo-jZ-pFZ" customClass="TextFieldValidator">
@@ -986,7 +990,7 @@ Dubb!</string>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wSf-yI-Af3">
-                                                        <rect key="frame" x="74" y="301" width="171" height="38"/>
+                                                        <rect key="frame" x="168" y="343" width="132" height="24"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                         <state key="normal" title="Terms of Service">
                                                             <color key="titleColor" red="0.0" green="0.8803710938" blue="0.051284325899999997" alpha="1" colorSpace="calibratedRGB"/>
@@ -1006,10 +1010,45 @@ Dubb!</string>
                                                             <action selector="termsOfServiceButtonTapped:" destination="Dad-qT-83G" eventType="touchUpInside" id="TB6-W0-0f7"/>
                                                         </connections>
                                                     </button>
-                                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ROS-kX-fX1" customClass="M13Checkbox">
-                                                        <rect key="frame" x="46" y="310" width="21" height="20"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </view>
+                                                    <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="and" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fiD-fo-93y">
+                                                        <rect key="frame" x="66" y="362" width="36" height="20"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <nil key="highlightedColor"/>
+                                                        <size key="shadowOffset" width="0.0" height="0.0"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
+                                                                <size key="value" width="1" height="1"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
+                                                                <integer key="value" value="3"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                                                                <integer key="value" value="1"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </label>
+                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9JJ-qh-JFA">
+                                                        <rect key="frame" x="101" y="366" width="64" height="16"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                        <state key="normal" title="Privacy">
+                                                            <color key="titleColor" red="0.0" green="0.8803710938" blue="0.051284325899999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
+                                                                <size key="value" width="1" height="1"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
+                                                                <integer key="value" value="3"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                                                                <integer key="value" value="1"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="privacyButtonTapped:" destination="Dad-qT-83G" eventType="touchUpInside" id="jRN-O2-XXI"/>
+                                                        </connections>
+                                                    </button>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
@@ -6199,15 +6238,6 @@ Dubb!</string>
                                                     <outletCollection property="gestureRecognizers" destination="7c6-KU-FrL" appends="YES" id="MEy-Ch-HJ0"/>
                                                 </connections>
                                             </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PAYMENTS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bqr-Qo-tce">
-                                                <rect key="frame" x="1" y="323" width="93" height="21"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="21" id="QsO-oH-rMv"/>
-                                                    <constraint firstAttribute="width" constant="93" id="wDH-J5-4yP"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u7Q-E6-zcW" userLabel="Sign Out View Group">
                                                 <rect key="frame" x="0.0" y="438" width="304" height="32"/>
                                                 <subviews>
@@ -6274,6 +6304,15 @@ Dubb!</string>
                                                     <outlet property="delegate" destination="9Ho-ax-mf8" id="ab1-Vg-aAm"/>
                                                 </connections>
                                             </textView>
+                                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PAYMENTS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bqr-Qo-tce">
+                                                <rect key="frame" x="1" y="323" width="93" height="21"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="21" id="QsO-oH-rMv"/>
+                                                    <constraint firstAttribute="width" constant="93" id="wDH-J5-4yP"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" red="0.91749395720000004" green="0.91749395720000004" blue="0.91749395720000004" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -6407,32 +6446,399 @@ Dubb!</string>
                                     <constraint firstAttribute="height" constant="65" id="zhx-Jg-N0o"/>
                                 </constraints>
                             </view>
-                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UIp-6r-a4z">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="COC-Z7-vit">
                                 <rect key="frame" x="0.0" y="65" width="320" height="503"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </webView>
+                                <color key="backgroundColor" red="0.91749395720000004" green="0.91749395720000004" blue="0.91749395720000004" alpha="1" colorSpace="calibratedRGB"/>
+                                <mutableString key="text">GENERAL TERMS AND CONDITIONS OF DUBB, A SERVICE BY ILLUMIFIED.
+
+These general terms and conditions regulate the services, rights and duties between you, the customer (hereafter: You or Customer) and Dubb, (hereafter: Dubb)
+
+1.) Service Provided
+Dubb facilitates a service, which allows individuals to sell and/or buy services from other Dubb customers, using the Dubb website and app.
+
+On Dubb everyone can create a free profile and post as many gigs (jobs) as they like. Seller may post the same gig only once. Duplicated or very similiar gigs will be deleted. Gigs can be priced from $20 United States Dollars.
+
+Only registered users can buy and sell on Dubb, registration is free of charge. There is only one account allowed per person. Each user must have a unique Paypal/Stripe account. Using the same Paypal or Stripe account for more than one user is not accepted. Registering multiple accounts will get the account permanently banned.
+
+2.) Services aka Gigs
+Buyers are granted all rights for the delivered work, unless otherwise specified by the seller in the gig description.
+
+Gigs must not contain: Adult material or X-rated services, competing services and any other illegal service or product. Software of any kind cannot be offered for sale on Dubb, however, you may offer the service of “installing or setting up” some kind of software. Dubb reserves the right to decline and delete any gig without a reason stated.
+
+Example of acceptable Gigs:
+
+– Tennis lessons from a pro tennis player.
+– I am the magician for your next party.
+– Learn how to meditate with a certified meditation therapist.
+
+Example of unacceptable Gig:
+
+— Add 12,000 Twitter Followers Or 1,000 Instagram followers/likes Or 5000 Facebook likes Or 2,000 Youtube views
+If you have any questions about this policy please contact support.
+
+3.) Buyer Protection
+
+Dubb invests a lot of time and effort into making sure all gigs on Dubb meet our Quality Guidelines. Incomplete orders will be cancelled and credited to the Buyer´s Dubb account balance.
+
+4.) Terms of Payment
+All gigs must be paid through PayPal, Stripe, or Dubb balance at the time of ordering. Dubb holds the payment in escrow and pays it to the Seller after the Buyer has accepted the gig. Dubb collects a 20% service fee on all transactions.
+
+Users are not permitted to offer or accept payments using any method other than through the Dubb system. Gigs should be ordered using the “Order Now” button.
+
+5.) Order Procedure
+After payment has cleared, the Seller will be notified about the gig and start working. Buyer will be notified of order status changes by email. After Buyer accepts gig, the payment will be credited to the Seller’s account. Users are not permitted to offer or accept to communicate with other Dubb users outside of the Dubb messaging system. Doing so, will get the account blocked permanently.
+
+6.) Late Delivery
+If an order delivery is past due, Seller will receive a daily reminder for seven days. If Seller fails to complete order within this seven day grace period, the order will be automatically cancelled and the money refunded to the Buyer´s Dubb account balance. Late delivery has a negative effect on a Seller’s rating and is only tolerated once. Repeat offenders will have their accounts suspended.
+
+7.) Mutual Order Cancellation
+Both, Buyer and Seller may at any time mutually cancel the order without a negative effect on the seller’s rating. Money from cancellations will be refunded to the Buyer´s Dubb account balance.
+
+8.) Delivering Orders
+Dubb shall not be held liable for quality of gigs delivered. Buyers must choose carefully who they order from and should always check rating and comments from other users. All disputes are to be solved between the Buyer and the Seller directly: if a Buyer is unhappy with an order, he/she should reject the delivered work and insist on the gig delivery as described in the gig description. Buyer should also leave a negative rating. The Dubb Buyer Protection will cancel late orders automatically and refund the purchase to the Buyer´s Dubb account balance.
+
+9.) Disputes
+We encourage our buyers and sellers to resolve issues between themselves. If for any reason this process fails, you can contact us at support@Dubb.co If necessary, refunds will be deposited into the Buyer´s Dubb account balance. PayPal or Stripe refund requests are not accepted.
+
+Dubb reserves the right to cancel and refund any order at any time without a reason.
+
+10.) Withdrawing Funds
+Funds can be withdrawn to a Paypal or Stripe account or to the Seller´s Dubb account balance 14 days after a gig was marked as complete for Gig Level 1 and Gig Level 2 Sellers. Gig Level 3 Sellers will be able to instantly withdraw funds after gig completion. Please make sure your Paypal or Stripe account is eligible to receive payments before withdrawing funds from your Dubb account. To be eligible for withdrawal, you must have a minimum balance of $4.00. Please allow up to 3 business days for payout requests to be processed. Read more about Gig Levels
+
+11.) Liability:
+Dubb is an ecommerce platform and micro job service provider and is not directly involved in the gigs and has no direct control over the quality of the gig provided.
+
+12.) Limitations of liability:
+Under no circumstance shall Dubb be liable for damages exceeding the purchase price of the gig. Account credits only, no Paypal or Stripe refunds.
+
+13.) Payment Disputes
+You agree to never file a payment dispute with Paypal or Stripe. Contact our Dubb support team at support@Dubb.com to help you solve payment issues. Customers who file Paypal or Stripe disputes will have their Dubb accounts closed and be permanently banned from using Dubb in the future.
+
+14.) Unsolicited Emailing
+With the exception of certain verified opt-in mailings, Dubb prohibits any form of unsolicited bulk emailing (commonly referred to as “spamming”) by any user, either related or unrelated to Dubb. User’s participation in verified opt-in mailings shall only be permitted upon prior written consent of Dubb. For the purpose of this Agreement, spamming also includes any similar, abusive behavior including, but not limited to automatically sending scripted text (and website URL) disguised as “chat” into any third party chat room, bulletin board or website. Any report of spamming will be investigated immediately, and Dubb may, in its sole discretion, suspend the account of the User in question pending the review or investigation of the reported spamming. Dubb will terminate any user found, in its sole discretion, to have engaged in this prohibited behavior, and the termination provisions above will apply. Dubb reserves the right to take any other action it deems necessary in this regard, and further reserves the right to change these standards from time to time, to be effective upon notice to User.
+
+15.) Notifications
+All notifications have to be made in writing and can be transmitted via email to admin@dubb.co
+
+16.) Acceptance
+Customer fully accepts these terms &amp; conditions upon use of the Dubb.com website. Dubb may make changes to its Terms of Services and will make a copy of the latest version available at http://Dubb.com/terms_of_service You understand and agree that Dubb will treat your use as acceptance of the updated Terms of Service.
+
+17.) Severability clause:
+Should one of the contract clauses become invalid, the validity of the remaining provisions as a whole shall not be affected. Instead of the invalid clause, what comes closest to the economical purpose of the clause is then agreed. Place of jurisdiction and place of fulfillment, to the extent permitted by law is Panama, Republic of Panama.
+
+Amendment
+
+THE FOLLOWING APPLIES TO ALL Dubb SELLERS, AND CONCERNS THE TRANSMISSION OF UNSOLICITED (SPAM) E-MAILS IT DOES NOT WAIVE OR SUBSTITUTE THE SPAM POLICY DESCRIBED IN THE TERMS AND CONDITIONS BUT RATHER ADDS TO IT:
+
+THE “CAN-SPAM ACT OF 2003″ (THE “ACT”), WHICH BECAME EFFECTIVE JANUARY 1, 2004, APPLIES TO ANY COMMERCIAL E-MAILS SENT TO ANY U.S. RECIPIENT. FULL COMPLIANCE WITH THE ACT IS REQUIRED AS A TERM OF THIS AGREEMENT, AND USERS ARE RESPONSIBLE FOR READING AND UNDERSTANDING ALL PROVISIONS THEREOF. THE ACT IS AVAILABLE AT:
+
+http://www.spamlaws.com/
+
+USERS MUST COMPLY WITH THE ACT, AND ANY LIABILITY/DAMAGES THAT ARISE FROM FAILING TO COMPLY WILL BE THE SOLE RESPONSIBILITY OF THE USER. THE FOLLOWING OUTLINES THE BASIC REQUIREMENTS OF THE ACT, BUT IS INTENDED ONLY TO SERVE AS A GUIDELINE, AND NOT AS A REPLACEMENT FOR READING AND UNDERSTANDING THE ACT ITSELF.
+
+THIS IS NOT INTENDED TO SERVE AS LEGAL ADVICE, AND IT IS RECOMMENDED THAT YOU AND YOUR LEGAL COUNSEL DETERMINE FOR YOURSELVES HOW BEST TO COMPLY.
+
+ALL COMMERCIAL E-MAILS THE ACT PROHIBITS THE SENDING OF ANY COMMERCIAL E-MAILS (SOLICITED OR UNSOLICITED) THAT CONTAIN THE FOLLOWING (IT IS REQUIRED THAT USERS READ AND UNDERSTAND THE DEFINITIONS RELATED TO THESE REQUIREMENTS IN THE ACT ITSELF):
+
+1. FALSE OR MISLEADING SUBJECT AND/OR HEADER INFORMATION.
+
+2. SUBJECT AND/OR HEADER INFORMATION THAT INCLUDES AN ORIGINATING E-MAIL ADDRESS, DOMAIN NAME OR IP ADDRESS OBTAINED THROUGH FALSE OR FRAUDULENT MEANS, BUT IS OTHERWISE ACCURATE.
+
+3. SUBJECT AND/OR HEADER INFORMATION THAT FAILS TO ACCURATELY IDENTIFY THE COMPUTER USED TO ORIGINATE THE E-MAIL FOR THE PURPOSE OF DISGUISING THE ORIGIN OF THE E-MAIL.
+
+UNSOLICITED COMMERCIAL E-MAIL ANY UNSOLICITED COMMERCIAL E-MAIL MUST INCLUDE:
+
+1. CLEAR AND CONSPICUOUS IDENTIFICATION OF THE E-MAIL AS AN “ADVERTISEMENT” OR “SOLICITATION.”
+
+2. NOTICE THAT THE RECIPIENT MAY ELECT NOT TO RECEIVE, OR “OPT-OUT,” OF ADDITIONAL E-MAIL.
+
+3. A RETURN E-MAIL ADDRESS OR OTHER EFFECTIVE INTERNET MECHANISM THE E-MAIL RECIPIENT MAY USE TO NOTIFY YOU THAT THE RECIPIENT WISHES TO “OPT-OUT” (DOES NOT WISH TO RECEIVE) OF ADDITIONAL COMMERCIAL E-MAILS.
+
+4. A PHYSICAL POSTAL ADDRESS OF THE SENDER.
+
+THE “OPT-OUT” MECHANISM REQUIRED UNDER THIS PROVISION MUST BE AVAILABLE FOR AT LEAST 30 DAYS AFTER THE TRANSMISSION OF THE ORIGINAL E-MAIL. ADDITIONALLY, ANY OPT-OUT REQUESTS MUST BE HONORED WITHIN 10 DAYS OF THE RECEIPT OF SUCH REQUEST.
+
+YOU MAY NOT SELL OR OTHERWISE TRANSFER TO ANYONE ELSE THE E-MAIL ADDRESSES OF THOSE PERSONS WHO ELECT TO OPT-OUT.
+
+ADDITIONAL PROHIBITED ACTIVITIES THE FOLLOWING ADDITIONAL ACTIVITIES ARE PROHIBITED BY THE ACT:
+
+1. TRANSMITTING COMMERCIAL E-MAIL USING E-MAIL ADDRESSES OBTAINED FROM WEBSITES, PROPRIETARY ONLINE SERVICES, OR OTHER BUSINESS OR ENTITY THAT HAS REPRESENTED TO ITS USERS THAT IT WILL NOT SHARE, SELL OR OTHERWISE TRANSFER THE RECIPIENTS’ E-MAIL ADDRESSES OR OTHER INFORMATION TO ANOTHER PARTY.
+
+2. TRANSMITTING COMMERCIAL E-MAIL USING E-MAIL ADDRESSES OBTAINED USING SOFTWARE OR SOME OTHER DEVICE THAT GENERATES POSSIBLE E-MAIL ADDRESSES BY COMBINING NAMES, LETTERS AND/OR NUMBERS (SUCH AS A RANDOM EMAIL ADDRESS GENERATOR).
+
+3. USING ANY COMPUTER WITHOUT AUTHORIZATION TO SEND E-MAIL MESSAGES THAT VIOLATE ANY PROVISION OF THE ACT.
+
+4. USING A COMPUTER TO RELAY OR RETRANSMIT E-MAIL, WITH THE INTENT TO DECEIVE OR MISLEAD RECIPIENTS, INTERNET SERVICE PROVIDERS, OR OTHERS REGARDING THE ORIGIN OF THE E-MAIL.
+
+5. USING A SCRIPT OR OTHER AUTOMATED MEANS TO CREATE AND/OR REGISTER E-MAIL ACCOUNTS OR OTHER ONLINE ACCOUNTS FROM WHICH COMMERCIAL E-MAIL IN VIOLATION OF THE ACT WILL BE SENT OR FORWARDED.
+
+IMPORTANT
+
+COMPLIANCE WITH THE ACT BECAME AN EXPRESS CONDITION OF PARTICIPATION AS AN USER ON THE DATE IT BECAME EFFECTIVE, AS THE USER AGREEMENT HAS ALWAYS REQUIRED COMPLIANCE WITH APPLICABLE LAW. IT IS IMPORTANT TO NOTE, HOWEVER, THAT THESE REQUIREMENTS ARE IN ADDITION TO OTHER ANTI-SPAM PROVISIONS CONTAINED IN THESE TERMS.
+
+FAILURE TO COMPLY WITH THE ACT WILL RESULT IN THE IMMEDIATE TERMINATION OF YOUR ACCOUNT, AND YOU AGREE TO INDEMNIFY, DEFEND, AND HOLD DUBB HARMLESS, AS WELL AS ITS AGENTS, EMPLOYEES AND REPRESENTATIVES, FROM ANY COST, EXPENSE, LAWSUIT, CLAIM, OR LIABILITY OF WHATEVER NATURE WHATSOEVER ARISING OUT OF ANY VIOLATION OF THE ACT, IN ADDITION TO YOUR AGREEMENT TO INDEMNIFY Dubb AS PROVIDED FOR ELSEWHERE IN THIS AGREEMENT.</mutableString>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ArX-G5-xWm">
+                                <rect key="frame" x="0.0" y="65" width="320" height="503"/>
+                                <color key="backgroundColor" red="0.91749395720000004" green="0.91749395720000004" blue="0.91749395720000004" alpha="1" colorSpace="calibratedRGB"/>
+                                <mutableString key="text">We take the protection of your personal data very seriously. Wherever we collect, process or use (“use”) your personal data for the purposes of the services offered by Dubb, this shall take place within the scope of the services offered by Dubb at Dubb’s registered office.
+
+We will use the personal data that you disclose to us to provide the services offered by Dubb on the basis of and in compliance with the valid data protection regulations contained in Act No. 428/2002 Coll. (Data Protection Act). This includes, in particular, allowing you to access the content of the Dubb website, managing the content uploaded by you on your behalf, providing you with information about this, and providing you with other services with your agreement, where applicable.
+
+Where Dubb is used by a natural person, they shall be obliged to disclose or make the following personal data accessible to Dubb upon registering and when using Dubb services:
+Email
+Username
+Password
+Paypal or Alertpay username
+Payout details
+
+By registering and accepting the terms and conditions of use, the user consents to his or her personal data being processed in accordance with according law and he or she also consents to this data being used and stored by Dubb for the purposes of providing and guaranteeing Dubb services.
+
+The user shall grant his or her consent in accordance with the DPA for the entire duration of his or her registration and use of the Dubb services. If the user’s member account is deleted for any reason, or if any other use of the Dubb services is terminated for any reason, Dubb will ensure that the personal data disclosed to it by the user is deleted.
+
+You may withdraw your consent issued once in accordance with the relevant provisions of the DPA in writing at any time and/or object to the future use of your data in writing. Your consent will lapse one month after the delivery of written withdrawal to Dubb’s address given above.
+
+We may analyse pseudonymised usage profiles for advertising and market research purposes and to improve our services to the extent permitted by law, but will only do so if you have not asserted your legal right to object to your data being used in such a way.
+
+We will not pass on your personal data to third parties unless this is necessary to provide the services offered, or if transmission is otherwise permitted by relevant statutory provisions, in particular by the DPA.
+
+Some of our services require the use of cookies. Cookies are small amounts of data stored on your computer by your web browser. Cookies can be used to store information about your use of our website. Most browsers accept cookies by default. You can adjust your browser to reject cookies or to ask you to confirm first. If you reject cookies, you may not be able to use all of the functions of our website.
+
+Our website uses Google AdSense, a web service offered by Google Inc. USA (“Google”) which places third-party advertisements (“ads”) on our website. We therefore wish to inform you that Google may place cookies on your browser and analyse these, and may use web beacons (small invisible image files) to gather information. The information generated by the cookies and/or web beacons will be transmitted to a Google server in the USA and processed there.
+
+Google uses DoubleClick DART cookies to gather information about your use of our website so that ads can be targeted to your interests (interest-based advertising). You can opt out of Double Click DART cookies on the Google website (www.google.co.uk) by selecting “Advertising and Privacy” in Google’s Privacy Centre and following the instructions for opting out shown there.
+Cookies from media agencies are used to analyse the use of online advertising and to present ads targeted to your interests and preferences to you on our website. Furthermore, they allow media agencies to address their advertiser’s target group as precisely as possible and without wastage. Anonymous user statistics are gathered for this purpose, for instance, and the data is used for market research purposes. Individual users cannot be identified from this information. You can opt out of the use of these cookies on the participating media agencies’ websites by following the instructions shown there.
+
+Third party vendors, including Google, show our ads on sites on the internet.
+
+Third party vendors, including Google, use cookies to serve ads based on a user’s prior visits to our website.
+
+Users may opt out of Google’s use of cookies by visiting the Google advertising opt-out page () or the Network Advertising Initiative opt-out page ()
+
+You can also disable third-party cookies (e.g. Google cookies, cookies from media agencies) by adjusting your browser settings accordingly. If you do so, you may not be able to use all of the services and/or functions offered by our website, however.
+
+You have the right to view your personal data and user account settings at any time, and to correct, add to, or delete these.
+
+Please note that our services may not be used anonymously. This is the only way we can ensure that our terms and conditions of use are adhered to.</mutableString>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" red="0.91749395720000004" green="0.91749395720000004" blue="0.91749395720000004" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="ArX-G5-xWm" firstAttribute="top" secondItem="Ypo-Fa-HUU" secondAttribute="bottom" id="3nE-9x-C2W"/>
+                            <constraint firstAttribute="bottom" secondItem="COC-Z7-vit" secondAttribute="bottom" id="6oj-4O-9Ig"/>
+                            <constraint firstItem="COC-Z7-vit" firstAttribute="leading" secondItem="5rP-c3-dsY" secondAttribute="leading" id="6pj-nj-e9M"/>
+                            <constraint firstItem="ArX-G5-xWm" firstAttribute="top" secondItem="Ypo-Fa-HUU" secondAttribute="bottom" id="7vJ-8f-681"/>
                             <constraint firstItem="Ypo-Fa-HUU" firstAttribute="top" secondItem="5rP-c3-dsY" secondAttribute="top" id="80o-HD-P1x"/>
-                            <constraint firstItem="UIp-6r-a4z" firstAttribute="top" secondItem="Ypo-Fa-HUU" secondAttribute="bottom" id="Mhc-TX-YEa"/>
+                            <constraint firstAttribute="bottom" secondItem="ArX-G5-xWm" secondAttribute="bottom" id="Bec-Qv-wib"/>
+                            <constraint firstItem="eUS-VZ-DQE" firstAttribute="top" secondItem="ArX-G5-xWm" secondAttribute="bottom" id="HI2-7p-Hpd"/>
+                            <constraint firstAttribute="trailing" secondItem="COC-Z7-vit" secondAttribute="trailing" id="JtG-Jr-1M3"/>
                             <constraint firstAttribute="trailing" secondItem="Ypo-Fa-HUU" secondAttribute="trailing" id="NXB-ho-hrg"/>
+                            <constraint firstItem="ArX-G5-xWm" firstAttribute="leading" secondItem="5rP-c3-dsY" secondAttribute="leading" id="Pcw-9P-j3N"/>
+                            <constraint firstAttribute="trailing" secondItem="ArX-G5-xWm" secondAttribute="trailing" id="VVU-7r-mCt"/>
                             <constraint firstItem="Ypo-Fa-HUU" firstAttribute="leading" secondItem="5rP-c3-dsY" secondAttribute="leading" id="acF-fj-drp"/>
-                            <constraint firstAttribute="bottom" secondItem="UIp-6r-a4z" secondAttribute="bottom" id="kTt-1z-vFs"/>
-                            <constraint firstItem="UIp-6r-a4z" firstAttribute="leading" secondItem="5rP-c3-dsY" secondAttribute="leading" id="qCJ-DO-fPb"/>
-                            <constraint firstAttribute="trailing" secondItem="UIp-6r-a4z" secondAttribute="trailing" id="zS9-pz-FXA"/>
+                            <constraint firstAttribute="trailing" secondItem="ArX-G5-xWm" secondAttribute="trailing" id="eCi-r5-cBy"/>
+                            <constraint firstItem="COC-Z7-vit" firstAttribute="top" secondItem="Ypo-Fa-HUU" secondAttribute="bottom" id="ei9-5V-5bN"/>
+                            <constraint firstItem="ArX-G5-xWm" firstAttribute="leading" secondItem="5rP-c3-dsY" secondAttribute="leading" id="glZ-aP-DoQ"/>
                         </constraints>
                     </view>
                     <nil key="simulatedTopBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="privacyTextView" destination="ArX-G5-xWm" id="qHd-iW-il4"/>
+                        <outlet property="termsOfServiceTextView" destination="COC-Z7-vit" id="5ec-yg-QS9"/>
                         <outlet property="titleLabel" destination="aUB-HC-XRp" id="A2j-SX-dYO"/>
-                        <outlet property="webView" destination="UIp-6r-a4z" id="Pi6-oQ-QqN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wv8-JC-TjW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1410" y="1978"/>
+            <point key="canvasLocation" x="1539" y="2024"/>
+        </scene>
+        <!--Dubb About View-->
+        <scene sceneID="dUL-Fi-gjr">
+            <objects>
+                <viewController storyboardIdentifier="DubbAboutViewController" id="yu0-BT-NBd" userLabel="Dubb About View" customClass="DubbAboutViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="dl0-3O-Czs"/>
+                        <viewControllerLayoutGuide type="bottom" id="buE-j8-k2k"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="eEb-ZL-qGF">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y6q-t0-mwN">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="65"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="About" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pex-QN-OyM">
+                                        <rect key="frame" x="81" y="31" width="159" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="ESf-ij-Mdf"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" tag="9876" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xc2-rY-zvP">
+                                        <rect key="frame" x="8" y="31" width="22" height="22"/>
+                                        <state key="normal" image="icon_menu.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.18823529410000001" green="0.18823529410000001" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="pex-QN-OyM" secondAttribute="trailing" constant="80" id="HNt-iy-gg3"/>
+                                    <constraint firstItem="pex-QN-OyM" firstAttribute="top" secondItem="Y6q-t0-mwN" secondAttribute="top" constant="31" id="MAf-oS-hLc"/>
+                                    <constraint firstAttribute="height" constant="65" id="Ogw-qF-mkV"/>
+                                    <constraint firstItem="pex-QN-OyM" firstAttribute="leading" secondItem="Y6q-t0-mwN" secondAttribute="leading" constant="81" id="nHj-PU-1Ea"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fvA-qa-JMm" userLabel="Terms of Service View Group">
+                                <rect key="frame" x="8" y="127" width="304" height="32"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&gt;" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uHx-dj-KDv">
+                                        <rect key="frame" x="254" y="5" width="42" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="42" id="GxK-rW-erB"/>
+                                            <constraint firstAttribute="height" constant="21" id="r4t-Eo-IXj"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Terms of Service" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lc3-fx-h2J">
+                                        <rect key="frame" x="8" y="5" width="256" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" weight="black" pointSize="14"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="uHx-dj-KDv" secondAttribute="trailing" constant="8" id="0pt-kC-VwX"/>
+                                    <constraint firstAttribute="height" constant="32" id="eKW-0P-K6A"/>
+                                    <constraint firstAttribute="bottom" secondItem="uHx-dj-KDv" secondAttribute="bottom" constant="6" id="z0c-h5-Dsh"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="layer.borderUIColor">
+                                        <color key="value" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="layer.shadowUIColor">
+                                        <color key="value" white="0.0" alpha="0.65000000000000002" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
+                                        <integer key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="T6c-9B-3JF" appends="YES" id="lcd-Xb-DDO"/>
+                                </connections>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vRb-8w-x8z" userLabel="Privacy View Group">
+                                <rect key="frame" x="8" y="167" width="304" height="32"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&gt;" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TN2-bf-Zi6">
+                                        <rect key="frame" x="254" y="5" width="42" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="2ro-lc-JWz"/>
+                                            <constraint firstAttribute="width" constant="42" id="hDi-3o-7fk"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Privacy" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o6K-FW-OAa">
+                                        <rect key="frame" x="8" y="5" width="256" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" weight="black" pointSize="14"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="9IW-Wl-Bi5"/>
+                                    <constraint firstAttribute="trailing" secondItem="TN2-bf-Zi6" secondAttribute="trailing" constant="8" id="u4B-Mh-zn1"/>
+                                    <constraint firstAttribute="bottom" secondItem="TN2-bf-Zi6" secondAttribute="bottom" constant="6" id="vnD-kE-evE"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="layer.borderUIColor">
+                                        <color key="value" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="layer.shadowUIColor">
+                                        <color key="value" white="0.0" alpha="0.65000000000000002" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
+                                        <integer key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="j4x-Oc-kkP" appends="YES" id="zGO-1P-ZKw"/>
+                                </connections>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TERMS OF SERVICE AND PRIVACY" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="12Y-O6-E2a">
+                                <rect key="frame" x="16" y="103" width="274" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="274" id="0Uq-IE-I3R"/>
+                                    <constraint firstAttribute="height" constant="21" id="eQD-BL-KwR"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.91749395720000004" green="0.91749395720000004" blue="0.91749395720000004" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="fvA-qa-JMm" firstAttribute="leading" secondItem="eEb-ZL-qGF" secondAttribute="leading" constant="8" id="EJM-Yp-hCJ"/>
+                            <constraint firstItem="Y6q-t0-mwN" firstAttribute="leading" secondItem="eEb-ZL-qGF" secondAttribute="leading" id="S0x-yR-3t6"/>
+                            <constraint firstItem="12Y-O6-E2a" firstAttribute="top" secondItem="Y6q-t0-mwN" secondAttribute="bottom" constant="38" id="UcF-My-IEU"/>
+                            <constraint firstItem="fvA-qa-JMm" firstAttribute="top" secondItem="12Y-O6-E2a" secondAttribute="bottom" constant="3" id="Uf6-M2-lqM"/>
+                            <constraint firstItem="vRb-8w-x8z" firstAttribute="leading" secondItem="eEb-ZL-qGF" secondAttribute="leading" constant="8" id="XX3-kF-xu8"/>
+                            <constraint firstAttribute="trailing" secondItem="vRb-8w-x8z" secondAttribute="trailing" constant="8" id="a7o-22-nSa"/>
+                            <constraint firstAttribute="trailing" secondItem="fvA-qa-JMm" secondAttribute="trailing" constant="8" id="avR-oz-xKc"/>
+                            <constraint firstAttribute="trailing" secondItem="Y6q-t0-mwN" secondAttribute="trailing" id="bLg-5T-iSr"/>
+                            <constraint firstItem="12Y-O6-E2a" firstAttribute="leading" secondItem="eEb-ZL-qGF" secondAttribute="leading" constant="16" id="n6j-fu-iZz"/>
+                            <constraint firstItem="Y6q-t0-mwN" firstAttribute="top" secondItem="eEb-ZL-qGF" secondAttribute="top" id="obv-3G-R4s"/>
+                            <constraint firstItem="vRb-8w-x8z" firstAttribute="top" secondItem="fvA-qa-JMm" secondAttribute="bottom" constant="8" id="uhm-o5-uWc"/>
+                        </constraints>
+                    </view>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wVj-3e-hwb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="T6c-9B-3JF">
+                    <connections>
+                        <action selector="termsOfServiceButtonTapped:" destination="yu0-BT-NBd" id="e0h-mZ-D3v"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="j4x-Oc-kkP">
+                    <connections>
+                        <action selector="privacyButtonTapped:" destination="yu0-BT-NBd" id="v0w-rb-CtX"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="1539" y="2702"/>
         </scene>
     </scenes>
     <resources>

@@ -180,7 +180,7 @@
     
     BOOL isAgreedToTermsOfService = chkboxToggleTermsOfService.checkState == M13CheckboxStateChecked;
     if (!isAgreedToTermsOfService) {
-        [self showMessage:@"Please read our terms of service and agree to it."];
+        [self showMessage:@"Please read our Terms of Service and Privacy and agree to it before you sign up."];
         return;
     }
     
@@ -228,6 +228,11 @@
     vc.titleString = @"Terms of Service";
     [self presentViewController:vc animated:YES completion:nil];
 
+}
+- (IBAction)privacyButtonTapped:(id)sender {
+    DubbWebViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"DubbWebViewController"];
+    vc.titleString = @"Privacy";
+    [self presentViewController:vc animated:YES completion:nil];
 }
 
 /*
