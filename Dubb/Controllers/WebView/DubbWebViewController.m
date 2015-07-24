@@ -21,7 +21,7 @@
     [super viewDidLoad];
     
     self.titleLabel.text = self.titleString;
-    if ([self.title isEqualToString:@"Privacy"]) {
+    if ([self.titleString isEqualToString:@"Privacy"]) {
         self.privacyTextView.hidden = NO;
     } else {
         self.privacyTextView.hidden = YES;

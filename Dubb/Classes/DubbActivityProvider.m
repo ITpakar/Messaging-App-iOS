@@ -25,7 +25,7 @@
 {
     NSString *defaultTextToShare = [NSString stringWithFormat:@"Checkout this listing %@. Download app at http://www.dubb.com/app", self.listingTitle];
     
-    if ( [activityType isEqualToString:UIActivityTypePostToTwitter] )
+    if ( [activityType isEqualToString:UIActivityTypePostToTwitter] || [activityType isEqualToString:UIActivityTypePostToFacebook])
         return [NSString stringWithFormat:@"Checkout %@ @dubbapp creative freelancer marketplace. Download  http://www.dubb.com/app", self.listingTitle];
     if ( [activityType isEqualToString:UIActivityTypeMail] )
         return @"You can download the app at http://www.dubb.com/app";

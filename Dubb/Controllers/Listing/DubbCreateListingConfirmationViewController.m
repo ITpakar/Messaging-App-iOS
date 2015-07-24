@@ -137,7 +137,7 @@
     if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
         SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
         
-        [controller setInitialText:commonShareText(self.listingTitle)];
+        [controller setInitialText:[NSString stringWithFormat:@"Checkout %@ - @dubbapp creative freelancer marketplace. Download http://www.dubb.com/app", self.listingTitle]];
         [self presentViewController:controller animated:YES completion:Nil];
         controller.completionHandler = completionHandler;
     }else{

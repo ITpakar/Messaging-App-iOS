@@ -6697,7 +6697,7 @@ Please note that our services may not be used anonymously. This is the only way 
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fvA-qa-JMm" userLabel="Terms of Service View Group">
-                                <rect key="frame" x="8" y="127" width="304" height="32"/>
+                                <rect key="frame" x="8" y="117" width="304" height="32"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&gt;" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uHx-dj-KDv">
                                         <rect key="frame" x="254" y="5" width="42" height="21"/>
@@ -6798,29 +6798,18 @@ Please note that our services may not be used anonymously. This is the only way 
                                     <outletCollection property="gestureRecognizers" destination="j4x-Oc-kkP" appends="YES" id="zGO-1P-ZKw"/>
                                 </connections>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TERMS OF SERVICE AND PRIVACY" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="12Y-O6-E2a">
-                                <rect key="frame" x="16" y="103" width="274" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="274" id="0Uq-IE-I3R"/>
-                                    <constraint firstAttribute="height" constant="21" id="eQD-BL-KwR"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.91749395720000004" green="0.91749395720000004" blue="0.91749395720000004" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="fvA-qa-JMm" firstAttribute="top" secondItem="Y6q-t0-mwN" secondAttribute="bottom" constant="52" id="3Z9-MX-4di"/>
                             <constraint firstItem="fvA-qa-JMm" firstAttribute="leading" secondItem="eEb-ZL-qGF" secondAttribute="leading" constant="8" id="EJM-Yp-hCJ"/>
                             <constraint firstItem="Y6q-t0-mwN" firstAttribute="leading" secondItem="eEb-ZL-qGF" secondAttribute="leading" id="S0x-yR-3t6"/>
-                            <constraint firstItem="12Y-O6-E2a" firstAttribute="top" secondItem="Y6q-t0-mwN" secondAttribute="bottom" constant="38" id="UcF-My-IEU"/>
-                            <constraint firstItem="fvA-qa-JMm" firstAttribute="top" secondItem="12Y-O6-E2a" secondAttribute="bottom" constant="3" id="Uf6-M2-lqM"/>
                             <constraint firstItem="vRb-8w-x8z" firstAttribute="leading" secondItem="eEb-ZL-qGF" secondAttribute="leading" constant="8" id="XX3-kF-xu8"/>
                             <constraint firstAttribute="trailing" secondItem="vRb-8w-x8z" secondAttribute="trailing" constant="8" id="a7o-22-nSa"/>
                             <constraint firstAttribute="trailing" secondItem="fvA-qa-JMm" secondAttribute="trailing" constant="8" id="avR-oz-xKc"/>
                             <constraint firstAttribute="trailing" secondItem="Y6q-t0-mwN" secondAttribute="trailing" id="bLg-5T-iSr"/>
-                            <constraint firstItem="12Y-O6-E2a" firstAttribute="leading" secondItem="eEb-ZL-qGF" secondAttribute="leading" constant="16" id="n6j-fu-iZz"/>
                             <constraint firstItem="Y6q-t0-mwN" firstAttribute="top" secondItem="eEb-ZL-qGF" secondAttribute="top" id="obv-3G-R4s"/>
-                            <constraint firstItem="vRb-8w-x8z" firstAttribute="top" secondItem="fvA-qa-JMm" secondAttribute="bottom" constant="8" id="uhm-o5-uWc"/>
+                            <constraint firstItem="vRb-8w-x8z" firstAttribute="top" secondItem="fvA-qa-JMm" secondAttribute="bottom" constant="18" id="uhm-o5-uWc"/>
                         </constraints>
                     </view>
                     <nil key="simulatedTopBarMetrics"/>
