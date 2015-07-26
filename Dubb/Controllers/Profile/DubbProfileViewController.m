@@ -84,6 +84,10 @@
     if (![self.bioTextView.text isEqualToString:[self stringValueForKey:@"bio" from:userInfo]]) {
         params[@"bio"] = self.bioTextView.text;
     }
+
+    if (![self.passwordTextField.text isEqualToString:@""]) {
+        params[@"password"] = self.passwordTextField.text;
+    }
     
     if (![self.zipCodeTextField.text isEqualToString:[self stringValueForKey:@"zip" from:userInfo]]) {
         params[@"zip"] = self.zipCodeTextField.text;
