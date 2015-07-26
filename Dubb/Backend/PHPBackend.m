@@ -45,6 +45,18 @@ static PHPBackend   *sharedConnection;
     }];
 }
 
+-(void) resetPassword :(NSDictionary*) params
+    CompletionHandler :(void (^)(NSDictionary *result))handler
+{
+    NSString *apiPath = [NSString stringWithFormat:@"%@%@", APIURL, @"auth/reset"];
+    
+    [self accessAPIbyPOST:apiPath Parameters:params CompletionHandler:^(NSDictionary *result, NSData *data, NSError *error) {
+        if (handler) {
+            handler(result);
+        }
+    }];
+}
+
 -(void) updateUser : (NSString*) userID
         Parameters : (NSDictionary*) params
   CompletionHandler:(void (^)(NSDictionary *result))handler

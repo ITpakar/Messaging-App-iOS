@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="9mC-Dp-d8L">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="9mC-Dp-d8L">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -665,6 +665,9 @@ Dubb!</string>
                                                         <integer key="value" value="1"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="onPasswordReset:" destination="L6S-z9-0ds" eventType="touchUpInside" id="anZ-sM-9KU"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mpS-wn-KBC">
                                                 <rect key="frame" x="176" y="382" width="249" height="40"/>
@@ -2372,6 +2375,149 @@ Dubb!</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5gO-Bp-sIw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2841" y="-98"/>
+        </scene>
+        <!--Dubb Password Reset View Controller-->
+        <scene sceneID="sDi-hY-Kcy">
+            <objects>
+                <viewController storyboardIdentifier="passwordResetController" id="wWO-vN-ugM" customClass="DubbPasswordResetViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jdh-2n-fad"/>
+                        <viewControllerLayoutGuide type="bottom" id="cxv-b7-kHv"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="dkl-n1-Ndd">
+                        <rect key="frame" x="0.0" y="0.0" width="370" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i2s-Fi-fdQ">
+                                <rect key="frame" x="0.0" y="0.0" width="370" height="64"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recover Password" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xu6-e2-gka">
+                                        <rect key="frame" x="100" y="21" width="171" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="3VW-QB-eC1"/>
+                                            <constraint firstAttribute="width" constant="171" id="qgc-80-vCu"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W8K-Xk-3hd">
+                                        <rect key="frame" x="8" y="29" width="24" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="24" id="aCb-iG-jf0"/>
+                                            <constraint firstAttribute="height" constant="24" id="tIr-4G-FB8"/>
+                                        </constraints>
+                                        <state key="normal" image="btn_prevnavigation_white.png">
+                                            <color key="titleColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="onBack:" destination="wWO-vN-ugM" eventType="touchUpInside" id="aUc-Mh-EQb"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NN3-ba-48r">
+                                        <rect key="frame" x="301" y="26" width="61" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="61" id="Zn6-ve-H5R"/>
+                                            <constraint firstAttribute="height" constant="30" id="bUL-WG-9XG"/>
+                                        </constraints>
+                                        <state key="normal" title="Send">
+                                            <color key="titleColor" red="0.27058823529999998" green="0.54901960780000003" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="onReset:" destination="wWO-vN-ugM" eventType="touchUpInside" id="jWo-HD-Nvo"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.21094716532446309" green="0.2058021125116713" blue="0.21609221813725488" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="W8K-Xk-3hd" firstAttribute="top" secondItem="i2s-Fi-fdQ" secondAttribute="top" constant="29" id="0qK-yp-Jvk"/>
+                                    <constraint firstAttribute="bottom" secondItem="Xu6-e2-gka" secondAttribute="bottom" constant="3" id="0rG-XT-pDP"/>
+                                    <constraint firstAttribute="centerX" secondItem="Xu6-e2-gka" secondAttribute="centerX" id="7PU-vD-gg7"/>
+                                    <constraint firstAttribute="height" constant="64" id="SGt-M2-8Bn"/>
+                                    <constraint firstItem="Xu6-e2-gka" firstAttribute="centerY" secondItem="NN3-ba-48r" secondAttribute="centerY" id="WaW-wj-Wi1"/>
+                                    <constraint firstItem="NN3-ba-48r" firstAttribute="top" secondItem="i2s-Fi-fdQ" secondAttribute="top" constant="26" id="Xje-p5-Lqy"/>
+                                    <constraint firstItem="W8K-Xk-3hd" firstAttribute="leading" secondItem="i2s-Fi-fdQ" secondAttribute="leading" constant="8" id="dcb-1U-DrS"/>
+                                    <constraint firstAttribute="trailing" secondItem="NN3-ba-48r" secondAttribute="trailing" constant="8" id="xBZ-gg-lEN"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="0rG-XT-pDP"/>
+                                    </mask>
+                                </variation>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="IDENTIFICATION" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qB9-If-e4I">
+                                <rect key="frame" x="16" y="82" width="338" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="M1G-SG-AWe"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                <color key="textColor" red="0.51372549020000002" green="0.51372549020000002" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter your email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mkX-QP-ZtR">
+                                <rect key="frame" x="0.0" y="105" width="370" height="53"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="53" id="tZu-F6-soZ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="tZu-F6-soZ"/>
+                                    </mask>
+                                </variation>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We'll send you the instructions to claim your account credentials" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="886-Nr-Rbg">
+                                <rect key="frame" x="16" y="156" width="338" height="52"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="52" id="fm6-j8-3yn"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" red="0.51372549019607838" green="0.51372549019607838" blue="0.51372549019607838" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.94901960784313721" green="0.96470588235294119" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="i2s-Fi-fdQ" secondAttribute="trailing" id="0iZ-IA-Qdn"/>
+                            <constraint firstItem="mkX-QP-ZtR" firstAttribute="centerX" secondItem="qB9-If-e4I" secondAttribute="centerX" id="7ST-ys-0am"/>
+                            <constraint firstItem="qB9-If-e4I" firstAttribute="top" secondItem="i2s-Fi-fdQ" secondAttribute="bottom" constant="18" id="9PN-CJ-tGK"/>
+                            <constraint firstItem="i2s-Fi-fdQ" firstAttribute="top" secondItem="dkl-n1-Ndd" secondAttribute="top" id="CSU-62-iTn"/>
+                            <constraint firstItem="i2s-Fi-fdQ" firstAttribute="leading" secondItem="dkl-n1-Ndd" secondAttribute="leading" id="DDu-rI-Evg"/>
+                            <constraint firstItem="mkX-QP-ZtR" firstAttribute="leading" secondItem="i2s-Fi-fdQ" secondAttribute="leading" id="HcI-SK-bvd"/>
+                            <constraint firstItem="qB9-If-e4I" firstAttribute="leading" secondItem="886-Nr-Rbg" secondAttribute="leading" id="NGg-iJ-zv9"/>
+                            <constraint firstItem="mkX-QP-ZtR" firstAttribute="trailing" secondItem="i2s-Fi-fdQ" secondAttribute="trailing" id="Rj8-An-m3A"/>
+                            <constraint firstItem="cxv-b7-kHv" firstAttribute="top" secondItem="886-Nr-Rbg" secondAttribute="bottom" constant="373" id="SlW-LD-kPP"/>
+                            <constraint firstItem="886-Nr-Rbg" firstAttribute="top" secondItem="qB9-If-e4I" secondAttribute="bottom" constant="53" id="T7G-wj-rV9"/>
+                            <constraint firstItem="886-Nr-Rbg" firstAttribute="leading" secondItem="dkl-n1-Ndd" secondAttribute="leadingMargin" id="Vex-h8-9WM"/>
+                            <constraint firstItem="886-Nr-Rbg" firstAttribute="top" secondItem="mkX-QP-ZtR" secondAttribute="bottom" constant="-2" id="Xea-Uf-5VG"/>
+                            <constraint firstItem="cxv-b7-kHv" firstAttribute="top" secondItem="886-Nr-Rbg" secondAttribute="bottom" constant="392" id="fj5-z8-cl0"/>
+                            <constraint firstItem="cxv-b7-kHv" firstAttribute="top" secondItem="mkX-QP-ZtR" secondAttribute="bottom" constant="442" id="fmM-0J-LzX"/>
+                            <constraint firstItem="qB9-If-e4I" firstAttribute="trailing" secondItem="886-Nr-Rbg" secondAttribute="trailing" id="vv0-ts-kTi"/>
+                            <constraint firstItem="mkX-QP-ZtR" firstAttribute="top" secondItem="dkl-n1-Ndd" secondAttribute="top" constant="212" id="zpf-Ut-7Tb"/>
+                            <constraint firstItem="mkX-QP-ZtR" firstAttribute="top" secondItem="qB9-If-e4I" secondAttribute="bottom" constant="2" id="zr3-Yx-Yhc"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="9PN-CJ-tGK"/>
+                                <exclude reference="zpf-Ut-7Tb"/>
+                                <exclude reference="Xea-Uf-5VG"/>
+                                <exclude reference="SlW-LD-kPP"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="370" height="600"/>
+                    <connections>
+                        <outlet property="txtEmail" destination="mkX-QP-ZtR" id="AbT-KD-NmD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="h5Q-tT-1Sb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3508" y="-98"/>
         </scene>
         <!--Creating a Service Listing-->
         <scene sceneID="O7h-Tv-OwA">
@@ -6449,7 +6595,7 @@ Dubb!</string>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="COC-Z7-vit">
                                 <rect key="frame" x="0.0" y="65" width="320" height="503"/>
                                 <color key="backgroundColor" red="0.91749395720000004" green="0.91749395720000004" blue="0.91749395720000004" alpha="1" colorSpace="calibratedRGB"/>
-                                <mutableString key="text">GENERAL TERMS AND CONDITIONS OF DUBB, A SERVICE BY ILLUMIFIED.
+                                <string key="text">GENERAL TERMS AND CONDITIONS OF DUBB, A SERVICE BY ILLUMIFIED.
 
 These general terms and conditions regulate the services, rights and duties between you, the customer (hereafter: You or Customer) and Dubb, (hereafter: Dubb)
 
@@ -6576,14 +6722,14 @@ IMPORTANT
 
 COMPLIANCE WITH THE ACT BECAME AN EXPRESS CONDITION OF PARTICIPATION AS AN USER ON THE DATE IT BECAME EFFECTIVE, AS THE USER AGREEMENT HAS ALWAYS REQUIRED COMPLIANCE WITH APPLICABLE LAW. IT IS IMPORTANT TO NOTE, HOWEVER, THAT THESE REQUIREMENTS ARE IN ADDITION TO OTHER ANTI-SPAM PROVISIONS CONTAINED IN THESE TERMS.
 
-FAILURE TO COMPLY WITH THE ACT WILL RESULT IN THE IMMEDIATE TERMINATION OF YOUR ACCOUNT, AND YOU AGREE TO INDEMNIFY, DEFEND, AND HOLD DUBB HARMLESS, AS WELL AS ITS AGENTS, EMPLOYEES AND REPRESENTATIVES, FROM ANY COST, EXPENSE, LAWSUIT, CLAIM, OR LIABILITY OF WHATEVER NATURE WHATSOEVER ARISING OUT OF ANY VIOLATION OF THE ACT, IN ADDITION TO YOUR AGREEMENT TO INDEMNIFY Dubb AS PROVIDED FOR ELSEWHERE IN THIS AGREEMENT.</mutableString>
+FAILURE TO COMPLY WITH THE ACT WILL RESULT IN THE IMMEDIATE TERMINATION OF YOUR ACCOUNT, AND YOU AGREE TO INDEMNIFY, DEFEND, AND HOLD DUBB HARMLESS, AS WELL AS ITS AGENTS, EMPLOYEES AND REPRESENTATIVES, FROM ANY COST, EXPENSE, LAWSUIT, CLAIM, OR LIABILITY OF WHATEVER NATURE WHATSOEVER ARISING OUT OF ANY VIOLATION OF THE ACT, IN ADDITION TO YOUR AGREEMENT TO INDEMNIFY Dubb AS PROVIDED FOR ELSEWHERE IN THIS AGREEMENT.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ArX-G5-xWm">
                                 <rect key="frame" x="0.0" y="65" width="320" height="503"/>
                                 <color key="backgroundColor" red="0.91749395720000004" green="0.91749395720000004" blue="0.91749395720000004" alpha="1" colorSpace="calibratedRGB"/>
-                                <mutableString key="text">We take the protection of your personal data very seriously. Wherever we collect, process or use (“use”) your personal data for the purposes of the services offered by Dubb, this shall take place within the scope of the services offered by Dubb at Dubb’s registered office.
+                                <string key="text">We take the protection of your personal data very seriously. Wherever we collect, process or use (“use”) your personal data for the purposes of the services offered by Dubb, this shall take place within the scope of the services offered by Dubb at Dubb’s registered office.
 
 We will use the personal data that you disclose to us to provide the services offered by Dubb on the basis of and in compliance with the valid data protection regulations contained in Act No. 428/2002 Coll. (Data Protection Act). This includes, in particular, allowing you to access the content of the Dubb website, managing the content uploaded by you on your behalf, providing you with information about this, and providing you with other services with your agreement, where applicable.
 
@@ -6621,7 +6767,7 @@ You can also disable third-party cookies (e.g. Google cookies, cookies from medi
 
 You have the right to view your personal data and user account settings at any time, and to correct, add to, or delete these.
 
-Please note that our services may not be used anonymously. This is the only way we can ensure that our terms and conditions of use are adhered to.</mutableString>
+Please note that our services may not be used anonymously. This is the only way we can ensure that our terms and conditions of use are adhered to.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>

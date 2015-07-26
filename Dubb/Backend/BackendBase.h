@@ -20,6 +20,9 @@
 -(void) registerWithSocial:(NSDictionary*)params
          CompletionHandler:(void (^)(NSDictionary *result))handler;
 
+-(void) resetPassword:(NSDictionary*) params
+        CompletionHandler:(void (^)(NSDictionary *result))handler;
+
 -(void) updateUser : (NSString*) userID Parameters : (NSDictionary*) params
   CompletionHandler:(void (^)(NSDictionary *result))handler;
 
