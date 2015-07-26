@@ -56,7 +56,7 @@
 
     [self.backend resetPassword:params CompletionHandler:^(NSDictionary *result) {
         if( result ){
-            [self showMessage:@"A new password has been sent to your e-mail address."];
+            [self showMessage:@"Instructions on retrieving your password have been emailed to you. If you need further assistance please reach us through our support menu."];
             [self hideProgress];
         } else {
             [self showMessage:[NSString stringWithFormat:@"User with email: %@ not found.", txtEmail.text]];
