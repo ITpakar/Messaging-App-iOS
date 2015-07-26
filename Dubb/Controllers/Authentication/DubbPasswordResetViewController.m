@@ -59,7 +59,7 @@
             [self showMessage:@"Instructions on retrieving your password have been emailed to you. If you need further assistance please reach us through our support menu."];
             [self hideProgress];
         } else {
-            [self showMessage:[NSString stringWithFormat:@"User with email: %@ not found.", txtEmail.text]];
+            [self showMessage:@"Sorry but we could not lookup that email. Please contact us at support@dubb.com if you need further assistance."];
             [self hideProgress];
         }
     }];
