@@ -243,7 +243,7 @@
     NSString *tempFilePath = [NSTemporaryDirectory() stringByAppendingPathComponent:fileName];
     
     [fileManager createFileAtPath:tempFilePath contents:data attributes:nil];
-    imageURL = [NSString stringWithFormat:@"http://s3-us-west-1.amazonaws.com/listing-image-uploads/completed/%@", fileName];
+    imageURL = [NSString stringWithFormat:@"http://asset.dubb.com/completed/%@", fileName];
     [self uploadFileWithFileName:fileName SourcePath:tempFilePath];
 
     

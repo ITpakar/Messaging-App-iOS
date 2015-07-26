@@ -757,9 +757,9 @@ static bool liked = NO;
     
     NSArray *images = listingInfo[@"images"];
     if (images.count > 1) {
-        [backgroundImageView sd_setImageWithURL:images[0][@"url"]];
-    } else {
         [backgroundImageView sd_setImageWithURL:images[1][@"url"]];
+    } else {
+        [backgroundImageView sd_setImageWithURL:images[0][@"url"]];
     }
     
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];

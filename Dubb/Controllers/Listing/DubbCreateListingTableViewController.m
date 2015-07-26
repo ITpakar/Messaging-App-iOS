@@ -618,7 +618,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
         NSString *tempFilePath = [NSTemporaryDirectory() stringByAppendingPathComponent:fileName];
         
         [fileManager createFileAtPath:tempFilePath contents:data attributes:nil];
-        [imageURLs addObject:[NSString stringWithFormat:@"http://s3-us-west-1.amazonaws.com/listing-image-uploads/completed/%@", fileName]];
+        [imageURLs addObject:[NSString stringWithFormat:@"http://asset.dubb.com/completed/%@", fileName]];
         [self uploadFileWithFileName:fileName SourcePath:tempFilePath];
     }
     
@@ -730,7 +730,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
         priceTextField.leftView = dollarLabel;
         priceTextField.leftViewMode = UITextFieldViewModeAlways;
         
-        addonNumberLabel.text = [NSString stringWithFormat:@"ADD-ON%@%ld", @"\u00B0", indexPath.row + 1];
+        addonNumberLabel.text = [NSString stringWithFormat:@"ADD-ON %ld", indexPath.row + 1];
         
         NSDictionary *addOn = addOns[indexPath.row];
         [priceTextField setText:[NSString stringWithFormat:@"%ld", [addOn[@"price"] integerValue]]];
@@ -740,8 +740,9 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
         priceTextField.tag = indexPath.row;
         descriptionTextField.tag = indexPath.row;
         
-        [priceTextField addTarget:self action:@selector(textFieldEditingDidEnd:) forControlEvents:UIControlEventEditingDidEnd];
-        [descriptionTextField addTarget:self action:@selector(textFieldEditingDidEnd:) forControlEvents:UIControlEventEditingDidEnd];
+        priceTextField.delegate = self;
+        descriptionTextField.delegate = self;
+        
 
     }
     return cell;
@@ -758,7 +759,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         
         [addOns removeObjectAtIndex:indexPath.row];
-        if (addOns.count > 0 && indexPath.row < addOns.count - 1) {
+        if (addOns.count > 0) {
             [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
             [self.tableView reloadData];
         } else {
@@ -848,8 +849,17 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
             self.searchTextField.text = text;
             return NO;
         }
+    } else if (textField.superview.tag == 103 || textField.superview.tag == 104) {
+        NSString *replacedText = [textField.text stringByReplacingCharactersInRange:range withString:text];
+        [self textFieldValueDidChange:textField WithText:replacedText];
     }
-    return YES;
+    
+    if (textField.superview.tag == 104 && textField.text.length == 5) {
+        return NO;
+    } else {
+        return YES;
+    }
+
     
 }
 
@@ -889,6 +899,8 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     if (sender == self.radiusTextField) {
         self.locationSearchTableView.hidden = YES;
     } else {
+        CGPoint newContentOffset = CGPointMake(0, [self.tableView contentSize].height -  self.tableView.bounds.size.height);
+        [self.tableView setContentOffset:newContentOffset animated:YES];
         self.locationSearchTableView.hidden = NO;
     }
 }
@@ -899,6 +911,20 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
         addOns[sender.tag][@"description"] = sender.text;
     } else {
         addOns[sender.tag][@"price"] = sender.text;
+    }
+    
+    if (sender.tag == addOns.count - 1) {
+        [addOns addObject:[NSMutableDictionary dictionaryWithDictionary:@{@"description":@"", @"price":@12}]];
+        [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:addOns.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
+}
+
+- (void)textFieldValueDidChange:(UITextField *)sender WithText:(NSString *)text{
+    
+    if (sender.superview.tag == 103) {
+        addOns[sender.tag][@"description"] = text;
+    } else if (sender.superview.tag == 104) {
+        addOns[sender.tag][@"price"] = text;
     }
     
     if (sender.tag == addOns.count - 1) {

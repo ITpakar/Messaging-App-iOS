@@ -320,7 +320,7 @@
     NSString *text = textField.text;
     
     
-    if (string.length == 1 && [string rangeOfCharacterFromSet:[[NSCharacterSet alphanumericCharacterSet] invertedSet]].location != NSNotFound) {
+    if (string.length == 1 && [string rangeOfCharacterFromSet:[[NSCharacterSet letterCharacterSet] invertedSet]].location != NSNotFound) {
         [self addTag:textField.text];
         textField.text = @"";
         return NO;
@@ -336,11 +336,11 @@
                                                                       withString:string];
         }
         
-        NSArray *components = [resultingString componentsSeparatedByCharactersInSet:[[NSCharacterSet alphanumericCharacterSet] invertedSet]];
+        NSArray *components = [resultingString componentsSeparatedByCharactersInSet:[[NSCharacterSet letterCharacterSet] invertedSet]];
         
         if (components.count > 2) {
             for (NSString *component in components) {
-                if (component.length > 0 && [component rangeOfCharacterFromSet:[[NSCharacterSet alphanumericCharacterSet] invertedSet]].location == NSNotFound) {
+                if (component.length > 0 && [component rangeOfCharacterFromSet:[[NSCharacterSet letterCharacterSet] invertedSet]].location == NSNotFound) {
                     [self addTag:component];
                     break;
                 }
