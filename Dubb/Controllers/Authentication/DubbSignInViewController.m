@@ -7,6 +7,7 @@
 //
 
 #import "DubbSignInViewController.h"
+#import "DubbPasswordResetViewController.h"
 
 @interface DubbSignInViewController (){
     __weak IBOutlet UITextField *txtUsername;
@@ -94,6 +95,11 @@
     
 }
 
+//Reset password
+- (IBAction)onPasswordReset:(id)sender {
+    DubbPasswordResetViewController *passwordResetController = (DubbPasswordResetViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"passwordResetController"];
+    [self.navigationController pushViewController:passwordResetController animated:YES];
+}
 
 #pragma mark -
 #pragma mark Navigation

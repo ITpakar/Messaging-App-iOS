@@ -282,6 +282,7 @@
 		DC675A661AE8163C00E5CBDA /* btn_search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC675A651AE8163C00E5CBDA /* btn_search@2x.png */; };
 		DC8C7D6A1AF549680033E6F9 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC8C7D691AF549680033E6F9 /* QuartzCore.framework */; };
 		DCF2DD7B1ADC9C7900500548 /* close_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCF2DD7A1ADC9C7900500548 /* close_icon@2x.png */; };
+		ED23D60C1B63F3B6007FC85E /* DubbPasswordResetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED23D60B1B63F3B6007FC85E /* DubbPasswordResetViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -697,6 +698,8 @@
 		DC675A651AE8163C00E5CBDA /* btn_search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_search@2x.png"; sourceTree = "<group>"; };
 		DC8C7D691AF549680033E6F9 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		DCF2DD7A1ADC9C7900500548 /* close_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close_icon@2x.png"; sourceTree = "<group>"; };
+		ED23D60A1B63F3B6007FC85E /* DubbPasswordResetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DubbPasswordResetViewController.h; sourceTree = "<group>"; };
+		ED23D60B1B63F3B6007FC85E /* DubbPasswordResetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DubbPasswordResetViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1264,6 +1267,8 @@
 				7CA27DF91AC78FDB00B56AB9 /* DubbSignupUsernameViewController.m */,
 				7C09A5D21AB1FCB600218127 /* DubbSignInViewController.h */,
 				7C09A5D31AB1FCB600218127 /* DubbSignInViewController.m */,
+				ED23D60A1B63F3B6007FC85E /* DubbPasswordResetViewController.h */,
+				ED23D60B1B63F3B6007FC85E /* DubbPasswordResetViewController.m */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -2052,6 +2057,7 @@
 				7C4A0ABD1AC1D2D1007DA690 /* ChatService.m in Sources */,
 				0D1FA6571ACA183D00079C79 /* SZTextView.m in Sources */,
 				0D1FA6551ACA183D00079C79 /* RESideMenu.m in Sources */,
+				ED23D60C1B63F3B6007FC85E /* DubbPasswordResetViewController.m in Sources */,
 				DC675A491AE5D16A00E5CBDA /* DubbListingCell.m in Sources */,
 				7C4A0AC71AC1D739007DA690 /* ChatUsersController.m in Sources */,
 				7C09A5A11AB1DA0A00218127 /* DubbIntroViewController.m in Sources */,

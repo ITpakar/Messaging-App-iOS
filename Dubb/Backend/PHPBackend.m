@@ -45,6 +45,18 @@ static PHPBackend   *sharedConnection;
     }];
 }
 
+-(void) resetPassword :(NSDictionary*) params
+    CompletionHandler :(void (^)(NSDictionary *result))handler
+{
+    NSString *apiPath = [NSString stringWithFormat:@"%@%@", APIURL, @"auth/reset"];
+    
+    [self accessAPIbyPOST:apiPath Parameters:params CompletionHandler:^(NSDictionary *result, NSData *data, NSError *error) {
+        if (handler) {
+            handler(result);
+        }
+    }];
+}
+
 -(void) updateUser : (NSString*) userID
         Parameters : (NSDictionary*) params
   CompletionHandler:(void (^)(NSDictionary *result))handler
@@ -88,7 +100,9 @@ static PHPBackend   *sharedConnection;
          CompletionHandler:(void (^)(NSDictionary *result))handler
 {
     NSString *apiPath = [NSString stringWithFormat:@"%@%@", APIURL, @"search/suggest"];
-    NSDictionary *params = @{@"q":keyword, @"from":@"tags"};
+
+    User *user = [User currentUser];
+    NSDictionary *params = @{@"q":keyword, @"from":@"tags", @"t_user_id":user.userID, @"t_latitude":user.latitude, @"t_longtitude":user.longitude};
     
     [self accessAPI:apiPath Parameters:params CompletionHandler:^(NSDictionary *result, NSData *data, NSError *error) {
         if (handler) {
@@ -100,7 +114,9 @@ static PHPBackend   *sharedConnection;
 
 -(void) getAllListings: (NSString*)page CompletionHandler:(void (^)(NSDictionary *result))handler{
     NSString *apiPath = [NSString stringWithFormat:@"%@%@", APIURL, @"listing"];
-    NSDictionary *params = @{@"page":page, @"limit":@"25", @"with":@"user,mainimage,category"};
+
+    User *user = [User currentUser];
+    NSDictionary *params = @{@"page":page, @"limit":@"25", @"with":@"user,mainimage,category", @"t_user_id":user.userID, @"t_latitude":user.latitude, @"t_longtitude":user.longitude};
     
     [self accessAPI:apiPath Parameters:params CompletionHandler:^(NSDictionary *result, NSData *data, NSError *error) {
         handler(result);
@@ -109,7 +125,9 @@ static PHPBackend   *sharedConnection;
 
 -(void) getAllListings: (NSString*)keyword Page:(NSString*)page CompletionHandler:(void (^)(NSDictionary *result))handler{
     NSString *apiPath = [NSString stringWithFormat:@"%@%@", APIURL, @"search"];
-    NSDictionary *params = @{@"start":page, @"size":@"25", @"q":keyword};
+
+    User *user = [User currentUser];
+    NSDictionary *params = @{@"start":page, @"size":@"25", @"q":keyword, @"t_user_id":user.userID, @"t_latitude":user.latitude, @"t_longtitude":user.longitude};
     
     [self accessAPI:apiPath Parameters:params CompletionHandler:^(NSDictionary *result, NSData *data, NSError *error) {
         handler(result);
@@ -127,7 +145,8 @@ static PHPBackend   *sharedConnection;
 
 -(void) getListingsWithCategoryID : (NSString*) category_id Page:(NSInteger)page CompletionHandler:(void (^)(NSDictionary *result))handler
 {
-    NSString *apiPath = [NSString stringWithFormat:@"%@category/%@/listing?sortby=created_at&order=desc&page=%lu&limit=25", APIURL, category_id, page];
+    User *user = [User currentUser];
+    NSString *apiPath = [NSString stringWithFormat:@"%@category/%@/listing?sortby=created_at&order=desc&page=%lu&limit=25&t_user_id=%@&t_latitude=%@&t_longtitude=%@", APIURL, category_id, page, user.userID, user.latitude, user.longitude];
     [self accessAPI:apiPath Parameters:nil CompletionHandler:^(NSDictionary *result, NSData *data, NSError *error) {
         handler(result);
     }];
@@ -136,7 +155,9 @@ static PHPBackend   *sharedConnection;
 
 -(void) getListingWithID:(NSString *)listingID CompletionHandler:(void (^)(NSDictionary *result))handler{
     NSString *apiPath = [NSString stringWithFormat:@"%@%@/%@", APIURL, @"listing", listingID];
-    NSDictionary *params = @{@"with":@"user,category,mainimage,images,addon"};
+
+    User *user = [User currentUser];
+    NSDictionary *params = @{@"with":@"user,category,mainimage,images,addon", @"t_user_id":user.userID, @"t_latitude":user.latitude, @"t_longtitude":user.longitude};
     
     [self accessAPI:apiPath Parameters:params CompletionHandler:^(NSDictionary *result, NSData *data, NSError *error) {
         handler(result);
