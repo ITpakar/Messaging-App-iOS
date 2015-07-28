@@ -10,7 +10,7 @@
 #import "DubbOrderConfirmationViewController.h"
 #import <Social/Social.h>
 
-#define commonShareText(listingTitle)  [NSString stringWithFormat:@"I just bought this cool service '%@' on - Dubb Mobile Marketplace for Creative Freelancers - https://itunes.apple.com/it/app/dubb-freelancer-marketplace/id980449775?l=en&mt=8", listingTitle]
+#define commonShareText(listingTitle)  [NSString stringWithFormat:@"I just bought this cool service '%@' on - Dubb Mobile Marketplace for Creative Freelancers - http://www.dubb.com/app", listingTitle]
 
 enum DubbOrderConfirmationSection {
     kDubbOrderConfirmationSectionHeader = 0,
@@ -302,7 +302,7 @@ enum DubbOrderConfirmationViewTag {
     } else if (self.userImageURL && ![self.userImageURL isKindOfClass:[NSNull class]]) {
         [self.listingImageView sd_setImageWithURL:[NSURL URLWithString:self.userImageURL] placeholderImage:[UIImage imageNamed:@"placeholder_image.png"]];
     }
-    self.listingTItleLabel.text = self.listingInfo[@"name"];
+    self.listingTItleLabel.text = [NSString stringWithFormat:@"%@%@",[[self.listingInfo[@"name"] substringToIndex:1] uppercaseString], [self.listingInfo[@"name"] substringFromIndex:1]];
     [self.listingTItleLabel sizeToFit];
     
     if ([self.userType isEqualToString:@"seller"]) {

@@ -88,8 +88,21 @@
         [self layoutSubviews];
         
         @try{
-            profileImageView.image = [UIImage imageNamed:@"portrait.png"];
-            titleLabel.text = listing[@"name"];
+            if ([_listing[@"user"] objectForKey:@"image"]) {
+                if ([_listing[@"user"][@"image"] isKindOfClass:[NSNull class]]) {
+                    profileImageView.image = [UIImage imageNamed:@"portrait.png"];
+                } else {
+                    [profileImageView sd_setImageWithURL:[NSURL URLWithString:_listing[@"user"][@"image"][@"url"]]];
+                }
+            } else {
+                if ([_listing[@"owner_image_url"] isKindOfClass:[NSNull class]]) {
+                    profileImageView.image = [UIImage imageNamed:@"portrait.png"];
+                } else {
+                    [profileImageView sd_setImageWithURL:[NSURL URLWithString:_listing[@"owner_image_url"]]];
+                }
+            }
+            
+            titleLabel.text = [NSString stringWithFormat:@"%@%@",[[listing[@"name"] substringToIndex:1] uppercaseString], [listing[@"name"] substringFromIndex:1]];
             
             CLGeocoder *geocoder = [[CLGeocoder alloc] init];
             CLLocationCoordinate2D myCoOrdinate;
@@ -138,24 +151,24 @@
             
             categoryLabel.text = category;
             
-            if( listing[@"mainimage"] && ![listing[@"mainimage"] isKindOfClass:[NSNull class]] ){
-                if( listing[@"mainimage"][@"url"] ){
+            if( listing[@"main_image"] && ![listing[@"main_image"] isKindOfClass:[NSNull class]] ){
+                if( listing[@"main_image"][@"url"] ){
                     [mainImageIndicator startAnimating];
-                    [[SDImageCache sharedImageCache] queryDiskCacheForKey:listing[@"mainimage"][@"url"] done:^(UIImage *image, SDImageCacheType cacheType) {
+                    [[SDImageCache sharedImageCache] queryDiskCacheForKey:listing[@"main_image"][@"url"] done:^(UIImage *image, SDImageCacheType cacheType) {
                         if( image != nil){
                             listingImageView.image = image;
                             [mainImageIndicator stopAnimating];
                         } else {
-                            [SDWebImageDownloader.sharedDownloader downloadImageWithURL: [NSURL URLWithString:listing[@"mainimage"][@"url"]] options:0 progress:nil completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
+                            [SDWebImageDownloader.sharedDownloader downloadImageWithURL: [NSURL URLWithString:listing[@"main_image"][@"url"]] options:0 progress:nil completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
                                 
                                 dispatch_sync(dispatch_get_main_queue(), ^{
                                     [mainImageIndicator stopAnimating];
                                     if( error == nil ){
                                         listingImageView.image = image;
-                                        [[SDImageCache sharedImageCache] storeImage:image forKey:listing[@"mainimage"][@"url"]];
+                                        [[SDImageCache sharedImageCache] storeImage:image forKey:listing[@"main_image"][@"url"]];
                                     } else {
                                         listingImageView.image = [UIImage imageNamed:@"placeholder_image.png"];
-                                        [[SDImageCache sharedImageCache] storeImage:listingImageView.image forKey:listing[@"mainimage"][@"url"]];
+                                        [[SDImageCache sharedImageCache] storeImage:listingImageView.image forKey:listing[@"main_image"][@"url"]];
                                     }
                                     [listingImageView layoutIfNeeded];
                                 });

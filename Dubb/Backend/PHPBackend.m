@@ -116,7 +116,7 @@ static PHPBackend   *sharedConnection;
     NSString *apiPath = [NSString stringWithFormat:@"%@%@", APIURL, @"listing"];
 
     User *user = [User currentUser];
-    NSDictionary *params = @{@"page":page, @"limit":@"25", @"with":@"user,mainimage,category", @"t_user_id":user.userID, @"t_latitude":user.latitude, @"t_longtitude":user.longitude};
+    NSDictionary *params = @{@"page":page, @"limit":@"25", @"with":@"user.image,category", @"t_user_id":user.userID, @"t_latitude":user.latitude, @"t_longtitude":user.longitude};
     
     [self accessAPI:apiPath Parameters:params CompletionHandler:^(NSDictionary *result, NSData *data, NSError *error) {
         handler(result);
@@ -202,7 +202,7 @@ static PHPBackend   *sharedConnection;
 
 -(void) getAllOrdersForUserType:(NSString *)userType CompletionHandler:(void (^)(NSDictionary *result))handler{
     NSString *apiPath = [NSString stringWithFormat:@"%@%@", APIURL, @"order"];
-    [self accessAPI:apiPath Parameters:@{@"user_id":[User currentUser].userID, @"user_type":userType, @"with":@"listing,listing.mainImage,listing.user,details.addon"} CompletionHandler:^(NSDictionary *result, NSData *data, NSError *error) {
+    [self accessAPI:apiPath Parameters:@{@"user_id":[User currentUser].userID, @"user_type":userType, @"with":@"listing,listing.mainImage,listing.user,listing.category,details"} CompletionHandler:^(NSDictionary *result, NSData *data, NSError *error) {
         handler(result);
     }];
 }

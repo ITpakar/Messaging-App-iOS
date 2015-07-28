@@ -323,7 +323,7 @@
 -(void) loadListings : (BOOL) refresh{
     
     if( refresh ){
-        [self showProgress:@"Load Listing..."];
+        [self showProgress:@"loading listings..."];
         currentListingPage = 1;
         [self.backend getAllListings:[NSString stringWithFormat:@"%d", currentListingPage] CompletionHandler:^(NSDictionary *result) {
             [self hideProgress];

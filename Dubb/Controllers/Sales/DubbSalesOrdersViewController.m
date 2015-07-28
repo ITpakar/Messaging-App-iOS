@@ -16,7 +16,8 @@ enum DubbListingCellTag {
     kDubbListingCellUserNameLabelTag,
     kDubbListingCellOrderedDateLabelTag,
     kDubbListingCellAmountLabelTag,
-    kDubbListingCellProgressIndicatorImageView
+    kDubbListingCellProgressIndicatorImageView,
+    kDubbListingCellCategoryLabelTag
 };
 
 @interface DubbSalesOrdersViewController() {
@@ -26,6 +27,8 @@ enum DubbListingCellTag {
     
 }
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) IBOutlet UIView *emptyView;
+@property (strong, nonatomic) IBOutlet UILabel *emptyViewLabel;
 
 @property (strong, nonatomic) IBOutlet UIView *createListingButtonView;
 @property (strong, nonatomic) IBOutlet UIButton *createListingButton;
@@ -47,6 +50,7 @@ enum DubbListingCellTag {
         [self.view layoutIfNeeded];
     } else {
         self.navigationBarTitleLabel.text = @"SALES";
+        self.emptyViewLabel.text = @"Nobody has ordered your service yet.";
     }
     
     [self showProgress:@"Loading..."];
@@ -54,7 +58,13 @@ enum DubbListingCellTag {
         
         [self hideProgress];
         orderDetails = result[@"response"];
-        [self.tableView reloadData];
+        if (orderDetails.count > 0) {
+            [self.tableView reloadData];
+        } else {
+            self.emptyView.hidden = NO;
+            
+        }
+        
         
     }];
     
@@ -90,13 +100,16 @@ enum DubbListingCellTag {
     UILabel *userNameLabel = (UILabel *)[cell viewWithTag:kDubbListingCellUserNameLabelTag];
     UILabel *orderedDateLabel = (UILabel *)[cell viewWithTag:kDubbListingCellOrderedDateLabelTag];
     UILabel *amountLabel = (UILabel *)[cell viewWithTag:kDubbListingCellAmountLabelTag];
-    
+    UILabel *categoryLabel = (UILabel *)[cell viewWithTag:kDubbListingCellCategoryLabelTag];
+
     NSDictionary *orderDetail = orderDetails[indexPath.row];
     if (![orderDetail objectForKey:@"listing"] || [orderDetail[@"listing"] isKindOfClass:[NSNull class]]) {
         [self showMessage:@"Invalid order found"];
         [self.sideMenuViewController presentLeftMenuViewController];
     } else {
-        titleLabel.text = orderDetail[@"listing"][@"description"];
+        titleLabel.text = [NSString stringWithFormat:@"%@%@",[[orderDetail[@"listing"][@"name"] substringToIndex:1] uppercaseString], [orderDetail[@"listing"][@"name"] substringFromIndex:1]];
+        NSDictionary *listingDetail = orderDetail[@"listing"];
+        categoryLabel.text = [NSString stringWithFormat:@"%@ > %@", listingDetail[@"category"][@"name"], listingDetail[@"subcategory"][@"name"]];
         opponentType = ([self.userType isEqualToString:@"seller"]) ? @"buyer" : @"seller";
         userNameLabel.text = orderDetail[opponentType][@"username"];
         NSDate *date = [NSDate dateFromString:orderDetail[@"created_at"]];

@@ -609,7 +609,7 @@ static bool liked = NO;
     UILabel *locationLabel = (UILabel *)[cell viewWithTag:kDubbSingleListingSectionHeaderLocationLabelTag];
     TTTAttributedLabel *descriptionLabel = (TTTAttributedLabel *)[cell viewWithTag:kDubbSingleListingSectionHeaderDescriptionLabelTag];
     
-    titleLabel.text = listingInfo[@"name"];
+    titleLabel.text = [NSString stringWithFormat:@"%@%@",[[listingInfo[@"name"] substringToIndex:1] uppercaseString], [listingInfo[@"name"] substringFromIndex:1]];
     categoryLabel.text = [[NSString stringWithFormat:@"%@ > %@", listingInfo[@"category"][@"name"], listingInfo[@"subcategory"][@"name"]] uppercaseString];
     descriptionLabel.text = listingInfo[@"description"];
     descriptionLabel.userInteractionEnabled = YES;

@@ -14,7 +14,8 @@ enum DubbListingCellTag {
     kDubbListingCellProfileImageViewTag = 100,
     kDubbListingCellTitleLabelTag,
     kDubbListingCellCategoryLabelTag,
-    kDubbListingCellPostedDateLabelTag
+    kDubbListingCellPostedDateLabelTag,
+    kDubbListingCellProgressIndicatorImageViewTag
 };
 
 @implementation DubbMyListingsViewController
@@ -74,6 +75,7 @@ enum DubbListingCellTag {
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     UIImageView *profileImageView = (UIImageView *)[cell viewWithTag:kDubbListingCellProfileImageViewTag];
+    UIImageView *progressIndicatorImageView = (UIImageView *)[cell viewWithTag:kDubbListingCellProgressIndicatorImageViewTag];
     UILabel *titleLabel = (UILabel *)[cell viewWithTag:kDubbListingCellTitleLabelTag];
     UILabel *categoryLabel = (UILabel *)[cell viewWithTag:kDubbListingCellCategoryLabelTag];
     UILabel *postedDateLabel = (UILabel *)[cell viewWithTag:kDubbListingCellPostedDateLabelTag];
@@ -81,10 +83,12 @@ enum DubbListingCellTag {
     NSDictionary *listingDetail = listingDetails[indexPath.row];
     
     [profileImageView sd_setImageWithURL:[NSURL URLWithString:listingDetail[@"main_image"][@"url"]]];
-    titleLabel.text = listingDetail[@"name"];
-    categoryLabel.text = [NSString stringWithFormat:@"%@ > %@", listingDetail[@"category"][@"description"], listingDetail[@"subcategory"][@"description"]];
+    titleLabel.text = [NSString stringWithFormat:@"%@%@",[[listingDetail[@"name"] substringToIndex:1] uppercaseString], [listingDetail[@"name"] substringFromIndex:1]];
+    categoryLabel.text = [NSString stringWithFormat:@"%@ > %@", listingDetail[@"category"][@"name"], listingDetail[@"subcategory"][@"name"]];
     NSDate *date = [NSDate dateFromString:listingDetail[@"created_at"]];
     postedDateLabel.text = [NSString stringWithFormat:@"Posted: %@", [date stringWithFormat:@"MMMM dd, yyyy"]];
+    NSString *imageName = ([listingDetail[@"status"] isEqualToString:@"approved"]) ? @"approved_indicator.png" : @"pending_indicator.png";
+    progressIndicatorImageView.image = [UIImage imageNamed:imageName];
 
     return cell;
 }

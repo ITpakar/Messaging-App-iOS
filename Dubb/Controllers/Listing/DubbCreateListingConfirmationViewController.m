@@ -22,6 +22,7 @@
 @property (strong, nonatomic) IBOutlet UIImageView *listingImageView;
 @property (strong, nonatomic) IBOutlet UILabel *categoryLabel;
 @property (strong, nonatomic) IBOutlet UIView *footerView;
+@property (strong, nonatomic) IBOutlet UILabel *orderAmountLabel;
 
 @end
 
@@ -36,7 +37,7 @@
     self.locationLabel.text = self.listingLocation.address;
     self.listingImageView.image = self.mainImage;
     self.categoryLabel.text = self.categoryDescription;
-    
+    self.orderAmountLabel.text = [NSString stringWithFormat:@"ORDER $%ld", self.baseServicePrice];
     self.reasonForDisablingMenu = disablingReasonText;
     
     __weak DubbCreateListingConfirmationViewController *weakSelf = self;

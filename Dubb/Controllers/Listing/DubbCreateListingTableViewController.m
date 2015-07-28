@@ -23,7 +23,8 @@
 #import "DubbCreateListingTableViewController.h"
 
 NSString *const apiKey = @"AIzaSyBqO1R2q7YGqnEAegFiA4vbHo7oLn8IqV0";
-
+#define MAX_CHARACTER_NUMBER_BASE  255
+#define MAX_CHARACTER_NUMBER_ADDON 100
 typedef NS_ENUM(NSUInteger, TableViewSection){
     TableViewSectionCurrentLocation,
     TableViewSectionMain,
@@ -48,6 +49,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     NSString *radius;
     NSString *baseServiceID;
     UITextField *prevFocusedTextField;
+    UIToolbar *addonToolbar;
     
 }
 @property (strong, nonatomic) IBOutlet UILabel *navigationTitleLabel;
@@ -58,6 +60,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
 @property (strong, nonatomic) IBOutlet SZTextView *fulfillmentInfoTextView;
 @property (strong, nonatomic) IBOutlet UITextField *radiusTextField;
 @property (strong, nonatomic) IBOutlet UITextField *searchTextField;
+@property (strong, nonatomic) IBOutlet UIButton *doneButton;
 @property (strong, nonatomic) IBOutlet UILabel *fulfillmentAreaLabel;
 @property (strong, nonatomic) IBOutlet KASlideShow *slideShow;
 @property (strong, nonatomic) IBOutlet UIButton *placeholderButton;
@@ -73,7 +76,8 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
 @property (strong, nonatomic) IBOutlet UIView *fulfillmentInfoContainerView;
 @property (strong, nonatomic) IBOutlet UIView *fulfillmentAreaContainerView;
 @property (strong, nonatomic) IBOutlet UIView *tagsContainerView;
-
+@property (strong, nonatomic) IBOutlet UILabel *availableCharacterNumberLabel;
+@property (strong, nonatomic) IBOutlet UILabel *availableCharacterNumberLabelForAddon;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UITableView *locationSearchTableView;
 @end
@@ -184,6 +188,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     }
     [addOns addObject:[NSMutableDictionary dictionaryWithDictionary:@{@"description":@"", @"price":@12}]];
     [self setupImagesScrollView];
+    [self.availableCharacterNumberLabel setText:[NSString stringWithFormat:@"%ld", MAX_CHARACTER_NUMBER_BASE - [self.baseServiceDescriptionTextView.text length]]];
     
 }
 
@@ -195,6 +200,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"sequence" ascending:YES];
     addonArray = [addonArray sortedArrayUsingDescriptors:[NSArray arrayWithObject:descriptor]];
     self.navigationTitleLabel.text = @"Edit Listing";
+    [self.doneButton setTitle:@"Save" forState:UIControlStateNormal];
     self.titleTextField.text = self.listingDetail[@"name"];
     self.fulfillmentInfoTextView.text = self.listingDetail[@"instructions"];
     self.baseServiceDescriptionTextView.text = self.listingDetail[@"description"];
@@ -736,7 +742,8 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
         [priceTextField setText:[NSString stringWithFormat:@"%ld", [addOn[@"price"] integerValue]]];
         [descriptionTextField setText:addOn[@"description"]];
 
-        // add UITextField delegate to last row
+        descriptionTextField.inputAccessoryView = [self kudosMessageToolbar];
+        
         priceTextField.tag = indexPath.row;
         descriptionTextField.tag = indexPath.row;
         
@@ -833,8 +840,28 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     }
 }
 
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)text {
+#pragma mark - UITextView Delegate
+
+- (void)textViewDidChange:(UITextView *)textView {
+    [self.availableCharacterNumberLabel setText:[NSString stringWithFormat:@"%ld", MAX_CHARACTER_NUMBER_BASE - [textView.text length]]];
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    if(range.length + range.location > textView.text.length)
+    {
+        return NO;
+    }
     
+    NSUInteger newLength = [textView.text length] + [text length] - range.length;
+    return (newLength > MAX_CHARACTER_NUMBER_BASE) ? NO : YES;
+}
+
+#pragma mark - UITextField Delegate
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)text {
+    if(range.length + range.location > textField.text.length)
+    {
+        return NO;
+    }
     if (textField == self.searchTextField) {
         self.substring = [NSString stringWithString:self.searchTextField.text];
         self.substring = [self.substring stringByReplacingOccurrencesOfString:@" " withString:@"+"];
@@ -851,8 +878,14 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
         }
     } else if (textField.superview.tag == 103 || textField.superview.tag == 104) {
         NSString *replacedText = [textField.text stringByReplacingCharactersInRange:range withString:text];
+        NSLog(@"%ld", MAX_CHARACTER_NUMBER_ADDON - [replacedText length]);
+        [self.availableCharacterNumberLabelForAddon setText:[NSString stringWithFormat:@"%ld", MAX_CHARACTER_NUMBER_ADDON - [replacedText length]]];
         [self textFieldValueDidChange:textField WithText:replacedText];
     }
+    
+    NSUInteger newLength = [textField.text length] + [text length] - range.length;
+    if (newLength > MAX_CHARACTER_NUMBER_ADDON)
+        return NO;
     
     if (textField.superview.tag == 104 && textField.text.length == 5) {
         return NO;
@@ -905,33 +938,13 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     }
 }
 
-- (void)textFieldEditingDidEnd:(UITextField *)sender {
-    
-    if (sender.superview.tag == 103) {
-        addOns[sender.tag][@"description"] = sender.text;
-    } else {
-        addOns[sender.tag][@"price"] = sender.text;
-    }
-    
-    if (sender.tag == addOns.count - 1) {
-        [addOns addObject:[NSMutableDictionary dictionaryWithDictionary:@{@"description":@"", @"price":@12}]];
-        [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:addOns.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    if (self.availableCharacterNumberLabelForAddon) {
+        self.availableCharacterNumberLabelForAddon.text = [NSString stringWithFormat:@"%ld", MAX_CHARACTER_NUMBER_ADDON - [textField.text length]];
     }
 }
 
-- (void)textFieldValueDidChange:(UITextField *)sender WithText:(NSString *)text{
-    
-    if (sender.superview.tag == 103) {
-        addOns[sender.tag][@"description"] = text;
-    } else if (sender.superview.tag == 104) {
-        addOns[sender.tag][@"price"] = text;
-    }
-    
-    if (sender.tag == addOns.count - 1) {
-        [addOns addObject:[NSMutableDictionary dictionaryWithDictionary:@{@"description":@"", @"price":@12}]];
-        [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:addOns.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
-    }
-}
+
 
 - (void)searchAutocompleteLocationsWithSubstring:(NSString *)substring
 {
@@ -959,6 +972,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
         }
     }
 }
+
 
 #pragma mark - Google API Requests
 
@@ -1059,6 +1073,51 @@ typedef void (^completion_t)(id result);
     
 }
 
+- (void)textFieldValueDidChange:(UITextField *)sender WithText:(NSString *)text{
+    
+    if (sender.superview.tag == 103) {
+        addOns[sender.tag][@"description"] = text;
+    } else if (sender.superview.tag == 104) {
+        addOns[sender.tag][@"price"] = text;
+    }
+    
+    if (sender.tag == addOns.count - 1) {
+        [addOns addObject:[NSMutableDictionary dictionaryWithDictionary:@{@"description":@"", @"price":@12}]];
+        [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:addOns.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
+}
+
+#pragma mark - Custom Helper Method returning toolbar for Addon Description TextFields
+
+- (UIToolbar *)kudosMessageToolbar {
+    
+    
+    
+    if (!self.availableCharacterNumberLabelForAddon && !addonToolbar) {
+        addonToolbar = [[UIToolbar alloc] init];
+        [addonToolbar sizeToFit];
+        self.availableCharacterNumberLabelForAddon = [[UILabel alloc] initWithFrame:CGRectMake(0.0 , 11.0f, self.view.frame.size.width, 21.0f)];
+        [self.availableCharacterNumberLabelForAddon setFont:[UIFont fontWithName:@"Helvetica-Bold" size:14]];
+        [self.availableCharacterNumberLabelForAddon setBackgroundColor:[UIColor clearColor]];
+        [self.availableCharacterNumberLabelForAddon setTextColor:[UIColor colorWithRed:157.0/255.0 green:157.0/255.0 blue:157.0/255.0 alpha:1.0]];
+        
+        [self.availableCharacterNumberLabelForAddon setTextAlignment:NSTextAlignmentCenter];
+        UIBarButtonItem *spacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+        
+        
+        UIBarButtonItem *title = [[UIBarButtonItem alloc] initWithCustomView:self.availableCharacterNumberLabelForAddon];
+        
+        
+        [addonToolbar setItems:@[spacer, title, spacer] animated:YES];
+    }
+    
+    
+    [self.availableCharacterNumberLabelForAddon setText:@""];
+    
+    
+    return addonToolbar;
+}
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -1071,6 +1130,7 @@ typedef void (^completion_t)(id result);
         viewController.listingLocation = selectedLocation;
         viewController.mainImage = self.listingImages[0][@"image"];
         viewController.categoryDescription = [NSString stringWithFormat:@"%@ / %@", self.categoryTextField.text, self.subCategoryTextField.text];
+        viewController.baseServicePrice = [self.baseServicePriceTextField.text integerValue];
 
     }
 }

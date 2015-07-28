@@ -13,10 +13,11 @@
 @interface DubbCreateListingConfirmationViewController : BaseViewController <MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate>
 
 
-@property (strong, nonatomic) NSString *listingTitle;
+@property (strong, nonatomic) NSString         *listingTitle;
+@property (nonatomic)         NSInteger        baseServicePrice;
 @property (strong, nonatomic) SelectedLocation *listingLocation;
-@property (strong, nonatomic) UIImage  *mainImage;
-@property (strong, nonatomic) NSString *categoryDescription;
+@property (strong, nonatomic) UIImage          *mainImage;
+@property (strong, nonatomic) NSString         *categoryDescription;
 
 
 @end

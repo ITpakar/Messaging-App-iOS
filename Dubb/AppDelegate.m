@@ -150,7 +150,7 @@
 {
     if (!self.alertView)
     {
-        self.alertView = [[UIAlertView alloc] initWithTitle:@"Recommend Dubb" message:@"If you're enjoying DubbFreelancer (and we hope you are!), perhaps consider rating us 5 stars in the App Store." delegate:self cancelButtonTitle:@"No Thanks" otherButtonTitles:@"Rate 5 Stars!", nil];
+        self.alertView = [[UIAlertView alloc] initWithTitle:@"Recommend Dubb" message:@"If you're enjoying Dubb (and we hope you are!), perhaps consider rating us 5 stars in the App Store." delegate:self cancelButtonTitle:@"No Thanks" otherButtonTitles:@"Rate 5 Stars!", nil];
         
         [self.alertView show];
     }
