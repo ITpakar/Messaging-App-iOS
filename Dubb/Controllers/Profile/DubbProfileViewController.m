@@ -61,6 +61,10 @@
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
+    if (!chosenImage) {
+        [self showMessage:@"Please upload the profile image."];
+    }
+    
     if (![self.firstNameTextField.text isEqualToString:[self stringValueForKey:@"first" from:userInfo]]) {
         params[@"first"] = self.firstNameTextField.text;
     }

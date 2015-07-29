@@ -727,8 +727,9 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AddOnCell"];
         
         UILabel *addonNumberLabel = (UILabel *)[cell viewWithTag:100];
-        UITextField *descriptionTextField = (UITextField *)[cell viewWithTag:101];
-        UITextField *priceTextField = (UITextField *)[cell viewWithTag:102];
+        UIView *descriptionContainerView = [cell viewWithTag:103];
+        UITextField *descriptionTextField = (UITextField *)[descriptionContainerView viewWithTag:101];
+        UITextField *priceTextField = (UITextField *)[[cell viewWithTag:104] viewWithTag:102];
         
         UILabel *dollarLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 10, priceTextField.frame.size.height)];
         dollarLabel.text = @"$";
@@ -744,8 +745,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
 
         descriptionTextField.inputAccessoryView = [self kudosMessageToolbar];
         
-        priceTextField.tag = indexPath.row;
-        descriptionTextField.tag = indexPath.row;
+        cell.contentView.tag = indexPath.row;
         
         priceTextField.delegate = self;
         descriptionTextField.delegate = self;
@@ -765,13 +765,12 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         
+        [tableView beginUpdates];
         [addOns removeObjectAtIndex:indexPath.row];
-        if (addOns.count > 0) {
-            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [self.tableView reloadData];
-        } else {
-            [self.tableView reloadData];
-        }
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [tableView endUpdates];
+        [tableView reloadData];
+        
 
     }
 }
@@ -1075,15 +1074,21 @@ typedef void (^completion_t)(id result);
 
 - (void)textFieldValueDidChange:(UITextField *)sender WithText:(NSString *)text{
     
+//    if (sender.tag >= addOns.count ) {
+//        return;
+//    }
+    NSInteger currentIndex = sender.superview.superview.tag;
     if (sender.superview.tag == 103) {
-        addOns[sender.tag][@"description"] = text;
+        addOns[currentIndex][@"description"] = text;
     } else if (sender.superview.tag == 104) {
-        addOns[sender.tag][@"price"] = text;
+        addOns[currentIndex][@"price"] = text;
     }
     
-    if (sender.tag == addOns.count - 1) {
+    if (currentIndex == addOns.count - 1) {
+        [self.tableView beginUpdates];
         [addOns addObject:[NSMutableDictionary dictionaryWithDictionary:@{@"description":@"", @"price":@12}]];
         [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:addOns.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableView endUpdates];
     }
 }
 
