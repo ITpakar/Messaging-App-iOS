@@ -186,7 +186,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     if (self.listingDetail) {
         [self initViewWithValues];
     }
-    [addOns addObject:[NSMutableDictionary dictionaryWithDictionary:@{@"description":@"", @"price":@12}]];
+    [addOns addObject:[NSMutableDictionary dictionaryWithDictionary:@{@"description":@"", @"price":@""}]];
     [self setupImagesScrollView];
     [self.availableCharacterNumberLabel setText:[NSString stringWithFormat:@"%ld", MAX_CHARACTER_NUMBER_BASE - [self.baseServiceDescriptionTextView.text length]]];
     
@@ -379,11 +379,28 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     
     NSString* title = self.titleTextField.text;
 
+    if (selectedLocation.locationCoordinates.latitude == 0 && selectedLocation.locationCoordinates.longitude == 0) {
+        
+        [self showMessage:@"Creating a listing requires location services. Please enable it on your phone settings for Dubb"];
+        [self.navigationController popViewControllerAnimated:YES];
+        return;
+    }
+    
+    NSString* foundAddonDescription = @"";
     NSMutableArray *addonArray = [NSMutableArray array];
     for (NSMutableDictionary *addon in addOns) {
         if (![addon[@"description"] isEqualToString:@""]) {
             [addonArray addObject:addon];
+            if ([[NSString stringWithFormat:@"%@",addon[@"price"]] isEqualToString:@""]) {
+                foundAddonDescription = addon[@"description"];
+                break;
+            }
         }
+    }
+    
+    if (![foundAddonDescription isEqualToString:@""]) {
+        [self showMessage:[NSString stringWithFormat:@"Please enter your price for addon service - %@", foundAddonDescription]];
+        return;
     }
     
     if (title.length <= 0) {
@@ -405,8 +422,8 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
         return;
     }
     
-    if (![self.baseServicePriceTextField.text containsNumbersOnly]) {
-        [self showMessage:@"Please describe your base service price correctly."];
+    if ([self.baseServicePriceTextField.text isEqualToString:@""]) {
+        [self showMessage:@"Please enter your price for base service."];
         return;
     }
     
@@ -414,6 +431,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
         [self showMessage:@"Please select at least one image."];
         return;
     }
+    
     
     NSMutableArray *imageURLs = [self uploadImages];
     NSArray *tagsArray = self.tagsControl.tags;
@@ -739,8 +757,12 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
         
         addonNumberLabel.text = [NSString stringWithFormat:@"ADD-ON %ld", indexPath.row + 1];
         
-        NSDictionary *addOn = addOns[indexPath.row];
-        [priceTextField setText:[NSString stringWithFormat:@"%ld", [addOn[@"price"] integerValue]]];
+        NSMutableDictionary *addOn = addOns[indexPath.row];
+        if (![addOn[@"price"] isEqualToString:@""]) {
+            addOn[@"price"] = [NSString stringWithFormat:@"%ld", [addOn[@"price"] integerValue]];
+        }
+
+        [priceTextField setText:[NSString stringWithFormat:@"%@", addOn[@"price"]]];
         [descriptionTextField setText:addOn[@"description"]];
 
         descriptionTextField.inputAccessoryView = [self kudosMessageToolbar];
@@ -861,6 +883,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     {
         return NO;
     }
+    NSString *replacedText = [textField.text stringByReplacingCharactersInRange:range withString:text];
     if (textField == self.searchTextField) {
         self.substring = [NSString stringWithString:self.searchTextField.text];
         self.substring = [self.substring stringByReplacingOccurrencesOfString:@" " withString:@"+"];
@@ -876,7 +899,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
             return NO;
         }
     } else if (textField.superview.tag == 103 || textField.superview.tag == 104) {
-        NSString *replacedText = [textField.text stringByReplacingCharactersInRange:range withString:text];
+        
         NSLog(@"%ld", MAX_CHARACTER_NUMBER_ADDON - [replacedText length]);
         [self.availableCharacterNumberLabelForAddon setText:[NSString stringWithFormat:@"%ld", MAX_CHARACTER_NUMBER_ADDON - [replacedText length]]];
         [self textFieldValueDidChange:textField WithText:replacedText];
@@ -886,7 +909,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     if (newLength > MAX_CHARACTER_NUMBER_ADDON)
         return NO;
     
-    if (textField.superview.tag == 104 && textField.text.length == 5) {
+    if (textField.superview.tag == 104 && replacedText.length == 5) {
         return NO;
     } else {
         return YES;
@@ -1086,7 +1109,7 @@ typedef void (^completion_t)(id result);
     
     if (currentIndex == addOns.count - 1) {
         [self.tableView beginUpdates];
-        [addOns addObject:[NSMutableDictionary dictionaryWithDictionary:@{@"description":@"", @"price":@12}]];
+        [addOns addObject:[NSMutableDictionary dictionaryWithDictionary:@{@"description":@"", @"price":@""}]];
         [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:addOns.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
         [self.tableView endUpdates];
     }

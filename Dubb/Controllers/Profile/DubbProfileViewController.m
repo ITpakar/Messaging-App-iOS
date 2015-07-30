@@ -95,7 +95,7 @@
     
     if (![self.zipCodeTextField.text isEqualToString:[self stringValueForKey:@"zip" from:userInfo]]) {
         params[@"zip"] = self.zipCodeTextField.text;
-        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://maps.google.com/maps/api/geocode/json?sensor=false&address=%@",self.zipCodeTextField.text]]];
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://maps.google.com/maps/api/geocode/json?sensor=false&address=%@", [self.zipCodeTextField.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]]];
         
         [request setHTTPMethod:@"POST"];
         

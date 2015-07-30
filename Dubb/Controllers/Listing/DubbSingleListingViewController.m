@@ -110,6 +110,11 @@ enum DubbSingleListingViewTag {
         price += [addOnInfo[@"price"] integerValue];
     }
     
+    if (price == 0) {
+        [self showMessage:@"Please add 1 more items before clicking Book Now"];
+        return;
+    }
+    
     [self onPay:listingInfo Price:price];
     
     
@@ -736,7 +741,7 @@ static bool liked = NO;
     
     
     NSDictionary *userInfo = listingInfo[@"user"];
-    nameLabel.text = [NSString stringWithFormat:@"%@ %@", userInfo[@"first"], userInfo[@"last"]];
+    nameLabel.text = [NSString stringWithFormat:@"%@", userInfo[@"username"]];
 
     if (![userInfo[@"bio"] isKindOfClass:[NSNull class]]) {
         bioLabel.text = userInfo[@"bio"];
@@ -792,7 +797,7 @@ static bool liked = NO;
     starRatingControl.backgroundColor = [UIColor clearColor];
     starRatingControl.markImage = [UIImage imageNamed:@"star"];
     starRatingControl.stepInterval = 1;
-    starRatingControl.value = 3;
+    starRatingControl.value = 5;
     [starRatingControl setBaseColor:[UIColor lightGrayColor]];
     [starRatingControl setHighlightColor:[UIColor colorWithRed:1.0f green:162.0f/255.0 blue:0 alpha:1.0f]];
     [starRatingControl setUserInteractionEnabled:NO];
@@ -812,7 +817,7 @@ static bool liked = NO;
     starRatingControl.backgroundColor = [UIColor clearColor];
     starRatingControl.markImage = [UIImage imageNamed:@"star"];
     starRatingControl.stepInterval = 1;
-    starRatingControl.value = 4;
+    starRatingControl.value = 5;
     [starRatingControl setBaseColor:[UIColor lightGrayColor]];
     [starRatingControl setHighlightColor:[UIColor colorWithRed:1.0f green:162.0f/255.0 blue:0 alpha:1.0f]];
     [starRatingControl setUserInteractionEnabled:NO];
@@ -959,7 +964,6 @@ static bool liked = NO;
                     vc.purchasedAddOnsDetails = purchasedAddOnsDetails;
                     vc.totalAmountPurchased = sum;
                     vc.orderID = [NSString stringWithFormat:@"%@", result[@"response"][@"id"]];
-                    [[iRate sharedInstance] promptIfNetworkAvailable];
                     [self.navigationController pushViewController: vc animated:YES];
                 } else {
                     [self showMessage:[NSString stringWithFormat:@"Sorry, server is not responding, please contact administrator to confirm payment.\nYour payment id: %@", [completedPayment.confirmation[@"response"] objectForKey:@"id"]]];

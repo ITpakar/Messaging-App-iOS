@@ -41,7 +41,7 @@
     //but we want to test with an app that's actually on the store
     [iRate sharedInstance].onlyPromptIfLatestVersion = NO;
     [iRate sharedInstance].usesUntilPrompt = 3;
-    
+    [iRate sharedInstance].usesCount = 3;
 
     
 }

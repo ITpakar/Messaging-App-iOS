@@ -7,6 +7,7 @@
 //
 #import <Social/Social.h>
 
+#import <SDWebImage/UIImageView+WebCache.h>
 #import "DubbCreateListingConfirmationViewController.h"
 
 #define commonShareText(listingTitle)  [NSString stringWithFormat:@"Checkout this listing %@. Download app at http://www.dubb.com/app", listingTitle]
@@ -32,7 +33,7 @@
     [super viewDidLoad];
     
     self.listingTitleLabel.text = self.listingTitle;
-    self.profileImageView.image = [User currentUser].profileImage;
+    [self.profileImageView sd_setImageWithURL:[NSURL URLWithString:[User currentUser].profileImageURL]];
     self.userNameLabel.text = [User currentUser].username;
     self.locationLabel.text = self.listingLocation.address;
     self.listingImageView.image = self.mainImage;
