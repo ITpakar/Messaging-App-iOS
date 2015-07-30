@@ -78,7 +78,7 @@
         [btnOrder setBackgroundColor:[UIColor colorWithRed:1.0f green:0.67f blue:0.21 alpha:1.0f]];
 
         userLabel = [[UILabel alloc] init];
-        NSString *username = _listing[@"user"][@"username"] ?: @"Unknown";
+        NSString *username = _listing[@"username"] ?: @"Unknown";
         
         NSDictionary *usernameAttributes = @{NSForegroundColorAttributeName : [UIColor grayColor], NSFontAttributeName: [UIFont systemFontOfSize:12.0f]};
         NSMutableAttributedString *userText = [[NSMutableAttributedString alloc] initWithString:username attributes:usernameAttributes];
@@ -95,7 +95,7 @@
                     [profileImageView sd_setImageWithURL:[NSURL URLWithString:_listing[@"user"][@"image"][@"url"]]];
                 }
             } else {
-                if ([_listing[@"owner_image_url"] isKindOfClass:[NSNull class]]) {
+                if (![_listing objectForKey:@"owner_image_url"] || [_listing[@"owner_image_url"] isKindOfClass:[NSNull class]]) {
                     profileImageView.image = [UIImage imageNamed:@"portrait.png"];
                 } else {
                     [profileImageView sd_setImageWithURL:[NSURL URLWithString:_listing[@"owner_image_url"]]];
@@ -106,8 +106,8 @@
             
             CLGeocoder *geocoder = [[CLGeocoder alloc] init];
             CLLocationCoordinate2D myCoOrdinate;
-            myCoOrdinate.latitude = [listing[@"lat"] floatValue];
-            myCoOrdinate.longitude = [listing[@"longitude"] floatValue];
+            myCoOrdinate.latitude = [[listing[@"latlon"] componentsSeparatedByString:@","][0] floatValue];
+            myCoOrdinate.longitude = [[listing[@"latlon"] componentsSeparatedByString:@","][1] floatValue];
             CLLocation *location = [[CLLocation alloc] initWithLatitude:myCoOrdinate.latitude longitude:myCoOrdinate.longitude];
             
             [geocoder reverseGeocodeLocation:location completionHandler: ^ (NSArray  *placemarks, NSError *error) {
@@ -143,32 +143,32 @@
             
             NSMutableString *category = [[NSMutableString alloc] init];
             
-            if( listing[@"category"] && ![listing[@"category"] isKindOfClass:[NSNull class]] )
-                [category appendString: listing[@"category"][@"name"]];
+            if( _listing[@"category"] && ![_listing[@"category"] isKindOfClass:[NSNull class]] )
+                [category appendString: _listing[@"category"]];
             
-            if( listing[@"subcategory"] && ![listing[@"subcategory"] isKindOfClass:[NSNull class]] )
-                [category appendFormat:@" > %@", listing[@"subcategory"][@"name"]];
+            if( _listing[@"sub_category"] && ![_listing[@"sub_category"] isKindOfClass:[NSNull class]] )
+                [category appendFormat:@" > %@", _listing[@"sub_category"]];
             
             categoryLabel.text = category;
             
             if( listing[@"main_image"] && ![listing[@"main_image"] isKindOfClass:[NSNull class]] ){
-                if( listing[@"main_image"][@"url"] ){
+                if( [listing[@"main_image"] isKindOfClass:[NSString class]] && listing[@"main_image"] ){
                     [mainImageIndicator startAnimating];
-                    [[SDImageCache sharedImageCache] queryDiskCacheForKey:listing[@"main_image"][@"url"] done:^(UIImage *image, SDImageCacheType cacheType) {
+                    [[SDImageCache sharedImageCache] queryDiskCacheForKey:listing[@"main_image"] done:^(UIImage *image, SDImageCacheType cacheType) {
                         if( image != nil){
                             listingImageView.image = image;
                             [mainImageIndicator stopAnimating];
                         } else {
-                            [SDWebImageDownloader.sharedDownloader downloadImageWithURL: [NSURL URLWithString:listing[@"main_image"][@"url"]] options:0 progress:nil completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
+                            [SDWebImageDownloader.sharedDownloader downloadImageWithURL: [NSURL URLWithString:listing[@"main_image"]] options:0 progress:nil completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
                                 
                                 dispatch_sync(dispatch_get_main_queue(), ^{
                                     [mainImageIndicator stopAnimating];
                                     if( error == nil ){
                                         listingImageView.image = image;
-                                        [[SDImageCache sharedImageCache] storeImage:image forKey:listing[@"main_image"][@"url"]];
+                                        [[SDImageCache sharedImageCache] storeImage:image forKey:listing[@"main_image"]];
                                     } else {
                                         listingImageView.image = [UIImage imageNamed:@"placeholder_image.png"];
-                                        [[SDImageCache sharedImageCache] storeImage:listingImageView.image forKey:listing[@"main_image"][@"url"]];
+                                        [[SDImageCache sharedImageCache] storeImage:listingImageView.image forKey:listing[@"main_image"]];
                                     }
                                     [listingImageView layoutIfNeeded];
                                 });
@@ -177,15 +177,16 @@
                         }
                     }];
                     
-                } else
+                }
+                else
                     listingImageView.image = [UIImage imageNamed:@"placeholder_image.png"];
                 
             } else
                 listingImageView.image = [UIImage imageNamed:@"placeholder_image.png"];
            
             
-            if( listing[@"addon"][0] )
-                [btnOrder setTitle:[NSString stringWithFormat:@"ORDER $%d", (int)[listing[@"addon"][0][@"price"] integerValue]]  forState:UIControlStateNormal];
+            if( listing[@"baseprice"] )
+                [btnOrder setTitle:[NSString stringWithFormat:@"ORDER $%d", (int)[listing[@"baseprice"] integerValue]]  forState:UIControlStateNormal];
             else
                 [btnOrder setTitle:@"ORDER $20" forState:UIControlStateNormal];
         

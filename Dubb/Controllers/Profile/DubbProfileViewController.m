@@ -25,6 +25,7 @@
         if (result) {
             
             userInfo = result[@"response"];
+            [User initialize:userInfo];
             [self initViews];
             
         }
@@ -61,8 +62,9 @@
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
-    if (!chosenImage) {
+    if (!chosenImage && [userInfo[@"image"] isKindOfClass:[NSNull class]]) {
         [self showMessage:@"Please upload the profile image."];
+        return;
     }
     
     if (![self.firstNameTextField.text isEqualToString:[self stringValueForKey:@"first" from:userInfo]]) {
@@ -112,6 +114,18 @@
         
         NSString *longaddr=[[[[[dict objectForKey:@"results"] objectAtIndex:0]objectForKey:@"geometry"]objectForKey:@"location"]objectForKey:@"lng"];
         
+        for (NSDictionary *addressComponents in dict[@"results"][0][@"address_components"]) {
+            NSString *type = addressComponents[@"types"][0];
+            if ([type isEqualToString:@"administrative_area_level_2"]) {
+                params[@"city"] = addressComponents[@"long_name"];
+            }
+            if ([type isEqualToString:@"administrative_area_level_1"]) {
+                params[@"state"] = addressComponents[@"long_name"];
+            }
+            if ([type isEqualToString:@"country"]) {
+                params[@"country"] = addressComponents[@"long_name"];
+            }
+        }
         params[@"lat"] = lataddr;
         params[@"longitude"] = longaddr;
         

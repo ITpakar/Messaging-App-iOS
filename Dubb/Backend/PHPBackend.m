@@ -116,7 +116,7 @@ static PHPBackend   *sharedConnection;
     NSString *apiPath = [NSString stringWithFormat:@"%@%@", APIURL, @"listing"];
 
     User *user = [User currentUser];
-    NSDictionary *params = @{@"page":page, @"limit":@"25", @"with":@"user.image,category", @"t_user_id":user.userID, @"t_latitude":user.latitude, @"t_longtitude":user.longitude};
+    NSDictionary *params = @{@"page":page, @"limit":@"25", @"t_user_id":user.userID, @"t_latitude":user.latitude, @"t_longtitude":user.longitude};
     
     [self accessAPI:apiPath Parameters:params CompletionHandler:^(NSDictionary *result, NSData *data, NSError *error) {
         handler(result);
@@ -208,7 +208,7 @@ static PHPBackend   *sharedConnection;
 }
 
 -(void) getAllMyListingsWithCompletionHandler:(void (^)(NSDictionary *result))handler{
-    NSString *apiPath = [NSString stringWithFormat:@"%@%@", APIURL, @"listing"];
+    NSString *apiPath = [NSString stringWithFormat:@"%@%@%@", APIURL, @"listing/user/", [User currentUser].userID];
     [self accessAPI:apiPath Parameters:@{@"user_id":[User currentUser].userID} CompletionHandler:^(NSDictionary *result, NSData *data, NSError *error) {
         handler(result);
     }];

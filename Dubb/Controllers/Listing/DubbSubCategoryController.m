@@ -376,7 +376,7 @@
         cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         
         if( !cell )
-            cell = [[DubbListingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier listingInfo:[self convertGigData:item]];
+            cell = [[DubbListingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier listingInfo:item];
     }
     return cell;
 }

@@ -4314,99 +4314,6 @@ Dubb!</string>
                         <rect key="frame" x="0.0" y="0.0" width="320" height="700"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cpd-mG-dUc" userLabel="Gradient View">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yEi-Cm-zZE" userLabel="Book Now Button Container">
-                                <rect key="frame" x="0.0" y="656" width="320" height="44"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$68" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SuD-AY-V4v">
-                                        <rect key="frame" x="269" y="13" width="43" height="21"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="43" id="0Rh-XZ-sMQ"/>
-                                            <constraint firstAttribute="height" constant="21" id="NZD-OK-Q0f"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="usn-bk-AdY">
-                                        <rect key="frame" x="97" y="11" width="127" height="23"/>
-                                        <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="right_arrow.png" translatesAutoresizingMaskIntoConstraints="NO" id="uBw-S6-yw9">
-                                                <rect key="frame" x="0.0" y="7" width="10" height="10"/>
-                                            </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="BOOK NOW" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="acf-zI-0TA">
-                                                <rect key="frame" x="15" y="1" width="107" height="21"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="23" id="350-5C-0nl"/>
-                                            <constraint firstAttribute="width" constant="127" id="Sr3-BC-qg7"/>
-                                        </constraints>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" red="0.42352941176470588" green="0.67843137254901964" blue="0.31764705882352939" alpha="1" colorSpace="calibratedRGB"/>
-                                <gestureRecognizers/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="RXF-hF-rtX"/>
-                                    <constraint firstAttribute="centerY" secondItem="usn-bk-AdY" secondAttribute="centerY" constant="-0.5" id="VIQ-vk-eLz"/>
-                                    <constraint firstAttribute="trailing" secondItem="SuD-AY-V4v" secondAttribute="trailing" constant="8" id="XNe-1f-s6R"/>
-                                    <constraint firstAttribute="centerX" secondItem="usn-bk-AdY" secondAttribute="centerX" id="nBX-2v-OTc"/>
-                                    <constraint firstItem="SuD-AY-V4v" firstAttribute="top" secondItem="yEi-Cm-zZE" secondAttribute="top" constant="13" id="w6a-iV-v6O"/>
-                                </constraints>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="1H9-mE-BYa" appends="YES" id="Dv6-Kg-7aF"/>
-                                </connections>
-                            </view>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Ow0-Qz-Vg5">
-                                <rect key="frame" x="142" y="332" width="37" height="37"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="37" id="TIY-z6-Ogd"/>
-                                    <constraint firstAttribute="width" constant="37" id="okw-ha-Jof"/>
-                                </constraints>
-                                <color key="color" red="0.0" green="0.65490196079999996" blue="0.039215686270000001" alpha="1" colorSpace="calibratedRGB"/>
-                            </activityIndicatorView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="odu-X9-2dD" userLabel="Back Button">
-                                <rect key="frame" x="10" y="28" width="32" height="32"/>
-                                <state key="normal" image="Back">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="backButtonTapped:" destination="TcD-JJ-32S" eventType="touchUpInside" id="TPO-lW-Uwh"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g50-FC-rHq" userLabel="Share Sheet Button">
-                                <rect key="frame" x="240" y="30" width="30" height="29"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="30" id="M7W-Yw-TBn"/>
-                                    <constraint firstAttribute="height" constant="29" id="d6g-I4-lbu"/>
-                                </constraints>
-                                <state key="normal" image="Export">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="shareSheetButtonTapped:" destination="TcD-JJ-32S" eventType="touchUpInside" id="Lxx-hX-Iu3"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VMt-9m-FuM" userLabel="Flag Button">
-                                <rect key="frame" x="284" y="30" width="29" height="29"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="29" id="F8I-3z-yMy"/>
-                                    <constraint firstAttribute="width" constant="29" id="y2I-Gs-ff5"/>
-                                </constraints>
-                                <state key="normal" image="Report">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="flagButtonTapped" destination="TcD-JJ-32S" eventType="touchUpInside" id="PET-aq-aql"/>
-                                </connections>
-                            </button>
                             <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="mK1-eb-UxF">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="656"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -4821,6 +4728,99 @@ Dubb!</string>
                                     <outlet property="delegate" destination="TcD-JJ-32S" id="XCG-Fv-qhw"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cpd-mG-dUc" userLabel="Gradient View">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yEi-Cm-zZE" userLabel="Book Now Button Container">
+                                <rect key="frame" x="0.0" y="656" width="320" height="44"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$68" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SuD-AY-V4v">
+                                        <rect key="frame" x="269" y="13" width="43" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="43" id="0Rh-XZ-sMQ"/>
+                                            <constraint firstAttribute="height" constant="21" id="NZD-OK-Q0f"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="usn-bk-AdY">
+                                        <rect key="frame" x="97" y="11" width="127" height="23"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="right_arrow.png" translatesAutoresizingMaskIntoConstraints="NO" id="uBw-S6-yw9">
+                                                <rect key="frame" x="0.0" y="7" width="10" height="10"/>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="BOOK NOW" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="acf-zI-0TA">
+                                                <rect key="frame" x="15" y="1" width="107" height="21"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="23" id="350-5C-0nl"/>
+                                            <constraint firstAttribute="width" constant="127" id="Sr3-BC-qg7"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="0.42352941176470588" green="0.67843137254901964" blue="0.31764705882352939" alpha="1" colorSpace="calibratedRGB"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="RXF-hF-rtX"/>
+                                    <constraint firstAttribute="centerY" secondItem="usn-bk-AdY" secondAttribute="centerY" constant="-0.5" id="VIQ-vk-eLz"/>
+                                    <constraint firstAttribute="trailing" secondItem="SuD-AY-V4v" secondAttribute="trailing" constant="8" id="XNe-1f-s6R"/>
+                                    <constraint firstAttribute="centerX" secondItem="usn-bk-AdY" secondAttribute="centerX" id="nBX-2v-OTc"/>
+                                    <constraint firstItem="SuD-AY-V4v" firstAttribute="top" secondItem="yEi-Cm-zZE" secondAttribute="top" constant="13" id="w6a-iV-v6O"/>
+                                </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="1H9-mE-BYa" appends="YES" id="Dv6-Kg-7aF"/>
+                                </connections>
+                            </view>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Ow0-Qz-Vg5">
+                                <rect key="frame" x="142" y="332" width="37" height="37"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="37" id="TIY-z6-Ogd"/>
+                                    <constraint firstAttribute="width" constant="37" id="okw-ha-Jof"/>
+                                </constraints>
+                                <color key="color" red="0.0" green="0.65490196079999996" blue="0.039215686270000001" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="odu-X9-2dD" userLabel="Back Button">
+                                <rect key="frame" x="10" y="28" width="32" height="32"/>
+                                <state key="normal" image="Back">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="backButtonTapped:" destination="TcD-JJ-32S" eventType="touchUpInside" id="TPO-lW-Uwh"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g50-FC-rHq" userLabel="Share Sheet Button">
+                                <rect key="frame" x="240" y="30" width="30" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="M7W-Yw-TBn"/>
+                                    <constraint firstAttribute="height" constant="29" id="d6g-I4-lbu"/>
+                                </constraints>
+                                <state key="normal" image="Export">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="shareSheetButtonTapped:" destination="TcD-JJ-32S" eventType="touchUpInside" id="Lxx-hX-Iu3"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VMt-9m-FuM" userLabel="Flag Button">
+                                <rect key="frame" x="284" y="30" width="29" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="29" id="F8I-3z-yMy"/>
+                                    <constraint firstAttribute="width" constant="29" id="y2I-Gs-ff5"/>
+                                </constraints>
+                                <state key="normal" image="Report">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="flagButtonTapped" destination="TcD-JJ-32S" eventType="touchUpInside" id="PET-aq-aql"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.90980392160000001" green="0.90980392160000001" blue="0.90980392160000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
