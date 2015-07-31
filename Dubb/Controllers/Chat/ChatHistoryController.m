@@ -62,7 +62,7 @@
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if( pageNo != 0 ) [params setObject:@(self.dialogs.count) forKey:@"skip"];
-    
+    [params setObject:@"last_message_date_sent" forKey:@"sort_desc"];
     [QBChat dialogsWithExtendedRequest:params delegate:self];
 }
 
@@ -93,12 +93,13 @@
     UILabel *lblUser = (UILabel*)[cell viewWithTag:101];
     UILabel *lblMessage = (UILabel*)[cell viewWithTag:102];
     UILabel *lblUnreadMsg = (UILabel*)[cell viewWithTag:103];
+    UIImageView *profileImageView = (UIImageView*)[cell viewWithTag:104];
     
     NSInteger currentTimeInterval = [[NSDate date] timeIntervalSince1970];
     NSInteger userLastRequestAtTimeInterval   = [[recipient lastRequestAt] timeIntervalSince1970];
     
     // if user didn't do anything last 1 minute
-    if((currentTimeInterval - userLastRequestAtTimeInterval) > 60){
+    if((currentTimeInterval - userLastRequestAtTimeInterval) > 70){
         imageView.backgroundColor = [UIColor grayColor];
     } else
         imageView.backgroundColor = [UIColor greenColor];
@@ -112,12 +113,25 @@
     } else
         lblMessage.text = @"";
     
-    if( chatDialog.unreadMessagesCount == 0 )
+    UIColor *highlightColor = [UIColor colorWithRed:69.0f/255.0f green:140/255.0f blue:204/255.0f alpha:1.0f];
+    if( chatDialog.unreadMessagesCount == 0 ) {
+        cell.backgroundColor = [UIColor whiteColor];
         lblUnreadMsg.hidden = YES;
+    }
     else{
         lblUnreadMsg.hidden = NO;
+        cell.backgroundColor = highlightColor;
         lblUnreadMsg.text = [NSString stringWithFormat:@"%lu", (unsigned long)chatDialog.unreadMessagesCount];
     }
+    
+    profileImageView.image = [UIImage imageNamed:@"portrait.png"];
+    [QBRequest TDownloadFileWithBlobID:recipient.blobID successBlock:^(QBResponse *response, NSData *fileData) {
+        UIImage *image = [UIImage imageWithData:fileData];
+        profileImageView.image = image;
+        
+    } statusBlock:nil errorBlock:^(QBResponse *response) {
+        profileImageView.image = [UIImage imageNamed:@"portrait.png"];
+    }];
     
     return cell;
 }

@@ -627,11 +627,12 @@ static bool liked = NO;
     descriptionLabel.delegate = self;
     descriptionLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     descriptionLabel.enabledTextCheckingTypes = NSTextCheckingTypeLink;
+    descriptionLabel.extendsLinkTouchArea = YES;
     NSAttributedString *finalString = [[NSAttributedString alloc]
                                        initWithString:@"... more"
                                        attributes:@{
                                                     NSForegroundColorAttributeName : [UIColor colorWithRed:69/255.0f green:140.0f/255.0f blue:204.0f/255.0f alpha:1.0f],
-                                                    NSFontAttributeName : descriptionLabel.font,
+                                                    NSFontAttributeName : [UIFont boldSystemFontOfSize:16.0f],
                                                     NSLinkAttributeName : [NSURL URLWithString:@"header"]
                                                     }];
     descriptionLabel.attributedTruncationToken = finalString;

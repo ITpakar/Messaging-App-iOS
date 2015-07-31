@@ -137,6 +137,7 @@
     if (chosenImage) {
         NSString *imageURL = [self uploadImage];
         params[@"image"] = imageURL;
+        [self uploadImageToQuickblox];
     }
     [self showProgress:@"Saving profile changes"];
     [self.backend updateUser:[User currentUser].userID Parameters:params CompletionHandler:^(NSDictionary *result) {
@@ -314,6 +315,21 @@
         return nil;
     }];
     
+}
+
+- (void)uploadImageToQuickblox {
+    
+    NSData *data = UIImagePNGRepresentation(chosenImage);
+    
+    [QBRequest TUploadFile:data fileName:@"MyAvatar" contentType:@"image/png" isPublic:NO successBlock:^(QBResponse *response, QBCBlob *blob) {
+        
+        QBUUser *user = [QBUUser user];
+        user.ID = [[User currentUser].quickbloxID integerValue];
+        user.blobID = blob.ID;
+        [QBRequest updateUser:user successBlock:nil errorBlock:nil];
+        
+    } statusBlock:nil errorBlock:nil];
+
 }
 #pragma mark - UITextView Delegate
 

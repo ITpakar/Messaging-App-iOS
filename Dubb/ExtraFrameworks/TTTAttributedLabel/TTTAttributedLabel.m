@@ -433,12 +433,16 @@ static inline CGSize CTFramesetterSuggestFrameSizeForAttributedStringWithConstra
 
     NSMutableDictionary *mutableLinkAttributes = [NSMutableDictionary dictionary];
     [mutableLinkAttributes setObject:[NSNumber numberWithBool:YES] forKey:(NSString *)kCTUnderlineStyleAttributeName];
+    [mutableLinkAttributes setObject:[UIFont boldSystemFontOfSize:16.0f] forKey:(NSString *)kCTFontAttributeName];
 
     NSMutableDictionary *mutableActiveLinkAttributes = [NSMutableDictionary dictionary];
     [mutableActiveLinkAttributes setObject:[NSNumber numberWithBool:NO] forKey:(NSString *)kCTUnderlineStyleAttributeName];
+    [mutableActiveLinkAttributes setObject:[UIFont boldSystemFontOfSize:16.0f] forKey:(NSString *)kCTFontAttributeName];
+    
 
     NSMutableDictionary *mutableInactiveLinkAttributes = [NSMutableDictionary dictionary];
     [mutableInactiveLinkAttributes setObject:[NSNumber numberWithBool:NO] forKey:(NSString *)kCTUnderlineStyleAttributeName];
+    [mutableInactiveLinkAttributes setObject:[UIFont boldSystemFontOfSize:16.0f] forKey:(NSString *)kCTFontAttributeName];
 
     if ([NSMutableParagraphStyle class]) {
         [mutableLinkAttributes setObject:[UIColor blueColor] forKey:(NSString *)kCTForegroundColorAttributeName];
@@ -449,6 +453,8 @@ static inline CGSize CTFramesetterSuggestFrameSizeForAttributedStringWithConstra
         [mutableActiveLinkAttributes setObject:(__bridge id)[[UIColor redColor] CGColor] forKey:(NSString *)kCTForegroundColorAttributeName];
         [mutableInactiveLinkAttributes setObject:(__bridge id)[[UIColor grayColor] CGColor] forKey:(NSString *)kCTForegroundColorAttributeName];
     }
+    
+    
 
     self.linkAttributes = [NSDictionary dictionaryWithDictionary:mutableLinkAttributes];
     self.activeLinkAttributes = [NSDictionary dictionaryWithDictionary:mutableActiveLinkAttributes];
@@ -975,11 +981,15 @@ static inline CGSize CTFramesetterSuggestFrameSizeForAttributedStringWithConstra
                 CTLineDraw(truncatedLine, c);
                 
                 NSRange linkRange;
-                if ([attributedTruncationString attribute:NSLinkAttributeName atIndex:0 effectiveRange:&linkRange]) {
+                NSURL *truncationLinkURL = [attributedTruncationString attribute:NSLinkAttributeName
+                                                                         atIndex:0
+                                                                  effectiveRange:&linkRange];
+                
+                if (truncationLinkURL) {
                     NSRange tokenRange = [truncationString.string rangeOfString:attributedTruncationString.string];
-                    NSRange tokenLinkRange = NSMakeRange((NSUInteger)(lastLineRange.location+lastLineRange.length)-tokenRange.length + 5, (NSUInteger)tokenRange.length);
+                    NSRange tokenLinkRange = NSMakeRange((NSUInteger)(lastLineRange.location+lastLineRange.length - 3), (NSUInteger)tokenRange.length + 8);
                     
-                    [self addLinkToURL:[attributedTruncationString attribute:NSLinkAttributeName atIndex:0 effectiveRange:&linkRange] withRange:tokenLinkRange];
+                    [self addLinkToURL:truncationLinkURL withRange:tokenLinkRange];
                 }
 
                 CFRelease(truncatedLine);
