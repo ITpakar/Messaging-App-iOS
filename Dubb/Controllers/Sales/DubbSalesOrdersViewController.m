@@ -50,7 +50,7 @@ enum DubbListingCellTag {
         [self.view layoutIfNeeded];
     } else {
         self.navigationBarTitleLabel.text = @"SALES";
-        self.emptyViewLabel.text = @"Nobody has ordered your service yet.";
+        self.emptyViewLabel.text = @"Sorry, you have no orders yet";
     }
     
     [self showProgress:@"Loading..."];

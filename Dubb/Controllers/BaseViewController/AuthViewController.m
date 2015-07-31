@@ -410,16 +410,28 @@
     
     if( chatLogged == NO ) {
         user.chatUser = nil;
-//        [self showMessage:@"Chat is not available"];
     } else {
-        [((AppDelegate*)[[UIApplication sharedApplication] delegate]) registerForRemoteNotifications];
         
+        // Store user information into UserDefaults
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"id": user.userID, @"quickblox_id" : user.quickbloxID, @"email":user.email,
                                                                                    @"username":user.username, @"first":user.firstName, @"last":user.lastName}];
                                                                                 
         [defaults setObject:dic forKey:@"DubbUser"];
         [defaults synchronize];
+        
+        
+        // Register the device for Quickblox Push
+        NSString *deviceUdid = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+        NSData *deviceToken = [defaults dataForKey:DEFAULTS_DEVICE_TOKEN_DATA];
+        
+        [QBRequest registerSubscriptionForDeviceToken:deviceToken uniqueDeviceIdentifier:deviceUdid successBlock:^(QBResponse *response, NSArray *subscriptions) {
+            
+            
+        } errorBlock:^(QBError *error) {
+            
+            NSLog(@"Response error:%@", error);
+        }];
     }
     
     UIViewController *rootController = [self.storyboard instantiateViewControllerWithIdentifier:@"rootController"];

@@ -68,35 +68,7 @@
         user.lastName = dic[@"last"];
     }
     
-
-
     return user;
-    /*
-     bio = "<null>";
-     city = "<null>";
-     country = "<null>";
-     "country_code" = "<null>";
-     "created_at" = "-0001-11-30 00:00:00";
-     email = "test1@gmail.com";
-     "facebook_token" = "<null>";
-     first = Test1;
-     "gplus_token" = "<null>";
-     id = 8;
-     "is_admin" = 0;
-     "is_pro" = 0;
-     last = User;
-     lat = "";
-     long = "";
-     phone = "<null>";
-     "response_time_hours" = "0.00";
-     "seller_location_verified" = 0;
-     state = "<null>";
-     timezone = "<null>";
-     "quickblox_id" = 2608717;
-     "updated_at" = "-0001-11-30 00:00:00";
-     username = t1;
-     verified = 0;
-     zip = "<null>";*/
 }
 
 - (void)setChatUsers:(NSArray *)chatUsers

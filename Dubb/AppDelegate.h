@@ -19,9 +19,10 @@
 -(void)didReceiveMessage: (QBChatMessage*) message;
 -(void)updateUserLocation;@property (strong, nonatomic) UIWindow *window;
 -(void)startLocationTimer;
+-(void) openMessageFromNotification: (NSDictionary*) info;
 
 @property (strong) NotificationView *notificationView;
-
+@property (strong) NSDictionary *messageInfo;
 @property PayPalConfiguration *payPalConfig;
 @end
 

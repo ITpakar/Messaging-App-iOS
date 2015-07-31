@@ -200,11 +200,12 @@
             [self updateUserToDubbWithUserID:self.userId params:params];
             
         } else {
-            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"SHOWN_INTRODUCTION"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
+            
             [self registerUserToDubb:params];
             
         }
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"SHOWN_INTRODUCTION"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
     } else {
         
         [self showMessage:@"Your input is invalid. Please tap on info button to see what is wrong."];

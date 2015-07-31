@@ -60,6 +60,7 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
 }
 
 - (void)sendMessage:(QBChatMessage *)message{
+    
     [[QBChat instance] sendMessage:message];
 }
 
@@ -114,6 +115,10 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
         self.loginCompletionBlock();
         self.loginCompletionBlock = nil;
     }
+    AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    if (appDelegate.messageInfo) {
+        [appDelegate openMessageFromNotification:appDelegate.messageInfo];
+    }
 }
 
 
@@ -134,7 +139,7 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
 
 - (void)chatDidReceiveMessage:(QBChatMessage *)message{
     // play sound notification
-    [self playNotificationSound];
+    //[self playNotificationSound];
     
     // notify observers
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidReceiveNewMessage

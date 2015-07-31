@@ -628,6 +628,7 @@ static inline CGSize CTFramesetterSuggestFrameSizeForAttributedStringWithConstra
     for (TTTAttributedLabelLink *link in links) {
         if (link.attributes) {
             [mutableAttributedString addAttributes:link.attributes range:link.result.range];
+            [mutableAttributedString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:20.0f] range:link.result.range];
         }
     }
 

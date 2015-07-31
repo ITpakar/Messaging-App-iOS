@@ -26,7 +26,6 @@
 @interface AppDelegate () {
     CLLocationManager *locationManager;
     CLPlacemark *placeMark;
-
     NSTimer *updatingLocationTimer;
 }
 @property (nonatomic, strong) UIAlertView *alertView;
@@ -61,13 +60,11 @@
         [QBApplication sharedApplication].productionEnvironmentForPushesEnabled = YES;    
     #endif
     
-
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
     
     NSDictionary *remoteNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
     if( remoteNotification )
-        [self openMessageFromNotification:remoteNotification];
-    
+        self.messageInfo = remoteNotification;
     
     AWSStaticCredentialsProvider *credentialsProvider = [AWSStaticCredentialsProvider credentialsWithAccessKey:awsAccessKey secretKey:awsSecretKey];
     AWSServiceConfiguration *configuration = [AWSServiceConfiguration configurationWithRegion:AWSRegionUSWest1 credentialsProvider:credentialsProvider];
@@ -352,8 +349,8 @@
     
     NSLog(@"Device token: %@", pushToken);
     [[NSUserDefaults standardUserDefaults] setObject:pushToken forKey:DEFAULTS_DEVICE_TOKEN];
+    [[NSUserDefaults standardUserDefaults] setObject:deviceToken forKey:DEFAULTS_DEVICE_TOKEN_DATA];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    
     
 }
 #pragma mark Message Notification
@@ -443,7 +440,9 @@
         UINavigationController *navController = (UINavigationController *)rootVC.contentViewController;
         [navController pushViewController:chatController animated:YES];
         
-    }else{
+        if (self.messageInfo) {
+            self.messageInfo = nil;
+        }
     }
 }
 

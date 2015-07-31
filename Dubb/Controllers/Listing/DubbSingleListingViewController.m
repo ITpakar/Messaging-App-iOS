@@ -196,6 +196,11 @@ enum DubbSingleListingViewTag {
     [self.activityIndicator startAnimating];
     [self.backend getListingWithID:self.listingID CompletionHandler:^(NSDictionary *result) {
         [self.activityIndicator stopAnimating];
+        if ([result[@"response"] isKindOfClass:[NSNull class]]) {
+            [self showMessage:@"Invalid listing"];
+            [self.navigationController popViewControllerAnimated:YES];
+            return;
+        }
         listingInfo = result[@"response"];
         NSArray *images = listingInfo[@"images"];
         addOns = [listingInfo[@"addon"] mutableCopy];
