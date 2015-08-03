@@ -4460,7 +4460,7 @@ Dubb!</string>
                                                         <constraint firstAttribute="height" constant="1" id="6SF-82-JLa"/>
                                                     </constraints>
                                                 </view>
-                                                <label opaque="NO" tag="102" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="4" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jZr-SR-H08" customClass="TTTAttributedLabel">
+                                                <label opaque="NO" tag="102" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jZr-SR-H08" customClass="TTTAttributedLabel">
                                                     <rect key="frame" x="13" y="153" width="291" height="65"/>
                                                     <string key="text">Here is where a lovely service description goes describing the talent of the provider and their  past experience. Here is where a lovely service description goes describing the talent of the provider and their past experience.Here is where a lovely service description goes describing the talent of the provider and their past experience.</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>

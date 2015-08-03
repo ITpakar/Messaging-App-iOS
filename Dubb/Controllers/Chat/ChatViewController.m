@@ -237,7 +237,7 @@
     textView.font = [UIFont systemFontOfSize:14.0f];
     
     QBChatAbstractMessage *message = messages[row];
-    CGSize size;
+    CGSize size = CGSizeZero;
     
     if( [message.customParameters objectForKey:@"type"] )
         size.height = (self.navigationController.view.frame.size.width - 130) * [message.customParameters[@"height"] integerValue] / [message.customParameters[@"width"] integerValue];

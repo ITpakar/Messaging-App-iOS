@@ -366,12 +366,16 @@
     if( [[navController visibleViewController] isKindOfClass:[ChatViewController class]] ){  //ChatViewController is Opened now
         ChatViewController *chatVC = (ChatViewController*)[navController visibleViewController];
         if( chatVC.dialog.recipientID == message.senderID ) return;
-    } else if ([[navController visibleViewController] isKindOfClass:[ChatHistoryController class]]){
-        ChatHistoryController *chatHistoryVC = (ChatHistoryController*)[navController visibleViewController];
-        [chatHistoryVC reloadChatHistory];
+    } else {
+        
+        if ([[navController visibleViewController] isKindOfClass:[ChatHistoryController class]]){
+            ChatHistoryController *chatHistoryVC = (ChatHistoryController*)[navController visibleViewController];
+            [chatHistoryVC reloadChatHistory];
+            
+        }
+        [self showNotification:message];
     }
     
-    [self showNotification:message];
 }
 
 -(void) showNotification: (QBChatMessage*)message
@@ -428,6 +432,7 @@
 - (void)completedWithResult:(QBResult *)result{
     
     [MBProgressHUD hideAllHUDsForView:self.window.rootViewController.view animated:NO];
+    if( ![self.window.rootViewController isKindOfClass:[DubbRootViewController class]] ) return;
     
     if (result.success && [result isKindOfClass:[QBChatDialogResult class]]) {
         // dialog created
@@ -436,8 +441,10 @@
         
         ChatViewController *chatController = (ChatViewController*)[self.window.rootViewController.storyboard instantiateViewControllerWithIdentifier:@"chatController"];
         chatController.dialog = dialogRes.dialog;
+
         DubbRootViewController *rootVC = (DubbRootViewController*)self.window.rootViewController;
         UINavigationController *navController = (UINavigationController *)rootVC.contentViewController;
+        
         [navController pushViewController:chatController animated:YES];
         
         if (self.messageInfo) {

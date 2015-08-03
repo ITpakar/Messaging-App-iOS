@@ -112,7 +112,7 @@ enum kDubbMenuUnreadMessagesSectionViewTag {
     lblMenu.text = menus[indexPath.row];
     iconImageView.image = [UIImage imageNamed:menuIcons[indexPath.row]];
     
-    if (indexPath.row == 6) {
+    if (indexPath.row == 6 && totalUnreadMessagesCount > 0) {
         lblTotalUnreadMessagesCount.hidden = NO;
         lblTotalUnreadMessagesCount.text = [NSString stringWithFormat:@"%ld", totalUnreadMessagesCount];
     } else {

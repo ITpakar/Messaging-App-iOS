@@ -448,7 +448,7 @@ static bool liked = NO;
     NSString *description = @"Here is where a lovely service description goes describing the talent of the provider and their past experience. Here is where a lovely service description goes describing the talent of the provider and their past experience. Here is where a lovely service description goes describing the talent of the provider and their past experience.";
     switch (indexPath.section) {
         case kDubbSingleListingSectionHeader: {
-            if (numberOfLinesForHeaderCellDescriptionLabel == 0 && listingInfo && [listingInfo[@"description"] length] > 0) {
+            if (listingInfo && [listingInfo[@"description"] length] > 0) {
                 return 220 + [self heightOfLabelWithText:listingInfo[@"description"] Width:sWidth - 29] - 60 > 220 ? 220 + [self heightOfLabelWithText:listingInfo[@"description"] Width:sWidth - 29] - 60 : 220;
             } else
                 return 220;
