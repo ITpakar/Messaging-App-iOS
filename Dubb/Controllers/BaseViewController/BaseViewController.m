@@ -29,6 +29,35 @@
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 }
 
+- (void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    // This function needed to make clicking buttons easier on small screens
+    // After clicking on toolbar we creating touch square around touch point
+    // For eg, if we touched outside small button but touch square intersects
+    // button frame rectangle - button will be pressed anyway
+
+    CGFloat w = 100; // Touch square size
+    UITouch *touch = [touches anyObject];
+    UIView *view = [touch view];
+
+    // Assume that view with upper left corner at (0,0) is toolbar
+    if(CGPointEqualToPoint(view.frame.origin, CGPointMake(0, 0)) && view.frame.size.height < 100) {
+        NSArray *subviews = [view subviews];
+
+        // Go through all the buttons in toolbar
+        for(UIView *v in subviews) {
+            if([v isKindOfClass:[UIButton class]]) {
+                CGPoint loc = [touch locationInView:view];
+                CGRect touchRect = CGRectMake(loc.x - w/2, loc.y - w/2, w, w);
+                if (CGRectIntersectsRect(touchRect, v.frame)) {
+                    [(UIButton*)v sendActionsForControlEvents:UIControlEventTouchUpInside];
+                    return;
+                }
+            }
+        }
+    }
+}
+
 - (void)onMenu
 {
     if (self.reasonForDisablingMenu) {
