@@ -433,9 +433,12 @@
             NSLog(@"Response error:%@", error);
         }];
     }
-    
+    AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     UIViewController *rootController = [self.storyboard instantiateViewControllerWithIdentifier:@"rootController"];
-    ((AppDelegate*)[[UIApplication sharedApplication] delegate]).window.rootViewController = rootController;
+    appDelegate.window.rootViewController = rootController;
+    if (appDelegate.messageInfo) {
+        [appDelegate openMessageFromNotification:appDelegate.messageInfo];
+    }
 }
 
 
