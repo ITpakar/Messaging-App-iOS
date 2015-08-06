@@ -187,7 +187,7 @@ enum DubbSingleListingViewTag {
     [topView initViews];
     topView.slideShow.delegate = self;
     [topView.likeButton addTarget:self action:@selector(likeButtonTapped) forControlEvents:UIControlEventTouchUpInside];
-    [self.tableView addParallaxWithView:topView andHeight:200];
+    [self.tableView addParallaxWithView:topView andHeight:sWidth];
     //[self addScrollingGradientToView:topView];
     
     isAskingQuestion = NO;

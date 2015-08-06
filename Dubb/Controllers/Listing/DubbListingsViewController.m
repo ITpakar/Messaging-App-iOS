@@ -371,7 +371,7 @@
     if( tableView == searchResultTableView || tableView == locationTableView )
         return 40.f;
     
-    return 250.f;
+    return sWidth + 61.0f;
 }
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
