@@ -29,8 +29,10 @@
     __weak IBOutlet UIView *messageContainerView;
     __weak IBOutlet UITextView *messageTextView;
     
-    UIImage* recipientImage;
-    
+    UIImage *recipientImage;
+    UIImage *senderImage;
+    NSUInteger recipientID;
+
     NSMutableArray *messages;
     NSMutableDictionary *sections;
     NSMutableArray *sectionTitles;
@@ -95,14 +97,18 @@
     _wasKeyboardManagerEnabled = [[IQKeyboardManager sharedManager] isEnabled];
     [[IQKeyboardManager sharedManager] setEnable:NO];
     
+    recipientID = self.dialog.userID;
+    
     if( recipientImage == nil ){
         recipientImage = [[User currentUser].avatarsAsDictionary objectForKey:@(self.dialog.recipientID)];
-        if( recipientImage ){
+        QBUUser *recipient = [User currentUser].usersAsDictionary[@(self.dialog.recipientID)];
+        if( recipientImage && recipient){
             receiverProfileImageView.image = recipientImage;
             [self setRecipient];
             
         } else {
-            [QBRequest userWithID:self.dialog.recipientID successBlock:^(QBResponse *response, QBUUser *user) {
+            
+            [QBRequest userWithID:recipientID successBlock:^(QBResponse *response, QBUUser *user) {
                 
                 [User currentUser].chatUsers = @[user];
                 [self setRecipient];
@@ -134,17 +140,32 @@
             } errorBlock:^(QBResponse *response) {
                 recipientImage = [UIImage imageNamed:@"portrait.png"];
                 receiverProfileImageView.image = recipientImage;
-                [[User currentUser].avatarsAsDictionary setObject:recipientImage forKey:@(self.dialog.recipientID)];
+                [[User currentUser].avatarsAsDictionary setObject:recipientImage forKey:@(recipientID)];
             }];
         }
     }
+    [QBRequest userWithID:[User currentUser].chatUser.ID successBlock:^(QBResponse *response, QBUUser *user) {
+        [QBRequest TDownloadFileWithBlobID:user.blobID successBlock:^(QBResponse *response, NSData *fileData) {
+            UIImage *image = [UIImage imageWithData:fileData];
+            [User currentUser].profileImage = image;
+            [messageTableView reloadData];
+        } statusBlock:nil errorBlock:^(QBResponse *response) {
+            UIImage *image = [UIImage imageNamed:@"portrait.png"];
+            [User currentUser].profileImage = image;
+        }];
+        
+    } errorBlock:^(QBResponse *response) {
+        UIImage *image = [UIImage imageNamed:@"portrait.png"];
+        [User currentUser].profileImage = image;
+        
+    }];
     
     [self loadMessages];
     
 }
 
 -(void) setRecipient{
-    QBUUser *user = [User currentUser].usersAsDictionary[@(self.dialog.recipientID)];
+    QBUUser *user = [User currentUser].usersAsDictionary[@(recipientID)];
     chatTitle.text = user.fullName == nil ? user.login : user.fullName;
     receiverProfileImageView.image = recipientImage;
     
@@ -161,7 +182,7 @@
 }
 
 -(void) updateRecipientStatus{
-    [QBRequest userWithID:self.dialog.recipientID successBlock:^(QBResponse *response, QBUUser *user) {
+    [QBRequest userWithID:recipientID successBlock:^(QBResponse *response, QBUUser *user) {
         NSInteger currentTimeInterval = [[NSDate date] timeIntervalSince1970];
         NSInteger userLastRequestAtTimeInterval   = [[user lastRequestAt] timeIntervalSince1970];
         
@@ -309,6 +330,7 @@
     else
         cell.profileImage = recipientImage;
     
+    
     [cell setup];
     
     return cell;
@@ -420,7 +442,7 @@
     params[@"save_to_history"] = @YES;
     [message setCustomParameters:params];
     
-    message.recipientID = [self.dialog recipientID];
+    message.recipientID = recipientID;
     message.senderID = [User currentUser].chatUser.ID;
     
     [[ChatService instance] sendMessage:message];
@@ -449,7 +471,7 @@
 - (void)chatDidReceiveMessageNotification:(NSNotification *)notification{
     
     QBChatMessage *message = notification.userInfo[kMessage];
-    if(message.senderID != self.dialog.recipientID){
+    if(message.senderID != recipientID){
         return;
     }
     
@@ -624,7 +646,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     [message setCustomParameters:attachmentParams];
     
     message.text = attachmentParams[@"type"];
-    message.recipientID = [self.dialog recipientID];
+    message.recipientID = recipientID;
     message.senderID = [User currentUser].chatUser.ID;
     
     // save message

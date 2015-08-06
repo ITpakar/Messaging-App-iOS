@@ -88,6 +88,8 @@
            [profileImageView startAnimating];
         else
             profileImageView.image = self.profileImage;
+    } else {
+        profileImageView.image  = [User currentUser].profileImage;
     }
 }
 
@@ -114,7 +116,7 @@
         
         if( sentMessage ) //Sender
         {
-            profileImageView.image  = [User currentUser].profileImage;
+            
         }
         
         profileImageView.activityIndicatorStyle = UIActivityIndicatorViewStyleWhite;

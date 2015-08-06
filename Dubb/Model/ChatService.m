@@ -115,10 +115,9 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
         self.loginCompletionBlock();
         self.loginCompletionBlock = nil;
     }
-    AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-    if (appDelegate.messageInfo) {
-        [appDelegate openMessageFromNotification:appDelegate.messageInfo];
-    }
+    
+    
+
 }
 
 
