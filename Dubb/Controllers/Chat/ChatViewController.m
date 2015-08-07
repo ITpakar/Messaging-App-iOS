@@ -97,7 +97,11 @@
     _wasKeyboardManagerEnabled = [[IQKeyboardManager sharedManager] isEnabled];
     [[IQKeyboardManager sharedManager] setEnable:NO];
     
-    recipientID = self.dialog.userID;
+    for (NSNumber *occupantID in self.dialog.occupantIDs) {
+        if ([occupantID integerValue] != [User currentUser].chatUser.ID) {
+            recipientID = [occupantID integerValue];
+        }
+    }
     
     if( recipientImage == nil ){
         recipientImage = [[User currentUser].avatarsAsDictionary objectForKey:@(self.dialog.recipientID)];

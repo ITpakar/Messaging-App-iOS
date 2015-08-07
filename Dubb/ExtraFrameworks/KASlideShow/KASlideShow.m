@@ -342,6 +342,9 @@ typedef NS_ENUM(NSInteger, KASlideShowSlideMode) {
     
     [self addGestureRecognizer:swipeLeftGestureRecognizer];
     [self addGestureRecognizer:swipeRightGestureRecognizer];
+    
+    swipeRightGestureRecognizer.delegate = (id<UIGestureRecognizerDelegate>) delegate;
+    swipeLeftGestureRecognizer.delegate = (id<UIGestureRecognizerDelegate>) delegate;
 }
 
 #pragma mark - Gesture Recognizers handling

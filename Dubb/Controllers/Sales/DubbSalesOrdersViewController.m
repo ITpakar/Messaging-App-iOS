@@ -117,9 +117,16 @@ enum DubbListingCellTag {
         amountLabel.text = [NSString stringWithFormat:@"$%@", orderDetail[@"total_amt"]];
         NSString *imageName = ([orderDetail[@"order_delivery_status"] isEqualToString:@"inprogress"]) ? @"in_progress_indicator.png" : @"complete_indicator.png";
         progressIndicatorImageView.image = [UIImage imageNamed:imageName];
-        if ([orderDetail[@"buyer"] objectForKey:@"image"] && ![[orderDetail[@"buyer"] objectForKey:@"image"] isKindOfClass:[NSNull class]]) {
-            [profileImageView sd_setImageWithURL:[NSURL URLWithString:orderDetail[@"buyer"][@"image"][@"url"]]];
+        
+        @try{
+            [profileImageView sd_setImageWithURL:[NSURL URLWithString:orderDetail[opponentType][@"image"][@"url"]]];
+        }@catch(NSException *e){
+            NSLog(@"%@", e.description);
         }
+//
+//        if ([orderDetail[@"buyer"] objectForKey:@"image"] && ![[orderDetail[@"buyer"] objectForKey:@"image"] isKindOfClass:[NSNull class]]) {
+//            [profileImageView sd_setImageWithURL:[NSURL URLWithString:orderDetail[@"buyer"][@"image"][@"url"]]];
+//        }
     }
     return cell;
 }

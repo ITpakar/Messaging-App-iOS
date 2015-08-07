@@ -26,7 +26,7 @@
 #import "PaypalMobile.h"
 #import "AppDelegate.h"
 
-@interface DubbSingleListingViewController () <QBActionStatusDelegate, MFMailComposeViewControllerDelegate, UIScrollViewDelegate, PayPalPaymentDelegate, TTTAttributedLabelDelegate>
+@interface DubbSingleListingViewController () <QBActionStatusDelegate, MFMailComposeViewControllerDelegate, UIScrollViewDelegate, PayPalPaymentDelegate, TTTAttributedLabelDelegate, UIGestureRecognizerDelegate>
 {
     NSMutableArray *purchasedAddOns;
     NSMutableArray *addOns;
@@ -472,8 +472,9 @@ static bool liked = NO;
                     return 133 + [self heightOfLabelWithText:description Width:sWidth - 29] - 60 > 133 ? 133 + [self heightOfLabelWithText:description Width:sWidth - 29] - 60 : 133;
                 } else
                     return 133;
+            break;
         default:
-            return 0;
+            return 44;
     }
 }
 
@@ -986,11 +987,17 @@ static bool liked = NO;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-#pragma mark Proof of payment validation
+#pragma mark - Proof of payment validation
 
 - (void)sendCompletedPaymentToServer:(PayPalPayment *)completedPayment {
     // TODO: Send completedPayment.confirmation to server
     NSLog(@"Here is your proof of payment:\n\n%@\n\nSend this to your server for confirmation and fulfillment.", completedPayment.confirmation);
+}
+
+
+#pragma mark - UIGestureRecognizerDelegate methods
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    return YES;
 }
 
 - (void)hideExtraQuantityCellAtIndexPath:(NSIndexPath *)indexPath {

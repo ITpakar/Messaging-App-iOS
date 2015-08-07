@@ -125,16 +125,23 @@
     }
     
     profileImageView.image = [UIImage imageNamed:@"portrait.png"];
-    [QBRequest TDownloadFileWithBlobID:recipient.blobID successBlock:^(QBResponse *response, NSData *fileData) {
-        UIImage *image = [UIImage imageWithData:fileData];
-        [[User currentUser].avatarsAsDictionary setObject:image forKey:@(recipient.ID)];
-        profileImageView.image = image;
-        
-    } statusBlock:nil errorBlock:^(QBResponse *response) {
-        UIImage *image = [UIImage imageNamed:@"portrait.png"];
-        profileImageView.image = image;
-        [[User currentUser].avatarsAsDictionary setObject:image forKey:@(recipient.ID)];
-    }];
+    
+    UIImage *recipientImage = [[User currentUser].avatarsAsDictionary objectForKey:@(recipient.ID)];
+    if (recipientImage) {
+        profileImageView.image = recipientImage;
+    } else {
+        [QBRequest TDownloadFileWithBlobID:recipient.blobID successBlock:^(QBResponse *response, NSData *fileData) {
+            UIImage *image = [UIImage imageWithData:fileData];
+            [[User currentUser].avatarsAsDictionary setObject:image forKey:@(recipient.ID)];
+            profileImageView.image = image;
+            
+        } statusBlock:nil errorBlock:^(QBResponse *response) {
+            UIImage *image = [UIImage imageNamed:@"portrait.png"];
+            profileImageView.image = image;
+            [[User currentUser].avatarsAsDictionary setObject:image forKey:@(recipient.ID)];
+        }];
+    }
+    
     
     return cell;
 }
