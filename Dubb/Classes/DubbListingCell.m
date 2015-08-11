@@ -7,19 +7,23 @@
 //
 
 #import "DubbListingCell.h"
+#import "AXRatingView.h"
 #import <AddressBookUI/AddressBookUI.h>
 #import <CoreLocation/CLGeocoder.h>
 #import <CoreLocation/CLPlacemark.h>
 #import <SDWebImage/UIImageView+WebCache.h>
 
 @interface DubbListingCell(){
-    UIView*         containerView;
-    UIImageView*    profileImageView;
-    UILabel*        titleLabel;
-    UILabel*        userLabel;
-    UIImageView*    listingImageView;
-    UILabel*        categoryLabel;
-    UIButton*       btnOrder;
+    IBOutlet UIView*         containerView;
+    IBOutlet UIImageView*    profileImageView;
+    IBOutlet UILabel*        titleLabel;
+    IBOutlet UILabel*        userLabel;
+    IBOutlet UILabel*        locationLabel;
+    IBOutlet UIImageView*    listingImageView;
+    IBOutlet UILabel*        categoryLabel;
+    IBOutlet UIButton*       btnOrder;
+    IBOutlet AXRatingView *starRatingControl;
+    IBOutlet UILabel *priceLabel;
     
     UIActivityIndicatorView *mainImageIndicator;
     
@@ -29,63 +33,32 @@
 
 @implementation DubbListingCell
 
--(id) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier listingInfo:(NSDictionary*)listing{
-    
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+-(void) initWithListingInfo:(NSDictionary*)listing{
+
     if(self){        
         self.backgroundColor = [UIColor clearColor];
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         _listing = [[NSDictionary alloc] initWithDictionary:listing];
         
-        containerView = [[UIView alloc] init];
         containerView.backgroundColor = [UIColor whiteColor];
-        containerView.layer.masksToBounds = NO;
-        containerView.layer.shadowColor = [UIColor blackColor].CGColor;
-        containerView.layer.shadowOpacity = 0.5f;
+        containerView.layer.borderColor = [UIColor colorWithRed:215.0f/255.0f green:216.0f/255.0f blue:222.0f/255.0f alpha:1.0f].CGColor;
         
-        profileImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 15, 40, 40)];
-        profileImageView.layer.masksToBounds = YES;
-        profileImageView.layer.cornerRadius = 3.0f;
-        
-        
-        titleLabel = [[UILabel alloc] init];
-        titleLabel.numberOfLines = 2;
-        titleLabel.font = [UIFont systemFontOfSize:14.0f weight:bold];
-        
-        
-        
-        listingImageView = [[UIImageView alloc] init];
-        listingImageView.contentMode = UIViewContentModeScaleAspectFill;
-        listingImageView.clipsToBounds = YES;
+        profileImageView.layer.borderColor = [UIColor colorWithRed:232.0f/255.0f green:232.0f/255.0f blue:232.0f/255.0f alpha:1.0f].CGColor;
         
         mainImageIndicator = [[UIActivityIndicatorView alloc] init];
         mainImageIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
         
-        categoryLabel = [[UILabel alloc] init];
-        categoryLabel.font = [UIFont systemFontOfSize:14.0f];
-        categoryLabel.textColor = [UIColor darkGrayColor];
+        starRatingControl.backgroundColor = [UIColor clearColor];
+        starRatingControl.markImage = [UIImage imageNamed:@"star"];
+        starRatingControl.stepInterval = 1;
+        starRatingControl.value = 5;
+        [starRatingControl setBaseColor:[UIColor lightGrayColor]];
+        [starRatingControl setHighlightColor:[UIColor colorWithRed:245/255.0f green:221.0f/255.0 blue:18/255.0f alpha:1.0f]];
+        [starRatingControl setUserInteractionEnabled:NO];
 
-        btnOrder = [[UIButton alloc] init];
-        btnOrder.layer.masksToBounds = YES;
-        btnOrder.layer.cornerRadius = 10.0f;
-        btnOrder.layer.borderColor = [UIColor whiteColor].CGColor;
-        btnOrder.layer.borderWidth = 1.0f;
         
-        [btnOrder setTitleShadowColor:[[UIColor blackColor] colorWithAlphaComponent:0.5f] forState:UIControlStateNormal];
-        [btnOrder setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [btnOrder.titleLabel setFont:[UIFont systemFontOfSize:10.0f]];
-        [btnOrder.titleLabel setShadowOffset:CGSizeMake(1, 1)];
-        [btnOrder setBackgroundColor:[UIColor colorWithRed:1.0f green:0.67f blue:0.21 alpha:1.0f]];
-
-        userLabel = [[UILabel alloc] init];
         NSString *username = _listing[@"username"] ?: @"Unknown";
-        
-        NSDictionary *usernameAttributes = @{NSForegroundColorAttributeName : [UIColor grayColor], NSFontAttributeName: [UIFont systemFontOfSize:12.0f]};
-        NSMutableAttributedString *userText = [[NSMutableAttributedString alloc] initWithString:username attributes:usernameAttributes];
-        [userText addAttribute:NSForegroundColorAttributeName value:[UIColor blueColor] range:NSMakeRange(0, [username length])];
-        userLabel.attributedText = userText;
-        [containerView addSubview:userLabel];
-        [self layoutSubviews];
+        userLabel.text = [NSString stringWithFormat:@"%@%@",[[username substringToIndex:1] uppercaseString], [username substringFromIndex:1]];
         
         @try{
             if ([_listing[@"user"] objectForKey:@"image"]) {
@@ -117,22 +90,8 @@
                     NSString *location = @"";
                     @try{
                         if( placemark.addressDictionary[(NSString*)kABPersonAddressCityKey] && placemark.addressDictionary[(NSString*)kABPersonAddressStateKey])
-                            location = [NSString stringWithFormat:@" %@, %@", placemark.addressDictionary[(NSString*)kABPersonAddressCityKey], placemark.addressDictionary[(NSString*)kABPersonAddressStateKey]];
-                        
-                        /*NSArray *locations = placemark.addressDictionary[@"FormattedAddressLines"];
-                        int lower_range = (locations.count > 2 ? 1: 0);
-                        int high_range = (locations.count > 2 ? 3 : (int)locations.count);
-
-                        for(int i = lower_range; i < high_range; i++){
-                            NSString *loc = locations[i];
-                            if( [location isEqualToString:@""] )
-                                [location appendString:loc];
-                            else
-                                [location appendFormat:@", %@", loc];
-                        }*/
-                        
-                        [userText appendAttributedString:[[NSAttributedString alloc] initWithString:location attributes:usernameAttributes]];
-                        userLabel.attributedText = userText;
+                            location = [NSString stringWithFormat:@"%@, %@", placemark.addressDictionary[(NSString*)kABPersonAddressCityKey], placemark.addressDictionary[(NSString*)kABPersonAddressStateKey]];
+                        locationLabel.text = location;
                         
                     }@catch(NSException *e){
                         
@@ -149,7 +108,7 @@
             if( _listing[@"sub_category"] && ![_listing[@"sub_category"] isKindOfClass:[NSNull class]] )
                 [category appendFormat:@" > %@", _listing[@"sub_category"]];
             
-            categoryLabel.text = category;
+            categoryLabel.text = [category uppercaseString];
             
             if( listing[@"main_image"] && ![listing[@"main_image"] isKindOfClass:[NSNull class]] ){
                 if( [listing[@"main_image"] isKindOfClass:[NSString class]] && listing[@"main_image"] ){
@@ -184,52 +143,39 @@
             } else
                 listingImageView.image = [UIImage imageNamed:@"placeholder_image.png"];
            
+            priceLabel.text = [NSString stringWithFormat:@"$%ld", [listing[@"baseprice"] integerValue] ];
+//            if( listing[@"baseprice"] )
+//                [btnOrder setTitle:[NSString stringWithFormat:@"ORDER $%d", (int)[listing[@"baseprice"] integerValue]]  forState:UIControlStateNormal];
+//            else
+//                [btnOrder setTitle:@"ORDER $20" forState:UIControlStateNormal];
             
-            if( listing[@"baseprice"] )
-                [btnOrder setTitle:[NSString stringWithFormat:@"ORDER $%d", (int)[listing[@"baseprice"] integerValue]]  forState:UIControlStateNormal];
-            else
-                [btnOrder setTitle:@"ORDER $20" forState:UIControlStateNormal];
-        
         }@catch(NSException *e){
             
             profileImageView.image = [UIImage imageNamed:@"portrait.png"];
             listingImageView.image = [UIImage imageNamed:@"placeholder_image.png"];
-            [btnOrder setTitle:@"ORDER $20" forState:UIControlStateNormal];
+//            [btnOrder setTitle:@"ORDER $20" forState:UIControlStateNormal];
             
             NSLog(@"Exception: %@", e.description);
         }
-        
-        btnOrder.userInteractionEnabled = NO;
-        
-        [containerView addSubview:profileImageView];
-        [containerView addSubview:titleLabel];
-        [containerView addSubview:listingImageView];
-        [containerView addSubview:categoryLabel];
-        [containerView addSubview:btnOrder];
-        
-        
-        [containerView addSubview:mainImageIndicator];
-        [self.contentView addSubview:containerView];
-
     }
-    
-    return self;
 }
 
 -(void) layoutSubviews {
     
-    CGFloat width = self.bounds.size.width, height = self.bounds.size.height;
-    [containerView setFrame:CGRectMake(10, 8, width - 20, height - 16)];
+    UIBezierPath* shadowPath = [UIBezierPath bezierPath];
+    [shadowPath moveToPoint:CGPointMake(8, 250.0f)];
+    [shadowPath addLineToPoint:CGPointMake(304, 255.0f)];
+    [shadowPath closePath];
     
-    UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRect:containerView.bounds];
-    containerView.layer.shadowPath = shadowPath.CGPath;
+    containerView.layer.shadowColor = [UIColor blackColor].CGColor;
+    containerView.layer.shadowOpacity = 0.5f;
+    containerView.layer.shadowRadius = 4.0f;
+    [containerView.layer setShadowOffset:CGSizeMake(2.0, 2.0)];
+    //containerView.layer.shadowPath = shadowPath.CGPath;
     
-    [titleLabel setFrame:CGRectMake(60, 5, width - 90, 35)];
-    [userLabel setFrame:CGRectMake(60, 42, width - 90, 14)];
-    [listingImageView setFrame:CGRectMake(15, 64, width-45, height - 106)];
     mainImageIndicator.center = listingImageView.center;
-    [btnOrder setFrame:CGRectMake(width - 120, height - 70, 80, 20)];
-    [categoryLabel setFrame:CGRectMake(15, height - 42, width-25, 26)];
+    
+    [self addGradientToView:listingImageView];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -237,5 +183,23 @@
 
     // Configure the view for the selected state
 }
-
+- (void)addGradientToView:(UIView*)view
+{
+    //add in the gradient to show scrolling
+    CAGradientLayer *maskLayer = [CAGradientLayer layer];
+    
+    CGColorRef outerColor = [UIColor colorWithWhite:0.0 alpha:0.0].CGColor;
+    CGColorRef innerColor = [UIColor colorWithWhite:0.0 alpha:0.8].CGColor;
+    
+    maskLayer.colors = [NSArray arrayWithObjects:(__bridge id)outerColor,
+                        (__bridge id)innerColor, nil];
+    maskLayer.locations = [NSArray arrayWithObjects:[NSNumber numberWithFloat:0.0],
+                           [NSNumber numberWithFloat:1.0], nil];
+    
+    maskLayer.bounds = CGRectMake(0, 0, sWidth - 16, 191.0f);
+    maskLayer.anchorPoint = CGPointZero;
+    
+    [view.layer addSublayer:maskLayer];
+    
+}
 @end

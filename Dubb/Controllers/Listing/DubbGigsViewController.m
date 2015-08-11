@@ -81,7 +81,7 @@
 
 -(CGFloat) tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return sWidth + 61.0f;
+    return 262.0f;
 }
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -90,10 +90,15 @@
     UITableViewCell *cell;
     NSString *cellIdentifier = item[@"id"];
     cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    
-    if( !cell ) {        
-        cell = [[DubbListingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier listingInfo:item[@"fields"]];
+
+    if( !cell ){
+        cell = (DubbListingCell *)[[[NSBundle mainBundle] loadNibNamed:@"DubbListingCell" owner:self options:nil] objectAtIndex:0];
+        [(DubbListingCell *)cell initWithListingInfo:item[@"fields"]];
     }
+
+//    if( !cell ) {
+//        cell = [[DubbListingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier listingInfo:item[@"fields"]];
+//    }
 
     return cell;
 }

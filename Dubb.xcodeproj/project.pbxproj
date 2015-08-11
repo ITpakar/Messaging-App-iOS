@@ -174,6 +174,14 @@
 		0DFAD7AF1B51F7A2008BF474 /* ListingImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0DFAD7AE1B51F7A2008BF474 /* ListingImageView.xib */; };
 		0DFAD7B11B51FCC4008BF474 /* add_photo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DFAD7B01B51FCC4008BF474 /* add_photo@2x.png */; };
 		0DFAD7B31B51FDDD008BF474 /* recycle_bin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DFAD7B21B51FDDD008BF474 /* recycle_bin@2x.png */; };
+		0DFB40391B78A4CD001394DF /* DubbListingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0DFB40381B78A4CD001394DF /* DubbListingCell.xib */; };
+		0DFB404A1B78EA64001394DF /* GKImageCropper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DFB403C1B78EA64001394DF /* GKImageCropper.m */; };
+		0DFB404B1B78EA64001394DF /* GKImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DFB403E1B78EA64001394DF /* GKImagePicker.m */; };
+		0DFB404C1B78EA64001394DF /* UIImage+Alpha.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DFB40411B78EA64001394DF /* UIImage+Alpha.m */; };
+		0DFB404D1B78EA64001394DF /* UIImage+FixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DFB40431B78EA64001394DF /* UIImage+FixOrientation.m */; };
+		0DFB404E1B78EA64001394DF /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DFB40451B78EA64001394DF /* UIImage+Resize.m */; };
+		0DFB404F1B78EA64001394DF /* UIImage+Rotate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DFB40471B78EA64001394DF /* UIImage+Rotate.m */; };
+		0DFB40501B78EA64001394DF /* UIImage+RoundedCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DFB40491B78EA64001394DF /* UIImage+RoundedCorner.m */; };
 		0DFCB1641AFFD9FE001F2820 /* ask_question_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DFCB14E1AFFD9FE001F2820 /* ask_question_button.png */; };
 		0DFCB1651AFFD9FE001F2820 /* ask_question_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DFCB14F1AFFD9FE001F2820 /* ask_question_button@2x.png */; };
 		0DFCB1661AFFD9FE001F2820 /* book_now_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DFCB1501AFFD9FE001F2820 /* book_now_button.png */; };
@@ -538,6 +546,21 @@
 		0DFAD7AE1B51F7A2008BF474 /* ListingImageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ListingImageView.xib; sourceTree = "<group>"; };
 		0DFAD7B01B51FCC4008BF474 /* add_photo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_photo@2x.png"; sourceTree = "<group>"; };
 		0DFAD7B21B51FDDD008BF474 /* recycle_bin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "recycle_bin@2x.png"; sourceTree = "<group>"; };
+		0DFB40381B78A4CD001394DF /* DubbListingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DubbListingCell.xib; sourceTree = "<group>"; };
+		0DFB403B1B78EA64001394DF /* GKImageCropper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKImageCropper.h; sourceTree = "<group>"; };
+		0DFB403C1B78EA64001394DF /* GKImageCropper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKImageCropper.m; sourceTree = "<group>"; };
+		0DFB403D1B78EA64001394DF /* GKImagePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKImagePicker.h; sourceTree = "<group>"; };
+		0DFB403E1B78EA64001394DF /* GKImagePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKImagePicker.m; sourceTree = "<group>"; };
+		0DFB40401B78EA64001394DF /* UIImage+Alpha.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Alpha.h"; sourceTree = "<group>"; };
+		0DFB40411B78EA64001394DF /* UIImage+Alpha.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Alpha.m"; sourceTree = "<group>"; };
+		0DFB40421B78EA64001394DF /* UIImage+FixOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+FixOrientation.h"; sourceTree = "<group>"; };
+		0DFB40431B78EA64001394DF /* UIImage+FixOrientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+FixOrientation.m"; sourceTree = "<group>"; };
+		0DFB40441B78EA64001394DF /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
+		0DFB40451B78EA64001394DF /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
+		0DFB40461B78EA64001394DF /* UIImage+Rotate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Rotate.h"; sourceTree = "<group>"; };
+		0DFB40471B78EA64001394DF /* UIImage+Rotate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Rotate.m"; sourceTree = "<group>"; };
+		0DFB40481B78EA64001394DF /* UIImage+RoundedCorner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+RoundedCorner.h"; sourceTree = "<group>"; };
+		0DFB40491B78EA64001394DF /* UIImage+RoundedCorner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RoundedCorner.m"; sourceTree = "<group>"; };
 		0DFCB14E1AFFD9FE001F2820 /* ask_question_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ask_question_button.png; sourceTree = "<group>"; };
 		0DFCB14F1AFFD9FE001F2820 /* ask_question_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ask_question_button@2x.png"; sourceTree = "<group>"; };
 		0DFCB1501AFFD9FE001F2820 /* book_now_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = book_now_button.png; sourceTree = "<group>"; };
@@ -1102,6 +1125,35 @@
 			name = ListingImageView;
 			sourceTree = "<group>";
 		};
+		0DFB403A1B78EA64001394DF /* GKImagePicker */ = {
+			isa = PBXGroup;
+			children = (
+				0DFB403B1B78EA64001394DF /* GKImageCropper.h */,
+				0DFB403C1B78EA64001394DF /* GKImageCropper.m */,
+				0DFB403D1B78EA64001394DF /* GKImagePicker.h */,
+				0DFB403E1B78EA64001394DF /* GKImagePicker.m */,
+				0DFB403F1B78EA64001394DF /* UIImage+ */,
+			);
+			path = GKImagePicker;
+			sourceTree = "<group>";
+		};
+		0DFB403F1B78EA64001394DF /* UIImage+ */ = {
+			isa = PBXGroup;
+			children = (
+				0DFB40401B78EA64001394DF /* UIImage+Alpha.h */,
+				0DFB40411B78EA64001394DF /* UIImage+Alpha.m */,
+				0DFB40421B78EA64001394DF /* UIImage+FixOrientation.h */,
+				0DFB40431B78EA64001394DF /* UIImage+FixOrientation.m */,
+				0DFB40441B78EA64001394DF /* UIImage+Resize.h */,
+				0DFB40451B78EA64001394DF /* UIImage+Resize.m */,
+				0DFB40461B78EA64001394DF /* UIImage+Rotate.h */,
+				0DFB40471B78EA64001394DF /* UIImage+Rotate.m */,
+				0DFB40481B78EA64001394DF /* UIImage+RoundedCorner.h */,
+				0DFB40491B78EA64001394DF /* UIImage+RoundedCorner.m */,
+			);
+			path = "UIImage+";
+			sourceTree = "<group>";
+		};
 		0DFCB1891AFFDB3B001F2820 /* ListingTopView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1571,6 +1623,7 @@
 		7CA773CF1AB1C35300F6D631 /* ExFrameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0DFB403A1B78EA64001394DF /* GKImagePicker */,
 				0DFAD7A61B4FEF11008BF474 /* TLTagsContol */,
 				0D1FA4101ACA183B00079C79 /* AFNetworking */,
 				0DFCB18A1AFFDB8B001F2820 /* APParallaxHeader */,
@@ -1689,6 +1742,7 @@
 			children = (
 				DC675A471AE5D16A00E5CBDA /* DubbListingCell.h */,
 				DC675A481AE5D16A00E5CBDA /* DubbListingCell.m */,
+				0DFB40381B78A4CD001394DF /* DubbListingCell.xib */,
 				0DFCB17E1AFFDB27001F2820 /* DubbAddonCell.h */,
 				0DFCB17F1AFFDB27001F2820 /* DubbAddonCell.m */,
 				0DFCB1801AFFDB27001F2820 /* DubbAddonCell.xib */,
@@ -1876,6 +1930,7 @@
 				DCF2DD7B1ADC9C7900500548 /* close_icon@2x.png in Resources */,
 				0D1FA6A71ACA23CA00079C79 /* location_pin@2x.png in Resources */,
 				0D344D8A1B026DA90069D816 /* addon_checked.png in Resources */,
+				0DFB40391B78A4CD001394DF /* DubbListingCell.xib in Resources */,
 				0DFCB1851AFFDB27001F2820 /* DubbAddonCell.xib in Resources */,
 				0DFCB1871AFFDB27001F2820 /* ListingTopView.xib in Resources */,
 				0D344D851B026A480069D816 /* DubbGigQuantityCell.xib in Resources */,
@@ -2008,8 +2063,10 @@
 				7C4A0ACA1AC1D744007DA690 /* ChatHistoryController.m in Sources */,
 				0D1FA6561ACA183D00079C79 /* UIViewController+RESideMenu.m in Sources */,
 				0DAC05DA1B317757007D4234 /* DubbExtraQuantityCell.m in Sources */,
+				0DFB40501B78EA64001394DF /* UIImage+RoundedCorner.m in Sources */,
 				7C09A5DC1AB2259B00218127 /* DubbTextField.m in Sources */,
 				0D79C46A1B12DBD80021AAE4 /* M13Checkbox.m in Sources */,
+				0DFB404B1B78EA64001394DF /* GKImagePicker.m in Sources */,
 				0D1FA59A1ACA183C00079C79 /* AFURLConnectionOperation.m in Sources */,
 				7C09A6031AB2A36C00218127 /* ChatViewController.m in Sources */,
 				7C09A5E41AB2994500218127 /* MBProgressHUD.m in Sources */,
@@ -2019,6 +2076,7 @@
 				0D344D9E1B068DD40069D816 /* UIImage+fixOrientation.m in Sources */,
 				7CB88E7A1AC34CE1005195AF /* NotificationView.m in Sources */,
 				0D1FA40F1ACA17EB00079C79 /* DubbServiceDescriptionWithPriceViewController.m in Sources */,
+				0DFB404A1B78EA64001394DF /* GKImageCropper.m in Sources */,
 				0D1FA5A01ACA183C00079C79 /* ELCAsset.m in Sources */,
 				0D1FA5A21ACA183C00079C79 /* ELCAssetTablePicker.m in Sources */,
 				0D5FF55F1B3485BD005DE762 /* TPKeyboardAvoidingScrollView.m in Sources */,
@@ -2029,8 +2087,10 @@
 				0D1FA5971ACA183C00079C79 /* AFHTTPSessionManager.m in Sources */,
 				0D5653A81B24494500444999 /* DubbMyListingsViewController.m in Sources */,
 				0D1FA6BA1ACA3B9700079C79 /* AppDelegate.m in Sources */,
+				0DFB404D1B78EA64001394DF /* UIImage+FixOrientation.m in Sources */,
 				7C09A5E01AB2931700218127 /* User.m in Sources */,
 				0DFCB1861AFFDB27001F2820 /* ListingTopView.m in Sources */,
+				0DFB404F1B78EA64001394DF /* UIImage+Rotate.m in Sources */,
 				0D1FA5A11ACA183C00079C79 /* ELCAssetCell.m in Sources */,
 				0D6B7D991B179E05000B0352 /* DubbSalesOrdersViewController.m in Sources */,
 				7CBE24321AD6B8D700DA0A12 /* DubbImageBrowser.m in Sources */,
@@ -2080,12 +2140,14 @@
 				7C4A0AC71AC1D739007DA690 /* ChatUsersController.m in Sources */,
 				7C09A5A11AB1DA0A00218127 /* DubbIntroViewController.m in Sources */,
 				0D1FA59D1ACA183C00079C79 /* AFURLSessionManager.m in Sources */,
+				0DFB404E1B78EA64001394DF /* UIImage+Resize.m in Sources */,
 				0D344D901B027BE90069D816 /* DubbCreateListingConfirmationViewController.m in Sources */,
 				0D8C17561B57062F00C3FC98 /* TPKeyboardAvoidingCollectionView.m in Sources */,
 				7C09A5D41AB1FCB600218127 /* DubbSignInViewController.m in Sources */,
 				0D76B5021B12510F00D24BFA /* TextFieldValidator.m in Sources */,
 				7C4A0AB31ABFA209007DA690 /* AuthViewController.m in Sources */,
 				7C09A5A61AB1E19000218127 /* DubbSignUpViewController.m in Sources */,
+				0DFB404C1B78EA64001394DF /* UIImage+Alpha.m in Sources */,
 				DC26C2141B050CAB00F9385A /* DubbCategoryCell.m in Sources */,
 				DC675A561AE69C3C00E5CBDA /* DubbGigsViewController.m in Sources */,
 				0D1FA6591ACA183D00079C79 /* FHSTwitterEngine.m in Sources */,

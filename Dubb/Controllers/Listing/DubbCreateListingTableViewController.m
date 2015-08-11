@@ -14,6 +14,7 @@
 #import "IQKeyboardManager.h"
 #import "TLTagsControl.h"
 #import "IQTextView.h"
+#import "GKImagePicker.h"
 #import "IQDropDownTextField.h"
 #import "DubbServiceDescriptionViewController.h"
 #import "DubbServiceAreaViewController.h"
@@ -23,7 +24,7 @@
 #import "DubbCreateListingTableViewController.h"
 
 NSString *const apiKey = @"AIzaSyBqO1R2q7YGqnEAegFiA4vbHo7oLn8IqV0";
-#define MAX_CHARACTER_NUMBER_BASE  255
+#define MAX_CHARACTER_NUMBER_BASE  510
 #define MAX_CHARACTER_NUMBER_ADDON 100
 typedef NS_ENUM(NSUInteger, TableViewSection){
     TableViewSectionCurrentLocation,
@@ -31,7 +32,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     TableViewSectionCount
 };
 
-@interface DubbCreateListingTableViewController () <UINavigationControllerDelegate, IQDropDownTextFieldDelegate, UITextViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate>
+@interface DubbCreateListingTableViewController () <UINavigationControllerDelegate, IQDropDownTextFieldDelegate, GKImagePickerDelegate, UITextViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate>
 {
     NSArray *categories;
     NSArray *subCategories;
@@ -80,6 +81,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
 @property (strong, nonatomic) IBOutlet UILabel *availableCharacterNumberLabelForAddon;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UITableView *locationSearchTableView;
+@property (strong, nonatomic) GKImagePicker *picker;
 @end
 
 @implementation DubbCreateListingTableViewController
@@ -269,7 +271,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     [self.pastSearchWords removeAllObjects];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLocationUpdated) name:kNotificationDidLocationUpdated object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(recycleBinButtonTapped:) name:kNotificationDidTapRecycleBinButton object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addPhotoButtonClicked:) name:kNotificationDidTapAddPhotoButton object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleImageButton:) name:kNotificationDidTapAddPhotoButton object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(listingImageViewTapped:) name:kNotificationDidTapListingImageView object:nil];
 }
 
@@ -291,6 +293,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
 }
 
 - (void) addPhotoButtonClicked:(NSNotification *)notif {
+    
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Where do you want to get photo?"
                                                              delegate:self
                                                     cancelButtonTitle:@"Cancel"
@@ -729,10 +732,19 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
             case TableViewSectionMain: {
                 cell =  [tableView dequeueReusableCellWithIdentifier:@"SearchCell" forIndexPath:indexPath];
                 NSDictionary *searchResult = [self.localSearchQueries objectAtIndex:indexPath.row];
-                cell.textLabel.text = [searchResult[@"terms"] objectAtIndex:0][@"value"];
-                cell.detailTextLabel.text = searchResult[@"description"];
-                cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Thin" size:16.0];
-                cell.detailTextLabel.font = [UIFont fontWithName:@"HelveticaNeue-Thin" size:10.0];
+                if ([searchResult isKindOfClass:[NSDictionary class]]) {
+                    
+                    @try{
+                        cell.textLabel.text = [searchResult[@"terms"] objectAtIndex:0][@"value"];
+                        cell.detailTextLabel.text = searchResult[@"description"];
+                        cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Thin" size:16.0];
+                        cell.detailTextLabel.font = [UIFont fontWithName:@"HelveticaNeue-Thin" size:10.0];
+
+                    }@catch(NSException *e){
+                        NSLog(@"%@", e.description);
+                    }
+                                    }
+                
             }break;
             default:
                 break;
@@ -1145,6 +1157,30 @@ typedef void (^completion_t)(id result);
     
     return addonToolbar;
 }
+
+#pragma mark - User interaction methods
+
+- (void)handleImageButton:(id)sender {
+    self.picker = [[GKImagePicker alloc] init];
+    self.picker.delegate = self;
+    self.picker.cropper.cropSize = CGSizeMake(320.,200.);   // (Optional) Default: CGSizeMake(320., 320.)
+    self.picker.cropper.rescaleImage = YES;                // (Optional) Default: YES
+    self.picker.cropper.rescaleFactor = 2.0;               // (Optional) Default: 1.0
+    self.picker.cropper.dismissAnimated = YES;              // (Optional) Default: YES
+    self.picker.cropper.overlayColor = [UIColor colorWithRed:0/255. green:0/255. blue:0/255. alpha:0.7];  // (Optional) Default: [UIColor colorWithRed:0/255. green:0/255. blue:0/255. alpha:0.7]
+    self.picker.cropper.innerBorderColor = [UIColor colorWithRed:255./255. green:255./255. blue:255./255. alpha:0.7];   // (Optional) Default: [UIColor colorWithRed:0/255. green:0/255. blue:0/255. alpha:0.7]
+    [self.picker presentPicker];
+}
+
+#pragma mark - GKImagePicker delegate methods
+
+- (void)imagePickerDidFinish:(GKImagePicker *)imagePicker withImage:(UIImage *)image {
+    UIImage *chosenImage = image;
+    [self.listingImages addObject:@{@"uploaded": @NO, @"image":chosenImage}];
+    [self setupImagesScrollView];
+
+}
+
 
 #pragma mark - Navigation
 

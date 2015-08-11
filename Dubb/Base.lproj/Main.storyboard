@@ -1165,7 +1165,7 @@ Dubb!</string>
         <!--Dubb Menu View Controller-->
         <scene sceneID="08n-CD-yei">
             <objects>
-                <viewController storyboardIdentifier="menuController" id="Yy5-rO-0Gx" customClass="DubbMenuViewController" sceneMemberID="viewController">
+                <viewController restorationIdentifier="menuController" storyboardIdentifier="menuController" id="Yy5-rO-0Gx" customClass="DubbMenuViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="dve-cU-EB4"/>
                         <viewControllerLayoutGuide type="bottom" id="NSR-HZ-cRF"/>
@@ -1190,22 +1190,6 @@ Dubb!</string>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BoF-kw-xWi">
-                                <rect key="frame" x="70" y="40" width="60" height="60"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="60" id="dR9-6Y-Y71"/>
-                                    <constraint firstAttribute="height" constant="60" id="f6Y-Yu-s3c"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="30"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                        <integer key="value" value="2"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="BZ3-oN-VUX">
                                 <rect key="frame" x="0.0" y="170" width="375" height="497"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1337,6 +1321,22 @@ Dubb!</string>
                                     <outlet property="delegate" destination="Yy5-rO-0Gx" id="YQe-Iz-G3V"/>
                                 </connections>
                             </tableView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BoF-kw-xWi">
+                                <rect key="frame" x="70" y="40" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="dR9-6Y-Y71"/>
+                                    <constraint firstAttribute="height" constant="60" id="f6Y-Yu-s3c"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="30"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                        <integer key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -1368,7 +1368,7 @@ Dubb!</string>
         <!--Dubb Root View Controller-->
         <scene sceneID="st7-cm-aM9">
             <objects>
-                <viewController storyboardIdentifier="rootController" id="5XQ-Vd-X2t" customClass="DubbRootViewController" sceneMemberID="viewController">
+                <viewController restorationIdentifier="rootController" storyboardIdentifier="rootController" id="5XQ-Vd-X2t" customClass="DubbRootViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="f32-d0-JtS"/>
                         <viewControllerLayoutGuide type="bottom" id="rp6-cY-48h"/>
@@ -1386,7 +1386,7 @@ Dubb!</string>
         <!--Navigation Controller-->
         <scene sceneID="kxJ-nF-UYT">
             <objects>
-                <navigationController storyboardIdentifier="contentViewController" navigationBarHidden="YES" id="qqY-gm-yPu" sceneMemberID="viewController">
+                <navigationController restorationIdentifier="contentViewController" storyboardIdentifier="contentViewController" navigationBarHidden="YES" id="qqY-gm-yPu" sceneMemberID="viewController">
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="yMI-bV-Zxf">
@@ -1404,7 +1404,7 @@ Dubb!</string>
         <!--Dubb Listings View Controller-->
         <scene sceneID="iQb-w1-eon">
             <objects>
-                <viewController storyboardIdentifier="homeViewController" id="1ku-cf-tzo" customClass="DubbListingsViewController" sceneMemberID="viewController">
+                <viewController restorationIdentifier="homeViewController" storyboardIdentifier="homeViewController" id="1ku-cf-tzo" customClass="DubbListingsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="DfE-xc-syi"/>
                         <viewControllerLayoutGuide type="bottom" id="sBD-6H-tqO"/>
@@ -1475,7 +1475,7 @@ Dubb!</string>
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CqY-Ts-BIw">
-                                        <rect key="frame" x="53" y="65" width="494" height="32"/>
+                                        <rect key="frame" x="53" y="68" width="494" height="32"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pin_icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="upA-fp-XbX">
                                                 <rect key="frame" x="10" y="6" width="20" height="20"/>
@@ -1530,7 +1530,7 @@ Dubb!</string>
                                 <constraints>
                                     <constraint firstItem="zXw-IG-kO4" firstAttribute="leading" secondItem="lbh-zS-vld" secondAttribute="trailing" constant="17" id="2xI-pr-vzO"/>
                                     <constraint firstItem="lbh-zS-vld" firstAttribute="top" secondItem="NbQ-Ci-W8W" secondAttribute="top" constant="30" id="3ka-cv-Zqz"/>
-                                    <constraint firstItem="CqY-Ts-BIw" firstAttribute="top" secondItem="zXw-IG-kO4" secondAttribute="bottom" constant="8" id="EpY-Tw-azm"/>
+                                    <constraint firstItem="CqY-Ts-BIw" firstAttribute="top" secondItem="zXw-IG-kO4" secondAttribute="bottom" constant="11" id="EpY-Tw-azm"/>
                                     <constraint firstItem="zXw-IG-kO4" firstAttribute="trailing" secondItem="CqY-Ts-BIw" secondAttribute="trailing" id="OgZ-CL-Knx"/>
                                     <constraint firstItem="zXw-IG-kO4" firstAttribute="leading" secondItem="CqY-Ts-BIw" secondAttribute="leading" id="Plg-75-FJe"/>
                                     <constraint firstAttribute="height" constant="64" id="TvK-bW-Txs"/>
@@ -1544,8 +1544,8 @@ Dubb!</string>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="250" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="9qx-DV-Wj0">
-                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
-                                <color key="backgroundColor" red="0.90588235294117647" green="0.90588235294117647" blue="0.90588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <rect key="frame" x="0.0" y="75" width="600" height="525"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="1ku-cf-tzo" id="CvD-ec-sQN"/>
                                     <outlet property="delegate" destination="1ku-cf-tzo" id="DTH-Sz-7du"/>
@@ -1609,7 +1609,7 @@ Dubb!</string>
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.90588235289999997" green="0.90588235289999997" blue="0.90588235289999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="9qx-DV-Wj0" firstAttribute="leading" secondItem="o1S-yG-Rkq" secondAttribute="leading" id="7Su-5G-3Q5"/>
                             <constraint firstItem="bKy-04-eYo" firstAttribute="leading" secondItem="o1S-yG-Rkq" secondAttribute="leading" id="FF4-z9-CyY"/>
@@ -1623,7 +1623,7 @@ Dubb!</string>
                             <constraint firstAttribute="trailing" secondItem="9qx-DV-Wj0" secondAttribute="trailing" id="fSQ-7G-XFf"/>
                             <constraint firstAttribute="trailing" secondItem="bKy-04-eYo" secondAttribute="trailing" id="nz1-yk-z3h"/>
                             <constraint firstItem="NbQ-Ci-W8W" firstAttribute="top" secondItem="o1S-yG-Rkq" secondAttribute="top" id="tbL-WD-GzI"/>
-                            <constraint firstItem="9qx-DV-Wj0" firstAttribute="top" secondItem="NbQ-Ci-W8W" secondAttribute="bottom" id="xXG-oq-2ke"/>
+                            <constraint firstItem="9qx-DV-Wj0" firstAttribute="top" secondItem="NbQ-Ci-W8W" secondAttribute="bottom" constant="11" id="xXG-oq-2ke"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="9l2-Bf-YBw"/>
@@ -1633,6 +1633,7 @@ Dubb!</string>
                         <outlet property="introductionView" destination="h3H-GX-aQg" id="X8c-D6-cJP"/>
                         <outlet property="listingsTableView" destination="9qx-DV-Wj0" id="vbz-vF-lCX"/>
                         <outlet property="locationSearchBar" destination="tNK-79-5mb" id="1s5-RQ-xX5"/>
+                        <outlet property="locationSearchBarHeightConstraint" destination="X20-IO-9E0" id="v1y-qs-UVT"/>
                         <outlet property="nameLabel" destination="EZp-az-BWX" id="AL3-74-nOE"/>
                         <outlet property="searchBar" destination="r90-7z-DBN" id="GFX-3A-9eQ"/>
                         <outlet property="searchBarConstraint" destination="wMe-ec-Egu" id="4Vl-Lg-iCp"/>
@@ -1654,7 +1655,7 @@ Dubb!</string>
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="868" y="617"/>
+            <point key="canvasLocation" x="941" y="617"/>
         </scene>
         <!--Chat View Controller-->
         <scene sceneID="0Hh-jC-cNO">
@@ -2624,7 +2625,7 @@ Dubb!</string>
         <!--Creating a Service Listing-->
         <scene sceneID="O7h-Tv-OwA">
             <objects>
-                <viewController storyboardIdentifier="listingsController" id="Q8W-cI-c9P" customClass="DubbCreateListingTableViewController" sceneMemberID="viewController">
+                <viewController restorationIdentifier="listingsController" storyboardIdentifier="listingsController" id="Q8W-cI-c9P" customClass="DubbCreateListingTableViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="IT4-fa-YjD"/>
                         <viewControllerLayoutGuide type="bottom" id="quP-Ev-kCL"/>
@@ -2730,6 +2731,49 @@ Dubb!</string>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HA3-sz-Lsa" userLabel="Category Container View">
                                             <rect key="frame" x="0.0" y="76" width="600" height="45"/>
                                             <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qUv-M2-BEb" userLabel="Category Container View">
+                                                    <rect key="frame" x="0.0" y="0.0" width="300" height="45"/>
+                                                    <subviews>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow.png" translatesAutoresizingMaskIntoConstraints="NO" id="pG5-xK-zRd">
+                                                            <rect key="frame" x="280" y="20" width="9" height="5"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="9" id="6eN-QO-P2c"/>
+                                                                <constraint firstAttribute="height" constant="5" id="9GV-xT-jos"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="divisor.png" translatesAutoresizingMaskIntoConstraints="NO" id="YIc-iz-rX5">
+                                                            <rect key="frame" x="299" y="0.0" width="1" height="45"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="1" id="Kt3-NO-gUQ"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Main Category" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vX2-Mj-ueu" customClass="IQDropDownTextField">
+                                                            <rect key="frame" x="13" y="8" width="260" height="29"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="29" id="eO9-et-ln3"/>
+                                                            </constraints>
+                                                            <color key="textColor" red="0.21176470588235294" green="0.21176470588235294" blue="0.21176470588235294" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                            <textInputTraits key="textInputTraits"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="color" keyPath="placeholderLabel.textColor">
+                                                                    <color key="value" red="0.21176470588235294" green="0.21176470588235294" blue="0.21176470588235294" alpha="1" colorSpace="calibratedRGB"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </textField>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="centerY" secondItem="vX2-Mj-ueu" secondAttribute="centerY" id="018-BD-O6S"/>
+                                                        <constraint firstAttribute="centerY" secondItem="pG5-xK-zRd" secondAttribute="centerY" id="53k-Ve-rRg"/>
+                                                        <constraint firstAttribute="trailing" secondItem="pG5-xK-zRd" secondAttribute="trailing" constant="11" id="97P-jP-Su0"/>
+                                                        <constraint firstItem="vX2-Mj-ueu" firstAttribute="leading" secondItem="qUv-M2-BEb" secondAttribute="leading" constant="13" id="B9e-mU-yNn"/>
+                                                        <constraint firstItem="YIc-iz-rX5" firstAttribute="top" secondItem="qUv-M2-BEb" secondAttribute="top" id="Tu8-uC-mPc"/>
+                                                        <constraint firstAttribute="bottom" secondItem="YIc-iz-rX5" secondAttribute="bottom" id="jJi-we-Jp5"/>
+                                                        <constraint firstItem="pG5-xK-zRd" firstAttribute="leading" secondItem="vX2-Mj-ueu" secondAttribute="trailing" constant="7" id="rDK-o7-ygN"/>
+                                                        <constraint firstAttribute="trailing" secondItem="YIc-iz-rX5" secondAttribute="trailing" id="v3Q-xB-QDj"/>
+                                                    </constraints>
+                                                </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Osd-Fj-XxV" userLabel="Subcategory Container View">
                                                     <rect key="frame" x="300" y="0.0" width="300" height="45"/>
                                                     <subviews>
@@ -2768,49 +2812,6 @@ Dubb!</string>
                                                     <color key="backgroundColor" red="0.8980392157" green="0.8980392157" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="1" id="TpQ-8l-NrN"/>
-                                                    </constraints>
-                                                </view>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qUv-M2-BEb" userLabel="Category Container View">
-                                                    <rect key="frame" x="0.0" y="0.0" width="300" height="45"/>
-                                                    <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow.png" translatesAutoresizingMaskIntoConstraints="NO" id="pG5-xK-zRd">
-                                                            <rect key="frame" x="280" y="20" width="9" height="5"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" constant="9" id="6eN-QO-P2c"/>
-                                                                <constraint firstAttribute="height" constant="5" id="9GV-xT-jos"/>
-                                                            </constraints>
-                                                        </imageView>
-                                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Main Category" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vX2-Mj-ueu" customClass="IQDropDownTextField">
-                                                            <rect key="frame" x="13" y="8" width="260" height="29"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="29" id="eO9-et-ln3"/>
-                                                            </constraints>
-                                                            <color key="textColor" red="0.21176470588235294" green="0.21176470588235294" blue="0.21176470588235294" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                            <textInputTraits key="textInputTraits"/>
-                                                            <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="color" keyPath="placeholderLabel.textColor">
-                                                                    <color key="value" red="0.21176470588235294" green="0.21176470588235294" blue="0.21176470588235294" alpha="1" colorSpace="calibratedRGB"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                            </userDefinedRuntimeAttributes>
-                                                        </textField>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="divisor.png" translatesAutoresizingMaskIntoConstraints="NO" id="YIc-iz-rX5">
-                                                            <rect key="frame" x="299" y="0.0" width="1" height="45"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" constant="1" id="Kt3-NO-gUQ"/>
-                                                            </constraints>
-                                                        </imageView>
-                                                    </subviews>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="centerY" secondItem="vX2-Mj-ueu" secondAttribute="centerY" id="018-BD-O6S"/>
-                                                        <constraint firstAttribute="centerY" secondItem="pG5-xK-zRd" secondAttribute="centerY" id="53k-Ve-rRg"/>
-                                                        <constraint firstAttribute="trailing" secondItem="pG5-xK-zRd" secondAttribute="trailing" constant="11" id="97P-jP-Su0"/>
-                                                        <constraint firstItem="vX2-Mj-ueu" firstAttribute="leading" secondItem="qUv-M2-BEb" secondAttribute="leading" constant="13" id="B9e-mU-yNn"/>
-                                                        <constraint firstItem="YIc-iz-rX5" firstAttribute="top" secondItem="qUv-M2-BEb" secondAttribute="top" id="Tu8-uC-mPc"/>
-                                                        <constraint firstAttribute="bottom" secondItem="YIc-iz-rX5" secondAttribute="bottom" id="jJi-we-Jp5"/>
-                                                        <constraint firstItem="pG5-xK-zRd" firstAttribute="leading" secondItem="vX2-Mj-ueu" secondAttribute="trailing" constant="7" id="rDK-o7-ygN"/>
-                                                        <constraint firstAttribute="trailing" secondItem="YIc-iz-rX5" secondAttribute="trailing" id="v3Q-xB-QDj"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
@@ -3998,7 +3999,7 @@ Dubb!</string>
         <!--Dubb Gigs View Controller-->
         <scene sceneID="n27-OT-R8J">
             <objects>
-                <viewController storyboardIdentifier="gigsSearchResultVC" id="hL6-a2-GUs" customClass="DubbGigsViewController" sceneMemberID="viewController">
+                <viewController restorationIdentifier="gigsSearchResultVC" storyboardIdentifier="gigsSearchResultVC" id="hL6-a2-GUs" customClass="DubbGigsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="AYY-d6-Anf"/>
                         <viewControllerLayoutGuide type="bottom" id="Ozu-OC-Sdb"/>
@@ -4072,22 +4073,21 @@ Dubb!</string>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="250" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="RG5-M2-oGs">
-                                <rect key="frame" x="0.0" y="65" width="600" height="535"/>
-                                <color key="backgroundColor" red="0.90588235289999997" green="0.90588235289999997" blue="0.90588235289999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <rect key="frame" x="0.0" y="76" width="600" height="524"/>
                                 <connections>
                                     <outlet property="dataSource" destination="hL6-a2-GUs" id="bJi-zz-2Ih"/>
                                     <outlet property="delegate" destination="hL6-a2-GUs" id="js9-38-25C"/>
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" red="0.90588235289999997" green="0.90588235289999997" blue="0.90588235289999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Ao8-T6-KlQ" secondAttribute="trailing" id="3yi-dD-89D"/>
                             <constraint firstAttribute="trailing" secondItem="RG5-M2-oGs" secondAttribute="trailing" id="5oX-xT-JFM"/>
                             <constraint firstItem="Ao8-T6-KlQ" firstAttribute="leading" secondItem="6iE-Zd-0OX" secondAttribute="leading" id="9fE-vh-Pvq"/>
                             <constraint firstItem="RG5-M2-oGs" firstAttribute="leading" secondItem="6iE-Zd-0OX" secondAttribute="leading" id="D6R-Ab-jlq"/>
                             <constraint firstItem="Ao8-T6-KlQ" firstAttribute="top" secondItem="6iE-Zd-0OX" secondAttribute="top" id="SYk-cD-J3U"/>
-                            <constraint firstItem="RG5-M2-oGs" firstAttribute="top" secondItem="Ao8-T6-KlQ" secondAttribute="bottom" id="luh-qr-R4t"/>
+                            <constraint firstItem="RG5-M2-oGs" firstAttribute="top" secondItem="Ao8-T6-KlQ" secondAttribute="bottom" constant="11" id="luh-qr-R4t"/>
                             <constraint firstItem="Ozu-OC-Sdb" firstAttribute="top" secondItem="RG5-M2-oGs" secondAttribute="bottom" id="qEK-eM-25z"/>
                         </constraints>
                     </view>
@@ -4407,7 +4407,7 @@ Dubb!</string>
         <!--Dubb Single Listing Scene-->
         <scene sceneID="8Rt-ko-ndI">
             <objects>
-                <viewController storyboardIdentifier="DubbSingleListingViewController" id="TcD-JJ-32S" userLabel="Dubb Single Listing Scene" customClass="DubbSingleListingViewController" sceneMemberID="viewController">
+                <viewController restorationIdentifier="DubbSingleListingViewController" storyboardIdentifier="DubbSingleListingViewController" id="TcD-JJ-32S" userLabel="Dubb Single Listing Scene" customClass="DubbSingleListingViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="bkg-8j-vKV"/>
                         <viewControllerLayoutGuide type="bottom" id="bNd-iF-w4a"/>
@@ -5276,15 +5276,14 @@ Dubb!</string>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="250" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="nyQ-Fa-RLR">
-                                <rect key="frame" x="0.0" y="64" width="320" height="416"/>
-                                <color key="backgroundColor" red="0.90588235289999997" green="0.90588235289999997" blue="0.90588235289999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <rect key="frame" x="0.0" y="75" width="320" height="405"/>
                                 <connections>
                                     <outlet property="dataSource" destination="OWK-bo-xXv" id="g9B-ww-8wd"/>
                                     <outlet property="delegate" destination="OWK-bo-xXv" id="yE4-1x-8Ko"/>
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" red="0.90588235289999997" green="0.90588235289999997" blue="0.90588235289999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="m1M-Qp-lk0" firstAttribute="top" secondItem="FAg-Oj-hzX" secondAttribute="top" id="6Pb-Qy-4il"/>
                             <constraint firstAttribute="trailing" secondItem="m1M-Qp-lk0" secondAttribute="trailing" id="EMq-uX-Mcl"/>
@@ -5292,7 +5291,7 @@ Dubb!</string>
                             <constraint firstItem="F6p-Og-8bK" firstAttribute="top" secondItem="nyQ-Fa-RLR" secondAttribute="bottom" id="Pvh-PI-65C"/>
                             <constraint firstItem="nyQ-Fa-RLR" firstAttribute="leading" secondItem="FAg-Oj-hzX" secondAttribute="leading" id="aLz-y9-cyq"/>
                             <constraint firstItem="m1M-Qp-lk0" firstAttribute="leading" secondItem="FAg-Oj-hzX" secondAttribute="leading" id="bg8-kn-QIc"/>
-                            <constraint firstItem="nyQ-Fa-RLR" firstAttribute="top" secondItem="m1M-Qp-lk0" secondAttribute="bottom" id="hDv-c3-QTD"/>
+                            <constraint firstItem="nyQ-Fa-RLR" firstAttribute="top" secondItem="m1M-Qp-lk0" secondAttribute="bottom" constant="11" id="hDv-c3-QTD"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="VRd-pU-GeS"/>
@@ -5302,6 +5301,7 @@ Dubb!</string>
                         <outlet property="btnRightMenuBar" destination="50v-2D-zA8" id="je6-iN-kQl"/>
                         <outlet property="listingsTableView" destination="nyQ-Fa-RLR" id="jVg-MP-6ca"/>
                         <outlet property="locationSearchBar" destination="QRZ-Ab-fcg" id="N27-oC-Lx3"/>
+                        <outlet property="locationSearchBarHeightConstraint" destination="Sss-vH-mN0" id="Zvn-qt-EQ6"/>
                         <outlet property="searchBar" destination="TF3-fZ-DO1" id="vGv-Hz-l7U"/>
                         <outlet property="searchBarConstraint" destination="a7M-PW-NSt" id="kXd-Dw-NTD"/>
                         <outlet property="searchBarLeftConstraint" destination="mRi-Sd-xCl" id="3TZ-6P-zlb"/>
@@ -5724,7 +5724,7 @@ Dubb!</string>
         <!--Dubb Sales Orders-->
         <scene sceneID="VdD-x6-MUW">
             <objects>
-                <viewController storyboardIdentifier="DubbSalesOrdersViewController" id="Jw4-5h-azP" userLabel="Dubb Sales Orders" customClass="DubbSalesOrdersViewController" sceneMemberID="viewController">
+                <viewController restorationIdentifier="DubbSalesOrdersViewController" storyboardIdentifier="DubbSalesOrdersViewController" id="Jw4-5h-azP" userLabel="Dubb Sales Orders" customClass="DubbSalesOrdersViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="SVH-ZG-89d"/>
                         <viewControllerLayoutGuide type="bottom" id="8Ff-FP-e8x"/>
@@ -5979,7 +5979,7 @@ Dubb!</string>
         <!--Dubb My Listings-->
         <scene sceneID="gRe-Eh-ApV">
             <objects>
-                <viewController storyboardIdentifier="DubbMyListingsViewController" id="sd0-kq-aaW" userLabel="Dubb My Listings" customClass="DubbMyListingsViewController" sceneMemberID="viewController">
+                <viewController restorationIdentifier="DubbMyListingsViewController" storyboardIdentifier="DubbMyListingsViewController" id="sd0-kq-aaW" userLabel="Dubb My Listings" customClass="DubbMyListingsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="AuL-uV-7O0"/>
                         <viewControllerLayoutGuide type="bottom" id="zQB-FQ-txW"/>
@@ -6188,7 +6188,7 @@ Dubb!</string>
         <!--Dubb Profile-->
         <scene sceneID="BD5-eL-oTs">
             <objects>
-                <viewController storyboardIdentifier="DubbProfileViewController" id="9Ho-ax-mf8" userLabel="Dubb Profile" customClass="DubbProfileViewController" sceneMemberID="viewController">
+                <viewController restorationIdentifier="DubbProfileViewController" storyboardIdentifier="DubbProfileViewController" id="9Ho-ax-mf8" userLabel="Dubb Profile" customClass="DubbProfileViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="xLC-0M-uVg"/>
                         <viewControllerLayoutGuide type="bottom" id="HOX-yy-AMj"/>

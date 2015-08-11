@@ -18,9 +18,8 @@
 
 @interface DubbListingCell : UITableViewCell
 
+-(void) initWithListingInfo:(NSDictionary*)listing;
 @property (nonatomic, strong) NSDictionary* listing;
 @property id delegate;
-
--(id) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier listingInfo:(NSDictionary*)listing;
 
 @end

@@ -32,6 +32,7 @@
     __weak IBOutlet UILabel *titleLabel;
     
     __weak IBOutlet UITextField *locationSearchBar;
+    IBOutlet NSLayoutConstraint *locationSearchBarHeightConstraint;
     
     UIView *overlayView;
     UITapGestureRecognizer *tapGestureRecognizer;
@@ -101,6 +102,8 @@
     
     [searchBar addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     [locationSearchBar addTarget:self action:@selector(locationFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+    
+    locationSearchBarHeightConstraint.constant = 0;
 }
 
 -(void) setupListingTableView{
@@ -150,6 +153,8 @@
     searchBarLeftConstraint.constant = -30.0f;
     searchContainerViewConstraint.constant = 140;
     
+    locationSearchBarHeightConstraint.constant = 32.0f;
+    
     [overlayView setFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height - 64)];
     [self.view addSubview:overlayView];
     
@@ -179,6 +184,7 @@
     searchBarLeftConstraint.constant = 12;
     searchBarTopConstraint.constant = 25;
     searchContainerViewConstraint.constant = 64;
+    locationSearchBarHeightConstraint.constant = 0;
     
     [UIView animateWithDuration:0.3f animations:^{
         [self.view layoutIfNeeded];
@@ -359,7 +365,7 @@
     if( tableView == searchResultTableView || tableView == locationTableView )
         return 40.f;
     
-    return sWidth + 61.0f;
+    return 262.0f;
 }
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -374,9 +380,14 @@
         NSDictionary *item = listings[indexPath.row];
         NSString *cellIdentifier = [NSString stringWithFormat:@"listing%@", item[@"id"]];
         cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-        
-        if( !cell )
-            cell = [[DubbListingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier listingInfo:item];
+
+        if( !cell ){
+            cell = (DubbListingCell *)[[[NSBundle mainBundle] loadNibNamed:@"DubbListingCell" owner:self options:nil] objectAtIndex:0];
+            [(DubbListingCell *)cell initWithListingInfo:item];
+        }
+
+//        if( !cell )
+//            cell = [[DubbListingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier listingInfo:item];
     }
     return cell;
 }

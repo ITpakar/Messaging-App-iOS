@@ -282,7 +282,6 @@
          
          [QBRequest signUp:user successBlock:^(QBResponse *response, QBUUser *user) {
              [User currentUser].quickbloxID = [NSString stringWithFormat:@"%d", (int)user.ID];
-             NSMutableDictionary *paramsToBeUpdated = [NSMutableDictionary dictionaryWithDictionary:@{@"quickblox_id":@(user.ID)}];
              if ([[NSUserDefaults standardUserDefaults] objectForKey:DEFAULTS_DEVICE_TOKEN])
                  [self.backend registerDeviceToken:[[NSUserDefaults standardUserDefaults] stringForKey:DEFAULTS_DEVICE_TOKEN] forUser:[User currentUser].userID CompletionHandler:nil];
              
@@ -348,8 +347,16 @@
     [self showProgress:@"Logging in..."];
     [self.backend loginWithUsername:params CompletionHandler:^(NSDictionary *result) {
         if( result ){
-            [User initialize:result[@"response"]];
-            [self loginToQuickBlox];
+            User *user = [User initialize:result[@"response"]];
+            [self hideProgress];
+            if (user.quickbloxID && ![user.quickbloxID isEqualToString:@""]){
+                [self showProgress:@"Logging in..."];
+                [self loginToQuickBlox];
+            } else {
+                [self showProgress:@"Logging in..."];
+                [self registerUserToQuickBlox];
+            }
+
         } else {
             [self showMessage:@"Login Fails, Incorrect username/password."];
             [self hideProgress];

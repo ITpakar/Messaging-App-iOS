@@ -102,6 +102,15 @@
     [FBAppCall handleDidBecomeActive];
 }
 
+-(BOOL)application:(UIApplication *)application shouldRestoreApplicationState:(NSCoder *)coder
+{
+    return YES;
+}
+
+-(BOOL)application:(UIApplication *)application shouldSaveApplicationState:(NSCoder *)coder
+{
+    return YES;
+}
 #pragma mark - 
 #pragma mark Google Analytics
 -(void) enableGoogleAnalytics

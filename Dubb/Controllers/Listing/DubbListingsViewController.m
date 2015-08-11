@@ -28,6 +28,7 @@
     __weak IBOutlet NSLayoutConstraint *searchBarTopConstraint;
     __weak IBOutlet NSLayoutConstraint *searchBarLeftConstraint;
     __weak IBOutlet NSLayoutConstraint *searchContainerViewConstraint;
+    IBOutlet NSLayoutConstraint *locationSearchBarHeightConstraint;
     
     __weak IBOutlet UILabel *titleLabel;   
     
@@ -115,6 +116,7 @@
     
     [searchBar addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     [locationSearchBar addTarget:self action:@selector(locationFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+    locationSearchBarHeightConstraint.constant = 0;
 }
 
 -(void) setupListingTableView{
@@ -158,7 +160,7 @@
         [locationTableView removeFromSuperview];
     
     if( ![searchBar.text isEqualToString:@""] ) return YES;
-    
+    locationSearchBarHeightConstraint.constant = 32.0f;
     searchBarConstraint.constant = - btnRightMenuBar.bounds.size.width;
     searchBarTopConstraint.constant = 60;
     searchBarLeftConstraint.constant = -30.0f;
@@ -189,6 +191,7 @@
 
     if( ![searchBar.text isEqualToString:@""] || locationTableView.superview != nil ) return YES;
 
+    locationSearchBarHeightConstraint.constant = 0;
     searchBarConstraint.constant = 12;
     searchBarLeftConstraint.constant = 12;
     searchBarTopConstraint.constant = 25;
@@ -371,7 +374,7 @@
     if( tableView == searchResultTableView || tableView == locationTableView )
         return 40.f;
     
-    return sWidth + 61.0f;
+    return 262.0f;
 }
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -388,7 +391,8 @@
         cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         
         if( !cell ){
-            cell = [[DubbListingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier listingInfo:item];
+            cell = (DubbListingCell *)[[[NSBundle mainBundle] loadNibNamed:@"DubbListingCell" owner:self options:nil] objectAtIndex:0];
+            [(DubbListingCell *)cell initWithListingInfo:item];
         }
     }
     return cell;
