@@ -100,12 +100,20 @@ San Francisco</string>
                                     <outletCollection property="gestureRecognizers" destination="ue0-BK-EP8" appends="YES" id="fTt-PI-Y6o"/>
                                 </connections>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="0 mi" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="akF-MB-d5K">
+                                <rect key="frame" x="254" y="8" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="oyo-FP-yJq" secondAttribute="trailing" id="7Nl-pg-Gd4"/>
+                            <constraint firstAttribute="trailing" secondItem="akF-MB-d5K" secondAttribute="trailing" constant="12" id="8mv-Vh-ZMC"/>
                             <constraint firstItem="NZn-ld-ClQ" firstAttribute="leading" secondItem="DIP-2n-UEJ" secondAttribute="trailing" id="BhD-fO-lVe"/>
                             <constraint firstAttribute="trailing" secondItem="NZn-ld-ClQ" secondAttribute="trailing" id="G46-eq-2sf"/>
+                            <constraint firstItem="akF-MB-d5K" firstAttribute="top" secondItem="mRJ-dh-u2H" secondAttribute="top" constant="8" id="NQj-Lf-waB"/>
                             <constraint firstItem="NZn-ld-ClQ" firstAttribute="top" secondItem="oyo-FP-yJq" secondAttribute="bottom" constant="9" id="P59-zX-4Bk"/>
                             <constraint firstItem="oyo-FP-yJq" firstAttribute="top" secondItem="mRJ-dh-u2H" secondAttribute="top" id="RgY-6J-iPG"/>
                             <constraint firstAttribute="trailing" secondItem="yKL-Vn-qhC" secondAttribute="trailing" constant="8" id="X0m-Fq-KEx"/>
@@ -138,6 +146,7 @@ San Francisco</string>
                 <outlet property="categoryLabel" destination="yKL-Vn-qhC" id="FLU-gv-Mb8"/>
                 <outlet property="containerView" destination="mRJ-dh-u2H" id="f2l-Zh-3B1"/>
                 <outlet property="downloadProgressView" destination="eju-mn-Bn1" id="E3w-pO-RWw"/>
+                <outlet property="distanceLabel" destination="akF-MB-d5K" id="b76-uF-yAa"/>
                 <outlet property="listingImageView" destination="oyo-FP-yJq" id="ymL-ty-2vE"/>
                 <outlet property="locationLabel" destination="08I-yd-A6e" id="Xmz-Ev-hSI"/>
                 <outlet property="priceLabel" destination="NZn-ld-ClQ" id="OjS-E9-aGS"/>

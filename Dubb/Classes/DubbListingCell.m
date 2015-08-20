@@ -26,6 +26,7 @@
     IBOutlet AXRatingView *starRatingControl;
     IBOutlet UILabel *priceLabel;
     IBOutlet MCPercentageDoughnutView *downloadProgressView;
+    IBOutlet UILabel *distanceLabel;
     
     UIActivityIndicatorView *mainImageIndicator;
     
@@ -161,7 +162,8 @@
 //                [btnOrder setTitle:[NSString stringWithFormat:@"ORDER $%d", (int)[listing[@"baseprice"] integerValue]]  forState:UIControlStateNormal];
 //            else
 //                [btnOrder setTitle:@"ORDER $20" forState:UIControlStateNormal];
-            
+            distanceLabel.text = [NSString stringWithFormat:@"%ld mi", [listing[@"distance"] integerValue]];
+
         }@catch(NSException *e){
             
             profileImageView.image = [UIImage imageNamed:@"portrait.png"];

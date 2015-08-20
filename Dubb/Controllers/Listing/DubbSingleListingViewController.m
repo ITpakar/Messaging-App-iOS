@@ -241,6 +241,10 @@ enum DubbSingleListingViewTag {
         [weakSelf.tableView reloadData];
         [weakSelf configureBookNowButton];
         
+        if (![listingInfo[@"distance"] isKindOfClass:[NSNull class]] && [listingInfo[@"distance"] doubleValue] > [listingInfo[@"radius_mi"] doubleValue]) {
+            [self showMessage:@"You are outside of this seller’s area. Please contact them first before buying."];
+        }
+        
     }];	
     expansionFlags = [NSMutableArray array];
     extraQuantityCellIndexPaths = [NSMutableArray array];

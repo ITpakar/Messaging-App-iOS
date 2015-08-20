@@ -197,7 +197,7 @@
 #pragma mark Paypal
 
 -(void) enablePaypal {
-    [PayPalMobile initializeWithClientIdsForEnvironments:@{PayPalEnvironmentProduction : @"AX2DyZJkiTf6LLR0mDYsEo9HCM_RKVhtGGLklYhYZHY-BRE-bA1Vs-JgbZV8yiDYcY61RDJORdU3C7VK"}];
+    [PayPalMobile initializeWithClientIdsForEnvironments:@{PayPalEnvironmentSandbox : @"AdOfwWKxjLZCn5ePvgo5bIfs5CmnnzdMfKucDIzE9jVbN8t0lytx5X_goUf5DAbEfmIbKQMbY4M3OAfC"}];
     
     // Set up payPalConfig
     _payPalConfig = [[PayPalConfiguration alloc] init];
@@ -214,7 +214,7 @@
     
     NSLog(@"PayPal iOS SDK version: %@", [PayPalMobile libraryVersion]);
 
-    [PayPalMobile preconnectWithEnvironment:PayPalEnvironmentProduction];
+    [PayPalMobile preconnectWithEnvironment:PayPalEnvironmentSandbox];
 }
 
 #pragma mark -
