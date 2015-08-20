@@ -33,13 +33,25 @@
     [super viewDidLoad];
     
     self.listingTitleLabel.text = self.listingTitle;
-    [self.profileImageView sd_setImageWithURL:[NSURL URLWithString:[User currentUser].profileImageURL]];
+    [self.backend getUser:[User currentUser].userID CompletionHandler:^(NSDictionary *result) {
+        
+        if (result) {
+            NSDictionary *userInfo = result[@"response"];
+            if (![userInfo[@"image"] isKindOfClass:[NSNull class]]) {
+                [self.profileImageView sd_setImageWithURL:[NSURL URLWithString:userInfo[@"image"][@"url"]]];
+            }
+            
+        }
+        
+    }];
+
+    
     self.userNameLabel.text = [User currentUser].username;
     self.locationLabel.text = self.listingLocation.address;
     self.listingImageView.image = self.mainImage;
     self.categoryLabel.text = self.categoryDescription;
     self.orderAmountLabel.text = [NSString stringWithFormat:@"ORDER $%ld", self.baseServicePrice];
-    self.reasonForDisablingMenu = disablingReasonText;
+    self.reasonForDisablingMenu = nil;
     
     __weak DubbCreateListingConfirmationViewController *weakSelf = self;
     completionHandler = ^(SLComposeViewControllerResult result)
