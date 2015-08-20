@@ -19,6 +19,7 @@
 @interface DubbListingCell : UITableViewCell
 
 -(void) initWithListingInfo:(NSDictionary*)listing;
+-(void) setDownloadProgress:(CGFloat)progress;
 @property (nonatomic, strong) NSDictionary* listing;
 @property id delegate;
 

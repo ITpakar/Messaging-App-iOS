@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
     </dependencies>
@@ -15,19 +15,14 @@
                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mRJ-dh-u2H" userLabel="Container View">
                         <rect key="frame" x="8" y="0.0" width="304" height="250"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oyo-FP-yJq" userLabel="Listing Image View">
-                                <rect key="frame" x="0.0" y="0.0" width="304" height="191"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="191" id="cRA-2C-uaL"/>
-                                </constraints>
-                            </imageView>
                             <view hidden="YES" clipsSubviews="YES" tag="115" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YY4-gX-CEe" customClass="AXRatingView">
                                 <rect key="frame" x="25" y="97" width="78" height="15"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4xf-qi-QVs">
                                 <rect key="frame" x="25" y="115" width="271" height="45"/>
-                                <string key="text">Lorem ipsum service in San Francisco</string>
+                                <string key="text">Lorem ipsum service in 
+San Francisco</string>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -87,6 +82,24 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oyo-FP-yJq" userLabel="Listing Image View">
+                                <rect key="frame" x="0.0" y="0.0" width="304" height="191"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="191" id="cRA-2C-uaL"/>
+                                </constraints>
+                            </imageView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eju-mn-Bn1" customClass="MCPercentageDoughnutView">
+                                <rect key="frame" x="122" y="66" width="60" height="60"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="dm8-rx-4Kz"/>
+                                    <constraint firstAttribute="height" constant="60" id="zms-G9-VFd"/>
+                                </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="ue0-BK-EP8" appends="YES" id="fTt-PI-Y6o"/>
+                                </connections>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -98,7 +111,9 @@
                             <constraint firstAttribute="trailing" secondItem="yKL-Vn-qhC" secondAttribute="trailing" constant="8" id="X0m-Fq-KEx"/>
                             <constraint firstAttribute="bottom" secondItem="DIP-2n-UEJ" secondAttribute="bottom" constant="5" id="eih-dZ-WJp"/>
                             <constraint firstItem="oyo-FP-yJq" firstAttribute="leading" secondItem="mRJ-dh-u2H" secondAttribute="leading" id="f2q-cf-ob0"/>
+                            <constraint firstAttribute="centerX" secondItem="eju-mn-Bn1" secondAttribute="centerX" id="fBw-LD-mvZ"/>
                             <constraint firstItem="yKL-Vn-qhC" firstAttribute="leading" secondItem="mRJ-dh-u2H" secondAttribute="leading" constant="25" id="r1n-2X-dxW"/>
+                            <constraint firstItem="eju-mn-Bn1" firstAttribute="top" secondItem="mRJ-dh-u2H" secondAttribute="top" constant="66" id="sFS-if-5Zk"/>
                             <constraint firstItem="NZn-ld-ClQ" firstAttribute="top" secondItem="yKL-Vn-qhC" secondAttribute="bottom" constant="18" id="u7N-p0-WaZ"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
@@ -122,6 +137,7 @@
             <connections>
                 <outlet property="categoryLabel" destination="yKL-Vn-qhC" id="FLU-gv-Mb8"/>
                 <outlet property="containerView" destination="mRJ-dh-u2H" id="f2l-Zh-3B1"/>
+                <outlet property="downloadProgressView" destination="eju-mn-Bn1" id="E3w-pO-RWw"/>
                 <outlet property="listingImageView" destination="oyo-FP-yJq" id="ymL-ty-2vE"/>
                 <outlet property="locationLabel" destination="08I-yd-A6e" id="Xmz-Ev-hSI"/>
                 <outlet property="priceLabel" destination="NZn-ld-ClQ" id="OjS-E9-aGS"/>
@@ -132,6 +148,11 @@
             </connections>
             <point key="canvasLocation" x="128" y="268"/>
         </tableViewCell>
+        <tapGestureRecognizer id="ue0-BK-EP8">
+            <connections>
+                <action selector="playButtonTapped:" destination="CGN-wG-Zse" id="oNH-NI-e5e"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
     <resources>
         <image name="divisor.png" width="1" height="45"/>

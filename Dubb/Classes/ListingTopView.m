@@ -9,7 +9,7 @@
 #import "ListingTopView.h"
 
 @implementation ListingTopView
-
+@synthesize downloadProgressView;
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
@@ -21,13 +21,25 @@
     
     [self.slideShow setTransitionType:KASlideShowTransitionSlide]; // Choose a transition type (fade or slide)
     [self.slideShow setImagesContentMode:UIViewContentModeScaleAspectFill]; // Choose a content mode for images to display
-    [self.slideShow addGesture:KASlideShowGestureSwipe];
+    [self.slideShow addGesture:KASlideShowGestureAll];
+    
+    downloadProgressView.percentage              = 0;
+    downloadProgressView.linePercentage          = 0.15;
+    downloadProgressView.animationDuration       = 0;
+    downloadProgressView.showTextLabel           = NO;
+    downloadProgressView.animatesBegining        = NO;
 }
 
 -(void)updatePageLabel {
     self.pageControl.currentPage = self.slideShow.currentIndex;
     self.pageControl.numberOfPages = self.imagesCount;
-//    [self.pageLabel setText:[NSString stringWithFormat:@"%lu / %lu", self.slideShow.currentIndex + 1, (unsigned long)self.imagesCount]];
+
+    NSDictionary *imageInfo = self.imageInfoSet[self.slideShow.currentIndex];
+    if ([imageInfo[@"type"] isEqualToString:@"video"]) {
+        downloadProgressView.hidden = NO;
+    } else {
+        downloadProgressView.hidden = YES;
+    }
 }
 
 - (void)initImagesWithInfoArray:(NSArray *)imageInfoSet {
@@ -35,7 +47,8 @@
     SDWebImageManager *manager = [SDWebImageManager sharedManager];
     
     for (NSDictionary* imageInfo in imageInfoSet) {
-        [manager downloadImageWithURL:imageInfo[@"url"]
+        NSURL *url = [imageInfo[@"type"] isEqualToString:@"video"] ? imageInfo[@"preview"] : imageInfo[@"url"];
+        [manager downloadImageWithURL:url
                               options:0
                              progress:nil
                             completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
@@ -49,7 +62,15 @@
     }
     
     self.imagesCount = imageInfoSet.count;
+    self.imageInfoSet = imageInfoSet;
     [self updatePageLabel];
+}
+
+-(void) setDownloadProgress:(CGFloat)progress {
+    downloadProgressView.percentage = progress;
+}
+- (IBAction)playButtonTapped:(id)sender {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidTapPlayButton object:nil userInfo:@{@"cell":self}];
 }
 
 @end

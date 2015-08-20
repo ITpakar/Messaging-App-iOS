@@ -157,7 +157,7 @@ static PHPBackend   *sharedConnection;
     NSString *apiPath = [NSString stringWithFormat:@"%@%@/%@", APIURL, @"listing", listingID];
 
     User *user = [User currentUser];
-    NSDictionary *params = @{@"with":@"user,category,mainimage,images,addon", @"t_user_id":user.userID, @"t_latitude":user.latitude, @"t_longtitude":user.longitude};
+    NSDictionary *params = @{@"with":@"user,category,mainimage,images,addon,videos", @"t_user_id":user.userID, @"t_latitude":user.latitude, @"t_longtitude":user.longitude};
     
     [self accessAPI:apiPath Parameters:params CompletionHandler:^(NSDictionary *result, NSData *data, NSError *error) {
         handler(result);

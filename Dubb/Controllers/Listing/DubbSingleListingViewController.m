@@ -13,7 +13,8 @@
 #import "MBProgressHUD.h"
 #import "TTTAttributedLabel.h"
 #import <SDWebImage/UIImageView+WebCache.h>
-
+#import <MediaPlayer/MediaPlayer.h>
+#import <MobileCoreServices/MobileCoreServices.h>
 #import "ListingTopView.h"
 #import "DubbActivityProvider.h"
 #import "DubbAddonCell.h"
@@ -21,8 +22,7 @@
 #import "ChatViewController.h"
 #import "DubbOrderConfirmationViewController.h"
 #import "DubbSingleListingViewController.h"
-
-
+#import "AFNetworking.h"
 #import "PaypalMobile.h"
 #import "AppDelegate.h"
 
@@ -35,7 +35,7 @@
     NSDictionary *baseService;
     NSMutableArray *expansionFlags;
     NSMutableArray *extraQuantityCellIndexPaths;
-    
+    MPMoviePlayerController *videoController;
     NSDictionary *sellerInfo;
     NSDictionary *listingInfo;
     CAGradientLayer *maskLayer;
@@ -202,7 +202,11 @@ enum DubbSingleListingViewTag {
             return;
         }
         listingInfo = result[@"response"];
-        NSArray *images = listingInfo[@"images"];
+        NSMutableArray *images = [NSMutableArray array];
+        if ([listingInfo objectForKey:@"videos"] && ![listingInfo[@"videos"] isKindOfClass:[NSNull class]]) {
+            [images addObjectsFromArray:listingInfo[@"videos"]];
+        }
+        [images addObjectsFromArray:listingInfo[@"images"]];
         addOns = [listingInfo[@"addon"] mutableCopy];
         for (int i = 0; i < addOns.count; i++) {
             
@@ -232,8 +236,6 @@ enum DubbSingleListingViewTag {
             index ++;
         }
         
-
-        
         [topView initImagesWithInfoArray:images];
         
         [weakSelf.tableView reloadData];
@@ -242,6 +244,8 @@ enum DubbSingleListingViewTag {
     }];	
     expansionFlags = [NSMutableArray array];
     extraQuantityCellIndexPaths = [NSMutableArray array];
+    
+    videoController = [[MPMoviePlayerController alloc] init];
     
 }
 
@@ -252,7 +256,11 @@ enum DubbSingleListingViewTag {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(uncheckedAddon:) name:kNotificationDidUncheckAddon object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(plusButtonTapped:) name:kNotificationDidTapPlusButton object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(minusButtonTapped:) name:kNotificationDidTapMinusButton object:nil];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playButtonTapped:) name:kNotificationDidTapPlayButton object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(videoPlayBackDidFinish:)
+                                                 name:MPMoviePlayerPlaybackDidFinishNotification
+                                               object:videoController];
     [self addGradientToView:self.gradientView];
     
 }
@@ -265,13 +273,63 @@ enum DubbSingleListingViewTag {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+#pragma mark - Notification Observers
 
-
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)playButtonTapped:(NSNotification *)notification {
+    NSLog(@"play button tapped");
+    NSDictionary *imageInfo = topView.imageInfoSet[topView.slideShow.currentIndex];
+    [self downloadVideo:[NSURL URLWithString:imageInfo[@"url"]]];
+}
+- (void)videoPlayBackDidFinish:(NSNotification *)notification {
+    
+    // Stop the video player and remove it from view
+    [videoController stop];
+    [videoController.view removeFromSuperview];
+    
+    NSLog(@"Finished playback");
+    
+}
+- (void)downloadVideo:(NSURL *)url {
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *path = [[paths objectAtIndex:0] stringByAppendingPathComponent:[url pathComponents].lastObject];
+    
+    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:path];
+    if (fileExists) {
+        videoController.contentURL = [NSURL fileURLWithPath:path];
+        videoController.view.frame = topView.bounds;
+        [topView addSubview:videoController.view];
+        [videoController play];
+        [topView setDownloadProgress:0];
+    } else {
+        operation.outputStream = [NSOutputStream outputStreamToFileAtPath:path append:NO];
+        
+        [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+                videoController.contentURL = [NSURL fileURLWithPath:path];
+                videoController.view.frame = topView.bounds;
+                [topView addSubview:videoController.view];
+                [videoController play];
+                [topView setDownloadProgress:0];
+            
+            NSLog(@"Successfully downloaded file to %@", path);
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            UIAlertView * alert=[[UIAlertView alloc]initWithTitle:@"Error" message:[NSString stringWithFormat:@"%@",error] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil ];
+            [alert show];
+        }];
+        
+        [operation start];
+        
+        [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
+            float progress = ((float)totalBytesRead) / totalBytesExpectedToRead;
+            NSLog(@"status %f",progress);
+            [topView setDownloadProgress:progress];
+            
+        }];
+    }
 }
 
 - (void) checkedAddon:(NSNotification *)notif {
@@ -694,8 +752,6 @@ static bool liked = NO;
         cell.backgroundColor = [UIColor whiteColor];
     }
 
-    
-
     cell.quantity = purchasedCount;
     cell.quantityLabel.text = [NSString stringWithFormat:@"%ld", (long)purchasedCount];
     return cell;
@@ -854,17 +910,26 @@ static bool liked = NO;
 
 #pragma mark - KASlideShow delegate
 
-- (void) kaSlideShowDidNext:(KASlideShow *)slideShow
+- (void)kaSlideShowDidNext:(KASlideShow *)slideShow
 {
+    [self kaSlideShowDidSlide:slideShow];
+}
+
+- (void)kaSlideShowDidPrevious:(KASlideShow *)slideShow
+{
+    [self kaSlideShowDidSlide:slideShow];
+}
+
+- (void)kaSlideShowDidSlide:(KASlideShow *)slideShow {
+    if (videoController.view.superview) {
+        [videoController stop];
+        [videoController.view removeFromSuperview];
+    }
+
     [topView updatePageLabel];
 }
 
--(void)kaSlideShowDidPrevious:(KASlideShow *)slideShow
-{
-    [topView updatePageLabel];
-}
-
-
+#pragma mark - MFMailComposeViewControllerDelegate
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
 {
     switch (result) {

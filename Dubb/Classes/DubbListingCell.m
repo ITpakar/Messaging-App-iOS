@@ -8,6 +8,7 @@
 
 #import "DubbListingCell.h"
 #import "AXRatingView.h"
+#import "MCPercentageDoughnutView.h"
 #import <AddressBookUI/AddressBookUI.h>
 #import <CoreLocation/CLGeocoder.h>
 #import <CoreLocation/CLPlacemark.h>
@@ -24,6 +25,7 @@
     IBOutlet UIButton*       btnOrder;
     IBOutlet AXRatingView *starRatingControl;
     IBOutlet UILabel *priceLabel;
+    IBOutlet MCPercentageDoughnutView *downloadProgressView;
     
     UIActivityIndicatorView *mainImageIndicator;
     
@@ -47,6 +49,13 @@
         
         mainImageIndicator = [[UIActivityIndicatorView alloc] init];
         mainImageIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    
+        downloadProgressView.percentage              = 0;
+        downloadProgressView.linePercentage          = 0.15;
+        downloadProgressView.animationDuration       = 0;
+        downloadProgressView.showTextLabel           = NO;
+        downloadProgressView.animatesBegining        = NO;
+
         
         starRatingControl.backgroundColor = [UIColor clearColor];
         starRatingControl.markImage = [UIImage imageNamed:@"star"];
@@ -109,8 +118,12 @@
                 [category appendFormat:@" > %@", _listing[@"sub_category"]];
             
             categoryLabel.text = [category uppercaseString];
-            
-            if( listing[@"main_image"] && ![listing[@"main_image"] isKindOfClass:[NSNull class]] ){
+            if( listing[@"main_video_preview"] && ![listing[@"main_video_preview"] isKindOfClass:[NSNull class]] ){
+                [listingImageView sd_setImageWithURL:listing[@"main_video_preview"]];
+                downloadProgressView.hidden = NO;
+            }
+            else if( listing[@"main_image"] && ![listing[@"main_image"] isKindOfClass:[NSNull class]] ){
+                downloadProgressView.hidden = YES;
                 if( [listing[@"main_image"] isKindOfClass:[NSString class]] && listing[@"main_image"] ){
                     [mainImageIndicator startAnimating];
                     [[SDImageCache sharedImageCache] queryDiskCacheForKey:listing[@"main_image"] done:^(UIImage *image, SDImageCacheType cacheType) {
@@ -201,5 +214,11 @@
     
     [view.layer addSublayer:maskLayer];
     
+}
+-(void) setDownloadProgress:(CGFloat)progress {
+    downloadProgressView.percentage = progress;
+}
+- (IBAction)playButtonTapped:(id)sender {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidTapPlayButton object:nil userInfo:@{@"cell":self}];
 }
 @end

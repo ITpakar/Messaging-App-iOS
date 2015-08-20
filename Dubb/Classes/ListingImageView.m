@@ -33,15 +33,25 @@
     
 }
 
+- (void)showAddVideoView {
+    
+    self.addVideoButton.hidden = NO;
+    
+}
+
 - (IBAction)recycleBinTapped:(id)sender {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidTapRecycleBinButton object:@(self.index)];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidTapRecycleBinButton object:@{@"type":@(self.type), @"index":@(self.index)}];
 }
 - (IBAction)addPhotoButtonTapped:(id)sender {
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidTapAddPhotoButton object:nil];
 }
+- (IBAction)addVideoButtonTapped:(id)sender {
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidTapAddVideoButton object:nil];
+}
 - (IBAction)imageViewTapped:(id)sender {
     self.selected = YES;
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidTapListingImageView object:@(self.index)];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidTapListingImageView object:@{@"type":@(self.type), @"index":@(self.index)}];
 }
 
 

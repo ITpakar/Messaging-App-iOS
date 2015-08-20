@@ -17,6 +17,7 @@
 @interface DubbCreateListingTableViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) NSMutableArray *listingImages;
+@property (nonatomic, strong) NSMutableArray *listingVideos;
 @property (nonatomic, strong) NSDictionary *listingDetail;
 @property NSMutableArray *pastSearchResults;
 @property NSMutableArray *pastSearchWords;

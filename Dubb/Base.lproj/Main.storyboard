@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="9mC-Dp-d8L">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="9mC-Dp-d8L">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -2691,7 +2691,7 @@ Dubb!</string>
                                 <rect key="frame" x="0.0" y="82" width="600" height="1403"/>
                                 <color key="backgroundColor" red="0.96078431369999995" green="0.97254901959999995" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="BbN-nY-0dQ" userLabel="Header View">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="590"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="690"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UOl-4K-8Yl" userLabel="Title Container View">
@@ -2832,7 +2832,7 @@ Dubb!</string>
                                             </constraints>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EFb-Xd-Kgw" userLabel="Tags and Images Container View">
-                                            <rect key="frame" x="0.0" y="121" width="600" height="120"/>
+                                            <rect key="frame" x="0.0" y="121" width="600" height="220"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TvZ-o7-mw2" userLabel="Separator">
                                                     <rect key="frame" x="0.0" y="0.0" width="600" height="1"/>
@@ -2841,25 +2841,25 @@ Dubb!</string>
                                                         <constraint firstAttribute="height" constant="1" id="b38-kd-fIn"/>
                                                     </constraints>
                                                 </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LISTING IMAGES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qtf-HS-bsW">
-                                                    <rect key="frame" x="10" y="16" width="102" height="15"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LISTING IMAGES &amp; VIDEOS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qtf-HS-bsW">
+                                                    <rect key="frame" x="10" y="16" width="149" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="15" id="bHt-am-ZRb"/>
-                                                        <constraint firstAttribute="width" constant="102" id="tei-9f-UtS"/>
+                                                        <constraint firstAttribute="width" constant="149" id="tei-9f-UtS"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="11"/>
                                                     <color key="textColor" red="0.58431372550000005" green="0.58431372550000005" blue="0.58431372550000005" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xhl-hX-pqL" userLabel="Images Scroll View">
-                                                    <rect key="frame" x="10" y="34" width="580" height="80"/>
+                                                    <rect key="frame" x="10" y="142" width="580" height="80"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="80" id="Bq1-mh-IGM"/>
                                                     </constraints>
                                                 </scrollView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4 IMAGES" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LG1-7m-D9L">
-                                                    <rect key="frame" x="488" y="16" width="102" height="15"/>
+                                                    <rect key="frame" x="488" y="124" width="102" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="15" id="a95-iz-Aca"/>
                                                         <constraint firstAttribute="width" constant="102" id="dHO-BT-52V"/>
@@ -2868,18 +2868,39 @@ Dubb!</string>
                                                     <color key="textColor" red="0.58431372550000005" green="0.58431372550000005" blue="0.58431372550000005" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4 VIDEOS" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W3P-Um-rzn">
+                                                    <rect key="frame" x="490" y="21" width="102" height="15"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="15" id="Zgd-Ru-bz3"/>
+                                                        <constraint firstAttribute="width" constant="102" id="i99-B6-Vwo"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                    <color key="textColor" red="0.58431372550000005" green="0.58431372550000005" blue="0.58431372550000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G9c-lA-jas" userLabel="Videos Scroll View">
+                                                    <rect key="frame" x="10" y="39" width="580" height="80"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="80" id="k0I-9b-O2N"/>
+                                                    </constraints>
+                                                </scrollView>
                                             </subviews>
                                             <color key="backgroundColor" red="0.96078431372549022" green="0.97254901960784312" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="120" id="6Bp-LH-RrR"/>
+                                                <constraint firstAttribute="height" constant="220" id="6Bp-LH-RrR"/>
                                                 <constraint firstAttribute="trailing" secondItem="TvZ-o7-mw2" secondAttribute="trailing" id="8PC-EZ-SJI"/>
+                                                <constraint firstAttribute="trailing" secondItem="G9c-lA-jas" secondAttribute="trailing" constant="10" id="A4T-MT-YI2"/>
                                                 <constraint firstItem="xhl-hX-pqL" firstAttribute="top" secondItem="LG1-7m-D9L" secondAttribute="bottom" constant="3" id="A7m-9X-gOd"/>
+                                                <constraint firstItem="G9c-lA-jas" firstAttribute="leading" secondItem="EFb-Xd-Kgw" secondAttribute="leading" constant="10" id="D56-JK-4lf"/>
                                                 <constraint firstAttribute="trailing" secondItem="LG1-7m-D9L" secondAttribute="trailing" constant="10" id="Ez3-Fh-VIq"/>
+                                                <constraint firstItem="G9c-lA-jas" firstAttribute="top" secondItem="W3P-Um-rzn" secondAttribute="bottom" constant="3" id="FWb-9d-B6K"/>
+                                                <constraint firstItem="G9c-lA-jas" firstAttribute="top" secondItem="qtf-HS-bsW" secondAttribute="bottom" constant="8" id="KR1-kQ-O3v"/>
                                                 <constraint firstAttribute="trailing" secondItem="xhl-hX-pqL" secondAttribute="trailing" constant="10" id="RLi-Xi-drO"/>
+                                                <constraint firstAttribute="trailing" secondItem="W3P-Um-rzn" secondAttribute="trailing" constant="8" id="TmL-8V-OJr"/>
                                                 <constraint firstItem="xhl-hX-pqL" firstAttribute="leading" secondItem="EFb-Xd-Kgw" secondAttribute="leading" constant="10" id="VhE-fu-kjz"/>
-                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="LG1-7m-D9L" secondAttribute="trailing" constant="10" id="X0z-k7-bd0"/>
                                                 <constraint firstItem="qtf-HS-bsW" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="EFb-Xd-Kgw" secondAttribute="leading" constant="10" id="YNt-Pc-qYI"/>
-                                                <constraint firstItem="LG1-7m-D9L" firstAttribute="top" secondItem="TvZ-o7-mw2" secondAttribute="bottom" constant="15" id="fie-MK-G84"/>
+                                                <constraint firstItem="LG1-7m-D9L" firstAttribute="top" secondItem="G9c-lA-jas" secondAttribute="bottom" constant="5" id="fS3-17-ZFb"/>
                                                 <constraint firstItem="qtf-HS-bsW" firstAttribute="top" secondItem="TvZ-o7-mw2" secondAttribute="bottom" constant="15" id="iR6-W3-rh6"/>
                                                 <constraint firstItem="TvZ-o7-mw2" firstAttribute="top" secondItem="EFb-Xd-Kgw" secondAttribute="top" id="mQB-Im-AuC"/>
                                                 <constraint firstItem="qtf-HS-bsW" firstAttribute="leading" secondItem="EFb-Xd-Kgw" secondAttribute="leading" constant="10" id="tX9-Ol-GQQ"/>
@@ -2887,7 +2908,7 @@ Dubb!</string>
                                             </constraints>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DESCRIPTION" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G6k-6z-ycc">
-                                            <rect key="frame" x="12" y="247" width="102" height="15"/>
+                                            <rect key="frame" x="12" y="347" width="102" height="15"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="15" id="GCt-2a-SuV"/>
                                                 <constraint firstAttribute="width" constant="102" id="O4D-Cr-5mM"/>
@@ -2897,7 +2918,7 @@ Dubb!</string>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YCS-hw-ZEA" userLabel="Description Container View">
-                                            <rect key="frame" x="0.0" y="268" width="600" height="180"/>
+                                            <rect key="frame" x="0.0" y="368" width="600" height="180"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vkK-Kg-7VP" userLabel="Separator">
                                                     <rect key="frame" x="0.0" y="0.0" width="600" height="1"/>
@@ -2940,7 +2961,7 @@ Dubb!</string>
                                             </constraints>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eeW-Y3-AkM" userLabel="Base Price Container View">
-                                            <rect key="frame" x="0.0" y="468" width="600" height="45"/>
+                                            <rect key="frame" x="0.0" y="568" width="600" height="45"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NeV-PN-3kT" userLabel="Separator">
                                                     <rect key="frame" x="0.0" y="0.0" width="600" height="1"/>
@@ -3002,7 +3023,7 @@ Dubb!</string>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="144" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4YG-Ir-jj0">
-                                            <rect key="frame" x="572" y="449" width="20" height="13"/>
+                                            <rect key="frame" x="572" y="549" width="20" height="13"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="13" id="AQu-zo-eD2"/>
                                                 <constraint firstAttribute="width" constant="20" id="H1D-zq-RPK"/>
@@ -3471,6 +3492,8 @@ Dubb!</string>
                         <outlet property="tableView" destination="BTh-bc-Y2D" id="7na-YG-OEg"/>
                         <outlet property="tagsControl" destination="0AG-wh-1Hf" id="etX-Xc-r2u"/>
                         <outlet property="titleTextField" destination="tPw-Pe-Y71" id="y9N-iV-PGM"/>
+                        <outlet property="videosCountLabel" destination="W3P-Um-rzn" id="goq-VK-xZE"/>
+                        <outlet property="videosScrollView" destination="G9c-lA-jas" id="k5a-Wg-EyN"/>
                         <segue destination="YWU-QH-qeM" kind="show" identifier="displayCreateListingConfirmationSegue" id="JRv-oe-RIc"/>
                     </connections>
                 </viewController>

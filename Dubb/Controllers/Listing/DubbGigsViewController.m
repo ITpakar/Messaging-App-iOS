@@ -10,9 +10,13 @@
 #import "DubbSingleListingViewController.h"
 #import "SVPullToRefresh.h"
 #import "DubbListingCell.h"
+#import "AFNetworking.h"
+#import <MediaPlayer/MediaPlayer.h>
+#import <MobileCoreServices/MobileCoreServices.h>
 
 @interface DubbGigsViewController (){
-    
+    DubbListingCell *currentCell;
+    MPMoviePlayerController *videoController;
     __weak IBOutlet UILabel *titleLabel;
     __weak IBOutlet UITableView *gigsTableView;
     NSMutableArray *listings;
@@ -29,7 +33,91 @@
     titleLabel.text = _keyword;
     [self setupListingTableView];
    
+    videoController = [[MPMoviePlayerController alloc] init];
 }
+
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playButtonTapped:) name:kNotificationDidTapPlayButton object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(videoPlayBackDidFinish:)
+                                                 name:MPMoviePlayerPlaybackDidFinishNotification
+                                               object:videoController];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+
+#pragma mark - Notification Observers
+- (void)playButtonTapped:(NSNotification *)notification {
+    NSLog(@"play button tapped");
+    DubbListingCell *cell = notification.userInfo[@"cell"];
+    currentCell = cell;
+    [self downloadVideo:[NSURL URLWithString:cell.listing[@"main_video"]]];
+}
+- (void)videoPlayBackDidFinish:(NSNotification *)notification {
+    
+    // Stop the video player and remove it from view
+    [videoController stop];
+    [videoController.view removeFromSuperview];
+    
+    NSLog(@"Finished playback");
+    
+}
+- (void)downloadVideo:(NSURL *)url {
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *path = [[paths objectAtIndex:0] stringByAppendingPathComponent:[url pathComponents].lastObject];
+    operation.outputStream = [NSOutputStream outputStreamToFileAtPath:path append:NO];
+    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:path];
+    if (fileExists) {
+        if (currentCell) {
+            videoController.contentURL = [NSURL fileURLWithPath:path];
+            videoController.view.frame = CGRectMake(8, 0, sWidth - 16, 191.0f);
+            [currentCell.contentView addSubview:videoController.view];
+            [videoController play];
+            [currentCell setDownloadProgress:0];
+            currentCell = nil;
+        }
+    } else {
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (currentCell) {
+            videoController.contentURL = [NSURL fileURLWithPath:path];
+            videoController.view.frame = CGRectMake(8, 0, sWidth - 16, 191.0f);
+            [currentCell.contentView addSubview:videoController.view];
+            [videoController play];
+            [currentCell setDownloadProgress:0];
+            currentCell = nil;
+        }
+        NSLog(@"Successfully downloaded file to %@", path);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        UIAlertView * alert=[[UIAlertView alloc]initWithTitle:@"Error" message:[NSString stringWithFormat:@"%@",error] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil ];
+        [alert show];
+    }];
+    
+    [operation start];
+    
+    [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
+        float progress = ((float)totalBytesRead) / totalBytesExpectedToRead;
+        NSLog(@"status %f",progress);
+        if (currentCell) {
+            
+            [currentCell setDownloadProgress:progress];
+        }
+        
+        // self.progressView.progress = progress;
+        
+    }];
+    }
+}
+
 
 -(void) setupListingTableView{
     [gigsTableView addPullToRefreshWithActionHandler:^{

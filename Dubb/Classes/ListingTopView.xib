@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
     </dependencies>
@@ -18,6 +18,18 @@
                         </imageView>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K6h-3Y-Jfc" customClass="MCPercentageDoughnutView">
+                    <rect key="frame" x="130" y="70" width="60" height="60"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <gestureRecognizers/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="1jN-Pb-9SW"/>
+                        <constraint firstAttribute="width" constant="60" id="E15-Zc-mAW"/>
+                    </constraints>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="5Z3-5j-VWY" appends="YES" id="YC5-lz-zyU"/>
+                    </connections>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y6g-SM-BL2" userLabel="Extra Info and Buttons Container">
                     <rect key="frame" x="0.0" y="135" width="320" height="65"/>
@@ -65,9 +77,11 @@
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="Y6g-SM-BL2" secondAttribute="bottom" id="6OX-ei-7zL"/>
+                <constraint firstAttribute="centerY" secondItem="K6h-3Y-Jfc" secondAttribute="centerY" id="8Pa-Tg-o3c"/>
                 <constraint firstItem="Lnf-f2-iFv" firstAttribute="top" secondItem="Ejd-8z-5Xx" secondAttribute="top" id="INd-9K-BwL"/>
                 <constraint firstAttribute="bottom" secondItem="Lnf-f2-iFv" secondAttribute="bottom" id="Mv2-8X-zFL"/>
                 <constraint firstItem="Y6g-SM-BL2" firstAttribute="leading" secondItem="Ejd-8z-5Xx" secondAttribute="leading" id="VaK-kG-RKG"/>
+                <constraint firstAttribute="centerX" secondItem="K6h-3Y-Jfc" secondAttribute="centerX" id="X9s-US-y8N"/>
                 <constraint firstAttribute="trailing" secondItem="Y6g-SM-BL2" secondAttribute="trailing" id="Xd7-f7-H2u"/>
                 <constraint firstAttribute="trailing" secondItem="Lnf-f2-iFv" secondAttribute="trailing" id="j8p-Nb-hJ6"/>
                 <constraint firstItem="Lnf-f2-iFv" firstAttribute="leading" secondItem="Ejd-8z-5Xx" secondAttribute="leading" id="qDT-VR-h39"/>
@@ -75,6 +89,7 @@
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="downloadProgressView" destination="K6h-3Y-Jfc" id="0FG-AC-bTQ"/>
                 <outlet property="extraControlsContainerView" destination="Y6g-SM-BL2" id="96s-Eb-p5e"/>
                 <outlet property="likeButton" destination="nrl-7Q-Hvm" id="Ul3-TB-8tG"/>
                 <outlet property="pageControl" destination="Yia-LM-RB7" id="B0X-P4-VTW"/>
@@ -84,6 +99,11 @@
             </connections>
             <point key="canvasLocation" x="197" y="166"/>
         </view>
+        <tapGestureRecognizer id="5Z3-5j-VWY">
+            <connections>
+                <action selector="playButtonTapped:" destination="Ejd-8z-5Xx" id="Adh-9x-uxl"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
     <resources>
         <image name="heart_button.png" width="22" height="21"/>

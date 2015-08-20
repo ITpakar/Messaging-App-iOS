@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
     </dependencies>
@@ -48,9 +48,20 @@
                         <action selector="addPhotoButtonTapped:" destination="te2-mZ-bUe" eventType="touchUpInside" id="GAM-SN-jHZ"/>
                     </connections>
                 </button>
+                <button hidden="YES" opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sKw-Ly-1RP" userLabel="AddVideo Button">
+                    <rect key="frame" x="0.0" y="0.0" width="75" height="75"/>
+                    <state key="normal" image="add_video.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="addVideoButtonTapped:" destination="te2-mZ-bUe" eventType="touchUpInside" id="s97-ZC-bk8"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="sKw-Ly-1RP" firstAttribute="top" secondItem="te2-mZ-bUe" secondAttribute="top" id="0OQ-RB-hv1"/>
+                <constraint firstItem="sKw-Ly-1RP" firstAttribute="leading" secondItem="te2-mZ-bUe" secondAttribute="leading" id="Cbv-gc-tcN"/>
                 <constraint firstAttribute="trailing" secondItem="DeS-dM-cvs" secondAttribute="trailing" id="SIn-uk-joi"/>
                 <constraint firstItem="hzz-LS-l6w" firstAttribute="top" secondItem="te2-mZ-bUe" secondAttribute="top" id="SNk-wi-SdV"/>
                 <constraint firstItem="DeS-dM-cvs" firstAttribute="top" secondItem="te2-mZ-bUe" secondAttribute="top" id="WMc-Yj-nAf"/>
@@ -63,6 +74,8 @@
                 <constraint firstItem="hzz-LS-l6w" firstAttribute="leading" secondItem="te2-mZ-bUe" secondAttribute="leading" id="mKR-5w-uat"/>
                 <constraint firstItem="rwy-bO-hRs" firstAttribute="top" secondItem="te2-mZ-bUe" secondAttribute="top" id="mgb-eg-xnG"/>
                 <constraint firstItem="rwy-bO-hRs" firstAttribute="leading" secondItem="te2-mZ-bUe" secondAttribute="leading" id="mnF-Bl-7gC"/>
+                <constraint firstAttribute="bottom" secondItem="sKw-Ly-1RP" secondAttribute="bottom" id="tKL-BK-9ue"/>
+                <constraint firstAttribute="trailing" secondItem="sKw-Ly-1RP" secondAttribute="trailing" id="tdd-3j-vSP"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -72,6 +85,7 @@
             </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="addPhotoButton" destination="DeS-dM-cvs" id="aLw-bx-X6W"/>
+                <outlet property="addVideoButton" destination="sKw-Ly-1RP" id="Vln-4G-m2e"/>
                 <outlet property="imageView" destination="hzz-LS-l6w" id="LzG-j6-G5w"/>
                 <outlet property="recycleBinContainerView" destination="rwy-bO-hRs" id="yJj-12-CJY"/>
             </connections>
@@ -90,6 +104,7 @@
     </objects>
     <resources>
         <image name="add_photo.png" width="76" height="76"/>
+        <image name="add_video.png" width="76" height="76"/>
         <image name="recycle_bin.png" width="20" height="21"/>
     </resources>
 </document>

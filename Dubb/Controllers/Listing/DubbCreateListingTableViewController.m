@@ -40,7 +40,9 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     NSMutableArray *assetArray;
     NSMutableArray *originalAddonArray;
     NSMutableArray *listingImageViewArray;
-    NSArray *originalAssetArray;
+    NSMutableArray *listingThumbnailViewArray;
+    NSArray *originalImageArray;
+    NSArray *originalVideoArray;
     NSArray *originalTagArray;
     UILabel *currentDescriptionLabel;
     NSInteger currentIndexPathRow;
@@ -54,29 +56,20 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     
 }
 @property (strong, nonatomic) IBOutlet UILabel *navigationTitleLabel;
-@property (strong, nonatomic) IBOutlet UILabel *tagsLabel;
 @property (strong, nonatomic) IBOutlet TLTagsControl *tagsControl;
 @property (strong, nonatomic) IBOutlet UILabel *imagesCountLabel;
 @property (strong, nonatomic) IBOutlet UIScrollView *imagesScrollView;
+@property (strong, nonatomic) IBOutlet UILabel *videosCountLabel;
+@property (strong, nonatomic) IBOutlet UIScrollView *videosScrollView;
 @property (strong, nonatomic) IBOutlet SZTextView *fulfillmentInfoTextView;
 @property (strong, nonatomic) IBOutlet UITextField *radiusTextField;
 @property (strong, nonatomic) IBOutlet UITextField *searchTextField;
 @property (strong, nonatomic) IBOutlet UIButton *doneButton;
-@property (strong, nonatomic) IBOutlet UILabel *fulfillmentAreaLabel;
-@property (strong, nonatomic) IBOutlet KASlideShow *slideShow;
-@property (strong, nonatomic) IBOutlet UIButton *placeholderButton;
-@property (strong, nonatomic) IBOutlet UILabel *pageLabel;
 @property (strong, nonatomic) IBOutlet IQDropDownTextField *categoryTextField;
 @property (strong, nonatomic) IBOutlet IQDropDownTextField *subCategoryTextField;
 @property (strong, nonatomic) IBOutlet UITextField *titleTextField;
 @property (strong, nonatomic) IBOutlet SZTextView *baseServiceDescriptionTextView;
 @property (strong, nonatomic) IBOutlet UITextField *baseServicePriceTextField;
-@property (strong, nonatomic) IBOutlet UILabel *baseServicePriceLabel;
-@property (strong, nonatomic) IBOutlet UILabel *baseServiceDescriptionLabel;
-@property (strong, nonatomic) IBOutlet UIView *serviceDescriptionContainerView;
-@property (strong, nonatomic) IBOutlet UIView *fulfillmentInfoContainerView;
-@property (strong, nonatomic) IBOutlet UIView *fulfillmentAreaContainerView;
-@property (strong, nonatomic) IBOutlet UIView *tagsContainerView;
 @property (strong, nonatomic) IBOutlet UILabel *availableCharacterNumberLabel;
 @property (strong, nonatomic) IBOutlet UILabel *availableCharacterNumberLabelForAddon;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
@@ -99,6 +92,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     self.navigationController.navigationBar.translucent = NO;    
     
     _listingImages = [NSMutableArray array];
+    _listingVideos = [NSMutableArray array];
     addOns = [NSMutableArray array];
     originalAddonArray = [NSMutableArray array];
     selectedLocation = [[SelectedLocation alloc] init];
@@ -190,6 +184,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     }
     [addOns addObject:[NSMutableDictionary dictionaryWithDictionary:@{@"description":@"", @"price":@""}]];
     [self setupImagesScrollView];
+    [self setupVideosScrollView];
     [self.availableCharacterNumberLabel setText:[NSString stringWithFormat:@"%ld", MAX_CHARACTER_NUMBER_BASE - [self.baseServiceDescriptionTextView.text length]]];
     
 }
@@ -239,10 +234,19 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     
     // initialize with images
     
-    originalAssetArray = self.listingDetail[@"images"];
-    [self downloadImages:[originalAssetArray mutableCopy] completion:^(id result) {
+    originalImageArray = self.listingDetail[@"images"];
+    [self downloadImages:[originalImageArray mutableCopy] completion:^(id result) {
         
         [self setupImagesScrollView];
+        
+    }];
+    
+    // initialize with videos
+    
+    originalVideoArray = self.listingDetail[@"videos"];
+    [self downloadVideos:[originalVideoArray mutableCopy] completion:^(id result) {
+        
+        [self setupVideosScrollView];
         
     }];
     
@@ -271,7 +275,8 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     [self.pastSearchWords removeAllObjects];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLocationUpdated) name:kNotificationDidLocationUpdated object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(recycleBinButtonTapped:) name:kNotificationDidTapRecycleBinButton object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleImageButton:) name:kNotificationDidTapAddPhotoButton object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addPhotoButtonClicked:) name:kNotificationDidTapAddPhotoButton object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addVideoButtonClicked:) name:kNotificationDidTapAddVideoButton object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(listingImageViewTapped:) name:kNotificationDidTapListingImageView object:nil];
 }
 
@@ -286,29 +291,57 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
 }
 
 - (void) recycleBinButtonTapped:(NSNotification *)notif {
-    NSInteger index = [notif.object integerValue];
-    [self.listingImages removeObjectAtIndex:index];
-    [self setupImagesScrollView];
-    NSLog(@"%ld", index);
-}
-
-- (void) addPhotoButtonClicked:(NSNotification *)notif {
+    NSInteger index = [notif.object[@"index"] integerValue];
+    ListingMediaType type = [notif.object[@"type"] integerValue];
     
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Where do you want to get photo?"
+    if (type == ListingMediaTypePhoto) {
+        [self.listingImages removeObjectAtIndex:index];
+        [self setupImagesScrollView];
+    } else {
+        [self.listingVideos removeObjectAtIndex:index];
+        [self setupVideosScrollView];
+    }
+}
+- (void)addPhotoButtonClicked:(id)sender {
+    self.picker = [[GKImagePicker alloc] init];
+    self.picker.delegate = self;
+    self.picker.cropper.cropSize = CGSizeMake(320.,200.);   // (Optional) Default: CGSizeMake(320., 320.)
+    self.picker.cropper.rescaleImage = YES;                // (Optional) Default: YES
+    self.picker.cropper.rescaleFactor = 2.0;               // (Optional) Default: 1.0
+    self.picker.cropper.dismissAnimated = YES;              // (Optional) Default: YES
+    self.picker.cropper.overlayColor = [UIColor colorWithRed:0/255. green:0/255. blue:0/255. alpha:0.7];  // (Optional) Default: [UIColor colorWithRed:0/255. green:0/255. blue:0/255. alpha:0.7]
+    self.picker.cropper.innerBorderColor = [UIColor colorWithRed:255./255. green:255./255. blue:255./255. alpha:0.7];   // (Optional) Default: [UIColor colorWithRed:0/255. green:0/255. blue:0/255. alpha:0.7]
+    [self.picker presentPicker];
+}
+- (void) addVideoButtonClicked:(NSNotification *)notif {
+    
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Where do you want to get video?"
                                                              delegate:self
                                                     cancelButtonTitle:@"Cancel"
                                                destructiveButtonTitle:nil
                                                     otherButtonTitles:@"Camera", @"Gallery", nil];
     actionSheet.delegate = self;
+    actionSheet.tag = 101;
     [actionSheet showInView:self.view];
 }
 - (void) listingImageViewTapped:(NSNotification *)notif {
-    NSInteger index = [notif.object integerValue];
-    for (ListingImageView *listingImageView in listingImageViewArray) {
-        if (listingImageView.index != index) {
-            listingImageView.selected = NO;
+    NSInteger index = [notif.object[@"index"] integerValue];
+    ListingMediaType type = [notif.object[@"type"] integerValue];
+    
+    if (type == ListingMediaTypePhoto) {
+        for (ListingImageView *listingImageView in listingImageViewArray) {
+            if (listingImageView.index != index) {
+                listingImageView.selected = NO;
+            }
+        }
+    } else {
+        for (ListingImageView *listingImageView in listingThumbnailViewArray) {
+            if (listingImageView.index != index) {
+                listingImageView.selected = NO;
+            }
         }
     }
+    
 }
 #pragma mark - UIActionSheetDelegate methods
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
@@ -316,31 +349,36 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     picker.delegate = self;
     picker.allowsEditing = YES;
+    picker.mediaTypes = [[NSArray alloc] initWithObjects: (NSString *) kUTTypeMovie, nil];
+    
     switch (buttonIndex) {
         case 0:
             
             picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-            
             [self presentViewController:picker animated:YES completion:NULL];
             break;
         case 1:
             picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-            
             [self presentViewController:picker animated:YES completion:NULL];
-            
             break;
         default:
             break;
     }
-    
 }
 
 #pragma mark - UIImagePickerControllerDelegate methods
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
-    UIImage *chosenImage = [info[UIImagePickerControllerEditedImage] fixOrientation];
-    [self.listingImages addObject:@{@"uploaded": @NO, @"image":chosenImage}];
-    [self setupImagesScrollView];
+    
+    NSURL *videoURL = info[UIImagePickerControllerMediaURL];
+    if (videoURL) {
+        NSString *videoWebURL = [self uploadVideo:videoURL];
+
+        UIImage *thumbnailImage = [self thumbnailImageFromURL:videoURL];
+        NSString *thumbnailURL = [self uploadImage:thumbnailImage];
+        [self.listingVideos addObject:@{@"uploaded": @NO, @"url":videoWebURL, @"videoURL":videoURL, @"image":thumbnailImage, @"preview":thumbnailURL}];
+        [self setupVideosScrollView];
+    }
     
     [picker dismissViewControllerAnimated:YES completion:NULL];
     
@@ -382,12 +420,6 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     
     NSString* title = self.titleTextField.text;
 
-    if (selectedLocation.locationCoordinates.latitude == 0 && selectedLocation.locationCoordinates.longitude == 0) {
-        
-        [self showMessage:@"Creating a listing requires location services. Please enable it on your phone settings for Dubb"];
-        [self.navigationController popViewControllerAnimated:YES];
-        return;
-    }
     
     NSString* foundAddonDescription = @"";
     NSMutableArray *addonArray = [NSMutableArray array];
@@ -400,7 +432,13 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
             }
         }
     }
-    
+    if (selectedLocation.locationCoordinates.latitude == 0 && selectedLocation.locationCoordinates.longitude == 0) {
+        
+        [self showMessage:@"Creating a listing requires location services. Please enable it on your phone settings for Dubb"];
+        [self.navigationController popViewControllerAnimated:YES];
+        return;
+    }
+
     if (![foundAddonDescription isEqualToString:@""]) {
         [self showMessage:[NSString stringWithFormat:@"Please enter your price for addon service - %@", foundAddonDescription]];
         return;
@@ -412,6 +450,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     }
     if (self.categoryTextField.selectedRow == -1 || self.subCategoryTextField.selectedRow == -1) {
         [self showMessage:@"Please select one category."];
+        return;
     }
     
     if (self.tagsControl.tags.count < 3) {
@@ -445,7 +484,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     NSString *apiPath = [NSString stringWithFormat:@"%@", @"listing"];
     [self showProgress:@"Wait for a moment"];
     
-    NSDictionary *params;
+    NSMutableDictionary *params;
     
     if (self.listingDetail) {
         
@@ -491,7 +530,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
         }
         
         NSMutableArray *assetArrayForUpdate = [NSMutableArray array];
-        for (NSDictionary *originalAsset in originalAssetArray) {
+        for (NSDictionary *originalAsset in originalImageArray) {
             BOOL found = NO;
             for (NSDictionary *listingImage in self.listingImages) {
                 if ([listingImage[@"id"] isEqualToString:originalAsset[@"id"]]) {
@@ -511,7 +550,28 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
         }
         
         
-        params = @{@"name":[NSString stringWithFormat:@"%@", self.titleTextField.text],
+        for (NSDictionary *originalAsset in originalVideoArray) {
+            BOOL found = NO;
+            for (NSDictionary *listingVideo in self.listingVideos) {
+                if ([listingVideo[@"id"] isEqualToString:originalAsset[@"id"]]) {
+                    found = YES;
+                    break;
+                }
+            }
+            if (!found) {
+                [assetArrayForUpdate addObject:@{@"id":originalAsset[@"id"], @"delete":@"true"}];
+            }
+        }
+        for (NSDictionary *newVideoObject in self.listingVideos) {
+            if ([newVideoObject[@"uploaded"] isEqualToNumber:@NO])
+                [assetArrayForUpdate addObject:@{@"url":newVideoObject[@"url"], @"preview":newVideoObject[@"preview"], @"type":@"video"}];
+            
+        }
+        
+        
+        
+        
+        params = [NSMutableDictionary dictionaryWithDictionary:@{@"name":[NSString stringWithFormat:@"%@", self.titleTextField.text],
                    @"instructions":self.fulfillmentInfoTextView.text,
                    @"description":self.baseServiceDescriptionTextView.text,
                    @"category_id":categories[self.categoryTextField.selectedRow][@"id"],
@@ -523,7 +583,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
                    @"addon":addonArray,
                    @"tag":tagArrayForUpdate,
                    @"asset":assetArrayForUpdate
-                   };
+                   }];
         [self.backend updateListing:self.listingDetail[@"id"] Parameters:params CompletionHandler:^(NSDictionary *result) {
             [self hideProgress];
             [self showMessage:@"Successfully updated the listing."];
@@ -535,37 +595,35 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
         
         [addonArray insertObject:@{@"description":self.baseServiceDescriptionTextView.text, @"price":self.baseServicePriceTextField.text} atIndex:0];
         NSMutableArray *imagesWithoutMainImage = [imageURLs mutableCopy];
-        if (imagesWithoutMainImage.count == 1) {
-            params = @{@"name":[NSString stringWithFormat:@"%@", self.titleTextField.text],
-                       @"instructions":self.fulfillmentInfoTextView.text,
-                       @"description":self.baseServiceDescriptionTextView.text,
-                       @"category_id":categories[self.categoryTextField.selectedRow][@"id"],
-                       @"category_edge_id":subCategories[self.subCategoryTextField.selectedRow][@"category_edge_id"],
-                       @"user_id":[User currentUser].userID,
-                       @"lat":[NSString stringWithFormat:@"%f", selectedLocation.locationCoordinates.latitude],
-                       @"longitude":[NSString stringWithFormat:@"%f", selectedLocation.locationCoordinates.longitude],
-                       @"radius_mi":radius,
-                       @"addon":addonArray,
-                       @"main_image":imageURLs[0],
-                       @"tags":tagsArray
-                       };
-        } else {
+        NSMutableArray *videosWithoutMainVideo = [NSMutableArray array];
+        for (NSDictionary *videoObject in self.listingVideos) {
+            [videosWithoutMainVideo addObject:@{@"url":videoObject[@"url"], @"preview":videoObject[@"preview"]}];
+        }
+        params = [NSMutableDictionary dictionaryWithDictionary:@{@"name":[NSString stringWithFormat:@"%@", self.titleTextField.text],
+                                                                 @"instructions":self.fulfillmentInfoTextView.text,
+                                                                 @"description":self.baseServiceDescriptionTextView.text,
+                                                                 @"category_id":categories[self.categoryTextField.selectedRow][@"id"],
+                                                                 @"category_edge_id":subCategories[self.subCategoryTextField.selectedRow][@"category_edge_id"],
+                                                                 @"user_id":[User currentUser].userID,
+                                                                 @"lat":[NSString stringWithFormat:@"%f", selectedLocation.locationCoordinates.latitude],
+                                                                 @"longitude":[NSString stringWithFormat:@"%f", selectedLocation.locationCoordinates.longitude],
+                                                                 @"radius_mi":radius,
+                                                                 @"addon":addonArray,
+                                                                 @"main_image":imageURLs[0],
+                                                                 @"tags":tagsArray
+                                                                 }];
+        if (imagesWithoutMainImage.count > 1) {
             [imagesWithoutMainImage removeObjectAtIndex:0];
-            params = @{@"name":[NSString stringWithFormat:@"%@", self.titleTextField.text],
-                       @"instructions":self.fulfillmentInfoTextView.text,
-                       @"description":self.baseServiceDescriptionTextView.text,
-                       @"category_id":categories[self.categoryTextField.selectedRow][@"id"],
-                       @"category_edge_id":subCategories[self.subCategoryTextField.selectedRow][@"category_edge_id"],
-                       @"user_id":[User currentUser].userID,
-                       @"lat":[NSString stringWithFormat:@"%f", selectedLocation.locationCoordinates.latitude],
-                       @"longitude":[NSString stringWithFormat:@"%f", selectedLocation.locationCoordinates.longitude],
-                       @"radius_mi":radius,
-                       @"addon":addonArray,
-                       @"main_image":imageURLs[0],
-                       @"images":imagesWithoutMainImage,
-                       @"tags":tagsArray
-                       };
+            params[@"images"] = imagesWithoutMainImage;
+        }
+        if (videosWithoutMainVideo.count > 0) {
+            params[@"main_video"] = videosWithoutMainVideo[0][@"url"];
+            params[@"main_video_preview"] = videosWithoutMainVideo[0][@"preview"];
             
+            if (videosWithoutMainVideo.count > 1) {
+                [videosWithoutMainVideo removeObjectAtIndex:0];
+                params[@"videos"] = videosWithoutMainVideo;
+            }
         }
         
         [[PHPBackend sharedConnection] accessAPIbyPost:apiPath
@@ -617,6 +675,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
         rect.origin.x = cx;
         rect.origin.y = 0;
         listingImageView.imageView.image = image;
+        listingImageView.type = ListingMediaTypePhoto;
         listingImageView.index = tot;
         [listingImageViewArray addObject:listingImageView];
         UIView *view2 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 75, 75)];
@@ -630,39 +689,118 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     [self.imagesScrollView setContentSize:CGSizeMake(cx, [self.imagesScrollView bounds].size.height)];
     self.imagesCountLabel.text = [NSString stringWithFormat:@"%ld IMAGES", self.listingImages.count];
 }
+
+- (void)setupVideosScrollView
+{
+    self.videosScrollView.delegate = self;
+    [self.videosScrollView setCanCancelContentTouches:NO];
+    self.videosScrollView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
+    self.videosScrollView.clipsToBounds = NO;
+    self.videosScrollView.scrollEnabled = YES;
+    
+    for(UIView *subview in [self.videosScrollView subviews]) {
+        [subview removeFromSuperview];
+    }
+    listingThumbnailViewArray = [NSMutableArray array];
+    NSInteger tot=0;
+    
+    CGFloat cx = 0;
+    
+    ListingImageView *addVideoView = [[[NSBundle mainBundle] loadNibNamed:@"ListingImageView" owner:nil options:nil] firstObject];
+    CGRect rect = addVideoView.frame;
+    rect.origin.x = 0;
+    rect.origin.y = 0;
+    addVideoView.frame = rect;
+    [addVideoView showAddVideoView];
+    UIView *view1 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 75, 75)];
+    [view1 addSubview:addVideoView];
+    [self.videosScrollView addSubview:view1];
+    
+    cx += addVideoView.frame.size.width + 4;
+    
+    for (NSDictionary *listingImage in self.listingVideos) {
+        UIImage *image = listingImage[@"image"];
+        ListingImageView *listingImageView = [[[NSBundle mainBundle] loadNibNamed:@"ListingImageView" owner:nil options:nil] firstObject];
+        CGRect rect = listingImageView.frame;
+        rect.origin.x = cx;
+        rect.origin.y = 0;
+        listingImageView.imageView.image = image;
+        listingImageView.type = ListingMediaTypeVideo;
+        listingImageView.index = tot;
+        [listingThumbnailViewArray addObject:listingImageView];
+        UIView *view2 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 75, 75)];
+        [view2 addSubview:listingImageView];
+        view2.frame = rect;
+        [self.videosScrollView addSubview:view2];
+        cx += listingImageView.frame.size.width + 4;
+        tot++;
+    }
+    
+    [self.videosScrollView setContentSize:CGSizeMake(cx, [self.videosScrollView bounds].size.height)];
+    self.videosCountLabel.text = [NSString stringWithFormat:@"%ld VIDOES", self.listingVideos.count];
+}
+
 - (NSMutableArray *) uploadImages{
     
     NSMutableArray *imageURLs = [NSMutableArray array];
-    NSFileManager *fileManager = [NSFileManager defaultManager];
     
     for (NSDictionary *listingImage in self.listingImages) {
         if ([listingImage[@"uploaded"] boolValue]) {
             continue;
         }
         UIImage *image = listingImage[@"image"];
-        NSData *data = UIImageJPEGRepresentation(image, 0.7);
-        NSString *fileName = [NSString stringWithFormat:@"%@.jpg", [[NSUUID UUID] UUIDString]];
-        NSString *tempFilePath = [NSTemporaryDirectory() stringByAppendingPathComponent:fileName];
-        
-        [fileManager createFileAtPath:tempFilePath contents:data attributes:nil];
-        [imageURLs addObject:[NSString stringWithFormat:@"http://asset.dubb.com/completed/%@", fileName]];
-        [self uploadFileWithFileName:fileName SourcePath:tempFilePath];
+        [imageURLs addObject:[self uploadImage:image]];
+//        NSData *data = UIImageJPEGRepresentation(image, 0.7);
+//        NSString *fileName = [NSString stringWithFormat:@"%@.jpg", [[NSUUID UUID] UUIDString]];
+//        NSString *tempFilePath = [NSTemporaryDirectory() stringByAppendingPathComponent:fileName];
+//        
+//        [fileManager createFileAtPath:tempFilePath contents:data attributes:nil];
+//        [imageURLs addObject:[NSString stringWithFormat:@"http://asset.dubb.com/completed/%@", fileName]];
+//        [self uploadFileWithFileName:fileName SourcePath:tempFilePath FileURL:nil];
     }
     
     return imageURLs;
 }
 
-- (void)uploadFileWithFileName:(NSString *)fileName SourcePath:(NSString *)sourcePath {
+- (NSString *) uploadVideo:(NSURL *)videoURL{
     
-    NSURL *fullPath = [NSURL fileURLWithPath:sourcePath
-                                 isDirectory:NO];
+    [self showProgress:@"Uploading the video..."];
+    NSString *fileName = [NSString stringWithFormat:@"%@.%@", [[NSUUID UUID] UUIDString], videoURL.pathExtension];
+    NSString *videoURLString = [NSString stringWithFormat:@"http://asset.dubb.com/completed/%@", fileName];
+    [self uploadFileWithFileName:fileName SourcePath:nil FileURL:videoURL];
+    return videoURLString;
+}
+
+- (NSString *) uploadImage:(UIImage *)image{
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSData *data = UIImageJPEGRepresentation(image, 0.7);
+    NSString *fileName = [NSString stringWithFormat:@"%@.jpg", [[NSUUID UUID] UUIDString]];
+    NSString *tempFilePath = [NSTemporaryDirectory() stringByAppendingPathComponent:fileName];
+    
+    [fileManager createFileAtPath:tempFilePath contents:data attributes:nil];
+    NSString *imageURLString = [NSString stringWithFormat:@"http://asset.dubb.com/completed/%@", fileName];
+    [self uploadFileWithFileName:fileName SourcePath:tempFilePath FileURL:nil];
+    return imageURLString;
+}
+
+- (void)uploadFileWithFileName:(NSString *)fileName SourcePath:(NSString *)sourcePath FileURL:(NSURL *)fileURL {
+    
+    NSURL *fullPath;
+    if (sourcePath) {
+        fullPath = [NSURL fileURLWithPath:sourcePath
+                              isDirectory:NO];
+    } else {
+        fullPath = fileURL;
+    }
+    
     AWSS3TransferManager *transferManager = [AWSS3TransferManager defaultS3TransferManager];
     
     AWSS3TransferManagerUploadRequest *uploadRequest = [AWSS3TransferManagerUploadRequest new];
     uploadRequest.bucket = @"listing-image-uploads";
     uploadRequest.key = [NSString stringWithFormat:@"completed/%@", fileName];
     uploadRequest.body = fullPath;
-    uploadRequest.contentType = @"image/jpeg";
+    uploadRequest.contentType = @"movie/mov";
     
     [[transferManager upload:uploadRequest] continueWithExecutor:[BFExecutor mainThreadExecutor] withBlock:^id(BFTask *task) {
         if (task.error) {
@@ -692,6 +830,8 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
             
             NSLog(@"Success: %@", task.result);
         }
+        
+        [self hideProgress];
         return nil;
     }];
     
@@ -1107,6 +1247,37 @@ typedef void (^completion_t)(id result);
     
 }
 
+- (void) downloadVideos:(NSMutableArray*)videos
+             completion:(completion_t)completionHandler {
+    
+    if ([videos count] == 0) {
+        if (completionHandler) {
+            // Signal completion to the call-site. Use an appropriate result,
+            // instead of @"finished" possibly pass an array of URLs and NSErrors
+            // generated below  in "handle URL or error".
+            completionHandler(@"finished");
+        }
+        return;
+    }
+    
+    NSDictionary* videoInfo = [videos firstObject];
+    [videos removeObjectAtIndex:0];
+    
+    SDWebImageManager *manager = [SDWebImageManager sharedManager];
+    [manager downloadImageWithURL:videoInfo[@"preview"]
+                          options:0
+                         progress:nil
+                        completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+                            if (image) {
+                                [self.listingVideos addObject:@{@"id":videoInfo[@"id"], @"image":image, @"uploaded":@YES}];
+                            }
+                            NSLog(@"remaining count : %ld", videos.count);
+                            [self downloadVideos:videos completion:completionHandler];
+                        }];
+    
+}
+
+
 - (void)textFieldValueDidChange:(UITextField *)sender WithText:(NSString *)text{
     
 //    if (sender.tag >= addOns.count ) {
@@ -1158,19 +1329,23 @@ typedef void (^completion_t)(id result);
     return addonToolbar;
 }
 
-#pragma mark - User interaction methods
+#pragma mark - Custom Helpers
 
-- (void)handleImageButton:(id)sender {
-    self.picker = [[GKImagePicker alloc] init];
-    self.picker.delegate = self;
-    self.picker.cropper.cropSize = CGSizeMake(320.,200.);   // (Optional) Default: CGSizeMake(320., 320.)
-    self.picker.cropper.rescaleImage = YES;                // (Optional) Default: YES
-    self.picker.cropper.rescaleFactor = 2.0;               // (Optional) Default: 1.0
-    self.picker.cropper.dismissAnimated = YES;              // (Optional) Default: YES
-    self.picker.cropper.overlayColor = [UIColor colorWithRed:0/255. green:0/255. blue:0/255. alpha:0.7];  // (Optional) Default: [UIColor colorWithRed:0/255. green:0/255. blue:0/255. alpha:0.7]
-    self.picker.cropper.innerBorderColor = [UIColor colorWithRed:255./255. green:255./255. blue:255./255. alpha:0.7];   // (Optional) Default: [UIColor colorWithRed:0/255. green:0/255. blue:0/255. alpha:0.7]
-    [self.picker presentPicker];
+- (UIImage *)thumbnailImageFromURL:(NSURL *)videoURL {
+    AVURLAsset *asset = [[AVURLAsset alloc] initWithURL: videoURL options:nil];
+    AVAssetImageGenerator *generator = [[AVAssetImageGenerator alloc] initWithAsset:asset];
+    generator.appliesPreferredTrackTransform = YES;
+    NSError *err = NULL;
+    CMTime requestedTime = CMTimeMake(1, 60);     // To create thumbnail image
+    CGImageRef imgRef = [generator copyCGImageAtTime:requestedTime actualTime:NULL error:&err];
+    NSLog(@"err = %@, imageRef = %@", err, imgRef);
+    
+    UIImage *thumbnailImage = [[UIImage alloc] initWithCGImage:imgRef];
+    CGImageRelease(imgRef);    // MUST release explicitly to avoid memory leak
+    
+    return thumbnailImage;
 }
+
 
 #pragma mark - GKImagePicker delegate methods
 
@@ -1178,7 +1353,6 @@ typedef void (^completion_t)(id result);
     UIImage *chosenImage = image;
     [self.listingImages addObject:@{@"uploaded": @NO, @"image":chosenImage}];
     [self setupImagesScrollView];
-
 }
 
 
