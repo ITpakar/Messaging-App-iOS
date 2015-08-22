@@ -42,6 +42,7 @@
     NSInteger numberOfLinesForHeaderCellDescriptionLabel;
     NSInteger numberOfLinesForReviewContentDescriptionLabel;
     BOOL isAskingQuestion;
+    BOOL isDownloading;
 }
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UILabel *totalPriceLabel;
@@ -266,21 +267,29 @@ enum DubbSingleListingViewTag {
                                                  name:MPMoviePlayerPlaybackDidFinishNotification
                                                object:videoController];
     [self addGradientToView:self.gradientView];
-    
+    isDownloading = NO;
 }
-
-
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [videoController stop];
+    [videoController.view removeFromSuperview];
+    videoController = nil;
+    [topView setDownloadProgress:0];
+    isDownloading = NO;
 }
+
+
 
 #pragma mark - Notification Observers
 
 - (void)playButtonTapped:(NSNotification *)notification {
     NSLog(@"play button tapped");
+    if (isDownloading) {
+        NSLog(@"is downloading...");
+        return;
+    }
     NSDictionary *imageInfo = topView.imageInfoSet[topView.slideShow.currentIndex];
     [self downloadVideo:[NSURL URLWithString:imageInfo[@"url"]]];
 }
@@ -298,42 +307,43 @@ enum DubbSingleListingViewTag {
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *path = [[paths objectAtIndex:0] stringByAppendingPathComponent:[url pathComponents].lastObject];
     
-    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:path];
-    if (fileExists) {
+//    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:path];
+//    if (fileExists) {
+//        videoController.contentURL = [NSURL fileURLWithPath:path];
+//        videoController.view.frame = topView.bounds;
+//        [topView addSubview:videoController.view];
+//        [videoController play];
+//        [topView setDownloadProgress:0];
+//    } else {
+    operation.outputStream = [NSOutputStream outputStreamToFileAtPath:path append:NO];
+    
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
         videoController.contentURL = [NSURL fileURLWithPath:path];
         videoController.view.frame = topView.bounds;
         [topView addSubview:videoController.view];
         [videoController play];
         [topView setDownloadProgress:0];
-    } else {
-        operation.outputStream = [NSOutputStream outputStreamToFileAtPath:path append:NO];
+        isDownloading = NO;
+        NSLog(@"Successfully downloaded file to %@", path);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        UIAlertView * alert=[[UIAlertView alloc]initWithTitle:@"Error" message:[NSString stringWithFormat:@"%@",error] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil ];
+        [alert show];
+        isDownloading = NO;
+    }];
+    
+    [operation start];
+    isDownloading = YES;
+    [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
+        float progress = ((float)totalBytesRead) / totalBytesExpectedToRead;
+        NSLog(@"status %f",progress);
+        [topView setDownloadProgress:progress];
         
-        [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-            
-                videoController.contentURL = [NSURL fileURLWithPath:path];
-                videoController.view.frame = topView.bounds;
-                [topView addSubview:videoController.view];
-                [videoController play];
-                [topView setDownloadProgress:0];
-            
-            NSLog(@"Successfully downloaded file to %@", path);
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            UIAlertView * alert=[[UIAlertView alloc]initWithTitle:@"Error" message:[NSString stringWithFormat:@"%@",error] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil ];
-            [alert show];
-        }];
-        
-        [operation start];
-        
-        [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
-            float progress = ((float)totalBytesRead) / totalBytesExpectedToRead;
-            NSLog(@"status %f",progress);
-            [topView setDownloadProgress:progress];
-            
-        }];
-    }
+    }];
+//    }
 }
 
 - (void) checkedAddon:(NSNotification *)notif {

@@ -57,6 +57,7 @@
     
     NSMutableArray *listings;
     NSInteger currentListingPage;
+    BOOL isDownloading;
 }
 
 @end
@@ -81,21 +82,37 @@
                                              selector:@selector(videoPlayBackDidFinish:)
                                                  name:MPMoviePlayerPlaybackDidFinishNotification
                                                object:videoController];
+    isDownloading = NO;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [videoController stop];
+    [videoController.view removeFromSuperview];
+    videoController = nil;
+    if (currentCell) {
+        [currentCell setDownloadProgress:0];
+        currentCell = nil;
+    }
+    isDownloading = NO;
 }
 
 
 #pragma mark - Notification Observers
 - (void)playButtonTapped:(NSNotification *)notification {
+    
     NSLog(@"play button tapped");
+    if (isDownloading) {
+        NSLog(@"is downloading...");
+        return;
+    }
     DubbListingCell *cell = notification.userInfo[@"cell"];
     currentCell = cell;
     [self downloadVideo:[NSURL URLWithString:cell.listing[@"main_video"]]];
+    
 }
+
 - (void)videoPlayBackDidFinish:(NSNotification *)notification {
     
     // Stop the video player and remove it from view
@@ -113,34 +130,37 @@
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *path = [[paths objectAtIndex:0] stringByAppendingPathComponent:[url pathComponents].lastObject];
     operation.outputStream = [NSOutputStream outputStreamToFileAtPath:path append:NO];
-    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:path];
-    if (fileExists) {
-        if (currentCell) {
-            videoController.contentURL = [NSURL fileURLWithPath:path];
-            videoController.view.frame = CGRectMake(8, 0, sWidth - 16, 191.0f);
-            [currentCell.contentView addSubview:videoController.view];
-            [videoController play];
-            [currentCell setDownloadProgress:0];
-            currentCell = nil;
-        }
-    } else {
+//    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:path];
+//    if (fileExists) {
+//        if (currentCell) {
+//            videoController.contentURL = [NSURL fileURLWithPath:path];
+//            videoController.view.frame = CGRectMake(8, 0, sWidth - 16, 191.0f);
+//            [currentCell.contentView addSubview:videoController.view];
+//            [videoController play];
+//            [currentCell setDownloadProgress:0];
+//            currentCell = nil;
+//        }
+//    } else {
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (currentCell) {
+            videoController = [[MPMoviePlayerController alloc] init];
             videoController.contentURL = [NSURL fileURLWithPath:path];
             videoController.view.frame = CGRectMake(8, 0, sWidth - 16, 191.0f);
             [currentCell.contentView addSubview:videoController.view];
             [videoController play];
             [currentCell setDownloadProgress:0];
             currentCell = nil;
+            isDownloading = NO;
         }
         NSLog(@"Successfully downloaded file to %@", path);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         UIAlertView * alert=[[UIAlertView alloc]initWithTitle:@"Error" message:[NSString stringWithFormat:@"%@",error] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil ];
         [alert show];
+        isDownloading = NO;
     }];
     
     [operation start];
-    
+    isDownloading = YES;
     [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
         float progress = ((float)totalBytesRead) / totalBytesExpectedToRead;
         NSLog(@"status %f",progress);
@@ -152,7 +172,7 @@
         // self.progressView.progress = progress;
         
     }];
-    }
+//    }
 }
 
 

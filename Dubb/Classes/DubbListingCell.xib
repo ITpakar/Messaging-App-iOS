@@ -15,6 +15,12 @@
                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mRJ-dh-u2H" userLabel="Container View">
                         <rect key="frame" x="8" y="0.0" width="304" height="250"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oyo-FP-yJq" userLabel="Listing Image View">
+                                <rect key="frame" x="0.0" y="0.0" width="304" height="191"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="191" id="cRA-2C-uaL"/>
+                                </constraints>
+                            </imageView>
                             <view hidden="YES" clipsSubviews="YES" tag="115" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YY4-gX-CEe" customClass="AXRatingView">
                                 <rect key="frame" x="25" y="97" width="78" height="15"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -82,12 +88,6 @@ San Francisco</string>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oyo-FP-yJq" userLabel="Listing Image View">
-                                <rect key="frame" x="0.0" y="0.0" width="304" height="191"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="191" id="cRA-2C-uaL"/>
-                                </constraints>
-                            </imageView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eju-mn-Bn1" customClass="MCPercentageDoughnutView">
                                 <rect key="frame" x="122" y="66" width="60" height="60"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -145,8 +145,8 @@ San Francisco</string>
             <connections>
                 <outlet property="categoryLabel" destination="yKL-Vn-qhC" id="FLU-gv-Mb8"/>
                 <outlet property="containerView" destination="mRJ-dh-u2H" id="f2l-Zh-3B1"/>
-                <outlet property="downloadProgressView" destination="eju-mn-Bn1" id="E3w-pO-RWw"/>
                 <outlet property="distanceLabel" destination="akF-MB-d5K" id="b76-uF-yAa"/>
+                <outlet property="downloadProgressView" destination="eju-mn-Bn1" id="E3w-pO-RWw"/>
                 <outlet property="listingImageView" destination="oyo-FP-yJq" id="ymL-ty-2vE"/>
                 <outlet property="locationLabel" destination="08I-yd-A6e" id="Xmz-Ev-hSI"/>
                 <outlet property="priceLabel" destination="NZn-ld-ClQ" id="OjS-E9-aGS"/>

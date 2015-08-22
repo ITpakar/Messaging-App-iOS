@@ -26,6 +26,7 @@ static BackendBase   *sharedConnection;
         handler(response, nil, nil);
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         handler(nil, nil, error);
+        NSLog(@"%@", error);
     }];
     
 }
