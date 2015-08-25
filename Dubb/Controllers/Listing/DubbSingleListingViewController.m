@@ -116,10 +116,27 @@ enum DubbSingleListingViewTag {
         return;
     }
     
-    [self onPay:listingInfo Price:price];
+    if (![listingInfo[@"distance"] isKindOfClass:[NSNull class]] && [listingInfo[@"distance"] doubleValue] > [listingInfo[@"radius_mi"] doubleValue]) {
+
+        UIAlertView *msgView = [[UIAlertView alloc] initWithTitle:@"" message:@"You are outside of this seller’s area. Please contact them first before buying." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [msgView setTag:1];
+        self.totalPrice = price;
+        [msgView show];
+    } else {
+        [self onPay:listingInfo Price:price];
+    }
     
     
 }
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag == 1)
+    {
+        [self onPay:listingInfo Price:self.totalPrice];
+    }
+}
+
 - (IBAction)shareSheetButtonTapped:(id)sender{
     
     NSString *listingTitle = listingInfo[@"name"];
@@ -241,10 +258,6 @@ enum DubbSingleListingViewTag {
         
         [weakSelf.tableView reloadData];
         [weakSelf configureBookNowButton];
-        
-        if (![listingInfo[@"distance"] isKindOfClass:[NSNull class]] && [listingInfo[@"distance"] doubleValue] > [listingInfo[@"radius_mi"] doubleValue]) {
-            [self showMessage:@"You are outside of this seller’s area. Please contact them first before buying."];
-        }
         
     }];	
     expansionFlags = [NSMutableArray array];

@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "KASlideShow.h"
-@interface DubbSingleListingViewController : BaseViewController <KASlideShowDelegate>
+@interface DubbSingleListingViewController : BaseViewController <KASlideShowDelegate, UIAlertViewDelegate>
 
 @property (weak, nonatomic) NSString *listingID;
+@property (nonatomic) long totalPrice;
+
 - (void)flagButtonTapped;
 @end
