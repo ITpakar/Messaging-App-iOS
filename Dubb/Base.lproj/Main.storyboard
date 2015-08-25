@@ -992,27 +992,6 @@ Dubb!</string>
                                                             <action selector="signUpButtonTapped:" destination="Dad-qT-83G" eventType="touchUpInside" id="cDc-QZ-fGL"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wSf-yI-Af3">
-                                                        <rect key="frame" x="168" y="343" width="132" height="24"/>
-                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                                        <state key="normal" title="Terms of Service">
-                                                            <color key="titleColor" red="0.0" green="0.8803710938" blue="0.051284325899999997" alpha="1" colorSpace="calibratedRGB"/>
-                                                        </state>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
-                                                                <size key="value" width="1" height="1"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
-                                                                <integer key="value" value="3"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
-                                                                <integer key="value" value="1"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                        </userDefinedRuntimeAttributes>
-                                                        <connections>
-                                                            <action selector="termsOfServiceButtonTapped:" destination="Dad-qT-83G" eventType="touchUpInside" id="TB6-W0-0f7"/>
-                                                        </connections>
-                                                    </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="and" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fiD-fo-93y">
                                                         <rect key="frame" x="66" y="362" width="36" height="20"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
@@ -1050,6 +1029,27 @@ Dubb!</string>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="privacyButtonTapped:" destination="Dad-qT-83G" eventType="touchUpInside" id="jRN-O2-XXI"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wSf-yI-Af3">
+                                                        <rect key="frame" x="168" y="343" width="132" height="24"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                        <state key="normal" title="Terms of Service">
+                                                            <color key="titleColor" red="0.0" green="0.8803710938" blue="0.051284325899999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
+                                                                <size key="value" width="1" height="1"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
+                                                                <integer key="value" value="3"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                                                                <integer key="value" value="1"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="termsOfServiceButtonTapped:" destination="Dad-qT-83G" eventType="touchUpInside" id="TB6-W0-0f7"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -7214,7 +7214,7 @@ Please note that our services may not be used anonymously. This is the only way 
         <image name="uparrow_button.png" width="60" height="60"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="9wO-od-KMN"/>
+        <segue reference="Edg-Ct-xA3"/>
         <segue reference="kPE-9a-NmN"/>
     </inferredMetricsTieBreakers>
 </document>
