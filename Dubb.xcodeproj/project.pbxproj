@@ -2387,7 +2387,7 @@
 					"$(PROJECT_DIR)/Dubb/ExtraFrameworks/Library",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "704a0603-e1bc-4469-9beb-b17ff94602b7";
+				PROVISIONING_PROFILE = "285ac67b-dbf1-4080-af1c-9e802bed372e";
 			};
 			name = Release;
 		};
