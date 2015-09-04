@@ -4860,16 +4860,6 @@ Dubb!</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yEi-Cm-zZE" userLabel="Book Now Button Container">
                                 <rect key="frame" x="0.0" y="656" width="320" height="44"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$68" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SuD-AY-V4v">
-                                        <rect key="frame" x="269" y="13" width="43" height="21"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="43" id="0Rh-XZ-sMQ"/>
-                                            <constraint firstAttribute="height" constant="21" id="NZD-OK-Q0f"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="usn-bk-AdY">
                                         <rect key="frame" x="97" y="11" width="127" height="23"/>
                                         <subviews>
@@ -4889,6 +4879,16 @@ Dubb!</string>
                                             <constraint firstAttribute="width" constant="127" id="Sr3-BC-qg7"/>
                                         </constraints>
                                     </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$68" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SuD-AY-V4v">
+                                        <rect key="frame" x="241" y="13" width="71" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="71" id="0Rh-XZ-sMQ"/>
+                                            <constraint firstAttribute="height" constant="21" id="NZD-OK-Q0f"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.42352941176470588" green="0.67843137254901964" blue="0.31764705882352939" alpha="1" colorSpace="calibratedRGB"/>
                                 <gestureRecognizers/>

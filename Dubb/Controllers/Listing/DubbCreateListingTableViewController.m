@@ -737,7 +737,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     }
     
     [self.videosScrollView setContentSize:CGSizeMake(cx, [self.videosScrollView bounds].size.height)];
-    self.videosCountLabel.text = [NSString stringWithFormat:@"%ld VIDOES", self.listingVideos.count];
+    self.videosCountLabel.text = [NSString stringWithFormat:@"%ld VIDEOS", self.listingVideos.count];
 }
 
 - (NSMutableArray *) uploadImages{

@@ -9,7 +9,8 @@
 #import "DubbListingsViewController.h"
 #import "DubbListingCell.h"
 #import "AFNetworking.h"
-
+#import "GAI.h"
+#import "GAIDictionaryBuilder.h"
 #import "DubbGigsViewController.h"
 
 #import <AddressBookUI/AddressBookUI.h>
@@ -500,6 +501,13 @@
             searchBar.text = suggestionLists[indexPath.row];
         
         gigsVC.keyword = searchBar.text;
+        id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+        
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"ios_action"     // Event category (required)
+                                                              action:@"search_listing"  // Event action (required)
+                                                               label:searchBar.text          // Event label
+                                                               value:nil] build]];    // Event value
+        
         [self.navigationController pushViewController:gigsVC animated:YES];
     } else if (tableView == locationTableView ){
         

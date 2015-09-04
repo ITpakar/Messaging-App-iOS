@@ -31,7 +31,7 @@
 
 //1089085998653-1e3nfq8k6ng3l2rnm46b0ru1hliaqe87.apps.googleusercontent.com
 #define kGoogleClientID         @"623939172061-02okbe9jhenmjt396lr6r0nacihilg23.apps.googleusercontent.com"
-#define kGoogleAnalyticsTrackId @"UA-60124659-1"
+#define kGoogleAnalyticsTrackId @"UA-60124659-3"
 
 #define kNewRelicToken          @"AA931550a5b1c47c60965612de77ecd35634149874"
 
