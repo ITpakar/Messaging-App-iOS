@@ -123,6 +123,7 @@
 		0D5ABFFC1B42540400D20241 /* booknow_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D5ABFFA1B42540400D20241 /* booknow_button@2x.png */; };
 		0D5FF55F1B3485BD005DE762 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D5FF55E1B3485BD005DE762 /* TPKeyboardAvoidingScrollView.m */; };
 		0D5FF5621B348B3A005DE762 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D5FF5611B348B3A005DE762 /* UIScrollView+TPKeyboardAvoidingAdditions.m */; };
+		0D67AD681B922FE200DB5407 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0D67AD671B922FE200DB5407 /* GoogleService-Info.plist */; };
 		0D6B7D5F1B143D3B000B0352 /* signup_textfield_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D6B7D5E1B143D3B000B0352 /* signup_textfield_background@2x.png */; };
 		0D6B7D611B14401C000B0352 /* signup_textfield_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D6B7D601B14401C000B0352 /* signup_textfield_background.png */; };
 		0D6B7D641B151B51000B0352 /* DubbOrderConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D6B7D631B151B51000B0352 /* DubbOrderConfirmationViewController.m */; };
@@ -488,6 +489,7 @@
 		0D5FF55E1B3485BD005DE762 /* TPKeyboardAvoidingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingScrollView.m; sourceTree = "<group>"; };
 		0D5FF5601B348B3A005DE762 /* UIScrollView+TPKeyboardAvoidingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+TPKeyboardAvoidingAdditions.h"; sourceTree = "<group>"; };
 		0D5FF5611B348B3A005DE762 /* UIScrollView+TPKeyboardAvoidingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+TPKeyboardAvoidingAdditions.m"; sourceTree = "<group>"; };
+		0D67AD671B922FE200DB5407 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0D6B7D5E1B143D3B000B0352 /* signup_textfield_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "signup_textfield_background@2x.png"; sourceTree = "<group>"; };
 		0D6B7D601B14401C000B0352 /* signup_textfield_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = signup_textfield_background.png; sourceTree = "<group>"; };
 		0D6B7D621B151B51000B0352 /* DubbOrderConfirmationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DubbOrderConfirmationViewController.h; path = Listing/DubbOrderConfirmationViewController.h; sourceTree = "<group>"; };
@@ -1601,6 +1603,7 @@
 		7CA773A61AB1C2AF00F6D631 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				0D67AD671B922FE200DB5407 /* GoogleService-Info.plist */,
 				7CA773A71AB1C2AF00F6D631 /* Info.plist */,
 				7CA773A81AB1C2AF00F6D631 /* main.m */,
 				7CA773D51AB1C65300F6D631 /* Dubb-Prefix.pch */,
@@ -1932,6 +1935,7 @@
 				7C09A6051AB2A7E400218127 /* icon_menu@2x.png in Resources */,
 				0D6B7D921B17404A000B0352 /* complete_indicator@2x.png in Resources */,
 				0D6B7D7C1B17326F000B0352 /* home_menu_button@2x.png in Resources */,
+				0D67AD681B922FE200DB5407 /* GoogleService-Info.plist in Resources */,
 				0D6B7D871B17326F000B0352 /* support_menu_button.png in Resources */,
 				0D3626F51B0C377E002A7814 /* iRate.bundle in Resources */,
 				0DFCB1721AFFD9FE001F2820 /* overall_score_green.png in Resources */,
@@ -2383,7 +2387,7 @@
 					"$(PROJECT_DIR)/Dubb/ExtraFrameworks/Library",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "704a0603-e1bc-4469-9beb-b17ff94602b7";
+				PROVISIONING_PROFILE = "285ac67b-dbf1-4080-af1c-9e802bed372e";
 			};
 			name = Release;
 		};

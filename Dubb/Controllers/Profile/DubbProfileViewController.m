@@ -146,9 +146,6 @@
         }
         [self hideProgress];
     }];
-    
-    
-    
 }
 
 - (IBAction)signOutButtonTapped:(id)sender {

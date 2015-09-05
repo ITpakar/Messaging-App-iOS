@@ -53,7 +53,7 @@
     
     [self enableQuickBlox];
     [self enableUserVoice];
-    
+    [self enableGoogleAnalytics];
     [self enablePaypal];
     
     #ifndef DEBUG
@@ -445,14 +445,17 @@
     
     if (result.success && [result isKindOfClass:[QBChatDialogResult class]]) {
         // dialog created
-        
+        DubbRootViewController *rootVC = (DubbRootViewController*)self.window.rootViewController;
+        UINavigationController *navController = (UINavigationController *)rootVC.contentViewController;
+        if( [[navController visibleViewController] isKindOfClass:[ChatViewController class]] ){  //ChatViewController is Opened now
+            return;
+        }
         QBChatDialogResult *dialogRes = (QBChatDialogResult *)result;
         
         ChatViewController *chatController = (ChatViewController*)[self.window.rootViewController.storyboard instantiateViewControllerWithIdentifier:@"chatController"];
         chatController.dialog = dialogRes.dialog;
 
-        DubbRootViewController *rootVC = (DubbRootViewController*)self.window.rootViewController;
-        UINavigationController *navController = (UINavigationController *)rootVC.contentViewController;
+        
         
         [navController pushViewController:chatController animated:YES];
         

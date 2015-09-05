@@ -12,8 +12,8 @@
 #import "DubbWebViewController.h"
 #import "AppDelegate.h"
 
-#define REGEX_USER_NAME_LIMIT @"^.{3,10}$"
-#define REGEX_USER_NAME @"[A-Za-z0-9_]{3,10}"
+#define REGEX_USER_NAME_LIMIT @"^.{5,10}$"
+#define REGEX_USER_NAME @"[A-Za-z0-9_]{5,10}"
 #define REGEX_EMAIL @"[A-Z0-9a-z._%+-]{3,}+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"
 #define REGEX_PASSWORD_LIMIT @"^.{6,20}$"
 
@@ -144,7 +144,7 @@
     isUserNameValid = YES;
     isEmailValid = YES;
     
-    [txtUsername addRegx:REGEX_USER_NAME_LIMIT withMsg:@"User name needs to be between 3 and 10 characters"];
+    [txtUsername addRegx:REGEX_USER_NAME_LIMIT withMsg:@"User name needs to be between 5 and 10 characters"];
     [txtUsername addRegx:REGEX_USER_NAME withMsg:@"Only alpha numeric characters and _ are allowed"];
     [txtEmail addRegx:REGEX_EMAIL withMsg:@"Enter valid email"];
     [txtPassword addRegx:REGEX_PASSWORD_LIMIT withMsg:@"Password needs to be between 6 and 20 characters"];
