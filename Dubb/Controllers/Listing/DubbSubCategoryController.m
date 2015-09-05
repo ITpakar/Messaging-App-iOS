@@ -429,13 +429,12 @@
             }
         }];
         
-    } else {
-        currentListingPage = (int)(listings.count/25) + 1;
-        
+    } else {       
         [self.backend getListingsWithCategoryID:_categoryID Page: currentListingPage CompletionHandler:^(NSDictionary *result) {
             [listingsTableView.infiniteScrollingView stopAnimating];
             if( ![result[@"error"] boolValue] ){
                 if( [result[@"response"] count] > 0 ){
+                    currentListingPage ++;
                     if( currentListingPage == 1 )
                         listings = [NSMutableArray arrayWithArray:result[@"response"]];
                     else
