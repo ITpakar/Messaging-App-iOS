@@ -47,8 +47,11 @@
     SDWebImageManager *manager = [SDWebImageManager sharedManager];
     
     for (NSDictionary* imageInfo in imageInfoSet) {
-        NSURL *url = [imageInfo[@"type"] isEqualToString:@"video"] ? imageInfo[@"preview"] : imageInfo[@"url"];
-        [manager downloadImageWithURL:url
+        NSString *url = [imageInfo[@"type"] isEqualToString:@"video"] ? imageInfo[@"preview"] : imageInfo[@"url"];
+
+        NSURL* _url = [self.parentViewController prepareImageUrl:url];
+
+        [manager downloadImageWithURL:_url
                               options:0
                              progress:nil
                             completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {

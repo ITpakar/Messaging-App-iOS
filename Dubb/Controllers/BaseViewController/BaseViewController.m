@@ -17,8 +17,16 @@
 
 @synthesize backend;
 
+- (id)initialize {
+    self.cloudinary = [[CLCloudinary alloc] init];
+    [self.cloudinary.config setValue:@"djztobrgr" forKey:@"cloud_name"];
+    return self;
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self initialize];
     // Do any additional setup after loading the view.
     
     backend = [PHPBackend sharedConnection];
@@ -141,6 +149,28 @@
     UIViewController *mainController = [self.storyboard instantiateViewControllerWithIdentifier:@"mainController"];
     ((AppDelegate*)[[UIApplication sharedApplication] delegate]).window.rootViewController = mainController;
     
+}
+
+- (NSURL*)prepareVideoUrl:(NSString*)url {
+    NSString* result = [[self prepareImageUrl:url withWith:0 withHeight:0] absoluteString];
+    result = [result stringByAppendingString:@".mp4"];
+    return [NSURL URLWithString:[result stringByReplacingOccurrencesOfString:@"/image/" withString:@"/video/"]];
+}
+
+- (NSURL*)prepareImageUrl:(NSString*)url {
+    return [self prepareImageUrl:url withWith:0 withHeight:0];
+}
+
+- (NSURL*)prepareImageUrl:(NSString*)url withWith:(int)width withHeight:(int)height {
+    NSURL* imageUrl = [NSURL URLWithString:url];
+    NSString* imageUrlString;
+
+    if ([[imageUrl scheme] isEqualToString:@"cloudinary"]) {
+        imageUrlString = [self.cloudinary url:[imageUrl host]];
+    } else {
+        imageUrlString = url;
+    }
+    return [NSURL URLWithString:imageUrlString];
 }
 
 #pragma mark -

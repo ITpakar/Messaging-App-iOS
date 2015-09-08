@@ -44,7 +44,7 @@
     self.zipCodeTextField.text = [self stringValueForKey:@"zip" from:userInfo];
     self.bioTextView.text = [self stringValueForKey:@"bio" from:userInfo];
     if (![userInfo[@"image"] isKindOfClass:[NSNull class]]) {
-        [self.profileImageView sd_setImageWithURL:[NSURL URLWithString:userInfo[@"image"][@"url"]]];
+        [self.profileImageView sd_setImageWithURL:[self prepareImageUrl:userInfo[@"image"][@"url"]]];
     }
     
     [self.bioTextView setPlaceholder:@"Bio - MAX 144 Characters"];
@@ -259,17 +259,41 @@
     UIImage *image = chosenImage;
         
     NSData *data = UIImageJPEGRepresentation(image, 0.7);
-    NSString *fileName = [NSString stringWithFormat:@"%@.jpg", [[NSUUID UUID] UUIDString]];
+    NSString *fileName = [NSString stringWithFormat:@"%@", [[NSUUID UUID] UUIDString]];
     NSString *tempFilePath = [NSTemporaryDirectory() stringByAppendingPathComponent:fileName];
     
     [fileManager createFileAtPath:tempFilePath contents:data attributes:nil];
-    imageURL = [NSString stringWithFormat:@"http://asset.dubb.com/completed/%@", fileName];
+    imageURL = [NSString stringWithFormat:@"cloudinary://%@", fileName];
     [self uploadFileWithFileName:fileName SourcePath:tempFilePath];
 
     
     return imageURL;
 }
+
 - (void)uploadFileWithFileName:(NSString *)fileName SourcePath:(NSString *)sourcePath {
+    [self uploadFileWithFileName:fileName SourcePath:sourcePath Type:nil];
+}
+
+- (void)uploadFileWithFileName:(NSString *)fileName SourcePath:(NSString *)sourcePath Type:(NSString*) type {
+    NSURL *fullPath;
+    fullPath = [NSURL fileURLWithPath:sourcePath isDirectory:NO];
+
+    [self.backend getUploadSignature:fileName CompletionHandler: ^(NSDictionary *result) {
+        if(result) {
+            CLUploader* mobileUploader = [[CLUploader alloc] init:self.cloudinary delegate:nil];
+            NSMutableDictionary* options = result[@"response"];
+            [options setValue:@YES forKey:@"sync"];
+
+            if (type) {
+                [options setValue:type forKey:@"resource_type"];
+            }
+
+            [mobileUploader upload:fullPath.path options:options];
+        }
+    }];
+}
+
+- (void)uploadFileWithFileName1:(NSString *)fileName SourcePath:(NSString *)sourcePath {
     
     NSURL *fullPath = [NSURL fileURLWithPath:sourcePath
                                  isDirectory:NO];

@@ -13,8 +13,9 @@
 #import "DubbServiceDescriptionWithPriceViewController.h"
 #import "BaseViewController.h"
 #import "SelectedLocation.h"
+#import "Cloudinary/Cloudinary.h"
 
-@interface DubbCreateListingTableViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate>
+@interface DubbCreateListingTableViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate, CLUploaderDelegate>
 
 @property (nonatomic, strong) NSMutableArray *listingImages;
 @property (nonatomic, strong) NSMutableArray *listingVideos;

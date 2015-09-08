@@ -241,7 +241,7 @@ enum kDubbMenuUnreadMessagesSectionViewTag {
             
             NSDictionary *userInfo = result[@"response"];
             if (![userInfo[@"image"] isKindOfClass:[NSNull class]]) {
-                [profileImageView sd_setImageWithURL:[NSURL URLWithString:userInfo[@"image"][@"url"]]];
+                [profileImageView sd_setImageWithURL:[self prepareImageUrl:userInfo[@"image"][@"url"]]];
             }
             
         }

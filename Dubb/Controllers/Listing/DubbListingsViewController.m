@@ -125,7 +125,7 @@
     }
     DubbListingCell *cell = notification.userInfo[@"cell"];
     currentCell = cell;
-    [self downloadVideo:[NSURL URLWithString:cell.listing[@"main_video"]]];
+    [self downloadVideo:[self prepareVideoUrl:cell.listing[@"main_video"]]];
 
 }
 - (void)videoPlayBackDidFinish:(NSNotification *)notification {

@@ -38,7 +38,9 @@
 
 -(void) initWithListingInfo:(NSDictionary*)listing{
 
-    if(self){        
+    if(self){
+        self.baseVC = [[BaseViewController alloc] initialize];
+
         self.backgroundColor = [UIColor clearColor];
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         _listing = [[NSDictionary alloc] initWithDictionary:listing];
@@ -120,28 +122,28 @@
             
             categoryLabel.text = [category uppercaseString];
             if( listing[@"main_video_preview"] && ![listing[@"main_video_preview"] isKindOfClass:[NSNull class]] ){
-                [listingImageView sd_setImageWithURL:listing[@"main_video_preview"]];
+                [listingImageView sd_setImageWithURL:[self.baseVC prepareImageUrl:listing[@"main_video_preview"]]];
                 downloadProgressView.hidden = NO;
             }
             else if( listing[@"main_image"] && ![listing[@"main_image"] isKindOfClass:[NSNull class]] ){
                 downloadProgressView.hidden = YES;
                 if( [listing[@"main_image"] isKindOfClass:[NSString class]] && listing[@"main_image"] ){
                     [mainImageIndicator startAnimating];
-                    [[SDImageCache sharedImageCache] queryDiskCacheForKey:listing[@"main_image"] done:^(UIImage *image, SDImageCacheType cacheType) {
+                    [[SDImageCache sharedImageCache] queryDiskCacheForKey:[[self.baseVC prepareImageUrl:listing[@"main_image"]] absoluteString] done:^(UIImage *image, SDImageCacheType cacheType) {
                         if( image != nil){
                             listingImageView.image = image;
                             [mainImageIndicator stopAnimating];
                         } else {
-                            [SDWebImageDownloader.sharedDownloader downloadImageWithURL: [NSURL URLWithString:listing[@"main_image"]] options:0 progress:nil completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
+                            [SDWebImageDownloader.sharedDownloader downloadImageWithURL: [self.baseVC prepareImageUrl:listing[@"main_image"]] options:0 progress:nil completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
                                 
                                 dispatch_sync(dispatch_get_main_queue(), ^{
                                     [mainImageIndicator stopAnimating];
                                     if( error == nil ){
                                         listingImageView.image = image;
-                                        [[SDImageCache sharedImageCache] storeImage:image forKey:listing[@"main_image"]];
+                                        [[SDImageCache sharedImageCache] storeImage:image forKey:[[self.baseVC prepareImageUrl:listing[@"main_image"]] absoluteString]];
                                     } else {
                                         listingImageView.image = [UIImage imageNamed:@"placeholder_image.png"];
-                                        [[SDImageCache sharedImageCache] storeImage:listingImageView.image forKey:listing[@"main_image"]];
+                                        [[SDImageCache sharedImageCache] storeImage:listingImageView.image forKey:[[self.baseVC prepareImageUrl:listing[@"main_image"]] absoluteString]];
                                     }
                                     [listingImageView layoutIfNeeded];
                                 });

@@ -10,15 +10,21 @@
 #import "PHPBackend.h"
 #import "User.h"
 #import <CoreLocation/CoreLocation.h>
+#import "Cloudinary/Cloudinary.h"
 
 @interface BaseViewController : UIViewController 
 
 @property BackendBase           *backend;
+@property CLCloudinary *cloudinary;
 @property(nonatomic, strong) NSString *reasonForDisablingMenu;
+- (id)initialize;
 - (void)showMessage : (NSString *)message;
 - (void)showCreateListingTableViewController ;
 - (void)showAlertForLogIn;
 - (void)showLoginView;
+- (NSURL*)prepareVideoUrl:(NSString*)url;
+- (NSURL*)prepareImageUrl:(NSString*)url;
+- (NSURL*)prepareImageUrl:(NSString*)url withWith:(int)width withHeight:(int)height;
 //MB Progres
 - (void)showProgress:(NSString *)message;
 - (void)hideProgress;

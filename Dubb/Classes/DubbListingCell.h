@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
 @class DubbListingCell;
 
@@ -20,6 +21,7 @@
 
 -(void) initWithListingInfo:(NSDictionary*)listing;
 -(void) setDownloadProgress:(CGFloat)progress;
+@property (nonatomic, strong) BaseViewController* baseVC;
 @property (nonatomic, strong) NSDictionary* listing;
 @property id delegate;
 

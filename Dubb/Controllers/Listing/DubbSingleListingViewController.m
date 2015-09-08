@@ -304,7 +304,8 @@ enum DubbSingleListingViewTag {
         return;
     }
     NSDictionary *imageInfo = topView.imageInfoSet[topView.slideShow.currentIndex];
-    [self downloadVideo:[NSURL URLWithString:imageInfo[@"url"]]];
+//    [self downloadVideo:[NSURL URLWithString:imageInfo[@"url"]]];
+    [self downloadVideo:[self prepareVideoUrl:imageInfo[@"url"]]];
 }
 - (void)videoPlayBackDidFinish:(NSNotification *)notification {
     

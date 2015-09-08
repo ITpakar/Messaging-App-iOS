@@ -164,6 +164,14 @@ static PHPBackend   *sharedConnection;
     }];
 }
 
+-(void) getUploadSignature:(NSString *)fileName CompletionHandler:(void (^)(NSDictionary *result)) handler{
+    NSString *apiPath = [NSString stringWithFormat:@"%@signature/upload?public_id=%@", APIURL, fileName];
+    [self accessAPI:apiPath Parameters:nil CompletionHandler:^(NSDictionary *result, NSData *data, NSError *error) {
+        if (handler) {
+            handler(result);
+        }
+    }];
+}
 
 -(void) checkValidityOfUsernameOrEmail:(NSString *)userNameOrEmail CompletionHandler:(void (^)(NSDictionary *result))handler{
     

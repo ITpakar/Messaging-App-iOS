@@ -53,7 +53,6 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     NSString *baseServiceID;
     UITextField *prevFocusedTextField;
     UIToolbar *addonToolbar;
-    
 }
 @property (strong, nonatomic) IBOutlet UILabel *navigationTitleLabel;
 @property (strong, nonatomic) IBOutlet TLTagsControl *tagsControl;
@@ -303,15 +302,24 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     }
 }
 - (void)addPhotoButtonClicked:(id)sender {
-    self.picker = [[GKImagePicker alloc] init];
-    self.picker.delegate = self;
-    self.picker.cropper.cropSize = CGSizeMake(320.,200.);   // (Optional) Default: CGSizeMake(320., 320.)
-    self.picker.cropper.rescaleImage = YES;                // (Optional) Default: YES
-    self.picker.cropper.rescaleFactor = 2.0;               // (Optional) Default: 1.0
-    self.picker.cropper.dismissAnimated = YES;              // (Optional) Default: YES
-    self.picker.cropper.overlayColor = [UIColor colorWithRed:0/255. green:0/255. blue:0/255. alpha:0.7];  // (Optional) Default: [UIColor colorWithRed:0/255. green:0/255. blue:0/255. alpha:0.7]
-    self.picker.cropper.innerBorderColor = [UIColor colorWithRed:255./255. green:255./255. blue:255./255. alpha:0.7];   // (Optional) Default: [UIColor colorWithRed:0/255. green:0/255. blue:0/255. alpha:0.7]
-    [self.picker presentPicker];
+//    self.picker = [[GKImagePicker alloc] init];
+//    self.picker.delegate = self;
+//    self.picker.cropper.cropSize = CGSizeMake(320.,200.);   // (Optional) Default: CGSizeMake(320., 320.)
+//    self.picker.cropper.rescaleImage = YES;                // (Optional) Default: YES
+//    self.picker.cropper.rescaleFactor = 2.0;               // (Optional) Default: 1.0
+//    self.picker.cropper.dismissAnimated = YES;              // (Optional) Default: YES
+//    self.picker.cropper.overlayColor = [UIColor colorWithRed:0/255. green:0/255. blue:0/255. alpha:0.7];  // (Optional) Default: [UIColor colorWithRed:0/255. green:0/255. blue:0/255. alpha:0.7]
+//    self.picker.cropper.innerBorderColor = [UIColor colorWithRed:255./255. green:255./255. blue:255./255. alpha:0.7];   // (Optional) Default: [UIColor colorWithRed:0/255. green:0/255. blue:0/255. alpha:0.7]
+//    [self.picker presentPicker];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Where do you want to get photo?"
+                                                             delegate:self
+                                                    cancelButtonTitle:@"Cancel"
+                                               destructiveButtonTitle:nil
+                                                    otherButtonTitles:@"Camera", @"Gallery", nil];
+    actionSheet.delegate = self;
+    actionSheet.tag = 100;
+    [actionSheet showInView:self.view];
+
 }
 - (void) addVideoButtonClicked:(NSNotification *)notif {
     
@@ -348,8 +356,14 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     picker.delegate = self;
-    picker.allowsEditing = YES;
-    picker.mediaTypes = [[NSArray alloc] initWithObjects: (NSString *) kUTTypeMovie, nil];
+
+    if (actionSheet.tag == 101) {
+        picker.mediaTypes = [[NSArray alloc] initWithObjects: (NSString *) kUTTypeMovie, nil];
+        picker.allowsEditing = YES;
+    } else {
+        picker.mediaTypes = [[NSArray alloc] initWithObjects: (NSString *) kUTTypeImage, nil];
+        picker.allowsEditing = NO;
+    }
     
     switch (buttonIndex) {
         case 0:
@@ -378,6 +392,13 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
         NSString *thumbnailURL = [self uploadImage:thumbnailImage];
         [self.listingVideos addObject:@{@"uploaded": @NO, @"url":videoWebURL, @"videoURL":videoURL, @"image":thumbnailImage, @"preview":thumbnailURL}];
         [self setupVideosScrollView];
+    } else {
+        NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
+        if ([mediaType isEqualToString:@"public.image"]){
+            UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+            [self.listingImages addObject:@{@"uploaded": @NO, @"image":image}];
+            [self setupImagesScrollView];
+        }
     }
     
     [picker dismissViewControllerAnimated:YES completion:NULL];
@@ -763,6 +784,27 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
 }
 
 - (NSString *) uploadVideo:(NSURL *)videoURL{
+    [self showProgress:@"Uploading the video..."];
+    NSString *fileName = [NSString stringWithFormat:@"%@", [[NSUUID UUID] UUIDString]];
+    NSString *videoURLString = [NSString stringWithFormat:@"cloudinary://%@", fileName];
+    [self uploadFileWithFileName:fileName SourcePath:nil FileURL:videoURL Type:@"video"];
+    [self hideProgress];
+    return videoURLString;
+}
+
+- (NSString *) uploadImage:(UIImage *)image{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSData *data = UIImageJPEGRepresentation(image, 0.7);
+    NSString *fileName = [NSString stringWithFormat:@"%@", [[NSUUID UUID] UUIDString]];
+    NSString *tempFilePath = [NSTemporaryDirectory() stringByAppendingPathComponent:fileName];
+
+    [fileManager createFileAtPath:tempFilePath contents:data attributes:nil];
+    NSString *imageURLString = [NSString stringWithFormat:@"cloudinary://%@", fileName];
+    [self uploadFileWithFileName:fileName SourcePath:tempFilePath FileURL:nil];
+    return imageURLString;
+}
+
+- (NSString *) uploadVideo1:(NSURL *)videoURL{
     
     [self showProgress:@"Uploading the video..."];
     NSString *fileName = [NSString stringWithFormat:@"%@.%@", [[NSUUID UUID] UUIDString], videoURL.pathExtension];
@@ -771,8 +813,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     return videoURLString;
 }
 
-- (NSString *) uploadImage:(UIImage *)image{
-    
+- (NSString *) uploadImage1:(UIImage *)image{
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSData *data = UIImageJPEGRepresentation(image, 0.7);
     NSString *fileName = [NSString stringWithFormat:@"%@.jpg", [[NSUUID UUID] UUIDString]];
@@ -785,6 +826,34 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
 }
 
 - (void)uploadFileWithFileName:(NSString *)fileName SourcePath:(NSString *)sourcePath FileURL:(NSURL *)fileURL {
+    [self uploadFileWithFileName:fileName SourcePath:sourcePath FileURL:fileURL Type:nil];
+}
+
+- (void)uploadFileWithFileName:(NSString *)fileName SourcePath:(NSString *)sourcePath FileURL:(NSURL *)fileURL Type:(NSString*) type {
+    NSURL *fullPath;
+    if (sourcePath) {
+        fullPath = [NSURL fileURLWithPath:sourcePath
+                              isDirectory:NO];
+    } else {
+        fullPath = fileURL;
+    }
+
+    [self.backend getUploadSignature:fileName CompletionHandler: ^(NSDictionary *result) {
+        if(result) {
+            CLUploader* mobileUploader = [[CLUploader alloc] init:self.cloudinary delegate:self];
+            NSMutableDictionary* options = result[@"response"];
+            [options setValue:@YES forKey:@"sync"];
+
+            if (type) {
+                [options setValue:type forKey:@"resource_type"];
+            }
+
+            [mobileUploader upload:fullPath.path options:options];
+        }
+    }];
+}
+
+- (void)uploadFileWithFileName1:(NSString *)fileName SourcePath:(NSString *)sourcePath FileURL:(NSURL *)fileURL {
     
     NSURL *fullPath;
     if (sourcePath) {
@@ -1234,9 +1303,18 @@ typedef void (^completion_t)(id result);
     
     NSDictionary* imageInfo = [images firstObject];
     [images removeObjectAtIndex:0];
-    
+
+    NSString* imageUrlString;
+    NSURL* imageUrl = [NSURL URLWithString:imageInfo[@"url"]];
+
+    if ([[imageUrl scheme] isEqualToString:@"cloudinary"]) {
+        imageUrlString = [self.cloudinary url:[imageUrl host]];
+    } else {
+        imageUrlString = imageInfo[@"url"];
+    }
+
     SDWebImageManager *manager = [SDWebImageManager sharedManager];
-    [manager downloadImageWithURL:imageInfo[@"url"]
+    [manager downloadImageWithURL:[NSURL URLWithString:imageUrlString]
                           options:0
                          progress:nil
                         completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
@@ -1264,9 +1342,19 @@ typedef void (^completion_t)(id result);
     
     NSDictionary* videoInfo = [videos firstObject];
     [videos removeObjectAtIndex:0];
-    
+
+    NSString* imageUrlString;
+    NSURL* imageUrl = [NSURL URLWithString:videoInfo[@"preview"]];
+
+    if ([[imageUrl scheme] isEqualToString:@"cloudinary"]) {
+        imageUrlString = [self.cloudinary url:[imageUrl host]];
+    } else {
+        imageUrlString = videoInfo[@"preview"];
+    }
+
+
     SDWebImageManager *manager = [SDWebImageManager sharedManager];
-    [manager downloadImageWithURL:videoInfo[@"preview"]
+    [manager downloadImageWithURL:[NSURL URLWithString:imageUrlString]
                           options:0
                          progress:nil
                         completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
@@ -1348,7 +1436,6 @@ typedef void (^completion_t)(id result);
     return thumbnailImage;
 }
 
-
 #pragma mark - GKImagePicker delegate methods
 
 - (void)imagePickerDidFinish:(GKImagePicker *)imagePicker withImage:(UIImage *)image {
@@ -1357,6 +1444,19 @@ typedef void (^completion_t)(id result);
     [self setupImagesScrollView];
 }
 
+#pragma mark - Cloudinary delegate methods
+
+- (void)uploaderSuccess:(NSString*)result context:(id)context {
+
+}
+
+- (void)uploaderError:(NSString*)result code:(NSInteger)code context:(id)context {
+
+}
+
+- (void)uploaderProgress:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite context:(id)context {
+
+}
 
 #pragma mark - Navigation
 
