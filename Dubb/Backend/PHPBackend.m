@@ -178,6 +178,16 @@ static PHPBackend   *sharedConnection;
     
 }
 
+-(void) getPricingLimits:(void (^)(NSDictionary *result))handler {
+    NSString *apiPath = [NSString stringWithFormat:@"%@admin/pricing", APIURL];
+
+    [self accessAPI:apiPath Parameters:nil CompletionHandler:^(NSDictionary *result, NSData *data, NSError *error) {
+        if (handler) {
+            handler(result);
+        }
+    }];
+}
+
 -(void) registerDeviceToken:(NSString *)deviceToken forUser:(NSString *)userID
          CompletionHandler:(void (^)(NSDictionary *result))handler
 {
