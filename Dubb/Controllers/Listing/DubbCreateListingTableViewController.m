@@ -269,11 +269,13 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
 
 - (void)getPricingLimits {
     [self.backend getPricingLimits:^(NSDictionary *result) {
-        if (result) {
-            self.base_max_price = [result[@"response"][@"base_max_price"] doubleValue];
-            self.base_min_price = [result[@"response"][@"base_min_price"] doubleValue];
-            self.addon_max_price = [result[@"response"][@"addon_max_price"] doubleValue];
-            self.addon_min_price = [result[@"response"][@"addon_min_price"] doubleValue];
+        if (result && result[@"response"] && ![result[@"response"] isKindOfClass:[NSNull class]]) {
+            if (result[@"response"][@"base_max_price"] && result[@"response"][@"base_min_price"] && result[@"response"][@"addon_max_price"] && result[@"response"][@"addon_min_price"]){
+                self.base_max_price = [result[@"response"][@"base_max_price"] doubleValue];
+                self.base_min_price = [result[@"response"][@"base_min_price"] doubleValue];
+                self.addon_max_price = [result[@"response"][@"addon_max_price"] doubleValue];
+                self.addon_min_price = [result[@"response"][@"addon_min_price"] doubleValue];
+            }
         }
     }];
 }
