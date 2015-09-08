@@ -179,7 +179,9 @@ static PHPBackend   *sharedConnection;
 }
 
 -(void) getPricingLimits:(void (^)(NSDictionary *result))handler {
-    NSString *apiPath = [NSString stringWithFormat:@"%@admin/pricing", APIURL];
+    User *user = [User currentUser];
+
+    NSString *apiPath = [NSString stringWithFormat:@"%@admin/pricing?t_user_id=%@&t_latitude=%@&t_longtitude=%@", APIURL, user.userID, user.latitude, user.longitude];
 
     [self accessAPI:apiPath Parameters:nil CompletionHandler:^(NSDictionary *result, NSData *data, NSError *error) {
         if (handler) {
