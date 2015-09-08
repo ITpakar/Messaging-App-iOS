@@ -969,24 +969,29 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
         case TableViewSectionMain: {
             //this is where it broke
             NSDictionary *searchResult = [self.localSearchQueries objectAtIndex:indexPath.row];
-            NSString *placeID = [searchResult objectForKey:@"place_id"];
-            [self.searchTextField resignFirstResponder];
-            [self retrieveJSONDetailsAbout:placeID withCompletion:^(NSArray *place) {
-                
-                if ([place isKindOfClass:[NSDictionary class]]) {
-                    selectedLocation.name = [place valueForKey:@"name"];
-                    selectedLocation.address = [place valueForKey:@"formatted_address"];
-                    NSString *latitude = [NSString stringWithFormat:@"%@,",[place valueForKey:@"geometry"][@"location"][@"lat"]];
-                    NSString *longitude = [NSString stringWithFormat:@"%@",[place valueForKey:@"geometry"][@"location"][@"lng"]];
+            
+            if ([searchResult isKindOfClass:[NSDictionary class]]) {
+                NSString *placeID = [searchResult objectForKey:@"place_id"];
+                [self.searchTextField resignFirstResponder];
+                [self retrieveJSONDetailsAbout:placeID withCompletion:^(NSArray *place) {
                     
-                    selectedLocation.locationCoordinates = CLLocationCoordinate2DMake(latitude.doubleValue, longitude.doubleValue);
-                    NSLog(@"Location Info: %@",selectedLocation);
+                    if ([place isKindOfClass:[NSDictionary class]]) {
+                        selectedLocation.name = [place valueForKey:@"name"];
+                        selectedLocation.address = [place valueForKey:@"formatted_address"];
+                        NSString *latitude = [NSString stringWithFormat:@"%@,",[place valueForKey:@"geometry"][@"location"][@"lat"]];
+                        NSString *longitude = [NSString stringWithFormat:@"%@",[place valueForKey:@"geometry"][@"location"][@"lng"]];
+                        
+                        selectedLocation.locationCoordinates = CLLocationCoordinate2DMake(latitude.doubleValue, longitude.doubleValue);
+                        NSLog(@"Location Info: %@",selectedLocation);
+                        
+                        [self.searchTextField setText:[NSString stringWithFormat:@"%@",selectedLocation.address]];
+                    }
                     
-                    [self.searchTextField setText:[NSString stringWithFormat:@"%@",selectedLocation.address]];
-                }
-                
-                
-            }];
+                    
+                }];
+
+            }
+            
         }break;
             
         case TableViewSectionCurrentLocation: {
