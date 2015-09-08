@@ -418,6 +418,8 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
 
 - (IBAction)submitButtonTapped:(id)sender {
     
+    [self performSegueWithIdentifier:@"displayCreateListingConfirmationSegue" sender:nil];
+    return;
     NSString* title = self.titleTextField.text;
 
     
@@ -432,6 +434,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
             }
         }
     }
+    
     if (selectedLocation.locationCoordinates.latitude == 0 && selectedLocation.locationCoordinates.longitude == 0) {
         
         [self showMessage:@"Creating a listing requires location services. Please enable it on your phone settings for Dubb"];

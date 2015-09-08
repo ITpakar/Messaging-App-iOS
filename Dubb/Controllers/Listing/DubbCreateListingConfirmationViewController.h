@@ -10,7 +10,7 @@
 #import <MessageUI/MessageUI.h>
 #import "SelectedLocation.h"
 #import "BaseViewController.h"
-@interface DubbCreateListingConfirmationViewController : BaseViewController <MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate>
+@interface DubbCreateListingConfirmationViewController : BaseViewController 
 
 
 @property (strong, nonatomic) NSString         *listingTitle;

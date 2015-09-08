@@ -8,6 +8,8 @@
 #import <Social/Social.h>
 
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "SZTextView.h"
+#import <FacebookSDK/FacebookSDK.h>
 #import "DubbCreateListingConfirmationViewController.h"
 
 #define commonShareText(listingTitle)  [NSString stringWithFormat:@"Checkout this listing %@. Download app at http://www.dubb.com/app", listingTitle]
@@ -21,9 +23,12 @@
 @property (strong, nonatomic) IBOutlet UILabel *userNameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *locationLabel;
 @property (strong, nonatomic) IBOutlet UIImageView *listingImageView;
+@property (strong, nonatomic) IBOutlet SZTextView *shareTextView;
 @property (strong, nonatomic) IBOutlet UILabel *categoryLabel;
 @property (strong, nonatomic) IBOutlet UIView *footerView;
 @property (strong, nonatomic) IBOutlet UILabel *orderAmountLabel;
+@property (strong, nonatomic) IBOutlet UISwitch *facebookSwitch;
+@property (strong, nonatomic) IBOutlet UISwitch *twitterSwitch;
 
 @end
 
@@ -33,181 +38,108 @@
     [super viewDidLoad];
     
     self.listingTitleLabel.text = self.listingTitle;
-    [self.backend getUser:[User currentUser].userID CompletionHandler:^(NSDictionary *result) {
-        
-        if (result) {
-            NSDictionary *userInfo = result[@"response"];
-            if (![userInfo[@"image"] isKindOfClass:[NSNull class]]) {
-                [self.profileImageView sd_setImageWithURL:[NSURL URLWithString:userInfo[@"image"][@"url"]]];
-            }
-            
-        }
-        
-    }];
-
-    
-    self.userNameLabel.text = [User currentUser].username;
     self.locationLabel.text = self.listingLocation.address;
     self.listingImageView.image = self.mainImage;
-    self.categoryLabel.text = self.categoryDescription;
-    self.orderAmountLabel.text = [NSString stringWithFormat:@"ORDER $%ld", self.baseServicePrice];
-    self.reasonForDisablingMenu = nil;
+    self.orderAmountLabel.text = [NSString stringWithFormat:@"$%ld", (long)self.baseServicePrice];
+}
+- (IBAction)twitterSwitchValueChanged:(id)sender {
     
-    __weak DubbCreateListingConfirmationViewController *weakSelf = self;
-    completionHandler = ^(SLComposeViewControllerResult result)
-    {
-        
-        switch(result){
-            case SLComposeViewControllerResultCancelled:
-            default:
-            {
-                NSLog(@"Cancelled.....");
-                
-            }
-                break;
-            case SLComposeViewControllerResultDone:
-            {
-                NSLog(@"Posted....");
-                weakSelf.reasonForDisablingMenu = nil;
-            }
-                break;
-                
-        }};
-
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
+- (IBAction)facebookSwitchValueChanged:(id)sender {
     
-    // Dispose of any resources that can be recreated.
-}
-
-
-#pragma mark - IBActions
-- (IBAction)shareOnTwitterButtonTapped:(id)sender {
-    if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter])
-    {
-        SLComposeViewController *tweetSheet = [SLComposeViewController
-                                               composeViewControllerForServiceType:SLServiceTypeTwitter];
-
-        [tweetSheet setInitialText:[NSString stringWithFormat:@"Checkout %@ - @dubbapp creative freelancer marketplace. Download http://www.dubb.com/app", self.listingTitle]];
-        [self presentViewController:tweetSheet animated:YES completion:nil];
-        tweetSheet.completionHandler = completionHandler;
-    }else{
-        [[[UIAlertView alloc] initWithTitle:nil message:@"Twitter is not installed on this device! Please install first." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
-    }
-}
-- (IBAction)shareOnSmsButtonTapped:(id)sender {
-    if(![MFMessageComposeViewController canSendText]) {
-        UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Your device doesn't support SMS!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [warningAlert show];
-        return;
-    }
-    
-    NSArray *recipents = @[@""];
-    NSString *message = commonShareText(self.listingTitle);
-    
-    MFMessageComposeViewController *messageController = [[MFMessageComposeViewController alloc] init];
-    messageController.messageComposeDelegate = self;
-    [messageController setRecipients:recipents];
-    [messageController setBody:message];
-    
-    // Present message view controller on screen
-    [self presentViewController:messageController animated:YES completion:nil];
-}
-- (IBAction)shareOnEmailButtonTapped:(id)sender {
-    // Email Subject
-    NSString *emailTitle = [NSString stringWithFormat:@"Checkout this listing %@ On Dubb", self.listingTitle];
-    // Email Content
-    NSString *messageBody = @"You can download the app at http://www.dubb.com/app";
-    // To address
-    NSArray *toRecipents = [NSArray arrayWithObject:@""];
-    
-    MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
-    mc.mailComposeDelegate = self;
-    [mc setSubject:emailTitle];
-    [mc setMessageBody:messageBody isHTML:NO];
-    [mc setToRecipients:toRecipents];
-    
-    // Present mail view controller on screen
-    [self presentViewController:mc animated:YES completion:NULL];
-
-}
-- (IBAction)shareOnWhatsAppButtonTapped:(id)sender {
-    
-    NSString *textToShare = commonShareText(self.listingTitle);
-    NSString *textToSend = [NSString stringWithFormat:@"whatsapp://send?text=%@", [textToShare stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-    NSURL *whatsappURL = [NSURL URLWithString:textToSend];
-    
-    if ([[UIApplication sharedApplication] canOpenURL: whatsappURL]) {
-        [[UIApplication sharedApplication] openURL: whatsappURL];
-        self.reasonForDisablingMenu = nil;
-    }else{
-        [[[UIAlertView alloc] initWithTitle:nil message:@"Whatsapp is not installed on this device! Please install first." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
-    }
-}
-- (IBAction)shareOnFacebookButtonTapped:(id)sender {
-    
-    if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
-        SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
-        
-        [controller setInitialText:[NSString stringWithFormat:@"Checkout %@ - @dubbapp creative freelancer marketplace. Download http://www.dubb.com/app", self.listingTitle]];
-        [self presentViewController:controller animated:YES completion:Nil];
-        controller.completionHandler = completionHandler;
-    }else{
-        [[[UIAlertView alloc] initWithTitle:nil message:@"Facebook is not installed on this device! Please install first." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
-    }
-}
-
-#pragma mark - MFMessageComposeViewController Delegate
-- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult) result
-{
-    switch (result) {
-        case MessageComposeResultCancelled:
-            break;
+    if (self.facebookSwitch.isOn) {
+        [self performPublishAction:^{
             
-        case MessageComposeResultFailed:
-        {
-            UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Failed to send SMS!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [warningAlert show];
-            break;
+            
+        }];
+    }
+
+    
+}
+- (IBAction)skipButtonTapped:(id)sender {
+    
+}
+- (IBAction)backButtonTapped:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+- (IBAction)postButtonTapped:(id)sender {
+    
+    if (self.facebookSwitch.isOn) {
+        NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                       @"", @"name",
+                                       @"", @"caption",
+                                       self.shareTextView.text, @"description",
+                                       nil];
+        
+        // Make the request
+        [FBRequestConnection startWithGraphPath:@"/me/feed"
+                                     parameters:params
+                                     HTTPMethod:@"POST"
+                              completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+                                  if (!error) {
+                                      // Loading message
+                                      NSLog(@"result: %@", result);
+                                  } else {
+                                      // An error occurred, we need to handle the error
+                                      // See: https://developers.facebook.com/docs/ios/errors
+                                      NSLog(@"%@", error.description);
+                                  }
+                              }];
+
+    }
+    
+}
+
+// Convenience method to perform some action that requires the "publish_actions" permissions.
+- (void) performPublishAction:(void (^)(void)) action {
+    // we defer request for permission to post to the moment of post, then we check for the permission
+    if ([FBSession.activeSession.permissions indexOfObject:@"publish_actions"] == NSNotFound) {
+        NSLog(@"%@", FBSession.activeSession.permissions);
+        // If we don't have an open active session, then we request to open an active session
+        if (![FBSession.activeSession isOpen]) {
+            NSLog(@"Open active session with publish permission.");
+            [FBSession openActiveSessionWithPublishPermissions:@[@"publish_actions"]
+                                                defaultAudience:FBSessionDefaultAudienceFriends
+                                                  allowLoginUI:YES
+                                             completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+                                                 if (!error) {
+                                                     action();
+                                                 }
+                                                 //For this example, ignore errors (such as if user cancels).
+                                             }];
         }
-        case MessageComposeResultSent:
-            self.reasonForDisablingMenu = nil;
-            break;
-            
-        default:
-            break;
+        else {
+            // if we don't already have the permission, then we request it now
+            [FBSession.activeSession requestNewPublishPermissions:@[@"publish_actions"]
+                                                  defaultAudience:FBSessionDefaultAudienceFriends
+                                                completionHandler:^(FBSession *session, NSError *error) {
+                                                    if (!error) {
+                                                        action();
+                                                    }
+                                                    //For this example, ignore errors (such as if user cancels).
+                                                }];
+        }
+    }
+    // If we don't have an open active session, then we request to open an active session
+    else if (![FBSession.activeSession isOpen]) {
+        [FBSession openActiveSessionWithPublishPermissions:@[@"publish_actions"]
+                                           defaultAudience:FBSessionDefaultAudienceFriends
+                                              allowLoginUI:YES
+                                         completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+                                             if (!error) {
+                                                 action();
+                                             }
+                                             //For this example, ignore errors (such as if user cancels).
+                                         }];
+    }
+    else {
+        NSLog(@"FB session %d", [FBSession.activeSession isOpen]);
+        action();
     }
     
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-#pragma mark - MFMailComposeViewController Delegate
-- (void) mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
-{
-    switch (result)
-    {
-        case MFMailComposeResultCancelled:
-            NSLog(@"Mail cancelled");
-            break;
-        case MFMailComposeResultSaved:
-            NSLog(@"Mail saved");
-            break;
-        case MFMailComposeResultSent:
-            NSLog(@"Mail sent");
-            self.reasonForDisablingMenu = nil;
-            break;
-        case MFMailComposeResultFailed:
-            NSLog(@"Mail sent failure: %@", [error localizedDescription]);
-            break;
-        default:
-            break;
-    }
-    
-    // Close the Mail Interface
-    [self dismissViewControllerAnimated:YES completion:NULL];
-}
 /*
 #pragma mark - Navigation
 
