@@ -46,6 +46,8 @@ CompletionHandler:(void (^)(NSDictionary *result))handler;
 
 -(void) checkValidityOfUsernameOrEmail:(NSString *)userNameOrEmail CompletionHandler:(void (^)(NSDictionary *result))handler;
 
+-(void) getPricingLimits:(void (^)(NSDictionary *result))handler;
+
 -(void) registerDeviceToken:(NSString *)deviceToken forUser:(NSString *)userID CompletionHandler:(void (^)(NSDictionary *result))handler;
 
 -(void) createOrder:(NSDictionary*)params CompletionHandler:(void (^)(NSDictionary *result))handler;
