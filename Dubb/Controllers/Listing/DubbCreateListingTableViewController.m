@@ -80,8 +80,13 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    
+
+    self.base_max_price = 100;
+    self.base_min_price = 0;
+    self.addon_max_price = 100;
+    self.addon_min_price = 0;
+    [self getPricingLimits];
+
     self.localSearchQueries = [NSMutableArray array];
     self.pastSearchWords = [NSMutableArray array];
     self.pastSearchResults = [NSMutableArray array];
@@ -261,6 +266,18 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     [self.tagsControl reloadTagSubviews];
 }
 
+- (void)getPricingLimits {
+    [self.backend getPricingLimits:^(NSDictionary *result) {
+        if (result && result[@"response"] && ![result[@"response"] isKindOfClass:[NSNull class]]) {
+            if (result[@"response"][@"base_max_price"] && result[@"response"][@"base_min_price"] && result[@"response"][@"addon_max_price"] && result[@"response"][@"addon_min_price"]){
+                self.base_max_price = [result[@"response"][@"base_max_price"] doubleValue];
+                self.base_min_price = [result[@"response"][@"base_min_price"] doubleValue];
+                self.addon_max_price = [result[@"response"][@"addon_max_price"] doubleValue];
+                self.addon_min_price = [result[@"response"][@"addon_min_price"] doubleValue];
+            }
+        }
+    }];
+}
 
 - (void)doneClicked:(UIBarButtonItem*)button {
     [self.view endEditing:YES];
@@ -495,6 +512,31 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
         return;
     }
     
+    double base_price = [self.baseServicePriceTextField.text doubleValue];
+
+    if (base_price > self.base_max_price) {
+        [self showMessage:[NSString stringWithFormat:@"Maximum base service price is $%.f.", self.base_max_price]];
+        return;
+    }
+
+    if (base_price < self.base_min_price) {
+        [self showMessage:[NSString stringWithFormat:@"Minimum base service price is $%.f.", self.base_min_price]];
+        return;
+    }
+
+    for (NSDictionary *addon in addonArray) {
+        double addon_price = [addon[@"price"] doubleValue];
+
+        if (addon_price > self.addon_max_price) {
+            [self showMessage:[NSString stringWithFormat:@"Maximum addon price is $%.f.", self.addon_max_price]];
+            return;
+        }
+
+        if (addon_price < self.addon_min_price) {
+            [self showMessage:[NSString stringWithFormat:@"Minimum addon price is $%.f.", self.addon_min_price]];
+            return;
+        }
+    }
     
     NSMutableArray *imageURLs = [self uploadImages];
     NSArray *tagsArray = self.tagsControl.tags;
@@ -1038,24 +1080,29 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
         case TableViewSectionMain: {
             //this is where it broke
             NSDictionary *searchResult = [self.localSearchQueries objectAtIndex:indexPath.row];
-            NSString *placeID = [searchResult objectForKey:@"place_id"];
-            [self.searchTextField resignFirstResponder];
-            [self retrieveJSONDetailsAbout:placeID withCompletion:^(NSArray *place) {
-                
-                if ([place isKindOfClass:[NSDictionary class]]) {
-                    selectedLocation.name = [place valueForKey:@"name"];
-                    selectedLocation.address = [place valueForKey:@"formatted_address"];
-                    NSString *latitude = [NSString stringWithFormat:@"%@,",[place valueForKey:@"geometry"][@"location"][@"lat"]];
-                    NSString *longitude = [NSString stringWithFormat:@"%@",[place valueForKey:@"geometry"][@"location"][@"lng"]];
+            
+            if ([searchResult isKindOfClass:[NSDictionary class]]) {
+                NSString *placeID = [searchResult objectForKey:@"place_id"];
+                [self.searchTextField resignFirstResponder];
+                [self retrieveJSONDetailsAbout:placeID withCompletion:^(NSArray *place) {
                     
-                    selectedLocation.locationCoordinates = CLLocationCoordinate2DMake(latitude.doubleValue, longitude.doubleValue);
-                    NSLog(@"Location Info: %@",selectedLocation);
+                    if ([place isKindOfClass:[NSDictionary class]]) {
+                        selectedLocation.name = [place valueForKey:@"name"];
+                        selectedLocation.address = [place valueForKey:@"formatted_address"];
+                        NSString *latitude = [NSString stringWithFormat:@"%@,",[place valueForKey:@"geometry"][@"location"][@"lat"]];
+                        NSString *longitude = [NSString stringWithFormat:@"%@",[place valueForKey:@"geometry"][@"location"][@"lng"]];
+                        
+                        selectedLocation.locationCoordinates = CLLocationCoordinate2DMake(latitude.doubleValue, longitude.doubleValue);
+                        NSLog(@"Location Info: %@",selectedLocation);
+                        
+                        [self.searchTextField setText:[NSString stringWithFormat:@"%@",selectedLocation.address]];
+                    }
                     
-                    [self.searchTextField setText:[NSString stringWithFormat:@"%@",selectedLocation.address]];
-                }
-                
-                
-            }];
+                    
+                }];
+
+            }
+            
         }break;
             
         case TableViewSectionCurrentLocation: {

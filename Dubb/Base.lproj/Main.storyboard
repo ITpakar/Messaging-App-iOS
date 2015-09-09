@@ -2637,16 +2637,6 @@ Dubb!</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WMg-5s-t1X">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="65"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Listing" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WPI-H8-sVq">
-                                        <rect key="frame" x="200" y="30" width="200" height="21"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="200" id="HjS-GX-N16"/>
-                                            <constraint firstAttribute="height" constant="21" id="IC8-UA-ewA"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gz1-07-gfx">
                                         <rect key="frame" x="8" y="32" width="17" height="17"/>
                                         <constraints>
@@ -2675,6 +2665,16 @@ Dubb!</string>
                                             <action selector="submitButtonTapped:" destination="Q8W-cI-c9P" eventType="touchUpInside" id="RcI-tV-InA"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Listing" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WPI-H8-sVq">
+                                        <rect key="frame" x="200" y="30" width="200" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="200" id="HjS-GX-N16"/>
+                                            <constraint firstAttribute="height" constant="21" id="IC8-UA-ewA"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.18823529410000001" green="0.18823529410000001" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -3864,8 +3864,8 @@ Dubb!</string>
                                                             <constraint firstAttribute="trailing" secondItem="DNO-ar-cJS" secondAttribute="trailing" constant="20" id="xIb-27-Q54"/>
                                                         </constraints>
                                                     </view>
-                                                    <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Nly-uM-4t8">
-                                                        <rect key="frame" x="8" y="145" width="564" height="370"/>
+                                                    <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Nly-uM-4t8">
+                                                        <rect key="frame" x="8" y="144" width="564" height="370"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <prototypes>
                                                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CurrentLocationCell" id="c3p-nX-N2x">
@@ -3943,19 +3943,6 @@ Dubb!</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rdd-mh-CXz" userLabel="Navigation View">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="65"/>
                                 <subviews>
-                                    <button opaque="NO" tag="9876" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="arn-WB-fVd">
-                                        <rect key="frame" x="8" y="32" width="17" height="17"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="17" id="Slo-Hh-j6s"/>
-                                            <constraint firstAttribute="width" constant="17" id="rP1-JJ-z8q"/>
-                                        </constraints>
-                                        <state key="normal" image="btn_prevnavigation_white.png">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="backButtonTapped:" destination="ynD-Wf-HiZ" eventType="touchUpInside" id="zRH-ay-dfi"/>
-                                        </connections>
-                                    </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Service Description" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8aC-cz-C2R">
                                         <rect key="frame" x="220" y="30" width="160" height="21"/>
                                         <constraints>
@@ -3978,6 +3965,19 @@ Dubb!</string>
                                         </state>
                                         <connections>
                                             <action selector="saveButtonTapped:" destination="ynD-Wf-HiZ" eventType="touchUpInside" id="D0h-Yc-sbn"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="9876" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="arn-WB-fVd">
+                                        <rect key="frame" x="8" y="32" width="17" height="17"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="17" id="Slo-Hh-j6s"/>
+                                            <constraint firstAttribute="width" constant="17" id="rP1-JJ-z8q"/>
+                                        </constraints>
+                                        <state key="normal" image="btn_prevnavigation_white.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="backButtonTapped:" destination="ynD-Wf-HiZ" eventType="touchUpInside" id="zRH-ay-dfi"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -4140,29 +4140,31 @@ Dubb!</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7F6-N7-abK" userLabel="Navigation View">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="65"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confirmation" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VgF-pc-wlH">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VgF-pc-wlH">
                                         <rect key="frame" x="60" y="30" width="200" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="f2q-W3-oBC"/>
                                             <constraint firstAttribute="width" constant="200" id="veR-PW-Tz8"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" tag="9876" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Rq-Ch-Cdl">
                                         <rect key="frame" x="14" y="30" width="22" height="22"/>
-                                        <state key="normal" image="icon_menu.png">
+                                        <state key="normal" image="btn_prevnavigation_white.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ux-Cd-nwR">
-                                        <rect key="frame" x="290" y="30" width="22" height="22"/>
+                                        <rect key="frame" x="273" y="30" width="39" height="22"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="22" id="n6f-qI-I0B"/>
-                                            <constraint firstAttribute="width" constant="22" id="wQw-G2-FK5"/>
+                                            <constraint firstAttribute="width" constant="39" id="wQw-G2-FK5"/>
                                         </constraints>
-                                        <state key="normal" image="checkmark.png">
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <state key="normal" title="Skip">
+                                            <color key="titleColor" red="0.27058823529411763" green="0.5490196078431373" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                     </button>
@@ -7182,7 +7184,6 @@ Please note that our services may not be used anonymously. This is the only way 
         <image name="btn_category.png" width="22" height="22"/>
         <image name="btn_prevnavigation.png" width="100" height="100"/>
         <image name="btn_prevnavigation_white.png" width="15" height="18"/>
-        <image name="checkmark.png" width="23" height="19"/>
         <image name="close_icon.png" width="24" height="24"/>
         <image name="dealButton.png" width="290" height="45"/>
         <image name="divisor.png" width="1" height="45"/>

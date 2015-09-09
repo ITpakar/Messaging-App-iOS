@@ -28,4 +28,8 @@
 @property CLLocationManager *locationManager;
 @property NSString *radius;
 @property NSString *titleString;
+@property double base_max_price;
+@property double base_min_price;
+@property double addon_max_price;
+@property double addon_min_price;
 @end
