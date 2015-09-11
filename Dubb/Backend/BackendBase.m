@@ -13,6 +13,13 @@ static BackendBase   *sharedConnection;
 
 @implementation BackendBase
 
+- (NSDictionary*) buildParams:(NSDictionary*)params
+{
+    NSMutableDictionary* mutableParams = [[NSMutableDictionary alloc] initWithDictionary:params];
+    [mutableParams setValue:[[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"] forKey:@"app_version"];
+    return mutableParams;
+}
+
 - (void) accessAPI:(NSString *)apiPath
         Parameters:(NSDictionary *)params
  CompletionHandler:(void (^)(NSDictionary *result, NSData *data, NSError *error))handler
@@ -20,8 +27,8 @@ static BackendBase   *sharedConnection;
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:apiPath]];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
-    [manager GET:@"" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
+
+    [manager GET:@"" parameters:[self buildParams:params] success:^(NSURLSessionDataTask *task, id responseObject) {
         id response = [NSJSONSerialization JSONObjectWithData: responseObject options:NSJSONReadingMutableContainers error:nil];
         handler(response, nil, nil);
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
@@ -38,7 +45,7 @@ static BackendBase   *sharedConnection;
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:APIURL]];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager POST:apiPath parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
+    [manager POST:apiPath parameters:[self buildParams:params] success:^(NSURLSessionDataTask *task, id responseObject) {
         id response = [NSJSONSerialization JSONObjectWithData: responseObject options:NSJSONReadingMutableContainers error:nil];
         handler(response, nil, nil);
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
@@ -67,6 +74,8 @@ static BackendBase   *sharedConnection;
         handler(nil, nil, error);
     }];*/
     NSString *postString = @"";
+    
+    params = [self buildParams:params];
     
     for (NSString *key in params) {
         postString = [NSString stringWithFormat:@"%@=%@&%@", key, [params objectForKey:key], postString];
@@ -112,7 +121,7 @@ static BackendBase   *sharedConnection;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
     
-    [manager PUT:apiPath parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
+    [manager PUT:apiPath parameters:[self buildParams:params] success:^(NSURLSessionDataTask *task, id responseObject) {
         
         id response = [NSJSONSerialization JSONObjectWithData: responseObject options:NSJSONReadingMutableContainers error:nil];
         
@@ -132,7 +141,7 @@ static BackendBase   *sharedConnection;
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     
     
-    [manager DELETE:@"" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
+    [manager DELETE:@"" parameters:[self buildParams:params] success:^(NSURLSessionDataTask *task, id responseObject) {
         
         id response = [NSJSONSerialization JSONObjectWithData: responseObject options:NSJSONReadingMutableContainers error:nil];
         
@@ -164,7 +173,8 @@ static BackendBase   *sharedConnection;
     [body appendData:[@"Content-Disposition: form-data; name=\"api\"\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
     [body appendData:[@"" dataUsingEncoding:NSUTF8StringEncoding]];
 
-    
+    params = [self buildParams:params];
+
     for (NSString *key in params) {
         [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
         [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n\r\n", key] dataUsingEncoding:NSUTF8StringEncoding]];

@@ -55,6 +55,8 @@ CompletionHandler:(void (^)(NSDictionary *result))handler;
 -(void) createOrder:(NSDictionary*)params CompletionHandler:(void (^)(NSDictionary *result))handler;
 /* Common functions for all backends */
 
+- (NSDictionary*) buildParams:(NSDictionary*)params;
+
 - (void) accessAPIbyPost:(NSString *)apiPath
               Parameters:(NSDictionary *)params
        CompletionHandler:(void (^)(NSDictionary *result, NSData *data, NSError *error))handler;
