@@ -827,7 +827,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
 
 - (NSString *) uploadVideo:(NSURL *)videoURL{
     [self showProgress:@"Uploading the video..."];
-    NSString *fileName = [NSString stringWithFormat:@"%@", [[NSUUID UUID] UUIDString]];
+    NSString *fileName = [NSString stringWithFormat:@"%@-v", [[NSUUID UUID] UUIDString]];
     NSString *videoURLString = [NSString stringWithFormat:@"cloudinary://%@", fileName];
     [self uploadFileWithFileName:fileName SourcePath:nil FileURL:videoURL Type:@"video"];
     [self hideProgress];
