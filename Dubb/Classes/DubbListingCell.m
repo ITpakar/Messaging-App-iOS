@@ -77,13 +77,13 @@
                 if ([_listing[@"user"][@"image"] isKindOfClass:[NSNull class]]) {
                     profileImageView.image = [UIImage imageNamed:@"portrait.png"];
                 } else {
-                    [profileImageView sd_setImageWithURL:[NSURL URLWithString:_listing[@"user"][@"image"][@"url"]]];
+                    [profileImageView sd_setImageWithURL:[self.baseVC prepareImageUrl:_listing[@"user"][@"image"][@"url"]]];
                 }
             } else {
                 if (![_listing objectForKey:@"owner_image_url"] || [_listing[@"owner_image_url"] isKindOfClass:[NSNull class]]) {
                     profileImageView.image = [UIImage imageNamed:@"portrait.png"];
                 } else {
-                    [profileImageView sd_setImageWithURL:[NSURL URLWithString:_listing[@"owner_image_url"]]];
+                    [profileImageView sd_setImageWithURL:[self.baseVC prepareImageUrl:_listing[@"owner_image_url"]]];
                 }
             }
             
