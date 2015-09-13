@@ -846,16 +846,16 @@ static bool liked = NO;
     profileImageView.layer.cornerRadius = 31;
     profileImageView.clipsToBounds = YES;
     if (![[userInfo objectForKey:@"image"] isKindOfClass:[NSNull class]]) {
-        [profileImageView sd_setImageWithURL:userInfo[@"image"][@"url"]];
+        [profileImageView sd_setImageWithURL:[self prepareImageUrl:userInfo[@"image"][@"url"]]];
     } else {
         [profileImageView setImage:[UIImage imageNamed:@"placeholder_image.png"]];
     }
     
     NSArray *images = listingInfo[@"images"];
     if (images.count > 1) {
-        [backgroundImageView sd_setImageWithURL:images[1][@"url"]];
+        [backgroundImageView sd_setImageWithURL:[self prepareImageUrl:images[1][@"url"]]];
     } else {
-        [backgroundImageView sd_setImageWithURL:images[0][@"url"]];
+        [backgroundImageView sd_setImageWithURL:[self prepareImageUrl:images[0][@"url"]]];
     }
     
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
