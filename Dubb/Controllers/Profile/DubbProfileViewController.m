@@ -261,7 +261,7 @@
     NSData *data = UIImageJPEGRepresentation(image, 0.7);
     NSString *fileName = [NSString stringWithFormat:@"%@", [[NSUUID UUID] UUIDString]];
     NSString *tempFilePath = [NSTemporaryDirectory() stringByAppendingPathComponent:fileName];
-    
+    fileName = [NSString stringWithFormat:@"Avatar/%@", fileName];
     [fileManager createFileAtPath:tempFilePath contents:data attributes:nil];
     imageURL = [NSString stringWithFormat:@"cloudinary://%@", fileName];
     [self uploadFileWithFileName:fileName SourcePath:tempFilePath];

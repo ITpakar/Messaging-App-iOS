@@ -166,7 +166,7 @@
     NSString* imageUrlString;
 
     if ([[imageUrl scheme] isEqualToString:@"cloudinary"]) {
-        imageUrlString = [self.cloudinary url:[imageUrl host]];
+        imageUrlString = [self.cloudinary url:[NSString stringWithFormat:@"%@%@", [imageUrl host], [imageUrl path]]];
     } else {
         imageUrlString = url;
     }

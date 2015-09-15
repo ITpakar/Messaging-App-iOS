@@ -406,7 +406,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
         NSString *videoWebURL = [self uploadVideo:videoURL];
 
         UIImage *thumbnailImage = [self thumbnailImageFromURL:videoURL];
-        NSString *thumbnailURL = [self uploadImage:thumbnailImage];
+        NSString *thumbnailURL = [self uploadImage:thumbnailImage Folder:@"Preview"];
         [self.listingVideos addObject:@{@"uploaded": @NO, @"url":videoWebURL, @"videoURL":videoURL, @"image":thumbnailImage, @"preview":thumbnailURL}];
         [self setupVideosScrollView];
     } else {
@@ -827,18 +827,24 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
 
 - (NSString *) uploadVideo:(NSURL *)videoURL{
     [self showProgress:@"Uploading the video..."];
-    NSString *fileName = [NSString stringWithFormat:@"%@-v", [[NSUUID UUID] UUIDString]];
+    NSString *fileName = [NSString stringWithFormat:@"Video/%@", [[NSUUID UUID] UUIDString]];
     NSString *videoURLString = [NSString stringWithFormat:@"cloudinary://%@", fileName];
     [self uploadFileWithFileName:fileName SourcePath:nil FileURL:videoURL Type:@"video"];
     [self hideProgress];
     return videoURLString;
 }
 
-- (NSString *) uploadImage:(UIImage *)image{
+- (NSString *) uploadImage:(UIImage *)image {
+    return [self uploadImage:image Folder:@"Listing"];
+}
+
+- (NSString *) uploadImage:(UIImage *)image Folder:(NSString*)folder {
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSData *data = UIImageJPEGRepresentation(image, 0.7);
     NSString *fileName = [NSString stringWithFormat:@"%@", [[NSUUID UUID] UUIDString]];
     NSString *tempFilePath = [NSTemporaryDirectory() stringByAppendingPathComponent:fileName];
+    
+    fileName = [NSString stringWithFormat:@"%@/%@", folder, fileName];
 
     [fileManager createFileAtPath:tempFilePath contents:data attributes:nil];
     NSString *imageURLString = [NSString stringWithFormat:@"cloudinary://%@", fileName];
