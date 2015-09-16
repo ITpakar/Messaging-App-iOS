@@ -1476,10 +1476,12 @@ typedef void (^completion_t)(id result);
 
 - (UIImage *)thumbnailImageFromURL:(NSURL *)videoURL {
     AVURLAsset *asset = [[AVURLAsset alloc] initWithURL: videoURL options:nil];
+    float duration = CMTimeGetSeconds(asset.duration);
     AVAssetImageGenerator *generator = [[AVAssetImageGenerator alloc] initWithAsset:asset];
     generator.appliesPreferredTrackTransform = YES;
     NSError *err = NULL;
-    CMTime requestedTime = CMTimeMake(1, 60);     // To create thumbnail image
+    CMTime requestedTime = CMTimeMake(duration/2, 1);     // To create thumbnail image
+
     CGImageRef imgRef = [generator copyCGImageAtTime:requestedTime actualTime:NULL error:&err];
     NSLog(@"err = %@, imageRef = %@", err, imgRef);
     
