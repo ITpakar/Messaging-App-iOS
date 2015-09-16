@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D02AB111BA6C54F00929A03 /* DubbCreateListingConfirmationShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D02AB101BA6C54F00929A03 /* DubbCreateListingConfirmationShareViewController.m */; };
 		0D0914301B61F08E001FF79E /* DubbActivityProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D09142F1B61F08E001FF79E /* DubbActivityProvider.m */; };
 		0D0914341B61F8D3001FF79E /* DubbWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0914331B61F8D3001FF79E /* DubbWebViewController.m */; };
 		0D0914381B620B44001FF79E /* DubbAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0914371B620B44001FF79E /* DubbAboutViewController.m */; };
@@ -14,6 +15,7 @@
 		0D12C5971B67483B0048C0F3 /* swipe_indicator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D12C5961B67483B0048C0F3 /* swipe_indicator@2x.png */; };
 		0D12C59A1B677AB60048C0F3 /* approved_indicator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D12C5981B677AB60048C0F3 /* approved_indicator@2x.png */; };
 		0D12C59B1B677AB60048C0F3 /* pending_indicator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D12C5991B677AB60048C0F3 /* pending_indicator@2x.png */; };
+		0D191F361BA977390091CC6C /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D191F351BA977390091CC6C /* UIView+Toast.m */; };
 		0D1FA40C1ACA17EB00079C79 /* DubbCreateListingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D1FA4051ACA17EB00079C79 /* DubbCreateListingTableViewController.m */; };
 		0D1FA40D1ACA17EB00079C79 /* DubbServiceAreaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D1FA4071ACA17EB00079C79 /* DubbServiceAreaViewController.m */; };
 		0D1FA40E1ACA17EB00079C79 /* DubbServiceDescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D1FA4091ACA17EB00079C79 /* DubbServiceDescriptionViewController.m */; };
@@ -315,6 +317,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0D02AB0F1BA6C54F00929A03 /* DubbCreateListingConfirmationShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DubbCreateListingConfirmationShareViewController.h; path = Listing/DubbCreateListingConfirmationShareViewController.h; sourceTree = "<group>"; };
+		0D02AB101BA6C54F00929A03 /* DubbCreateListingConfirmationShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DubbCreateListingConfirmationShareViewController.m; path = Listing/DubbCreateListingConfirmationShareViewController.m; sourceTree = "<group>"; };
 		0D09142E1B61F08E001FF79E /* DubbActivityProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DubbActivityProvider.h; sourceTree = "<group>"; };
 		0D09142F1B61F08E001FF79E /* DubbActivityProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DubbActivityProvider.m; sourceTree = "<group>"; };
 		0D0914321B61F8D3001FF79E /* DubbWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DubbWebViewController.h; path = WebView/DubbWebViewController.h; sourceTree = "<group>"; };
@@ -326,6 +330,8 @@
 		0D12C5961B67483B0048C0F3 /* swipe_indicator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "swipe_indicator@2x.png"; sourceTree = "<group>"; };
 		0D12C5981B677AB60048C0F3 /* approved_indicator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "approved_indicator@2x.png"; sourceTree = "<group>"; };
 		0D12C5991B677AB60048C0F3 /* pending_indicator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pending_indicator@2x.png"; sourceTree = "<group>"; };
+		0D191F341BA977390091CC6C /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
+		0D191F351BA977390091CC6C /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
 		0D1FA4041ACA17EB00079C79 /* DubbCreateListingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DubbCreateListingTableViewController.h; path = Listing/DubbCreateListingTableViewController.h; sourceTree = "<group>"; };
 		0D1FA4051ACA17EB00079C79 /* DubbCreateListingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DubbCreateListingTableViewController.m; path = Listing/DubbCreateListingTableViewController.m; sourceTree = "<group>"; };
 		0D1FA4061ACA17EB00079C79 /* DubbServiceAreaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DubbServiceAreaViewController.h; path = Listing/DubbServiceAreaViewController.h; sourceTree = "<group>"; };
@@ -831,6 +837,15 @@
 				0D0914371B620B44001FF79E /* DubbAboutViewController.m */,
 			);
 			name = About;
+			sourceTree = "<group>";
+		};
+		0D191F331BA977300091CC6C /* Toast */ = {
+			isa = PBXGroup;
+			children = (
+				0D191F341BA977390091CC6C /* UIView+Toast.h */,
+				0D191F351BA977390091CC6C /* UIView+Toast.m */,
+			);
+			name = Toast;
 			sourceTree = "<group>";
 		};
 		0D1FA4101ACA183B00079C79 /* AFNetworking */ = {
@@ -1405,6 +1420,7 @@
 			children = (
 				0D12C5931B6610310048C0F3 /* CALayer+XibConfiguration.h */,
 				0D12C5941B6610310048C0F3 /* CALayer+XibConfiguration.m */,
+				0D191F331BA977300091CC6C /* Toast */,
 				0D09142D1B61F081001FF79E /* ShareSheet */,
 				0D8C17361B56FCE200C3FC98 /* Utils */,
 				0DFAD7AA1B51F713008BF474 /* ListingImageView */,
@@ -1483,6 +1499,8 @@
 				0D5653A71B24494500444999 /* DubbMyListingsViewController.m */,
 				DC2BE6601B2F3F3B009B7303 /* DubbSubCategoryController.h */,
 				DC2BE6611B2F3F3B009B7303 /* DubbSubCategoryController.m */,
+				0D02AB0F1BA6C54F00929A03 /* DubbCreateListingConfirmationShareViewController.h */,
+				0D02AB101BA6C54F00929A03 /* DubbCreateListingConfirmationShareViewController.m */,
 			);
 			name = Listing;
 			sourceTree = "<group>";
@@ -2175,6 +2193,7 @@
 				7C09A5FA1AB29E4B00218127 /* DubbMenuViewController.m in Sources */,
 				0D5FF5621B348B3A005DE762 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
 				0D6B7D641B151B51000B0352 /* DubbOrderConfirmationViewController.m in Sources */,
+				0D02AB111BA6C54F00929A03 /* DubbCreateListingConfirmationShareViewController.m in Sources */,
 				0DFCB17C1AFFDAF0001F2820 /* DubbSingleListingViewController.m in Sources */,
 				7C09A5A91AB1E93C00218127 /* DubbSignUpEmailViewController.m in Sources */,
 				7C09A5FF1AB2A2DB00218127 /* DubbListingsViewController.m in Sources */,
@@ -2188,6 +2207,7 @@
 				0D1FA6571ACA183D00079C79 /* SZTextView.m in Sources */,
 				0D1FA6551ACA183D00079C79 /* RESideMenu.m in Sources */,
 				ED23D60C1B63F3B6007FC85E /* DubbPasswordResetViewController.m in Sources */,
+				0D191F361BA977390091CC6C /* UIView+Toast.m in Sources */,
 				DC675A491AE5D16A00E5CBDA /* DubbListingCell.m in Sources */,
 				7C4A0AC71AC1D739007DA690 /* ChatUsersController.m in Sources */,
 				7C09A5A11AB1DA0A00218127 /* DubbIntroViewController.m in Sources */,

@@ -53,6 +53,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     NSString *baseServiceID;
     UITextField *prevFocusedTextField;
     UIToolbar *addonToolbar;
+    NSString *slugUrlString;
     
 }
 @property (strong, nonatomic) IBOutlet UILabel *navigationTitleLabel;
@@ -418,8 +419,8 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
 
 - (IBAction)submitButtonTapped:(id)sender {
     
-    [self performSegueWithIdentifier:@"displayCreateListingConfirmationSegue" sender:nil];
-    return;
+//    [self performSegueWithIdentifier:@"displayCreateListingConfirmationSegue" sender:nil];
+//    return;
     NSString* title = self.titleTextField.text;
 
     
@@ -634,6 +635,13 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
                                      CompletionHandler:^(NSDictionary *result, NSData *data, NSError *error) {
                                          [self hideProgress];
                                          if (result) {
+                                             
+                                             
+                                             if ([result[@"response"] objectForKey:@"slug"]) {
+                                                 slugUrlString = [NSString stringWithFormat:@"http://www.dubb.com/listing/%@", result[@"response"][@"slug"]];
+                                             } else {
+                                                 slugUrlString = [NSString stringWithFormat:@"http://www.dubb.com/listing/%@", result[@"response"][@"id"]];
+                                             }
                                              [self performSegueWithIdentifier:@"displayCreateListingConfirmationSegue" sender:nil];
                                          }
                                      }];
@@ -1379,6 +1387,14 @@ typedef void (^completion_t)(id result);
         viewController.mainImage = self.listingImages[0][@"image"];
         viewController.categoryDescription = [NSString stringWithFormat:@"%@ / %@", self.categoryTextField.text, self.subCategoryTextField.text];
         viewController.baseServicePrice = [self.baseServicePriceTextField.text integerValue];
+        viewController.slugUrlString = slugUrlString;
+        
+//        viewController.listingTitle = @"test post";
+//        viewController.listingLocation = selectedLocation;
+//        viewController.mainImage = [UIImage imageNamed:@"Twitter"];
+//        viewController.categoryDescription = @"Other / Other";
+//        viewController.baseServicePrice = 12;
+//        viewController.slugUrlString = @"http://dubb.com/listing/14";
 
     }
 }
