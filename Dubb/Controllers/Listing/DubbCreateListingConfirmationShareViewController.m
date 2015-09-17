@@ -7,7 +7,6 @@
 //
 #import <AddressBook/AddressBook.h>
 #import <AddressBookUI/AddressBookUI.h>
-#import "UIView+Toast.h"
 #import <MessageUI/MessageUI.h>
 #import "DubbActivityProvider.h"
 #import "DubbCreateListingConfirmationShareViewController.h"
@@ -291,9 +290,9 @@ enum DubbSmsCellTag {
     NSLog(@"Sending Email...");
     
     NSMutableDictionary *contactEmail = _arrContactEmails[sender.tag];
-    NSString *emailTitle = [NSString stringWithFormat:@"%@ - Dubb Mobile Marketplace for Creative Freelancers -", self.listingTitle];
+    NSString *emailTitle = @"I just made my services available on @dubbapp";
     // Email Content
-    NSString *messageBody = [NSString stringWithFormat:@"Checkout %@ - @dubbapp creative freelancer marketplace http://www.dubb.com/app", self.listingTitle];
+    NSString *messageBody = [NSString stringWithFormat:@"Hi,  Check out my listing %@. You can download dubb app at http://www.dubb.com/app", self.slugUrlString];
     // To address
     NSArray *toRecipents = [NSArray arrayWithObject:contactEmail[@"email"]];
     
@@ -318,7 +317,7 @@ enum DubbSmsCellTag {
     }
     
     NSArray *recipents = @[contactPhoneNumber[@"phoneNumber"]];
-    NSString *message = commonShareText(self.listingTitle);
+    NSString *message = [NSString stringWithFormat:@"Hi,  Check out my listing %@. You can download dubb app at http://www.dubb.com/app", self.slugUrlString];
     
     MFMessageComposeViewController *messageController = [[MFMessageComposeViewController alloc] init];
     messageController.messageComposeDelegate = self;

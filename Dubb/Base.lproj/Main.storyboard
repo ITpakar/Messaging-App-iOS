@@ -2675,15 +2675,30 @@ Dubb!</string>
                                             <action selector="backButtonTapped:" destination="Q8W-cI-c9P" eventType="touchUpInside" id="TYD-CP-FhS"/>
                                         </connections>
                                     </button>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6xN-a5-ETP">
+                                        <rect key="frame" x="517" y="27" width="21" height="22"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="22" id="7Ij-wB-9qp"/>
+                                            <constraint firstAttribute="width" constant="21" id="lgW-LI-S0J"/>
+                                        </constraints>
+                                        <state key="normal" image="InvitePeople">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="invitePeopleButtonTapped:" destination="Q8W-cI-c9P" eventType="touchUpInside" id="eDQ-TR-DiH"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.18823529410000001" green="0.18823529410000001" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="65" id="0LS-8M-vkg"/>
+                                    <constraint firstAttribute="bottom" secondItem="6xN-a5-ETP" secondAttribute="bottom" constant="16" id="0kF-lk-ADw"/>
                                     <constraint firstItem="WPI-H8-sVq" firstAttribute="top" secondItem="WMg-5s-t1X" secondAttribute="top" constant="30" id="3f8-mp-CVy"/>
                                     <constraint firstAttribute="centerX" secondItem="WPI-H8-sVq" secondAttribute="centerX" id="97T-86-Tme"/>
                                     <constraint firstItem="KRB-PY-yb3" firstAttribute="top" secondItem="WMg-5s-t1X" secondAttribute="top" constant="26" id="LXU-MB-0Zp"/>
                                     <constraint firstItem="Gz1-07-gfx" firstAttribute="leading" secondItem="WMg-5s-t1X" secondAttribute="leading" constant="8" id="Oh9-Qk-j6t"/>
                                     <constraint firstAttribute="trailing" secondItem="KRB-PY-yb3" secondAttribute="trailing" constant="8" id="SGm-YA-fAI"/>
+                                    <constraint firstItem="KRB-PY-yb3" firstAttribute="leading" secondItem="6xN-a5-ETP" secondAttribute="trailing" constant="8" id="UW9-NB-s4h"/>
                                     <constraint firstAttribute="bottom" secondItem="Gz1-07-gfx" secondAttribute="bottom" constant="16" id="sTr-FY-E0S"/>
                                 </constraints>
                             </view>
@@ -3484,6 +3499,7 @@ Dubb!</string>
                         <outlet property="fulfillmentInfoTextView" destination="BWO-ri-8V0" id="HH9-mT-wzg"/>
                         <outlet property="imagesCountLabel" destination="LG1-7m-D9L" id="hl2-oa-CgQ"/>
                         <outlet property="imagesScrollView" destination="xhl-hX-pqL" id="s8n-O5-vJL"/>
+                        <outlet property="invitePeopleButton" destination="6xN-a5-ETP" id="9Tt-ab-JAo"/>
                         <outlet property="locationSearchTableView" destination="QWt-Ih-jFT" id="Kt7-Ul-yI0"/>
                         <outlet property="navigationTitleLabel" destination="WPI-H8-sVq" id="Xha-oV-c8I"/>
                         <outlet property="radiusTextField" destination="Xjq-xD-bSC" id="f5V-uq-9Jn"/>
@@ -4150,7 +4166,7 @@ Dubb!</string>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" tag="9876" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Rq-Ch-Cdl">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Rq-Ch-Cdl">
                                         <rect key="frame" x="10" y="30" width="15" height="22"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="22" id="1KC-a9-j16"/>
@@ -4285,7 +4301,7 @@ Dubb!</string>
                                                     <constraint firstAttribute="width" constant="173" id="xmW-Tt-8HP"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
-                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
@@ -4379,7 +4395,7 @@ Dubb!</string>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Facebook" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uww-xe-N2S">
                                                 <rect key="frame" x="35" y="17" width="60" height="15"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="FvA-qe-05p">
@@ -4411,7 +4427,7 @@ Dubb!</string>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Twitter" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b4U-8F-sgr">
                                                 <rect key="frame" x="49" y="17" width="42" height="15"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="yRW-rS-b2E">
@@ -7522,7 +7538,7 @@ Please note that our services may not be used anonymously. This is the only way 
                                                     <constraint firstAttribute="height" constant="38" id="vEx-Th-Ryk"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
-                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
@@ -7609,7 +7625,7 @@ Please note that our services may not be used anonymously. This is the only way 
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="105" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Louis Guilllamore" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AyF-hI-LSZ">
                                                     <rect key="frame" x="67" y="10" width="155" height="19"/>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" tag="107" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Irk-BR-koh">
@@ -7627,7 +7643,7 @@ Please note that our services may not be used anonymously. This is the only way 
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="106" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="+33 6 30 76 69 08 " lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QmJ-VK-QtF">
                                                     <rect key="frame" x="67" y="31" width="155" height="19"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -7661,7 +7677,7 @@ Please note that our services may not be used anonymously. This is the only way 
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Louis Guilllamore" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HNQ-nl-0gs">
                                                     <rect key="frame" x="67" y="10" width="155" height="19"/>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" tag="103" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cRy-8r-KGq">
@@ -7679,7 +7695,7 @@ Please note that our services may not be used anonymously. This is the only way 
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="102" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="fres@gmail.com" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hj0-lg-tNN">
                                                     <rect key="frame" x="67" y="31" width="155" height="19"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -7783,6 +7799,7 @@ Please note that our services may not be used anonymously. This is the only way 
         <image name="Cancel" width="15" height="16"/>
         <image name="Export" width="27" height="27"/>
         <image name="Facebook" width="9" height="20"/>
+        <image name="InvitePeople" width="21" height="22"/>
         <image name="Link" width="25" height="25"/>
         <image name="Report" width="27" height="27"/>
         <image name="SMSButton" width="82" height="23"/>

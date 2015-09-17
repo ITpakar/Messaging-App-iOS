@@ -76,6 +76,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UITableView *locationSearchTableView;
 @property (strong, nonatomic) GKImagePicker *picker;
+@property (strong, nonatomic) IBOutlet UIButton *invitePeopleButton;
 @end
 
 @implementation DubbCreateListingTableViewController
@@ -197,6 +198,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     NSArray *addonArray = self.listingDetail[@"addon"];
     NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"sequence" ascending:YES];
     addonArray = [addonArray sortedArrayUsingDescriptors:[NSArray arrayWithObject:descriptor]];
+    self.invitePeopleButton.hidden = NO;
     self.navigationTitleLabel.text = @"Edit Listing";
     [self.doneButton setTitle:@"Save" forState:UIControlStateNormal];
     self.titleTextField.text = self.listingDetail[@"name"];
@@ -415,6 +417,9 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     
     [self.navigationController popViewControllerAnimated:YES];
     
+}
+- (IBAction)invitePeopleButtonTapped:(id)sender {
+    [self performSegueWithIdentifier:@"displayCreateListingConfirmationSegue" sender:nil];
 }
 
 - (IBAction)submitButtonTapped:(id)sender {
