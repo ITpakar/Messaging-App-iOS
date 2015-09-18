@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D02AB111BA6C54F00929A03 /* DubbCreateListingConfirmationShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D02AB101BA6C54F00929A03 /* DubbCreateListingConfirmationShareViewController.m */; };
 		0D0914301B61F08E001FF79E /* DubbActivityProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D09142F1B61F08E001FF79E /* DubbActivityProvider.m */; };
 		0D0914341B61F8D3001FF79E /* DubbWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0914331B61F8D3001FF79E /* DubbWebViewController.m */; };
 		0D0914381B620B44001FF79E /* DubbAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0914371B620B44001FF79E /* DubbAboutViewController.m */; };
@@ -315,6 +316,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0D02AB0F1BA6C54F00929A03 /* DubbCreateListingConfirmationShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DubbCreateListingConfirmationShareViewController.h; path = Listing/DubbCreateListingConfirmationShareViewController.h; sourceTree = "<group>"; };
+		0D02AB101BA6C54F00929A03 /* DubbCreateListingConfirmationShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DubbCreateListingConfirmationShareViewController.m; path = Listing/DubbCreateListingConfirmationShareViewController.m; sourceTree = "<group>"; };
 		0D09142E1B61F08E001FF79E /* DubbActivityProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DubbActivityProvider.h; sourceTree = "<group>"; };
 		0D09142F1B61F08E001FF79E /* DubbActivityProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DubbActivityProvider.m; sourceTree = "<group>"; };
 		0D0914321B61F8D3001FF79E /* DubbWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DubbWebViewController.h; path = WebView/DubbWebViewController.h; sourceTree = "<group>"; };
@@ -1483,6 +1486,8 @@
 				0D5653A71B24494500444999 /* DubbMyListingsViewController.m */,
 				DC2BE6601B2F3F3B009B7303 /* DubbSubCategoryController.h */,
 				DC2BE6611B2F3F3B009B7303 /* DubbSubCategoryController.m */,
+				0D02AB0F1BA6C54F00929A03 /* DubbCreateListingConfirmationShareViewController.h */,
+				0D02AB101BA6C54F00929A03 /* DubbCreateListingConfirmationShareViewController.m */,
 			);
 			name = Listing;
 			sourceTree = "<group>";
@@ -2175,6 +2180,7 @@
 				7C09A5FA1AB29E4B00218127 /* DubbMenuViewController.m in Sources */,
 				0D5FF5621B348B3A005DE762 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
 				0D6B7D641B151B51000B0352 /* DubbOrderConfirmationViewController.m in Sources */,
+				0D02AB111BA6C54F00929A03 /* DubbCreateListingConfirmationShareViewController.m in Sources */,
 				0DFCB17C1AFFDAF0001F2820 /* DubbSingleListingViewController.m in Sources */,
 				7C09A5A91AB1E93C00218127 /* DubbSignUpEmailViewController.m in Sources */,
 				7C09A5FF1AB2A2DB00218127 /* DubbListingsViewController.m in Sources */,

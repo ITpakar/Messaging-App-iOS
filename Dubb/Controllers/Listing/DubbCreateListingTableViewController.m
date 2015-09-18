@@ -53,6 +53,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     NSString *baseServiceID;
     UITextField *prevFocusedTextField;
     UIToolbar *addonToolbar;
+    NSString *slugUrlString;
 }
 @property (strong, nonatomic) IBOutlet UILabel *navigationTitleLabel;
 @property (strong, nonatomic) IBOutlet TLTagsControl *tagsControl;
@@ -74,6 +75,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UITableView *locationSearchTableView;
 @property (strong, nonatomic) GKImagePicker *picker;
+@property (strong, nonatomic) IBOutlet UIButton *invitePeopleButton;
 @end
 
 @implementation DubbCreateListingTableViewController
@@ -200,6 +202,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     NSArray *addonArray = self.listingDetail[@"addon"];
     NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"sequence" ascending:YES];
     addonArray = [addonArray sortedArrayUsingDescriptors:[NSArray arrayWithObject:descriptor]];
+    self.invitePeopleButton.hidden = NO;
     self.navigationTitleLabel.text = @"Edit Listing";
     [self.doneButton setTitle:@"Save" forState:UIControlStateNormal];
     self.titleTextField.text = self.listingDetail[@"name"];
@@ -453,9 +456,14 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     [self.navigationController popViewControllerAnimated:YES];
     
 }
+- (IBAction)invitePeopleButtonTapped:(id)sender {
+    [self performSegueWithIdentifier:@"displayCreateListingConfirmationSegue" sender:nil];
+}
 
 - (IBAction)submitButtonTapped:(id)sender {
     
+//    [self performSegueWithIdentifier:@"displayCreateListingConfirmationSegue" sender:nil];
+//    return;
     NSString* title = self.titleTextField.text;
 
     
@@ -470,6 +478,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
             }
         }
     }
+    
     if (selectedLocation.locationCoordinates.latitude == 0 && selectedLocation.locationCoordinates.longitude == 0) {
         
         [self showMessage:@"Creating a listing requires location services. Please enable it on your phone settings for Dubb"];
@@ -694,6 +703,13 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
                                      CompletionHandler:^(NSDictionary *result, NSData *data, NSError *error) {
                                          [self hideProgress];
                                          if (result) {
+                                             
+                                             
+                                             if ([result[@"response"] objectForKey:@"slug"]) {
+                                                 slugUrlString = [NSString stringWithFormat:@"http://www.dubb.com/listing/%@", result[@"response"][@"slug"]];
+                                             } else {
+                                                 slugUrlString = [NSString stringWithFormat:@"http://www.dubb.com/listing/%@", result[@"response"][@"id"]];
+                                             }
                                              [self performSegueWithIdentifier:@"displayCreateListingConfirmationSegue" sender:nil];
                                          }
                                      }];
@@ -1526,6 +1542,14 @@ typedef void (^completion_t)(id result);
         viewController.mainImage = self.listingImages[0][@"image"];
         viewController.categoryDescription = [NSString stringWithFormat:@"%@ / %@", self.categoryTextField.text, self.subCategoryTextField.text];
         viewController.baseServicePrice = [self.baseServicePriceTextField.text integerValue];
+        viewController.slugUrlString = slugUrlString;
+        
+//        viewController.listingTitle = @"test post";
+//        viewController.listingLocation = selectedLocation;
+//        viewController.mainImage = [UIImage imageNamed:@"Twitter"];
+//        viewController.categoryDescription = @"Other / Other";
+//        viewController.baseServicePrice = 12;
+//        viewController.slugUrlString = @"http://dubb.com/listing/14";
 
     }
 }
