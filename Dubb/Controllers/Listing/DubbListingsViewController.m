@@ -315,6 +315,13 @@
         DubbGigsViewController *gigsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"gigsSearchResultVC"];
         gigsVC.keyword = searchBar.text;
         
+        id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+        
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Browsing"     // Event category (required)
+                                                              action:@"Keyword Search"  // Event action (required)
+                                                               label:@"Filtering by Keyword Search"          // Event label
+                                                               value:nil] build]];    // Event value
+        
         [self.navigationController pushViewController:gigsVC animated:YES];
     }
     return YES;
@@ -503,9 +510,9 @@
         gigsVC.keyword = searchBar.text;
         id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
         
-        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"ios_action"     // Event category (required)
-                                                              action:@"search_listing"  // Event action (required)
-                                                               label:searchBar.text          // Event label
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Browsing"     // Event category (required)
+                                                              action:@"Keyword Search"  // Event action (required)
+                                                               label:@"Filtering by Keyword Search"          // Event label
                                                                value:nil] build]];    // Event value
         
         [self.navigationController pushViewController:gigsVC animated:YES];

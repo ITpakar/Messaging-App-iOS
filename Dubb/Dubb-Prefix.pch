@@ -19,6 +19,9 @@
 #import "ChatService.h"
 #import "CharactersEscapeService.h"
 #import "Utils.h"
+#import "GAI.h"
+#import "GAIDictionaryBuilder.h"
+#import "ACTReporter.h"
 
 #import <NewRelicAgent/NewRelic.h>
 

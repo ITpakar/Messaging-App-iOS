@@ -10,8 +10,9 @@
 #import <MessageUI/MessageUI.h>
 #import "DubbActivityProvider.h"
 #import "DubbCreateListingConfirmationShareViewController.h"
+#import "UIView+Toast.h"
 #define commonShareText(listingTitle)  [NSString stringWithFormat:@"I just bought this cool service '%@' on - Dubb Mobile Marketplace for Creative Freelancers - http://www.dubb.com/app", listingTitle]
-@interface DubbCreateListingConfirmationShareViewController () <MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate>
+@interface DubbCreateListingConfirmationShareViewController () <MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate, UISearchBarDelegate>
 @property (strong, nonatomic) IBOutlet UIView *onIndicatorView;
 @property (strong, nonatomic) IBOutlet UILabel *emailTabLabel;
 @property (strong, nonatomic) IBOutlet UILabel *smsTabLabel;
@@ -27,11 +28,14 @@
 @property (strong, nonatomic) IBOutlet UITableView *smsTableView;
 @property (strong, nonatomic) IBOutlet UITableView *emailTableView;
 @property (strong, nonatomic) IBOutlet UILabel *contactsNumberLabel;
+@property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
 
 @property (nonatomic, strong) ABPeoplePickerNavigationController *addressBookController;
 @property (nonatomic, strong) NSMutableArray *arrContactsData;
 @property (nonatomic, strong) NSMutableArray *arrContactPhoneNumbers;
 @property (nonatomic, strong) NSMutableArray *arrContactEmails;
+@property (nonatomic, strong) NSMutableArray *arrOriginalContactPhoneNumbers;
+@property (nonatomic, strong) NSMutableArray *arrOriginalContactEmails;
 @end
 
 enum DubbEmailCellTag {
@@ -88,6 +92,7 @@ enum DubbSmsCellTag {
         CFRelease(generalCFObject);
     }
     
+    [contactInfoDict setObject:[NSString stringWithFormat:@"%@ %@", contactInfoDict[@"firstName"], contactInfoDict[@"lastName"]] forKey:@"name"];
     
     ABMultiValueRef phonesRef = ABRecordCopyValue(person, kABPersonPhoneProperty);
     for (int i=0; i<ABMultiValueGetCount(phonesRef); i++) {
@@ -115,7 +120,7 @@ enum DubbSmsCellTag {
     if (ABPersonHasImageData(person)) {
         NSData *contactImageData = (__bridge NSData *)ABPersonCopyImageDataWithFormat(person, kABPersonImageFormatThumbnail);
         
-        [contactInfoDict setObject:contactImageData forKey:@"image"];
+        [contactInfoDict setObject:[UIImage imageWithData:contactImageData] forKey:@"image"];
     }
     
     if (![contactInfoDict[@"phoneNumber"] isEqualToString:@""]) {
@@ -145,18 +150,26 @@ enum DubbSmsCellTag {
     self.contactsNumberLabel.text = [NSString stringWithFormat:@"%ld CONTACTS", _arrContactPhoneNumbers.count];
 }
 - (IBAction)sendButtonTapped:(id)sender {
-    [self.navigationController setViewControllers:@[[self.storyboard instantiateViewControllerWithIdentifier:@"homeViewController"]] animated:NO];
+    UIButton *senderButton = (UIButton *)sender;
+    if ([senderButton.titleLabel.text isEqualToString:@"Next"]) {
+        [self smsTabButtonTapped:nil];
+        [senderButton setTitle:@"Done" forState:UIControlStateNormal];
+    } else {
+        [self.navigationController setViewControllers:@[[self.storyboard instantiateViewControllerWithIdentifier:@"DubbMyListingsViewController"]] animated:NO];
+    }
+    
     
 }
 - (IBAction)cancelButtonTapped:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (IBAction)copyToClipboardButtonTapped:(id)sender {
+    
     NSString *listingTitle = self.listingTitle;
     DubbActivityProvider *activityProvider = [[DubbActivityProvider alloc] initWithListingTitle:listingTitle];
     NSURL *url = [NSURL URLWithString:self.slugLabel.text];
     NSArray *objectsToShare = @[activityProvider, listingTitle, url];
-    
+
     
     UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
     
@@ -182,6 +195,12 @@ enum DubbSmsCellTag {
          
          
      }];
+    
+    // Copy listing link to clipboard and show toast
+    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+    pasteboard.string = self.slugUrlString;
+    [self.view makeToast:@"link copied to clipboard!" duration:4.0 position:CSToastPositionCenter];
+    
 
 }
 
@@ -218,6 +237,9 @@ enum DubbSmsCellTag {
         ABRecordRef ref = CFArrayGetValueAtIndex( allPeople, i );
         [self addContact:ref];
     }
+    
+    _arrOriginalContactEmails = [_arrContactEmails mutableCopy];
+    _arrOriginalContactPhoneNumbers = [_arrContactPhoneNumbers mutableCopy];
     [self.emailTableView reloadData];
     [self.smsTableView reloadData];
     NSLog(@"%@", allPeople);
@@ -375,6 +397,21 @@ enum DubbSmsCellTag {
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
+
+#pragma mark - UISearchBar Delegate
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    NSLog(@"%@", searchText);
+    if (searchText.length == 0) {
+        _arrContactEmails = _arrOriginalContactEmails;
+        _arrContactPhoneNumbers = _arrOriginalContactPhoneNumbers;
+    } else {
+        _arrContactEmails = [[_arrOriginalContactEmails filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(name CONTAINS[cd] %@)", searchText]] mutableCopy];
+        _arrContactPhoneNumbers = [[_arrOriginalContactPhoneNumbers filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(name CONTAINS[cd] %@)", searchText]] mutableCopy];
+    }
+    [self.emailTableView reloadData];
+    [self.smsTableView reloadData];
+    
+}
 /*
 #pragma mark - Navigation
 

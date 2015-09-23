@@ -200,7 +200,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     addonArray = [addonArray sortedArrayUsingDescriptors:[NSArray arrayWithObject:descriptor]];
     self.invitePeopleButton.hidden = NO;
     self.navigationTitleLabel.text = @"Edit Listing";
-    [self.doneButton setTitle:@"Save" forState:UIControlStateNormal];
+    
     self.titleTextField.text = self.listingDetail[@"name"];
     self.fulfillmentInfoTextView.text = self.listingDetail[@"instructions"];
     self.baseServiceDescriptionTextView.text = self.listingDetail[@"description"];
@@ -263,6 +263,8 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     }
     self.tagsControl.tags = tagNames;
     [self.tagsControl reloadTagSubviews];
+    
+    slugUrlString = [NSString stringWithFormat:@"http://www.dubb.com/listing/%@", self.listingDetail[@"id"]];
 }
 
 
@@ -595,9 +597,17 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
                    }];
         [self.backend updateListing:self.listingDetail[@"id"] Parameters:params CompletionHandler:^(NSDictionary *result) {
             [self hideProgress];
-            [self showMessage:@"Successfully updated the listing."];
-            [self.navigationController popViewControllerAnimated:YES];
+            //[self showMessage:@"Successfully updated the listing."];
             
+            //[self.navigationController popViewControllerAnimated:YES];
+            // Track event
+            id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+            
+            [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Content"     // Event category (required)
+                                                                  action:@"Update Listing"  // Event action (required)
+                                                                   label:@"Update Service Listing"          // Event label
+                                                                   value:nil] build]];    // Event value
+            [self performSegueWithIdentifier:@"displayCreateListingConfirmationSegue" sender:nil];
         }];
         
     } else {
@@ -647,6 +657,21 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
                                              } else {
                                                  slugUrlString = [NSString stringWithFormat:@"http://www.dubb.com/listing/%@", result[@"response"][@"id"]];
                                              }
+                                             
+                                             // Track event
+                                             id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+                                             
+                                             [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Content"     // Event category (required)
+                                                                                                   action:@"New Listing"  // Event action (required)
+                                                                                                    label:@"New Service Listing"          // Event label
+                                                                                                    value:nil] build]];    // Event value
+                                             
+                                             // LISTING_CREATION
+                                             // Google iOS in-app conversion tracking snippet
+                                             // Add this code to the event you'd like to track in your app
+                                             
+                                             [ACTConversionReporter reportWithConversionID:@"942919644" label:@"YwVWCO3lu18Q3J_PwQM" value:@"20.00" isRepeatable:YES];
+                                             
                                              [self performSegueWithIdentifier:@"displayCreateListingConfirmationSegue" sender:nil];
                                          }
                                      }];

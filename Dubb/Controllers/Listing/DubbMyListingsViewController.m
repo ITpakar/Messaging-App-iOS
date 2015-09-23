@@ -6,7 +6,9 @@
 //  Copyright (c) 2015 dubb.co. All rights reserved.
 //
 #import "DubbCreateListingTableViewController.h"
+#import "DubbCreateListingConfirmationViewController.h"
 #import "DubbMyListingsViewController.h"
+#import "SelectedLocation.h"
 #import "NSDate+Helper.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
@@ -15,7 +17,8 @@ enum DubbListingCellTag {
     kDubbListingCellTitleLabelTag,
     kDubbListingCellCategoryLabelTag,
     kDubbListingCellPostedDateLabelTag,
-    kDubbListingCellProgressIndicatorImageViewTag
+    kDubbListingCellProgressIndicatorImageViewTag,
+    kDubbListingCellShareButtonTag
 };
 
 @implementation DubbMyListingsViewController
@@ -79,6 +82,7 @@ enum DubbListingCellTag {
     UILabel *titleLabel = (UILabel *)[cell viewWithTag:kDubbListingCellTitleLabelTag];
     UILabel *categoryLabel = (UILabel *)[cell viewWithTag:kDubbListingCellCategoryLabelTag];
     UILabel *postedDateLabel = (UILabel *)[cell viewWithTag:kDubbListingCellPostedDateLabelTag];
+    UIButton *shareButton = (UIButton *)[cell viewWithTag:kDubbListingCellShareButtonTag];
     
     NSDictionary *listingDetail = listingDetails[indexPath.row];
     
@@ -89,6 +93,8 @@ enum DubbListingCellTag {
     postedDateLabel.text = [NSString stringWithFormat:@"Posted: %@", [date stringWithFormat:@"MMMM dd, yyyy"]];
     NSString *imageName = ([listingDetail[@"status"] isEqualToString:@"approved"]) ? @"approved_indicator.png" : @"pending_indicator.png";
     progressIndicatorImageView.image = [UIImage imageNamed:imageName];
+    shareButton.tag = indexPath.row;
+    [shareButton addTarget:self action:@selector(shareButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
 
     return cell;
 }
@@ -101,6 +107,32 @@ enum DubbListingCellTag {
     vc.listingDetail = listingDetail;
     
     [self.navigationController pushViewController:vc animated:YES];
+    
+}
+- (void)shareButtonTapped:(UIButton *)sender {
+    __block NSDictionary *listingDetail = listingDetails[sender.tag];
+
+    [self showProgress:@""];
+    [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:[NSURL URLWithString:listingDetail[@"main_image"][@"url"]] options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        
+        
+    } completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
+       
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self hideProgress];
+            DubbCreateListingConfirmationViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"DubbCreateListingConfirmationViewController"];
+            viewController.listingTitle = [NSString stringWithFormat:@"%@%@",[[listingDetail[@"name"] substringToIndex:1] uppercaseString], [listingDetail[@"name"] substringFromIndex:1]];
+            SelectedLocation *selectedLocation = [[SelectedLocation alloc] init];
+            selectedLocation.locationCoordinates = CLLocationCoordinate2DMake([listingDetail[@"lat"] floatValue], [listingDetail[@"longitude"] floatValue]);
+            viewController.listingLocation = selectedLocation;
+            viewController.mainImage = image;
+            viewController.baseServicePrice = [listingDetail[@"addon"][0][@"price"] integerValue];
+            viewController.slugUrlString = [NSString stringWithFormat:@"http://www.dubb.com/listing/%@", listingDetail[@"id"]];
+            [self.navigationController pushViewController:viewController animated:YES];
+        });
+        
+        
+    }];
     
 }
 - (IBAction)createListingBarTapped:(id)sender {

@@ -7,6 +7,7 @@
 //
 #import <Social/Social.h>
 
+#import <AddressBookUI/AddressBookUI.h>
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "SZTextView.h"
 #import <FacebookSDK/FacebookSDK.h>
@@ -47,10 +48,30 @@
     [[FHSTwitterEngine sharedEngine] loadAccessToken];
     
     self.listingTitleLabel.text = self.listingTitle;
-    self.locationLabel.text = self.listingLocation.address;
+    
     self.listingImageView.image = self.mainImage;
     self.orderAmountLabel.text = [NSString stringWithFormat:@"$%ld", (long)self.baseServicePrice];
     self.previewContainerView.layer.borderWidth = 1.0f;
+    
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    CLLocation *location = [[CLLocation alloc] initWithLatitude:self.listingLocation.locationCoordinates.latitude longitude:self.listingLocation.locationCoordinates.longitude];
+    
+    [geocoder reverseGeocodeLocation:location completionHandler: ^ (NSArray  *placemarks, NSError *error) {
+        
+        CLPlacemark *placemark = [placemarks firstObject];
+        if(placemark) {
+            
+            NSString *city = [placemark.addressDictionary objectForKey:(NSString*)kABPersonAddressCityKey];
+            NSString *state = [placemark.addressDictionary objectForKey:(NSString*)kABPersonAddressStateKey];
+            
+            NSString *locationString = [NSString stringWithFormat:@"%@, %@", city, state];
+            self.listingLocation.name = city;
+            self.listingLocation.address = locationString;
+            self.locationLabel.text = self.listingLocation.address;
+        }
+    }];
+
+    
     self.previewContainerView.layer.borderColor = [UIColor colorWithRed:229.0f/255.0f green:229.0f/255.0f blue:229.0f/255.0f alpha:1.0f].CGColor;
 }
 - (IBAction)twitterSwitchValueChanged:(id)sender {
@@ -60,6 +81,7 @@
             [self.twitterSwitch setOn:success];
             
         }];
+        
         [self presentViewController:loginController animated:YES completion:nil];
     }
     
@@ -77,7 +99,30 @@
     
 }
 - (IBAction)skipButtonTapped:(id)sender {
-    [self performSegueWithIdentifier:@"displayCreateListingConfirmationShareSegue" sender:nil];
+    UIAlertController *alertController = [UIAlertController
+                                          alertControllerWithTitle:@""
+                                          message:@"Are you sure you don't want to share your listing on Facebook or Twitter?"
+                                          preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancelAction = [UIAlertAction
+                                   actionWithTitle:NSLocalizedString(@"Yes, I'm sure", @"Ok action")
+                                   style:UIAlertActionStyleCancel
+                                   handler:^(UIAlertAction *action)
+                                   {
+                                       [self performSegueWithIdentifier:@"displayCreateListingConfirmationShareSegue" sender:nil];
+                                   }];
+    
+    UIAlertAction *okAction = [UIAlertAction
+                               actionWithTitle:NSLocalizedString(@"Take me back", @"Cancel action")
+                               style:UIAlertActionStyleDefault
+                               handler:^(UIAlertAction *action)
+                               {
+                                   
+                               }];
+    
+    [alertController addAction:cancelAction];
+    [alertController addAction:okAction];
+    [self presentViewController:alertController animated:YES completion:nil];
+    
     
 }
 - (IBAction)backButtonTapped:(id)sender {
@@ -86,7 +131,7 @@
 - (IBAction)postButtonTapped:(id)sender {
     
     if (self.twitterSwitch.isOn) {
-        [[FHSTwitterEngine sharedEngine] postTweet:self.shareTextView.text];
+        [[FHSTwitterEngine sharedEngine] postTweet:[NSString stringWithFormat:@"%@ %@", self.shareTextView.text, self.slugUrlString]];
     }
     if (self.facebookSwitch.isOn) {
         NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
@@ -120,7 +165,9 @@
 
     
 }
-
+- (void)twitterEngineControllerDidCancel {
+    self.twitterSwitch.on = NO;
+}
 // Convenience method to perform some action that requires the "publish_actions" permissions.
 - (void) performPublishAction:(void (^)(void)) action {
     // we defer request for permission to post to the moment of post, then we check for the permission

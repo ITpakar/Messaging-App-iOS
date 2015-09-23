@@ -20,7 +20,7 @@
 #import <AddressBookUI/AddressBookUI.h>
 #import <CoreLocation/CLGeocoder.h>
 #import <CoreLocation/CLPlacemark.h>
-
+#import "ACTReporter.h"
 
 
 @interface AppDelegate () {
@@ -55,6 +55,7 @@
     [self enableUserVoice];
     [self enableGoogleAnalytics];
     [self enablePaypal];
+    [self enableAutomatedUsageReporting];
     
     #ifndef DEBUG
         [QBApplication sharedApplication].productionEnvironmentForPushesEnabled = YES;    
@@ -191,6 +192,20 @@
     [QBConnection registerServiceKey:qbServiceKey];
     [QBConnection registerServiceSecret:qbServiceSecret];
     [QBSettings setAccountKey:qbAccountKey];
+}
+
+#pragma mark -
+#pragma mark Automated Usage Reporting
+
+-(void) enableAutomatedUsageReporting
+{
+    // Enable automated usage reporting.
+    [ACTAutomatedUsageTracker enableAutomatedUsageReportingWithConversionID:@"942919644"];
+    
+    // APP_INSTALL
+    // Google iOS Download tracking snippet
+    
+    [ACTConversionReporter reportWithConversionID:@"942919644" label:@"gfyxCKzxtl8Q3J_PwQM" value:@"10.00" isRepeatable:NO];
 }
 
 #pragma mark - 
