@@ -10,13 +10,13 @@
 		0D0914301B61F08E001FF79E /* DubbActivityProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D09142F1B61F08E001FF79E /* DubbActivityProvider.m */; };
 		0D0914341B61F8D3001FF79E /* DubbWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0914331B61F8D3001FF79E /* DubbWebViewController.m */; };
 		0D0914381B620B44001FF79E /* DubbAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0914371B620B44001FF79E /* DubbAboutViewController.m */; };
+		0D0FCF211BB8D94A00BC1AB6 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D1748B61BB3894B004B501D /* AdSupport.framework */; };
 		0D12C5951B6610310048C0F3 /* CALayer+XibConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D12C5941B6610310048C0F3 /* CALayer+XibConfiguration.m */; };
 		0D12C5971B67483B0048C0F3 /* swipe_indicator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D12C5961B67483B0048C0F3 /* swipe_indicator@2x.png */; };
 		0D12C59A1B677AB60048C0F3 /* approved_indicator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D12C5981B677AB60048C0F3 /* approved_indicator@2x.png */; };
 		0D12C59B1B677AB60048C0F3 /* pending_indicator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D12C5991B677AB60048C0F3 /* pending_indicator@2x.png */; };
 		0D1748B41BB388CC004B501D /* libGoogleConversionTracking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D1748B21BB388CC004B501D /* libGoogleConversionTracking.a */; };
 		0D1748B51BB388CC004B501D /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0D1748B31BB388CC004B501D /* README.txt */; };
-		0D1748B71BB3894B004B501D /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D1748B61BB3894B004B501D /* AdSupport.framework */; };
 		0D1FA40C1ACA17EB00079C79 /* DubbCreateListingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D1FA4051ACA17EB00079C79 /* DubbCreateListingTableViewController.m */; };
 		0D1FA40D1ACA17EB00079C79 /* DubbServiceAreaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D1FA4071ACA17EB00079C79 /* DubbServiceAreaViewController.m */; };
 		0D1FA40E1ACA17EB00079C79 /* DubbServiceDescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D1FA4091ACA17EB00079C79 /* DubbServiceDescriptionViewController.m */; };
@@ -770,7 +770,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0D1748B71BB3894B004B501D /* AdSupport.framework in Frameworks */,
+				0D0FCF211BB8D94A00BC1AB6 /* AdSupport.framework in Frameworks */,
 				DC8C7D6A1AF549680033E6F9 /* QuartzCore.framework in Frameworks */,
 				DC675A4D1AE5FE0800E5CBDA /* AddressBookUI.framework in Frameworks */,
 				DC63FC781AD7BBF900A505B8 /* ImageIO.framework in Frameworks */,
