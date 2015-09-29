@@ -474,7 +474,6 @@
                                                            label:@"User to User Chat"          // Event label
                                                            value:nil] build]];    // Event value
     
-
 }
 
 

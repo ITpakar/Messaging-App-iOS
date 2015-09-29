@@ -214,6 +214,14 @@ enum DubbSingleListingViewTag {
     [self.activityIndicator startAnimating];
     [self.backend getListingWithID:self.listingID CompletionHandler:^(NSDictionary *result) {
         [self.activityIndicator stopAnimating];
+        
+        // Track event
+        id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+        
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Browsing"     // Event category (required)
+                                                              action:@"View Listing By Id"  // Event action (required)
+                                                               label:@"View Listing By Id"          // Event label
+                                                               value:nil] build]];    // Event value
         if ([result[@"response"] isKindOfClass:[NSNull class]]) {
             [self showMessage:@"Invalid listing"];
             [self.navigationController popViewControllerAnimated:YES];
@@ -1043,7 +1051,6 @@ static bool liked = NO;
     
     NSLog(@"PayPal Payment Success!\n %@", [completedPayment description]);
     
-    
     // Track event
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
     
@@ -1057,8 +1064,6 @@ static bool liked = NO;
     // Add this code to the event you'd like to track in your app
     
     [ACTConversionReporter reportWithConversionID:@"942919644" label:@"amfpCLSy-V8Q3J_PwQM" value:@"20.00" isRepeatable:YES];
-
-    
     [self sendCompletedPaymentToServer:completedPayment]; // Payment was processed successfully; send to server for verification and fulfillment
     [self dismissViewControllerAnimated:YES completion:nil];
     

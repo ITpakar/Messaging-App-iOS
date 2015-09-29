@@ -210,12 +210,13 @@
             
             [ACTConversionReporter reportWithConversionID:@"942919644" label:@"Tq1VCND1hGAQ3J_PwQM" value:@"4.00" isRepeatable:YES];
             
-
             [self hideProgress];
             if (user.username != nil && ![user.username isEqualToString:@""]){
                 if (user.quickbloxID && ![user.quickbloxID isEqualToString:@""]){
                     [self showProgress:@"Logging in..."];
                     [self loginToQuickBlox];
+                    
+                    
                 } else {
                     [self showProgress:@"Registering a user..."];
                     [self registerUserToQuickBlox];

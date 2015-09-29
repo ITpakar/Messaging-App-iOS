@@ -20,7 +20,7 @@
 #import <AddressBookUI/AddressBookUI.h>
 #import <CoreLocation/CLGeocoder.h>
 #import <CoreLocation/CLPlacemark.h>
-
+#import "ACTReporter.h"
 
 
 @interface AppDelegate () {
@@ -56,7 +56,6 @@
     [self enableGoogleAnalytics];
     [self enablePaypal];
     [self enableAutomatedUsageReporting];
-
     #ifndef DEBUG
         [QBApplication sharedApplication].productionEnvironmentForPushesEnabled = YES;    
     #endif
@@ -207,8 +206,6 @@
     
     [ACTConversionReporter reportWithConversionID:@"942919644" label:@"gfyxCKzxtl8Q3J_PwQM" value:@"10.00" isRepeatable:NO];
 }
-
-
 
 #pragma mark - 
 #pragma mark Paypal

@@ -322,8 +322,6 @@
                                                                label:@"Filtering by Keyword Search"          // Event label
                                                                value:nil] build]];    // Event value
         
-
-        
         [self.navigationController pushViewController:gigsVC animated:YES];
         
     }
