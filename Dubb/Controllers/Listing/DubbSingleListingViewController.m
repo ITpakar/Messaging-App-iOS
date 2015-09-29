@@ -1042,7 +1042,23 @@ static bool liked = NO;
     }
     
     NSLog(@"PayPal Payment Success!\n %@", [completedPayment description]);
-       
+    
+    
+    // Track event
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Revenue"     // Event category (required)
+                                                          action:@"Purchase"  // Event action (required)
+                                                           label:@"Service Purchase"          // Event label
+                                                           value:nil] build]];    // Event value
+    
+    // PURCHASE
+    // Google iOS in-app conversion tracking snippet
+    // Add this code to the event you'd like to track in your app
+    
+    [ACTConversionReporter reportWithConversionID:@"942919644" label:@"amfpCLSy-V8Q3J_PwQM" value:@"20.00" isRepeatable:YES];
+
+    
     [self sendCompletedPaymentToServer:completedPayment]; // Payment was processed successfully; send to server for verification and fulfillment
     [self dismissViewControllerAnimated:YES completion:nil];
     

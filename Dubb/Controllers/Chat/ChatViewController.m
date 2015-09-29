@@ -466,6 +466,15 @@
     [messageTableView reloadData];
     [self scrollBottomOfTableView:YES];
     
+    // Track event
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Communication"     // Event category (required)
+                                                          action:@"Chat"  // Event action (required)
+                                                           label:@"User to User Chat"          // Event label
+                                                           value:nil] build]];    // Event value
+    
+
 }
 
 

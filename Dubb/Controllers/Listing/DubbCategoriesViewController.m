@@ -67,6 +67,17 @@
     DubbSubCategoryController *subCategoryController = (DubbSubCategoryController*)[self.storyboard instantiateViewControllerWithIdentifier:@"subCategoryController"];
     subCategoryController.categoryID = categoryList[indexPath.row][@"id"];
     [self.navigationController pushViewController:subCategoryController animated:YES];
+    
+    
+    // Track event
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Browsing"     // Event category (required)
+                                                          action:@"Category Filtering"  // Event action (required)
+                                                           label:@"Filtering by category"          // Event label
+                                                           value:nil] build]];    // Event value
+    
+
 }
 
 

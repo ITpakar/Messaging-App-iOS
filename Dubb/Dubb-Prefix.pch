@@ -19,6 +19,9 @@
 #import "ChatService.h"
 #import "CharactersEscapeService.h"
 #import "Utils.h"
+#import "GAI.h"
+#import "GAIDictionaryBuilder.h"
+#import "ACTReporter.h"
 
 #import <NewRelicAgent/NewRelic.h>
 
@@ -42,7 +45,7 @@
 #define googleLocationServiceKey @"AIzaSyBqO1R2q7YGqnEAegFiA4vbHo7oLn8IqV0"
 
 //#define APIURL                  @"http://devd.dubb.co/v1/"
-//#define APIURL                  @"http://api-dubb-co-d9hg85ewhstw.runscope.net/v1/"
+//#define APIURL                  @"https://api01-dubb-co-d9hg85ewhstw.runscope.net/v1/"
 #define APIURL                  @"https://api01.dubb.co/v1/"
 //#define APIURL                  @"http://devd-dubb-co-d9hg85ewhstw.runscope.net/v1/"
 #define kNotificationDidReceiveNewMessage        @"kNotificationDidReceiveNewMessage"

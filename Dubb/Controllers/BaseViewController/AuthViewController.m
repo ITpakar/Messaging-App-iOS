@@ -196,6 +196,21 @@
         if( result ){
             User *user = [User initialize:result[@"response"]];
             
+            // Track event
+            id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+            
+            [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"New Account"     // Event category (required)
+                                                                  action:@"Signup"  // Event action (required)
+                                                                   label:@"New User Signup"          // Event label
+                                                                   value:nil] build]];    // Event value
+            
+            // MEMBER_SIGNUP
+            // Google iOS in-app conversion tracking snippet
+            // Add this code to the event you'd like to track in your app
+            
+            [ACTConversionReporter reportWithConversionID:@"942919644" label:@"Tq1VCND1hGAQ3J_PwQM" value:@"4.00" isRepeatable:YES];
+            
+
             [self hideProgress];
             if (user.username != nil && ![user.username isEqualToString:@""]){
                 if (user.quickbloxID && ![user.quickbloxID isEqualToString:@""]){

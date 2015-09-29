@@ -11,10 +11,13 @@
 		0D0914301B61F08E001FF79E /* DubbActivityProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D09142F1B61F08E001FF79E /* DubbActivityProvider.m */; };
 		0D0914341B61F8D3001FF79E /* DubbWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0914331B61F8D3001FF79E /* DubbWebViewController.m */; };
 		0D0914381B620B44001FF79E /* DubbAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0914371B620B44001FF79E /* DubbAboutViewController.m */; };
+		0D0FCF211BB8D94A00BC1AB6 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D1748B61BB3894B004B501D /* AdSupport.framework */; };
 		0D12C5951B6610310048C0F3 /* CALayer+XibConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D12C5941B6610310048C0F3 /* CALayer+XibConfiguration.m */; };
 		0D12C5971B67483B0048C0F3 /* swipe_indicator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D12C5961B67483B0048C0F3 /* swipe_indicator@2x.png */; };
 		0D12C59A1B677AB60048C0F3 /* approved_indicator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D12C5981B677AB60048C0F3 /* approved_indicator@2x.png */; };
 		0D12C59B1B677AB60048C0F3 /* pending_indicator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D12C5991B677AB60048C0F3 /* pending_indicator@2x.png */; };
+		0D1748B41BB388CC004B501D /* libGoogleConversionTracking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D1748B21BB388CC004B501D /* libGoogleConversionTracking.a */; };
+		0D1748B51BB388CC004B501D /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0D1748B31BB388CC004B501D /* README.txt */; };
 		0D1FA40C1ACA17EB00079C79 /* DubbCreateListingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D1FA4051ACA17EB00079C79 /* DubbCreateListingTableViewController.m */; };
 		0D1FA40D1ACA17EB00079C79 /* DubbServiceAreaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D1FA4071ACA17EB00079C79 /* DubbServiceAreaViewController.m */; };
 		0D1FA40E1ACA17EB00079C79 /* DubbServiceDescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D1FA4091ACA17EB00079C79 /* DubbServiceDescriptionViewController.m */; };
@@ -329,6 +332,12 @@
 		0D12C5961B67483B0048C0F3 /* swipe_indicator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "swipe_indicator@2x.png"; sourceTree = "<group>"; };
 		0D12C5981B677AB60048C0F3 /* approved_indicator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "approved_indicator@2x.png"; sourceTree = "<group>"; };
 		0D12C5991B677AB60048C0F3 /* pending_indicator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pending_indicator@2x.png"; sourceTree = "<group>"; };
+		0D1748AD1BB388CC004B501D /* ACTReporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACTReporter.h; sourceTree = "<group>"; };
+		0D1748AF1BB388CC004B501D /* GoogleConversionPing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleConversionPing.h; sourceTree = "<group>"; };
+		0D1748B11BB388CC004B501D /* DCTReporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTReporter.h; sourceTree = "<group>"; };
+		0D1748B21BB388CC004B501D /* libGoogleConversionTracking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleConversionTracking.a; sourceTree = "<group>"; };
+		0D1748B31BB388CC004B501D /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		0D1748B61BB3894B004B501D /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		0D1FA4041ACA17EB00079C79 /* DubbCreateListingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DubbCreateListingTableViewController.h; path = Listing/DubbCreateListingTableViewController.h; sourceTree = "<group>"; };
 		0D1FA4051ACA17EB00079C79 /* DubbCreateListingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DubbCreateListingTableViewController.m; path = Listing/DubbCreateListingTableViewController.m; sourceTree = "<group>"; };
 		0D1FA4061ACA17EB00079C79 /* DubbServiceAreaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DubbServiceAreaViewController.h; path = Listing/DubbServiceAreaViewController.h; sourceTree = "<group>"; };
@@ -764,6 +773,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D0FCF211BB8D94A00BC1AB6 /* AdSupport.framework in Frameworks */,
 				DC8C7D6A1AF549680033E6F9 /* QuartzCore.framework in Frameworks */,
 				DC675A4D1AE5FE0800E5CBDA /* AddressBookUI.framework in Frameworks */,
 				DC63FC781AD7BBF900A505B8 /* ImageIO.framework in Frameworks */,
@@ -787,6 +797,7 @@
 				7CA773E61AB1CBA700F6D631 /* SystemConfiguration.framework in Frameworks */,
 				7CA773E41AB1CB7400F6D631 /* CoreData.framework in Frameworks */,
 				7CA773D11AB1C3CB00F6D631 /* FacebookSDK.framework in Frameworks */,
+				0D1748B41BB388CC004B501D /* libGoogleConversionTracking.a in Frameworks */,
 				0D1FA66E1ACA183D00079C79 /* UICKeyChainStore.framework in Frameworks */,
 				0D1FA65B1ACA183D00079C79 /* GZIP.framework in Frameworks */,
 				7C0DDA5B1ABF9F1800CDBA56 /* GooglePlus.framework in Frameworks */,
@@ -834,6 +845,34 @@
 				0D0914371B620B44001FF79E /* DubbAboutViewController.m */,
 			);
 			name = About;
+			sourceTree = "<group>";
+		};
+		0D1748AC1BB388CC004B501D /* GoogleConversionTrackingSDK */ = {
+			isa = PBXGroup;
+			children = (
+				0D1748AD1BB388CC004B501D /* ACTReporter.h */,
+				0D1748AE1BB388CC004B501D /* Deprecated */,
+				0D1748B01BB388CC004B501D /* DoubleClick */,
+				0D1748B21BB388CC004B501D /* libGoogleConversionTracking.a */,
+				0D1748B31BB388CC004B501D /* README.txt */,
+			);
+			path = GoogleConversionTrackingSDK;
+			sourceTree = "<group>";
+		};
+		0D1748AE1BB388CC004B501D /* Deprecated */ = {
+			isa = PBXGroup;
+			children = (
+				0D1748AF1BB388CC004B501D /* GoogleConversionPing.h */,
+			);
+			path = Deprecated;
+			sourceTree = "<group>";
+		};
+		0D1748B01BB388CC004B501D /* DoubleClick */ = {
+			isa = PBXGroup;
+			children = (
+				0D1748B11BB388CC004B501D /* DCTReporter.h */,
+			);
+			path = DoubleClick;
 			sourceTree = "<group>";
 		};
 		0D1FA4101ACA183B00079C79 /* AFNetworking */ = {
@@ -1672,6 +1711,7 @@
 		7CA773CF1AB1C35300F6D631 /* ExFrameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0D1748AC1BB388CC004B501D /* GoogleConversionTrackingSDK */,
 				0D90ECB41B84F58C00EBFF4E /* MCPercentageDoughnut */,
 				0DFB403A1B78EA64001394DF /* GKImagePicker */,
 				0DFAD7A61B4FEF11008BF474 /* TLTagsContol */,
@@ -1704,6 +1744,7 @@
 		7CA773D41AB1C40E00F6D631 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0D1748B61BB3894B004B501D /* AdSupport.framework */,
 				DC8C7D691AF549680033E6F9 /* QuartzCore.framework */,
 				DC675A4C1AE5FE0800E5CBDA /* AddressBookUI.framework */,
 				DC63FC771AD7BBF900A505B8 /* ImageIO.framework */,
@@ -1892,6 +1933,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0D6B7D6C1B165CF7000B0352 /* uparrow_button@2x.png in Resources */,
+				0D1748B51BB388CC004B501D /* README.txt in Resources */,
 				0DFAD7AF1B51F7A2008BF474 /* ListingImageView.xib in Resources */,
 				0D1FA6B11ACA23CA00079C79 /* next_button@2x.png in Resources */,
 				7CB88E761AC33A84005195AF /* sound.mp3 in Resources */,
@@ -2361,6 +2403,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Dubb/ExtraFrameworks/**",
 					"$(PROJECT_DIR)/Dubb/ExtraFrameworks/Library",
+					"$(PROJECT_DIR)/Dubb/ExtraFrameworks/GoogleConversionTrackingSDK",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "9ec935c3-c29e-457c-8f38-fa17fdb452e0";
@@ -2391,6 +2434,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Dubb/ExtraFrameworks/**",
 					"$(PROJECT_DIR)/Dubb/ExtraFrameworks/Library",
+					"$(PROJECT_DIR)/Dubb/ExtraFrameworks/GoogleConversionTrackingSDK",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "285ac67b-dbf1-4080-af1c-9e802bed372e";
