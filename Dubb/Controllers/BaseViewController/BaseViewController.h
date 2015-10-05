@@ -24,7 +24,9 @@
 - (void)showLoginView;
 - (NSURL*)prepareVideoUrl:(NSString*)url;
 - (NSURL*)prepareImageUrl:(NSString*)url;
-- (NSURL*)prepareImageUrl:(NSString*)url withWith:(int)width withHeight:(int)height;
+- (NSURL*)prepareImageUrl:(NSString*)url size:(CGSize) size gravity:(NSString*)gravity;
+- (NSURL*)prepareImageUrl:(NSString*)url size:(CGSize) size;
+- (NSURL*)prepareImageUrl:(NSString*)url withWith:(int)width withHeight:(int)height withGravity:(NSString*)gravity;
 //MB Progres
 - (void)showProgress:(NSString *)message;
 - (void)hideProgress;

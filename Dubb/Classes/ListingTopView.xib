@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -15,12 +16,15 @@
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="placeholder_image.png" translatesAutoresizingMaskIntoConstraints="NO" id="l59-qX-cEr">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
+                            <animations/>
                         </imageView>
                     </subviews>
+                    <animations/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K6h-3Y-Jfc" customClass="MCPercentageDoughnutView">
                     <rect key="frame" x="130" y="70" width="60" height="60"/>
+                    <animations/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <gestureRecognizers/>
                     <constraints>
@@ -31,11 +35,22 @@
                         <outletCollection property="gestureRecognizers" destination="5Z3-5j-VWY" appends="YES" id="YC5-lz-zyU"/>
                     </connections>
                 </view>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K7U-S4-xCO" userLabel="Image Progress View" customClass="MCPercentageDoughnutView">
+                    <rect key="frame" x="130" y="70" width="60" height="60"/>
+                    <animations/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <gestureRecognizers/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="60" id="0Ol-3W-JDQ"/>
+                        <constraint firstAttribute="height" constant="60" id="hDZ-LX-Vkr"/>
+                    </constraints>
+                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y6g-SM-BL2" userLabel="Extra Info and Buttons Container">
                     <rect key="frame" x="0.0" y="135" width="320" height="65"/>
                     <subviews>
                         <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nrl-7Q-Hvm" userLabel="Heart Button">
                             <rect key="frame" x="285" y="33" width="22" height="22"/>
+                            <animations/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="22" id="1O4-0r-vtQ"/>
                                 <constraint firstAttribute="width" constant="22" id="K6o-ou-EI6"/>
@@ -46,6 +61,7 @@
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hUz-Lz-ete">
                             <rect key="frame" x="122" y="33" width="76" height="21"/>
+                            <animations/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="76" id="g9J-UM-yJk"/>
                                 <constraint firstAttribute="height" constant="21" id="ul9-BQ-Cbu"/>
@@ -56,12 +72,14 @@
                         </label>
                         <pageControl opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="4" translatesAutoresizingMaskIntoConstraints="NO" id="Yia-LM-RB7">
                             <rect key="frame" x="72" y="25" width="177" height="37"/>
+                            <animations/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="177" id="5hO-X6-Zrb"/>
                                 <constraint firstAttribute="height" constant="37" id="ila-xx-tO9"/>
                             </constraints>
                         </pageControl>
                     </subviews>
+                    <animations/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="centerX" secondItem="Yia-LM-RB7" secondAttribute="centerX" id="9OP-ay-J7b"/>
@@ -74,6 +92,7 @@
                     </constraints>
                 </view>
             </subviews>
+            <animations/>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="Y6g-SM-BL2" secondAttribute="bottom" id="6OX-ei-7zL"/>
@@ -83,14 +102,17 @@
                 <constraint firstItem="Y6g-SM-BL2" firstAttribute="leading" secondItem="Ejd-8z-5Xx" secondAttribute="leading" id="VaK-kG-RKG"/>
                 <constraint firstAttribute="centerX" secondItem="K6h-3Y-Jfc" secondAttribute="centerX" id="X9s-US-y8N"/>
                 <constraint firstAttribute="trailing" secondItem="Y6g-SM-BL2" secondAttribute="trailing" id="Xd7-f7-H2u"/>
+                <constraint firstItem="K7U-S4-xCO" firstAttribute="leading" secondItem="K6h-3Y-Jfc" secondAttribute="leading" id="gZn-uD-Jz2"/>
                 <constraint firstAttribute="trailing" secondItem="Lnf-f2-iFv" secondAttribute="trailing" id="j8p-Nb-hJ6"/>
                 <constraint firstItem="Lnf-f2-iFv" firstAttribute="leading" secondItem="Ejd-8z-5Xx" secondAttribute="leading" id="qDT-VR-h39"/>
+                <constraint firstItem="K7U-S4-xCO" firstAttribute="top" secondItem="K6h-3Y-Jfc" secondAttribute="top" id="vZJ-gr-q9K"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="downloadProgressView" destination="K6h-3Y-Jfc" id="0FG-AC-bTQ"/>
                 <outlet property="extraControlsContainerView" destination="Y6g-SM-BL2" id="96s-Eb-p5e"/>
+                <outlet property="imageProgressView" destination="K7U-S4-xCO" id="9hd-xb-UQV"/>
                 <outlet property="likeButton" destination="nrl-7Q-Hvm" id="Ul3-TB-8tG"/>
                 <outlet property="pageControl" destination="Yia-LM-RB7" id="B0X-P4-VTW"/>
                 <outlet property="pageLabel" destination="hUz-Lz-ete" id="mXO-JC-9u6"/>
@@ -109,9 +131,4 @@
         <image name="heart_button.png" width="22" height="21"/>
         <image name="placeholder_image.png" width="1900" height="1200"/>
     </resources>
-    <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar"/>
-        <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4"/>
-    </simulatedMetricsContainer>
 </document>

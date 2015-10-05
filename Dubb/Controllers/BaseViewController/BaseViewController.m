@@ -19,7 +19,7 @@
 
 - (id)initialize {
     self.cloudinary = [[CLCloudinary alloc] init];
-    [self.cloudinary.config setValue:@"djztobrgr" forKey:@"cloud_name"];
+    [self.cloudinary.config setValue:@"dubb-com" forKey:@"cloud_name"];
     return self;
 }
 
@@ -152,21 +152,50 @@
 }
 
 - (NSURL*)prepareVideoUrl:(NSString*)url {
-    NSString* result = [[self prepareImageUrl:url withWith:0 withHeight:0] absoluteString];
+    NSString* result = [[self prepareImageUrl:url withWith:0 withHeight:0 withGravity:nil] absoluteString];
     result = [result stringByAppendingString:@".mp4"];
     return [NSURL URLWithString:[result stringByReplacingOccurrencesOfString:@"/image/" withString:@"/video/"]];
 }
 
 - (NSURL*)prepareImageUrl:(NSString*)url {
-    return [self prepareImageUrl:url withWith:0 withHeight:0];
+    return [self prepareImageUrl:url withWith:0 withHeight:0 withGravity:nil];
 }
 
-- (NSURL*)prepareImageUrl:(NSString*)url withWith:(int)width withHeight:(int)height {
+- (NSURL*)prepareImageUrl:(NSString*)url size:(CGSize) size gravity:(NSString*)gravity {
+    return [self prepareImageUrl:url withWith:size.width withHeight:size.height withGravity:gravity];
+}
+
+- (NSURL*)prepareImageUrl:(NSString*)url size:(CGSize) size {
+    return [self prepareImageUrl:url withWith:size.width withHeight:size.height withGravity:nil];
+}
+
+- (NSURL*)prepareImageUrl:(NSString*)url
+                 withWith:(int)width
+               withHeight:(int)height
+              withGravity:(NSString*)gravity {
+    
     NSURL* imageUrl = [NSURL URLWithString:url];
     NSString* imageUrlString;
 
     if ([[imageUrl scheme] isEqualToString:@"cloudinary"]) {
-        imageUrlString = [self.cloudinary url:[NSString stringWithFormat:@"%@%@", [imageUrl host], [imageUrl path]]];
+        NSMutableDictionary *options = [[NSMutableDictionary alloc] init];
+
+        if(width > 0 || height > 0) {
+            CLTransformation *transformation = [CLTransformation transformation];
+
+            [transformation setWidthWithInt: width];
+            [transformation setHeightWithInt: height];
+//            [transformation setAngleWithInt:30];
+            [transformation setCrop: @"fill"];
+            
+            if(gravity){
+                [transformation setGravity:gravity];
+            }
+            
+            [options setValue:transformation forKey:@"transformation"];
+        }
+        
+        imageUrlString = [self.cloudinary url:[NSString stringWithFormat:@"%@%@", [imageUrl host], [imageUrl path]] options:options];
     } else {
         imageUrlString = url;
     }

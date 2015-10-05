@@ -12,7 +12,7 @@
 #import "iRate.h"
 #import "PaypalMobile.h"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, NotificationDelegate, QBActionStatusDelegate, CLLocationManagerDelegate, iRateDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, NotificationDelegate, QBChatDelegate, CLLocationManagerDelegate, iRateDelegate>
 
 -(void)registerForRemoteNotifications;
 

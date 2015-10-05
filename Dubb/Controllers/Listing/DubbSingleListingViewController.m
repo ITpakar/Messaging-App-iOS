@@ -202,6 +202,7 @@ enum DubbSingleListingViewTag {
     numberOfLinesForReviewContentDescriptionLabel = 4;
     topView = [[[NSBundle mainBundle] loadNibNamed:@"ListingTopView" owner:nil options:nil] objectAtIndex:0];
     topView.parentViewController = self;
+    topView.placeholderImageView.hidden = YES;
     [topView initViews];
     topView.slideShow.delegate = self;
     [topView.likeButton addTarget:self action:@selector(likeButtonTapped) forControlEvents:UIControlEventTouchUpInside];
@@ -854,16 +855,16 @@ static bool liked = NO;
     profileImageView.layer.cornerRadius = 31;
     profileImageView.clipsToBounds = YES;
     if (![[userInfo objectForKey:@"image"] isKindOfClass:[NSNull class]]) {
-        [profileImageView sd_setImageWithURL:[self prepareImageUrl:userInfo[@"image"][@"url"]]];
+        [profileImageView sd_setImageWithURL:[self prepareImageUrl:userInfo[@"image"][@"url"] withWith:300 withHeight:300 withGravity:@"face"]];
     } else {
         [profileImageView setImage:[UIImage imageNamed:@"placeholder_image.png"]];
     }
     
     NSArray *images = listingInfo[@"images"];
     if (images.count > 1) {
-        [backgroundImageView sd_setImageWithURL:[self prepareImageUrl:images[1][@"url"]]];
+        [backgroundImageView sd_setImageWithURL:[self prepareImageUrl:images[1][@"url"] withWith:backgroundImageView.frame.size.width*2 withHeight:backgroundImageView.frame.size.height*2 withGravity:@"face"]];
     } else {
-        [backgroundImageView sd_setImageWithURL:[self prepareImageUrl:images[0][@"url"]]];
+        [backgroundImageView sd_setImageWithURL:[self prepareImageUrl:images[0][@"url"] withWith:backgroundImageView.frame.size.width*2 withHeight:backgroundImageView.frame.size.height*2 withGravity:@"face"]];
     }
     
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];

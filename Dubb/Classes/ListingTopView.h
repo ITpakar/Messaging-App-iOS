@@ -18,6 +18,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *pageLabel;
 @property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (strong, nonatomic) IBOutlet MCPercentageDoughnutView *downloadProgressView;
+@property (strong, nonatomic) IBOutlet MCPercentageDoughnutView *imageProgressView;
 @property (strong, nonatomic) IBOutlet UIButton *likeButton;
 
 @property (strong, nonatomic) IBOutlet UIImageView *placeholderImageView;

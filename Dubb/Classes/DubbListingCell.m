@@ -77,13 +77,13 @@
                 if ([_listing[@"user"][@"image"] isKindOfClass:[NSNull class]]) {
                     profileImageView.image = [UIImage imageNamed:@"portrait.png"];
                 } else {
-                    [profileImageView sd_setImageWithURL:[self.baseVC prepareImageUrl:_listing[@"user"][@"image"][@"url"]]];
+                    [profileImageView sd_setImageWithURL:[self.baseVC prepareImageUrl:_listing[@"user"][@"image"][@"url"] withWith:200 withHeight:200 withGravity:@"face"]];
                 }
             } else {
                 if (![_listing objectForKey:@"owner_image_url"] || [_listing[@"owner_image_url"] isKindOfClass:[NSNull class]]) {
                     profileImageView.image = [UIImage imageNamed:@"portrait.png"];
                 } else {
-                    [profileImageView sd_setImageWithURL:[self.baseVC prepareImageUrl:_listing[@"owner_image_url"]]];
+                    [profileImageView sd_setImageWithURL:[self.baseVC prepareImageUrl:_listing[@"owner_image_url"] withWith:200 withHeight:200 withGravity:@"face"]];
                 }
             }
             
@@ -121,29 +121,32 @@
                 [category appendFormat:@" > %@", _listing[@"sub_category"]];
             
             categoryLabel.text = [category uppercaseString];
+
+            CGSize imageViewSize = CGSizeMake(self.listingImageViewFrame.size.width * 2, self.listingImageViewFrame.size.height * 2);
+            
             if( listing[@"main_video_preview"] && ![listing[@"main_video_preview"] isKindOfClass:[NSNull class]] ){
-                [listingImageView sd_setImageWithURL:[self.baseVC prepareImageUrl:listing[@"main_video_preview"]]];
+                [listingImageView sd_setImageWithURL:[self.baseVC prepareImageUrl:listing[@"main_video_preview"] size:imageViewSize gravity:@"face"]];
                 downloadProgressView.hidden = NO;
             }
             else if( listing[@"main_image"] && ![listing[@"main_image"] isKindOfClass:[NSNull class]] ){
                 downloadProgressView.hidden = YES;
                 if( [listing[@"main_image"] isKindOfClass:[NSString class]] && listing[@"main_image"] ){
                     [mainImageIndicator startAnimating];
-                    [[SDImageCache sharedImageCache] queryDiskCacheForKey:[[self.baseVC prepareImageUrl:listing[@"main_image"]] absoluteString] done:^(UIImage *image, SDImageCacheType cacheType) {
-                        if( image != nil){
+                    [[SDImageCache sharedImageCache] queryDiskCacheForKey:[[self.baseVC prepareImageUrl:listing[@"main_image"] size:imageViewSize gravity:@"face"] absoluteString] done:^(UIImage *image, SDImageCacheType cacheType) {
+                        /*if( image != nil){
                             listingImageView.image = image;
                             [mainImageIndicator stopAnimating];
-                        } else {
-                            [SDWebImageDownloader.sharedDownloader downloadImageWithURL: [self.baseVC prepareImageUrl:listing[@"main_image"]] options:0 progress:nil completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
+                        } else*/ {
+                            [SDWebImageDownloader.sharedDownloader downloadImageWithURL: [self.baseVC prepareImageUrl:listing[@"main_image"] size:imageViewSize gravity:@"face"] options:0 progress:nil completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
                                 
                                 dispatch_sync(dispatch_get_main_queue(), ^{
                                     [mainImageIndicator stopAnimating];
                                     if( error == nil ){
                                         listingImageView.image = image;
-                                        [[SDImageCache sharedImageCache] storeImage:image forKey:[[self.baseVC prepareImageUrl:listing[@"main_image"]] absoluteString]];
+                                        [[SDImageCache sharedImageCache] storeImage:image forKey:[[self.baseVC prepareImageUrl:listing[@"main_image"] size:imageViewSize gravity:@"face"] absoluteString]];
                                     } else {
                                         listingImageView.image = [UIImage imageNamed:@"placeholder_image.png"];
-                                        [[SDImageCache sharedImageCache] storeImage:listingImageView.image forKey:[[self.baseVC prepareImageUrl:listing[@"main_image"]] absoluteString]];
+                                        [[SDImageCache sharedImageCache] storeImage:listingImageView.image forKey:[[self.baseVC prepareImageUrl:listing[@"main_image"] size:imageViewSize  gravity:@"face"] absoluteString]];
                                     }
                                     [listingImageView layoutIfNeeded];
                                 });
@@ -178,7 +181,8 @@
 }
 
 -(void) layoutSubviews {
-    
+    self.listingImageViewFrame = listingImageView.frame;
+
     UIBezierPath* shadowPath = [UIBezierPath bezierPath];
     [shadowPath moveToPoint:CGPointMake(8, 250.0f)];
     [shadowPath addLineToPoint:CGPointMake(304, 255.0f)];

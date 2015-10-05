@@ -1398,17 +1398,10 @@ typedef void (^completion_t)(id result);
     NSDictionary* imageInfo = [images firstObject];
     [images removeObjectAtIndex:0];
 
-    NSString* imageUrlString;
-    NSURL* imageUrl = [NSURL URLWithString:imageInfo[@"url"]];
-
-    if ([[imageUrl scheme] isEqualToString:@"cloudinary"]) {
-        imageUrlString = [self.cloudinary url:[imageUrl host]];
-    } else {
-        imageUrlString = imageInfo[@"url"];
-    }
+    NSURL* imageUrlString = [self prepareImageUrl:imageInfo[@"url"] size:CGSizeMake(75, 75)];
 
     SDWebImageManager *manager = [SDWebImageManager sharedManager];
-    [manager downloadImageWithURL:[NSURL URLWithString:imageUrlString]
+    [manager downloadImageWithURL:imageUrlString
                           options:0
                          progress:nil
                         completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
@@ -1437,18 +1430,10 @@ typedef void (^completion_t)(id result);
     NSDictionary* videoInfo = [videos firstObject];
     [videos removeObjectAtIndex:0];
 
-    NSString* imageUrlString;
-    NSURL* imageUrl = [NSURL URLWithString:videoInfo[@"preview"]];
-
-    if ([[imageUrl scheme] isEqualToString:@"cloudinary"]) {
-        imageUrlString = [self.cloudinary url:[imageUrl host]];
-    } else {
-        imageUrlString = videoInfo[@"preview"];
-    }
-
+    NSURL* imageUrl = [self prepareImageUrl:videoInfo[@"preview"] size:CGSizeMake(75, 75)];
 
     SDWebImageManager *manager = [SDWebImageManager sharedManager];
-    [manager downloadImageWithURL:[NSURL URLWithString:imageUrlString]
+    [manager downloadImageWithURL:imageUrl
                           options:0
                          progress:nil
                         completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
