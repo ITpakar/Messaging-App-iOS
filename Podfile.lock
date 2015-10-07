@@ -1,5 +1,6 @@
 PODS:
   - AXRatingView (1.0.3)
+  - Cloudinary (1.0.13)
   - IQKeyboardManager (3.2.3)
   - NewRelicAgent (4.186.1)
   - PayPal-iOS-SDK (2.11.0)
@@ -14,6 +15,7 @@ PODS:
 
 DEPENDENCIES:
   - AXRatingView
+  - Cloudinary
   - IQKeyboardManager
   - NewRelicAgent
   - PayPal-iOS-SDK
@@ -25,6 +27,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AXRatingView: ccaadc1bbda99a4b7e1d556059482d2b933a9f4e
+  Cloudinary: cd8a4af5a9ac72fc7c3e3a19b9393a35f9e900e6
   IQKeyboardManager: 6ca5c54e3776eb54af4c7caf515833f3cd761d59
   NewRelicAgent: 5cd52dafe03e74c5066073a00fd500df9d966e7e
   PayPal-iOS-SDK: 5b907042104148cf7f4d89962dee32cee3a6d10e
@@ -34,4 +37,4 @@ SPEC CHECKSUMS:
   UIActivityIndicator-for-SDWebImage: 7bf7ebbf0ed1747dedc0d6e949c4603a6d0f9e0c
   uservoice-iphone-sdk: 349d9ef36d3c43939d28390b9e86bb32b65fe983
 
-COCOAPODS: 0.36.4
+COCOAPODS: 0.38.2

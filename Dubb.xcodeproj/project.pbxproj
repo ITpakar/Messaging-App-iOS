@@ -11,7 +11,6 @@
 		0D0914301B61F08E001FF79E /* DubbActivityProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D09142F1B61F08E001FF79E /* DubbActivityProvider.m */; };
 		0D0914341B61F8D3001FF79E /* DubbWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0914331B61F8D3001FF79E /* DubbWebViewController.m */; };
 		0D0914381B620B44001FF79E /* DubbAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0914371B620B44001FF79E /* DubbAboutViewController.m */; };
-		0D0FCF211BB8D94A00BC1AB6 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D1748B61BB3894B004B501D /* AdSupport.framework */; };
 		0D12C5951B6610310048C0F3 /* CALayer+XibConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D12C5941B6610310048C0F3 /* CALayer+XibConfiguration.m */; };
 		0D12C5971B67483B0048C0F3 /* swipe_indicator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D12C5961B67483B0048C0F3 /* swipe_indicator@2x.png */; };
 		0D12C59A1B677AB60048C0F3 /* approved_indicator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D12C5981B677AB60048C0F3 /* approved_indicator@2x.png */; };
@@ -158,6 +157,7 @@
 		0D6B7D931B17404A000B0352 /* in_progress_indicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D6B7D8F1B17404A000B0352 /* in_progress_indicator.png */; };
 		0D6B7D941B17404A000B0352 /* in_progress_indicator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D6B7D901B17404A000B0352 /* in_progress_indicator@2x.png */; };
 		0D6B7D991B179E05000B0352 /* DubbSalesOrdersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D6B7D981B179E05000B0352 /* DubbSalesOrdersViewController.m */; };
+		0D6E2DD71BC42364003D6BE0 /* GooglePlus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D6E2DD61BC42364003D6BE0 /* GooglePlus.framework */; };
 		0D76B5021B12510F00D24BFA /* TextFieldValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D76B5011B12510F00D24BFA /* TextFieldValidator.m */; };
 		0D79C46A1B12DBD80021AAE4 /* M13Checkbox.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D79C4691B12DBD80021AAE4 /* M13Checkbox.m */; };
 		0D8C17391B56FD1900C3FC98 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D8C17381B56FD1900C3FC98 /* Utils.m */; };
@@ -261,7 +261,6 @@
 		7C0DDA531ABF9E8700CDBA56 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C0DDA521ABF9E8700CDBA56 /* Security.framework */; };
 		7C0DDA551ABF9E9A00CDBA56 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C0DDA541ABF9E9A00CDBA56 /* UIKit.framework */; };
 		7C0DDA5A1ABF9F1800CDBA56 /* GoogleOpenSource.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C0DDA581ABF9F1800CDBA56 /* GoogleOpenSource.framework */; };
-		7C0DDA5B1ABF9F1800CDBA56 /* GooglePlus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C0DDA591ABF9F1800CDBA56 /* GooglePlus.framework */; };
 		7C0E429D1AD61A42000CF83E /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C0E429C1AD61A42000CF83E /* MobileCoreServices.framework */; };
 		7C0E42A11AD61B62000CF83E /* UIImage+fixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C0E42A01AD61B62000CF83E /* UIImage+fixOrientation.m */; };
 		7C0E42A31AD62FE2000CF83E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C0E42A21AD62FE2000CF83E /* AVFoundation.framework */; };
@@ -536,6 +535,7 @@
 		0D6B7D901B17404A000B0352 /* in_progress_indicator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "in_progress_indicator@2x.png"; sourceTree = "<group>"; };
 		0D6B7D971B179E05000B0352 /* DubbSalesOrdersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DubbSalesOrdersViewController.h; path = Sales/DubbSalesOrdersViewController.h; sourceTree = "<group>"; };
 		0D6B7D981B179E05000B0352 /* DubbSalesOrdersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DubbSalesOrdersViewController.m; path = Sales/DubbSalesOrdersViewController.m; sourceTree = "<group>"; };
+		0D6E2DD61BC42364003D6BE0 /* GooglePlus.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GooglePlus.framework; sourceTree = "<group>"; };
 		0D76B5001B12510F00D24BFA /* TextFieldValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFieldValidator.h; sourceTree = "<group>"; };
 		0D76B5011B12510F00D24BFA /* TextFieldValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFieldValidator.m; sourceTree = "<group>"; };
 		0D79C4681B12DBD80021AAE4 /* M13Checkbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M13Checkbox.h; sourceTree = "<group>"; };
@@ -685,9 +685,7 @@
 		7C0DDA501ABF9E8100CDBA56 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		7C0DDA521ABF9E8700CDBA56 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		7C0DDA541ABF9E9A00CDBA56 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		7C0DDA561ABF9EF300CDBA56 /* GooglePlus.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GooglePlus.framework; path = "../../../Downloads/google-plus-ios-sdk-1.7.1/GooglePlus.framework"; sourceTree = "<group>"; };
 		7C0DDA581ABF9F1800CDBA56 /* GoogleOpenSource.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleOpenSource.framework; sourceTree = "<group>"; };
-		7C0DDA591ABF9F1800CDBA56 /* GooglePlus.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GooglePlus.framework; sourceTree = "<group>"; };
 		7C0E429C1AD61A42000CF83E /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		7C0E429F1AD61B62000CF83E /* UIImage+fixOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+fixOrientation.h"; sourceTree = "<group>"; };
 		7C0E42A01AD61B62000CF83E /* UIImage+fixOrientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+fixOrientation.m"; sourceTree = "<group>"; };
@@ -794,6 +792,7 @@
 				7C0DDA471ABF9E3D00CDBA56 /* AssetsLibrary.framework in Frameworks */,
 				0D1FA66D1ACA183D00079C79 /* TMCache.framework in Frameworks */,
 				7C0DDA451ABF9E3700CDBA56 /* AddressBook.framework in Frameworks */,
+				0D6E2DD71BC42364003D6BE0 /* GooglePlus.framework in Frameworks */,
 				7C09A61E1AB54ABD00218127 /* CoreLocation.framework in Frameworks */,
 				0D1FA65C1ACA183D00079C79 /* Mantle.framework in Frameworks */,
 				7CA773EA1AB1CBEE00F6D631 /* libsqlite3.dylib in Frameworks */,
@@ -804,7 +803,6 @@
 				0D1748A81BB0927D004B501D /* libGoogleConversionTracking.a in Frameworks */,
 				0D1FA66E1ACA183D00079C79 /* UICKeyChainStore.framework in Frameworks */,
 				0D1FA65B1ACA183D00079C79 /* GZIP.framework in Frameworks */,
-				7C0DDA5B1ABF9F1800CDBA56 /* GooglePlus.framework in Frameworks */,
 				7CA773E21AB1C7F800F6D631 /* libGoogleAnalyticsServices.a in Frameworks */,
 				0D1FA65A1ACA183D00079C79 /* FMDB.framework in Frameworks */,
 				7C0DDA5A1ABF9F1800CDBA56 /* GoogleOpenSource.framework in Frameworks */,
@@ -1758,6 +1756,7 @@
 		7CA773D41AB1C40E00F6D631 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0D6E2DD61BC42364003D6BE0 /* GooglePlus.framework */,
 				0D1748AA1BB092B7004B501D /* AdSupport.framework */,
 				DC8C7D691AF549680033E6F9 /* QuartzCore.framework */,
 				DC675A4C1AE5FE0800E5CBDA /* AddressBookUI.framework */,
@@ -1765,8 +1764,6 @@
 				7C0E42A21AD62FE2000CF83E /* AVFoundation.framework */,
 				7C0E429C1AD61A42000CF83E /* MobileCoreServices.framework */,
 				7C0DDA581ABF9F1800CDBA56 /* GoogleOpenSource.framework */,
-				7C0DDA591ABF9F1800CDBA56 /* GooglePlus.framework */,
-				7C0DDA561ABF9EF300CDBA56 /* GooglePlus.framework */,
 				7C0DDA541ABF9E9A00CDBA56 /* UIKit.framework */,
 				7C0DDA521ABF9E8700CDBA56 /* Security.framework */,
 				7C0DDA501ABF9E8100CDBA56 /* MediaPlayer.framework */,
@@ -1908,7 +1905,7 @@
 		7CA7739B1AB1C2AF00F6D631 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0630;
+				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = dubb.co;
 				TargetAttributes = {
 					7CA773A21AB1C2AF00F6D631 = {
@@ -2335,6 +2332,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Dubb/ExtraFrameworks/**";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -2401,6 +2399,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Venk Tatineni (L996VHMYTF)";
 				COPY_PHASE_STRIP = YES;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Dubb/ExtraFrameworks/**",
@@ -2420,6 +2419,7 @@
 					"$(PROJECT_DIR)/Dubb/ExtraFrameworks/Library",
 					"$(PROJECT_DIR)/Dubb/ExtraFrameworks/GoogleConversionTrackingSDK",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.dubb.dubbfreelancer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "9ec935c3-c29e-457c-8f38-fa17fdb452e0";
 			};
@@ -2432,6 +2432,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Illumified Inc (93D6ZD3D4Y)";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Dubb/ExtraFrameworks/**",
@@ -2451,6 +2452,7 @@
 					"$(PROJECT_DIR)/Dubb/ExtraFrameworks/Library",
 					"$(PROJECT_DIR)/Dubb/ExtraFrameworks/GoogleConversionTrackingSDK",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.dubb.dubbfreelancer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "285ac67b-dbf1-4080-af1c-9e802bed372e";
 			};
@@ -2470,6 +2472,7 @@
 				);
 				INFOPLIST_FILE = DubbTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.dubb.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Dubb.app/Dubb";
 			};
@@ -2485,6 +2488,7 @@
 				);
 				INFOPLIST_FILE = DubbTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.dubb.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Dubb.app/Dubb";
 			};

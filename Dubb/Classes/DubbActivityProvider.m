@@ -12,7 +12,7 @@
 
 - (id)initWithListingTitle:(NSString *)listingTitle
 {
-    self = [super init];
+    self = [super initWithPlaceholderItem:@""];
     if(self) {
         NSLog(@"_init: %@", self);
         self.listingTitle = listingTitle;
