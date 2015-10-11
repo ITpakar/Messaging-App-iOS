@@ -3,7 +3,7 @@ PODS:
   - Cloudinary (1.0.13)
   - IQKeyboardManager (3.2.3)
   - NewRelicAgent (4.186.1)
-  - PayPal-iOS-SDK (2.11.0)
+  - PayPal-iOS-SDK (2.12.3)
   - QuickBlox (2.2.3)
   - SDWebImage (3.7.2):
     - SDWebImage/Core (= 3.7.2)
@@ -30,7 +30,7 @@ SPEC CHECKSUMS:
   Cloudinary: cd8a4af5a9ac72fc7c3e3a19b9393a35f9e900e6
   IQKeyboardManager: 6ca5c54e3776eb54af4c7caf515833f3cd761d59
   NewRelicAgent: 5cd52dafe03e74c5066073a00fd500df9d966e7e
-  PayPal-iOS-SDK: 5b907042104148cf7f4d89962dee32cee3a6d10e
+  PayPal-iOS-SDK: a8c20ae0555d8fbd01ae6bbb098db147d906fc4d
   QuickBlox: f3a8cd60af97ee673ef589d2c884713633aefa31
   SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
   SVPullToRefresh: ba2e718695a43253d8bea6852d2960097dc15d8c

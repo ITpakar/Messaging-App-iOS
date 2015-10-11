@@ -36,10 +36,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_background.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="blh-cR-RN0">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4ar-fT-lib" userLabel="Movie View">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <animations/>
-                            </imageView>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yJS-GV-vzW" userLabel="Gradient View">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="yJS-GV-vzW" firstAttribute="top" secondItem="4ar-fT-lib" secondAttribute="top" id="MjS-US-Fhu"/>
+                                    <constraint firstItem="yJS-GV-vzW" firstAttribute="leading" secondItem="4ar-fT-lib" secondAttribute="leading" id="kE7-ok-TWN"/>
+                                    <constraint firstAttribute="trailing" secondItem="yJS-GV-vzW" secondAttribute="trailing" id="knG-nF-9eB"/>
+                                    <constraint firstAttribute="bottom" secondItem="yJS-GV-vzW" secondAttribute="bottom" id="nwd-2W-snf"/>
+                                </constraints>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gas-cf-Ngk">
                                 <rect key="frame" x="171" y="530" width="124" height="40"/>
                                 <animations/>
@@ -240,11 +252,22 @@
                                     <outlet property="delegate" destination="03N-FU-rmW" id="voq-Vf-CUb"/>
                                 </connections>
                             </scrollView>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_background.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="blh-cR-RN0">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <animations/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KIt-lT-aaQ">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="C8X-j4-8i3" firstAttribute="top" secondItem="aqR-Dn-DHa" secondAttribute="bottom" constant="30" id="02l-ug-4W4"/>
+                            <constraint firstAttribute="trailing" secondItem="4ar-fT-lib" secondAttribute="trailing" id="3k9-w7-eCo"/>
+                            <constraint firstAttribute="trailing" secondItem="KIt-lT-aaQ" secondAttribute="trailing" id="Gns-Mc-stS"/>
+                            <constraint firstItem="4ar-fT-lib" firstAttribute="leading" secondItem="DVa-fR-cYI" secondAttribute="leading" id="Hx8-GW-OU7"/>
                             <constraint firstAttribute="centerX" secondItem="gas-cf-Ngk" secondAttribute="centerX" constant="67" id="Jzd-tj-pym"/>
                             <constraint firstAttribute="centerX" secondItem="aqR-Dn-DHa" secondAttribute="centerX" constant="-67" id="MU5-IK-1wn"/>
                             <constraint firstItem="eHS-5f-jDr" firstAttribute="height" secondItem="DVa-fR-cYI" secondAttribute="height" constant="-120" id="MlQ-Ve-U5r"/>
@@ -253,13 +276,18 @@
                             <constraint firstItem="Buu-4N-vbj" firstAttribute="top" secondItem="81k-c0-e0q" secondAttribute="bottom" constant="3" id="UI6-eP-N4I"/>
                             <constraint firstItem="KRZ-aL-uIT" firstAttribute="top" secondItem="Phh-L6-3Us" secondAttribute="bottom" constant="124" id="V8z-rH-6MF"/>
                             <constraint firstAttribute="centerX" secondItem="KRZ-aL-uIT" secondAttribute="centerX" id="XdC-MA-dR6"/>
+                            <constraint firstItem="C8X-j4-8i3" firstAttribute="top" secondItem="4ar-fT-lib" secondAttribute="bottom" id="Xio-qN-ufh"/>
                             <constraint firstItem="C8X-j4-8i3" firstAttribute="top" secondItem="gas-cf-Ngk" secondAttribute="bottom" constant="30" id="ZYM-nj-IzR"/>
                             <constraint firstItem="eHS-5f-jDr" firstAttribute="width" secondItem="DVa-fR-cYI" secondAttribute="width" multiplier="4" id="a10-iY-54u"/>
                             <constraint firstItem="81k-c0-e0q" firstAttribute="top" secondItem="DVa-fR-cYI" secondAttribute="top" id="eOI-Tg-UM5"/>
+                            <constraint firstItem="KIt-lT-aaQ" firstAttribute="leading" secondItem="DVa-fR-cYI" secondAttribute="leading" id="eTn-67-FI8"/>
                             <constraint firstItem="81k-c0-e0q" firstAttribute="leading" secondItem="DVa-fR-cYI" secondAttribute="leading" id="gXU-Ry-hcX"/>
                             <constraint firstItem="aqR-Dn-DHa" firstAttribute="top" secondItem="Buu-4N-vbj" secondAttribute="bottom" constant="10" id="hjb-xk-fqP"/>
                             <constraint firstItem="blh-cR-RN0" firstAttribute="top" secondItem="DVa-fR-cYI" secondAttribute="top" id="iHv-Hv-lyH"/>
                             <constraint firstAttribute="trailing" secondItem="81k-c0-e0q" secondAttribute="trailing" id="lQ0-XD-CF5"/>
+                            <constraint firstItem="KIt-lT-aaQ" firstAttribute="top" secondItem="DVa-fR-cYI" secondAttribute="top" id="nod-oS-qRa"/>
+                            <constraint firstItem="C8X-j4-8i3" firstAttribute="top" secondItem="KIt-lT-aaQ" secondAttribute="bottom" id="pAx-gR-BUx"/>
+                            <constraint firstItem="4ar-fT-lib" firstAttribute="top" secondItem="DVa-fR-cYI" secondAttribute="top" id="wSW-Fz-tZy"/>
                             <constraint firstItem="C8X-j4-8i3" firstAttribute="top" secondItem="blh-cR-RN0" secondAttribute="bottom" id="xSz-Z6-xhc"/>
                             <constraint firstAttribute="trailing" secondItem="blh-cR-RN0" secondAttribute="trailing" id="yGS-hT-pSi"/>
                             <constraint firstItem="blh-cR-RN0" firstAttribute="leading" secondItem="DVa-fR-cYI" secondAttribute="leading" id="zqb-Uz-8es"/>
@@ -267,6 +295,9 @@
                     </view>
                     <navigationItem key="navigationItem" id="HIb-lB-I0V"/>
                     <connections>
+                        <outlet property="blackView" destination="KIt-lT-aaQ" id="Vfv-X6-gq9"/>
+                        <outlet property="gradientView" destination="yJS-GV-vzW" id="Yrb-lr-LHf"/>
+                        <outlet property="movieView" destination="4ar-fT-lib" id="3Ea-1w-Dua"/>
                         <outlet property="pageControl" destination="Buu-4N-vbj" id="Fff-FN-cqU"/>
                     </connections>
                 </viewController>
@@ -8499,6 +8530,6 @@ Please note that our services may not be used anonymously. This is the only way 
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="sD5-vZ-Na8"/>
-        <segue reference="9wO-od-KMN"/>
+        <segue reference="gEa-1e-Z8q"/>
     </inferredMetricsTieBreakers>
 </document>

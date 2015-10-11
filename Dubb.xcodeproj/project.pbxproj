@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0D02AB111BA6C54F00929A03 /* DubbCreateListingConfirmationShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D02AB101BA6C54F00929A03 /* DubbCreateListingConfirmationShareViewController.m */; };
+		0D074C4D1BC78A2900DD28B9 /* welcome_video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 0D074C4C1BC787D100DD28B9 /* welcome_video.mp4 */; };
 		0D0914301B61F08E001FF79E /* DubbActivityProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D09142F1B61F08E001FF79E /* DubbActivityProvider.m */; };
 		0D0914341B61F8D3001FF79E /* DubbWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0914331B61F8D3001FF79E /* DubbWebViewController.m */; };
 		0D0914381B620B44001FF79E /* DubbAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0914371B620B44001FF79E /* DubbAboutViewController.m */; };
@@ -322,6 +323,7 @@
 /* Begin PBXFileReference section */
 		0D02AB0F1BA6C54F00929A03 /* DubbCreateListingConfirmationShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DubbCreateListingConfirmationShareViewController.h; path = Listing/DubbCreateListingConfirmationShareViewController.h; sourceTree = "<group>"; };
 		0D02AB101BA6C54F00929A03 /* DubbCreateListingConfirmationShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DubbCreateListingConfirmationShareViewController.m; path = Listing/DubbCreateListingConfirmationShareViewController.m; sourceTree = "<group>"; };
+		0D074C4C1BC787D100DD28B9 /* welcome_video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = welcome_video.mp4; sourceTree = "<group>"; };
 		0D09142E1B61F08E001FF79E /* DubbActivityProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DubbActivityProvider.h; sourceTree = "<group>"; };
 		0D09142F1B61F08E001FF79E /* DubbActivityProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DubbActivityProvider.m; sourceTree = "<group>"; };
 		0D0914321B61F8D3001FF79E /* DubbWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DubbWebViewController.h; path = WebView/DubbWebViewController.h; sourceTree = "<group>"; };
@@ -822,6 +824,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0D074C4B1BC787BA00DD28B9 /* Vidoes */ = {
+			isa = PBXGroup;
+			children = (
+				0D074C4C1BC787D100DD28B9 /* welcome_video.mp4 */,
+			);
+			name = Vidoes;
+			sourceTree = "<group>";
+		};
 		0D09142D1B61F081001FF79E /* ShareSheet */ = {
 			isa = PBXGroup;
 			children = (
@@ -1279,6 +1289,7 @@
 		7C09A5961AB1CF8800218127 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0D074C4B1BC787BA00DD28B9 /* Vidoes */,
 				DC675A4A1AE5FAB400E5CBDA /* CountryPicker.bundle */,
 				7CB88E751AC33A84005195AF /* sound.mp3 */,
 				7C09A5971AB1CFE200218127 /* Images */,
@@ -2049,6 +2060,7 @@
 				0DFCB1791AFFD9FE001F2820 /* star@2x.png in Resources */,
 				DC675A451AE4BEE000E5CBDA /* btn_category@2x.png in Resources */,
 				0D5ABFF51B424CBF00D20241 /* seller_background.png in Resources */,
+				0D074C4D1BC78A2900DD28B9 /* welcome_video.mp4 in Resources */,
 				0D99941A1B5E3E270067744B /* delete_icon@2x.png in Resources */,
 				0D1FA66C1ACA183D00079C79 /* sts-2011-06-15.json in Resources */,
 				0D1FA6A41ACA23CA00079C79 /* arrow.png in Resources */,

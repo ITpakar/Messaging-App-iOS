@@ -148,7 +148,10 @@
         return [GPPURLHandler handleURL:url sourceApplication:sourceApplication annotation:annotation];
     }
 }
-
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+    return [FBSession.activeSession handleOpenURL:url];
+}
 #pragma mark -
 #pragma mark iRate
 
