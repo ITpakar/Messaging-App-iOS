@@ -7,6 +7,7 @@
 //
 
 #import "AuthViewController.h"
+#import "DubbRootViewController.h"
 #import "DubbSignUpEmailViewController.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import <GooglePlus/GooglePlus.h>
@@ -91,8 +92,6 @@
          }];
         
     }
-    
-
 }
 
 
