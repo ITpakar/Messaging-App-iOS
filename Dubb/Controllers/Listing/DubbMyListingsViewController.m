@@ -127,7 +127,7 @@ enum DubbListingCellTag {
             viewController.listingLocation = selectedLocation;
             viewController.mainImage = image;
             viewController.baseServicePrice = [listingDetail[@"addon"][0][@"price"] integerValue];
-            viewController.slugUrlString = [NSString stringWithFormat:@"http://www.dubb.com/listing/%@", listingDetail[@"id"]];
+            viewController.slugUrlString = [NSString stringWithFormat:@"http://www.dubb.com/%@/%@", listingDetail[@"user"][@"username"], listingDetail[@"latest_slug"]];
             [self.navigationController pushViewController:viewController animated:YES];
         });
         

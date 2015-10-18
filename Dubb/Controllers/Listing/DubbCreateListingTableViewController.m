@@ -268,7 +268,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     self.tagsControl.tags = tagNames;
     [self.tagsControl reloadTagSubviews];
     
-    slugUrlString = [NSString stringWithFormat:@"http://www.dubb.com/listing/%@", self.listingDetail[@"id"]];
+    slugUrlString = [NSString stringWithFormat:@"http://www.dubb.com/%@/%@", self.listingDetail[@"user"][@"username"], self.listingDetail[@"latest_slug"]];
 }
 
 - (void)getPricingLimits {
@@ -660,9 +660,9 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
                    }];
         [self.backend updateListing:self.listingDetail[@"id"] Parameters:params CompletionHandler:^(NSDictionary *result) {
             [self hideProgress];
-            //[self showMessage:@"Successfully updated the listing."];
+            [self showMessage:@"Successfully updated the listing."];
             
-            //[self.navigationController popViewControllerAnimated:YES];
+            [self.navigationController popViewControllerAnimated:YES];
             // Track event
             id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
             
@@ -670,7 +670,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
                                                                   action:@"Update Listing"  // Event action (required)
                                                                    label:@"Update Service Listing"          // Event label
                                                                    value:nil] build]];    // Event value
-            [self performSegueWithIdentifier:@"displayCreateListingConfirmationSegue" sender:nil];
+//            [self performSegueWithIdentifier:@"displayCreateListingConfirmationSegue" sender:nil];
         }];
         
     } else {
