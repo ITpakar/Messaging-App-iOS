@@ -161,9 +161,6 @@
         [self performSegueWithIdentifier:@"displayCreateListingConfirmationShareSegue" sender:nil];
     }
     
-    
-
-    
 }
 - (void)twitterEngineControllerDidCancel {
     self.twitterSwitch.on = NO;

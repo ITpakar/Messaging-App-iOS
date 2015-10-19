@@ -36,7 +36,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4ar-fT-lib" userLabel="Movie View">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4ar-fT-lib" userLabel="Movie View">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yJS-GV-vzW" userLabel="Gradient View">
@@ -52,6 +52,10 @@
                                     <constraint firstAttribute="bottom" secondItem="yJS-GV-vzW" secondAttribute="bottom" id="nwd-2W-snf"/>
                                 </constraints>
                             </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_background.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="blh-cR-RN0">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <animations/>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gas-cf-Ngk">
                                 <rect key="frame" x="171" y="530" width="124" height="40"/>
                                 <animations/>
@@ -252,11 +256,7 @@
                                     <outlet property="delegate" destination="03N-FU-rmW" id="voq-Vf-CUb"/>
                                 </connections>
                             </scrollView>
-                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_background.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="blh-cR-RN0">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <animations/>
-                            </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KIt-lT-aaQ">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KIt-lT-aaQ">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
@@ -8504,7 +8504,7 @@ Please note that our services may not be used anonymously. This is the only way 
         <image name="filter.png" width="45" height="45"/>
         <image name="geo_icon.png" width="14" height="19"/>
         <image name="gradient_background.png" width="320" height="576"/>
-        <image name="home_background.jpg" width="1536" height="2048"/>
+        <image name="home_background.jpg" width="1720" height="3056"/>
         <image name="icon_menu.png" width="22" height="16"/>
         <image name="in_progress_indicator.png" width="80" height="22"/>
         <image name="location_pin.png" width="12" height="12"/>
