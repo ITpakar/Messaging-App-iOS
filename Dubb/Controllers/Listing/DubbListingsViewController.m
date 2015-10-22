@@ -428,7 +428,7 @@
 -(void) loadListings : (BOOL) refresh{
     
     if( refresh ){
-        [self showProgress:@"loading listings..."];
+        [self showProgress:@"loading gigs..."];
         currentListingPage = 1;
         [self.backend getAllListings:[NSString stringWithFormat:@"%d", currentListingPage] CompletionHandler:^(NSDictionary *result) {
             [self hideProgress];
@@ -548,7 +548,7 @@
 
     if( row == [suggestionLists count]){
         NSMutableAttributedString * keyword = [[NSMutableAttributedString alloc] initWithString:
-                                              [NSString stringWithFormat:@"search listings containing \"%@\"", searchBar.text]];
+                                              [NSString stringWithFormat:@"search gigs containing \"%@\"", searchBar.text]];
         
         [keyword addAttribute:NSForegroundColorAttributeName value:[UIColor grayColor] range:NSMakeRange(0, keyword.length)];
         [keyword addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(25, searchBar.text.length)];
@@ -628,6 +628,9 @@
     shadowView.hidden = YES;
     introductionView.hidden = YES;
     
+}
+- (IBAction)createListingButtonTapped:(id)sender {
+    [self showCreateListingTableViewController];
 }
 
 @end

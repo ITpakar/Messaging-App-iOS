@@ -156,7 +156,7 @@
 -(void) loadListings : (BOOL) refresh{
     
     if( refresh ){
-        [self showProgress:@"Load Listing..."];
+        [self showProgress:@"Load Gig..."];
         [self.backend getAllListings:self.keyword Page:@"0" CompletionHandler:^(NSDictionary *result) {
             [self hideProgress];
             [gigsTableView.pullToRefreshView stopAnimating];

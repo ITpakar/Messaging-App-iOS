@@ -203,7 +203,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"sequence" ascending:YES];
     addonArray = [addonArray sortedArrayUsingDescriptors:[NSArray arrayWithObject:descriptor]];
     self.invitePeopleButton.hidden = NO;
-    self.navigationTitleLabel.text = @"Edit Listing";
+    self.navigationTitleLabel.text = @"Edit Gig";
     
     self.titleTextField.text = self.listingDetail[@"name"];
     self.fulfillmentInfoTextView.text = self.listingDetail[@"instructions"];
@@ -483,7 +483,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     
     if (selectedLocation.locationCoordinates.latitude == 0 && selectedLocation.locationCoordinates.longitude == 0) {
         
-        [self showMessage:@"Creating a listing requires location services. Please enable it on your phone settings for Dubb"];
+        [self showMessage:@"Creating a gig requires location services. Please enable it on your phone settings for Dubb"];
         [self.navigationController popViewControllerAnimated:YES];
         return;
     }
@@ -494,7 +494,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     }
     
     if (title.length <= 0) {
-        [self showMessage:@"Please enter the title for this listing"];
+        [self showMessage:@"Please enter the title for this gig"];
         return;
     }
     if (self.categoryTextField.selectedRow == -1 || self.subCategoryTextField.selectedRow == -1) {
@@ -660,17 +660,17 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
                    }];
         [self.backend updateListing:self.listingDetail[@"id"] Parameters:params CompletionHandler:^(NSDictionary *result) {
             [self hideProgress];
-            [self showMessage:@"Successfully updated the listing."];
+            [self showMessage:@"Successfully updated the gig."];
             
-            [self.navigationController popViewControllerAnimated:YES];
+            //[self.navigationController popViewControllerAnimated:YES];
             // Track event
             id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
             
             [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Content"     // Event category (required)
-                                                                  action:@"Update Listing"  // Event action (required)
-                                                                   label:@"Update Service Listing"          // Event label
+                                                                  action:@"Update Gig"  // Event action (required)
+                                                                   label:@"Update Service Gig"          // Event label
                                                                    value:nil] build]];    // Event value
-//            [self performSegueWithIdentifier:@"displayCreateListingConfirmationSegue" sender:nil];
+            [self performSegueWithIdentifier:@"displayCreateListingConfirmationSegue" sender:nil];
         }];
         
     } else {
@@ -725,8 +725,8 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
                                              id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
                                              
                                              [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Content"     // Event category (required)
-                                                                                                   action:@"New Listing"  // Event action (required)
-                                                                                                    label:@"New Service Listing"          // Event label
+                                                                                                   action:@"New Gig"  // Event action (required)
+                                                                                                    label:@"New Service Gig"          // Event label
                                                                                                     value:nil] build]];    // Event value
                                              
                                              // LISTING_CREATION

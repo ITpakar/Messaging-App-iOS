@@ -417,7 +417,7 @@
 -(void) loadListings : (BOOL) refresh{
     
     if( refresh ){
-        [self showProgress:@"Load Listing..."];
+        [self showProgress:@"Load Gig..."];
         currentListingPage = 1;
         [self.backend getListingsWithCategoryID:_categoryID Page: currentListingPage CompletionHandler:^(NSDictionary *result) {
             [self hideProgress];

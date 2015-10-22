@@ -40,7 +40,7 @@ enum kDubbMenuUnreadMessagesSectionViewTag {
 #define kTagIconView 1001
 #define kTagMenuItemView 1002
 #define kTagTotalUnreadMessageView 1003
-#define menus @[@"HOME", @"SALES", @"MY LISTINGS", @"ORDERS", @"PROFILE", @"SUPPORT", @"RECENT MESSAGES", @"ABOUT"]
+#define menus @[@"HOME", @"SALES", @"MY GIGS", @"ORDERS", @"PROFILE", @"SUPPORT", @"RECENT MESSAGES", @"ABOUT"]
 #define menuIcons @[@"home_menu_button.png", @"sales_menu_button.png", @"mylistings_menu_button.png", @"orders_menu_button.png", @"profile_menu_button.png", @"support_menu_button.png", @"inbox_menu_button.png", @"about_menu_button.png"]
 @implementation DubbMenuViewController
 

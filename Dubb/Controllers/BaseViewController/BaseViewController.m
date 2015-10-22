@@ -105,16 +105,10 @@
 - (void)showCreateListingTableViewController {
     
     if ([[NSString stringWithFormat:@"%@", [User currentUser].userID] isEqualToString:@""]) {
-        
         [self showAlertForLogIn];
-        
     } else {
-        
         [self performSegueWithIdentifier:@"showCreateListingTableViewControllerSegue" sender:nil];
-        
-        
     }
-    
     
 }
 

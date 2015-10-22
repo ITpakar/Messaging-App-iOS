@@ -123,10 +123,6 @@ enum DubbListingCellTag {
         }@catch(NSException *e){
             NSLog(@"%@", e.description);
         }
-//
-//        if ([orderDetail[@"buyer"] objectForKey:@"image"] && ![[orderDetail[@"buyer"] objectForKey:@"image"] isKindOfClass:[NSNull class]]) {
-//            [profileImageView sd_setImageWithURL:[NSURL URLWithString:orderDetail[@"buyer"][@"image"][@"url"]]];
-//        }
     }
     return cell;
 }

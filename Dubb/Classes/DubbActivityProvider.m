@@ -23,7 +23,7 @@
 - (id) activityViewController:(UIActivityViewController *)activityViewController
           itemForActivityType:(NSString *)activityType
 {
-    NSString *defaultTextToShare = [NSString stringWithFormat:@"Checkout this listing %@. Download app at http://www.dubb.com/app", self.listingTitle];
+    NSString *defaultTextToShare = [NSString stringWithFormat:@"Checkout this gig %@. Download app at http://www.dubb.com/app", self.listingTitle];
     
     if ( [activityType isEqualToString:UIActivityTypePostToTwitter] || [activityType isEqualToString:UIActivityTypePostToFacebook])
         return [NSString stringWithFormat:@"Checkout %@ @dubbapp creative freelancer marketplace. Download  http://www.dubb.com/app", self.listingTitle];
@@ -35,7 +35,7 @@
 - (NSString *)activityViewController:(UIActivityViewController *)activityViewController subjectForActivityType:(NSString *)activityType
 {
     if ( [activityType isEqualToString:UIActivityTypeMail]) {
-        return [NSString stringWithFormat:@"Checkout this listing %@ On Dubb", self.listingTitle];
+        return [NSString stringWithFormat:@"Checkout this gig %@ On Dubb", self.listingTitle];
     }
     
     return nil;

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9046" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9035"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -10,6 +11,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="262"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CGN-wG-Zse" id="lSl-x4-7sI">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="261"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mRJ-dh-u2H" userLabel="Container View">
@@ -25,7 +27,7 @@
                                 <rect key="frame" x="25" y="97" width="78" height="15"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4xf-qi-QVs">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4xf-qi-QVs">
                                 <rect key="frame" x="25" y="115" width="271" height="45"/>
                                 <string key="text">Lorem ipsum service in 
 San Francisco</string>
@@ -80,7 +82,7 @@ San Francisco</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eju-mn-Bn1" customClass="MCPercentageDoughnutView">
-                                <rect key="frame" x="122" y="66" width="60" height="60"/>
+                                <rect key="frame" x="122" y="56" width="60" height="60"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
                                 <constraints>
@@ -109,19 +111,23 @@ San Francisco</string>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="4xf-qi-QVs" firstAttribute="leading" secondItem="mRJ-dh-u2H" secondAttribute="leading" constant="25" id="4sw-Rs-NNE"/>
                             <constraint firstAttribute="trailing" secondItem="oyo-FP-yJq" secondAttribute="trailing" id="7Nl-pg-Gd4"/>
                             <constraint firstAttribute="trailing" secondItem="akF-MB-d5K" secondAttribute="trailing" constant="12" id="8mv-Vh-ZMC"/>
                             <constraint firstItem="NZn-ld-ClQ" firstAttribute="leading" secondItem="DIP-2n-UEJ" secondAttribute="trailing" id="BhD-fO-lVe"/>
                             <constraint firstAttribute="trailing" secondItem="NZn-ld-ClQ" secondAttribute="trailing" id="G46-eq-2sf"/>
+                            <constraint firstItem="yKL-Vn-qhC" firstAttribute="top" secondItem="4xf-qi-QVs" secondAttribute="bottom" constant="1" id="Giq-H3-Mya"/>
                             <constraint firstItem="akF-MB-d5K" firstAttribute="top" secondItem="mRJ-dh-u2H" secondAttribute="top" constant="8" id="NQj-Lf-waB"/>
                             <constraint firstItem="NZn-ld-ClQ" firstAttribute="top" secondItem="oyo-FP-yJq" secondAttribute="bottom" constant="9" id="P59-zX-4Bk"/>
                             <constraint firstItem="oyo-FP-yJq" firstAttribute="top" secondItem="mRJ-dh-u2H" secondAttribute="top" id="RgY-6J-iPG"/>
                             <constraint firstAttribute="trailing" secondItem="yKL-Vn-qhC" secondAttribute="trailing" constant="8" id="X0m-Fq-KEx"/>
+                            <constraint firstItem="4xf-qi-QVs" firstAttribute="top" secondItem="eju-mn-Bn1" secondAttribute="bottom" constant="-1" id="Y3I-QR-77I"/>
                             <constraint firstAttribute="bottom" secondItem="DIP-2n-UEJ" secondAttribute="bottom" constant="5" id="eih-dZ-WJp"/>
                             <constraint firstItem="oyo-FP-yJq" firstAttribute="leading" secondItem="mRJ-dh-u2H" secondAttribute="leading" id="f2q-cf-ob0"/>
                             <constraint firstAttribute="centerX" secondItem="eju-mn-Bn1" secondAttribute="centerX" id="fBw-LD-mvZ"/>
+                            <constraint firstAttribute="trailing" secondItem="4xf-qi-QVs" secondAttribute="trailing" constant="8" id="mKm-CM-non"/>
                             <constraint firstItem="yKL-Vn-qhC" firstAttribute="leading" secondItem="mRJ-dh-u2H" secondAttribute="leading" constant="25" id="r1n-2X-dxW"/>
-                            <constraint firstItem="eju-mn-Bn1" firstAttribute="top" secondItem="mRJ-dh-u2H" secondAttribute="top" constant="66" id="sFS-if-5Zk"/>
+                            <constraint firstItem="eju-mn-Bn1" firstAttribute="top" secondItem="mRJ-dh-u2H" secondAttribute="top" constant="56" id="sFS-if-5Zk"/>
                             <constraint firstItem="NZn-ld-ClQ" firstAttribute="top" secondItem="yKL-Vn-qhC" secondAttribute="bottom" constant="18" id="u7N-p0-WaZ"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>

@@ -8,6 +8,7 @@
 #import "DubbCreateListingTableViewController.h"
 #import "DubbCreateListingConfirmationViewController.h"
 #import "DubbMyListingsViewController.h"
+#import "DubbMyListingCell.h"
 #import "SelectedLocation.h"
 #import "NSDate+Helper.h"
 #import <SDWebImage/UIImageView+WebCache.h>
@@ -75,14 +76,14 @@ enum DubbListingCellTag {
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"DubbMyListingCell";
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    DubbMyListingCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-    UIImageView *profileImageView = (UIImageView *)[cell viewWithTag:kDubbListingCellProfileImageViewTag];
-    UIImageView *progressIndicatorImageView = (UIImageView *)[cell viewWithTag:kDubbListingCellProgressIndicatorImageViewTag];
-    UILabel *titleLabel = (UILabel *)[cell viewWithTag:kDubbListingCellTitleLabelTag];
-    UILabel *categoryLabel = (UILabel *)[cell viewWithTag:kDubbListingCellCategoryLabelTag];
-    UILabel *postedDateLabel = (UILabel *)[cell viewWithTag:kDubbListingCellPostedDateLabelTag];
-    UIButton *shareButton = (UIButton *)[cell viewWithTag:kDubbListingCellShareButtonTag];
+    UIImageView *profileImageView = cell.profileImageView;
+    UIImageView *progressIndicatorImageView = cell.progressIndicatorImageView;
+    UILabel *titleLabel = cell.titleLabel;
+    UILabel *categoryLabel = cell.categoryLabel;
+    UILabel *postedDateLabel = cell.postedDateLabel;
+    UIButton *shareButton = cell.shareButton;
     
     NSDictionary *listingDetail = listingDetails[indexPath.row];
     
@@ -113,7 +114,7 @@ enum DubbListingCellTag {
     __block NSDictionary *listingDetail = listingDetails[sender.tag];
 
     [self showProgress:@""];
-    [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:[NSURL URLWithString:listingDetail[@"main_image"][@"url"]] options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+    [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:[self prepareImageUrl:listingDetail[@"main_image"][@"url"]] options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize) {
         
         
     } completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {

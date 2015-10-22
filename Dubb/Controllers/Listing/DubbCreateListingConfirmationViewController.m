@@ -16,7 +16,7 @@
 #import "DubbCreateListingConfirmationViewController.h"
 
 
-#define commonShareText(listingTitle)  [NSString stringWithFormat:@"Checkout this listing %@. Download app at http://www.dubb.com/app", listingTitle]
+#define commonShareText(listingTitle)  [NSString stringWithFormat:@"Checkout this gig %@. Download app at http://www.dubb.com/app", listingTitle]
 #define disablingReasonText  @"For your Post to go live, we require that you share this through at least one of the of the channels listed on this page"
 
 @interface DubbCreateListingConfirmationViewController()<FHSTwitterEngineAccessTokenDelegate> {
@@ -52,7 +52,7 @@
     self.listingImageView.image = self.mainImage;
     self.orderAmountLabel.text = [NSString stringWithFormat:@"$%ld", (long)self.baseServicePrice];
     self.previewContainerView.layer.borderWidth = 1.0f;
-    
+    self.shareTextView.text = [NSString stringWithFormat:@"Check out my gig on @dubbapp  %@", self.slugUrlString];
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
     CLLocation *location = [[CLLocation alloc] initWithLatitude:self.listingLocation.locationCoordinates.latitude longitude:self.listingLocation.locationCoordinates.longitude];
     
@@ -99,30 +99,37 @@
     
 }
 - (IBAction)skipButtonTapped:(id)sender {
-    UIAlertController *alertController = [UIAlertController
-                                          alertControllerWithTitle:@""
-                                          message:@"Are you sure you don't want to share your listing on Facebook or Twitter?"
-                                          preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *cancelAction = [UIAlertAction
-                                   actionWithTitle:NSLocalizedString(@"Yes, I'm sure", @"Ok action")
-                                   style:UIAlertActionStyleCancel
+    
+    if (self.facebookSwitch.isOn || self.twitterSwitch.isOn) {
+        
+        [self postButtonTapped:nil];
+        
+    } else {
+        UIAlertController *alertController = [UIAlertController
+                                              alertControllerWithTitle:@""
+                                              message:@"Are you sure you don't want to share your gig on Facebook or Twitter?"
+                                              preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cancelAction = [UIAlertAction
+                                       actionWithTitle:NSLocalizedString(@"Yes, I'm sure", @"Ok action")
+                                       style:UIAlertActionStyleCancel
+                                       handler:^(UIAlertAction *action)
+                                       {
+                                           [self performSegueWithIdentifier:@"displayCreateListingConfirmationShareSegue" sender:nil];
+                                       }];
+        
+        UIAlertAction *okAction = [UIAlertAction
+                                   actionWithTitle:NSLocalizedString(@"Take me back", @"Cancel action")
+                                   style:UIAlertActionStyleDefault
                                    handler:^(UIAlertAction *action)
                                    {
-                                       [self performSegueWithIdentifier:@"displayCreateListingConfirmationShareSegue" sender:nil];
+                                       
                                    }];
-    
-    UIAlertAction *okAction = [UIAlertAction
-                               actionWithTitle:NSLocalizedString(@"Take me back", @"Cancel action")
-                               style:UIAlertActionStyleDefault
-                               handler:^(UIAlertAction *action)
-                               {
-                                   
-                               }];
-    
-    [alertController addAction:cancelAction];
-    [alertController addAction:okAction];
-    [self presentViewController:alertController animated:YES completion:nil];
-    
+        
+        [alertController addAction:cancelAction];
+        [alertController addAction:okAction];
+        [self presentViewController:alertController animated:YES completion:nil];
+
+    }
     
 }
 - (IBAction)backButtonTapped:(id)sender {
@@ -131,13 +138,13 @@
 - (IBAction)postButtonTapped:(id)sender {
     
     if (self.twitterSwitch.isOn) {
-        [[FHSTwitterEngine sharedEngine] postTweet:[NSString stringWithFormat:@"%@ %@", self.shareTextView.text, self.slugUrlString]];
+        [[FHSTwitterEngine sharedEngine] postTweet:[NSString stringWithFormat:@"%@", self.shareTextView.text]];
     }
     if (self.facebookSwitch.isOn) {
         NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                        @"", @"name",
                                        @"", @"caption",
-                                       self.shareTextView.text, @"message",
+                                       [NSString stringWithFormat:@"%@", self.shareTextView.text], @"message",
                                        nil];
         
         // Make the request
@@ -169,11 +176,11 @@
 - (void) performPublishAction:(void (^)(void)) action {
     // we defer request for permission to post to the moment of post, then we check for the permission
     
-    if ([FBSession.activeSession isOpen]) {
-        [FBSession.activeSession closeAndClearTokenInformation];
-        [FBSession.activeSession close];
-        [FBSession setActiveSession:nil];
-    }
+//    if ([FBSession.activeSession isOpen]) {
+//        [FBSession.activeSession closeAndClearTokenInformation];
+//        [FBSession.activeSession close];
+//        [FBSession setActiveSession:nil];
+//    }
     if ([FBSession.activeSession.permissions indexOfObject:@"publish_actions"] == NSNotFound) {
         NSLog(@"%@", FBSession.activeSession.permissions);
         // If we don't have an open active session, then we request to open an active session
@@ -205,9 +212,10 @@
     }
     // If we don't have an open active session, then we request to open an active session
     else if (![FBSession.activeSession isOpen]) {
+        
         [FBSession openActiveSessionWithPublishPermissions:@[@"publish_actions"]
                                            defaultAudience:FBSessionDefaultAudienceFriends
-                                              allowLoginUI:YES
+                                              allowLoginUI:NO
                                          completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
                                              if (!error) {
                                                  action();

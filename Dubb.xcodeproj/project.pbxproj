@@ -19,6 +19,7 @@
 		0D1748A81BB0927D004B501D /* libGoogleConversionTracking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D1748A61BB0927D004B501D /* libGoogleConversionTracking.a */; };
 		0D1748A91BB0927D004B501D /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0D1748A71BB0927D004B501D /* README.txt */; };
 		0D1748AB1BB092B7004B501D /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D1748AA1BB092B7004B501D /* AdSupport.framework */; };
+		0D19E6431BD7215F00DE883B /* DubbMyListingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D19E6421BD7215F00DE883B /* DubbMyListingCell.m */; };
 		0D1FA40C1ACA17EB00079C79 /* DubbCreateListingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D1FA4051ACA17EB00079C79 /* DubbCreateListingTableViewController.m */; };
 		0D1FA40D1ACA17EB00079C79 /* DubbServiceAreaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D1FA4071ACA17EB00079C79 /* DubbServiceAreaViewController.m */; };
 		0D1FA40E1ACA17EB00079C79 /* DubbServiceDescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D1FA4091ACA17EB00079C79 /* DubbServiceDescriptionViewController.m */; };
@@ -341,6 +342,8 @@
 		0D1748A61BB0927D004B501D /* libGoogleConversionTracking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleConversionTracking.a; sourceTree = "<group>"; };
 		0D1748A71BB0927D004B501D /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		0D1748AA1BB092B7004B501D /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		0D19E6411BD7215F00DE883B /* DubbMyListingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DubbMyListingCell.h; sourceTree = "<group>"; };
+		0D19E6421BD7215F00DE883B /* DubbMyListingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DubbMyListingCell.m; sourceTree = "<group>"; };
 		0D1FA4041ACA17EB00079C79 /* DubbCreateListingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DubbCreateListingTableViewController.h; path = Listing/DubbCreateListingTableViewController.h; sourceTree = "<group>"; };
 		0D1FA4051ACA17EB00079C79 /* DubbCreateListingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DubbCreateListingTableViewController.m; path = Listing/DubbCreateListingTableViewController.m; sourceTree = "<group>"; };
 		0D1FA4061ACA17EB00079C79 /* DubbServiceAreaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DubbServiceAreaViewController.h; path = Listing/DubbServiceAreaViewController.h; sourceTree = "<group>"; };
@@ -1865,6 +1868,8 @@
 				0DAC05D71B317757007D4234 /* DubbExtraQuantityCell.h */,
 				0DAC05D81B317757007D4234 /* DubbExtraQuantityCell.m */,
 				0DAC05D91B317757007D4234 /* DubbExtraQuantityCell.xib */,
+				0D19E6411BD7215F00DE883B /* DubbMyListingCell.h */,
+				0D19E6421BD7215F00DE883B /* DubbMyListingCell.m */,
 			);
 			name = Listings;
 			sourceTree = "<group>";
@@ -2275,6 +2280,7 @@
 				DC26C2141B050CAB00F9385A /* DubbCategoryCell.m in Sources */,
 				DC675A561AE69C3C00E5CBDA /* DubbGigsViewController.m in Sources */,
 				0D1FA6591ACA183D00079C79 /* FHSTwitterEngine.m in Sources */,
+				0D19E6431BD7215F00DE883B /* DubbMyListingCell.m in Sources */,
 				DC63FC761AD7B5EA00A505B8 /* DubbOverlayProgressView.m in Sources */,
 				7C09A5FB1AB29E4B00218127 /* DubbRootViewController.m in Sources */,
 				0D1FA59C1ACA183C00079C79 /* AFURLResponseSerialization.m in Sources */,

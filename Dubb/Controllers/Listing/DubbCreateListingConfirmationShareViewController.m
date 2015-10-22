@@ -210,7 +210,10 @@ enum DubbSmsCellTag {
         ABAddressBookRequestAccessWithCompletion(addressBookRef, ^(bool granted, CFErrorRef error) {
             if (granted) {
                 // First time access has been granted, add the contact
-                [self addContactsToAddressBook];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self addContactsToAddressBook];
+                });
+                
             } else {
                 // User denied access
                 // Display an alert telling user the contact could not be added
@@ -312,20 +315,27 @@ enum DubbSmsCellTag {
     NSLog(@"Sending Email...");
     
     NSMutableDictionary *contactEmail = _arrContactEmails[sender.tag];
-    NSString *emailTitle = @"I just made my services available on @dubbapp";
+    NSString *emailTitle = @"Checkout my Gig on Dubb";
     // Email Content
-    NSString *messageBody = [NSString stringWithFormat:@"Hi,  Check out my listing %@. You can download dubb app at http://www.dubb.com/app", self.slugUrlString];
+    NSString *messageBody = [NSString stringWithFormat:@"Checkout my gig on Dubb, the local freelancer marketplace.\n%@\n%@\n\nDownload the Dubb mobile app here: dubb.com/app", self.listingTitle, self.slugUrlString];
     // To address
     NSArray *toRecipents = [NSArray arrayWithObject:contactEmail[@"email"]];
     
     MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
-    mc.mailComposeDelegate = self;
-    [mc setSubject:emailTitle];
-    [mc setMessageBody:messageBody isHTML:NO];
-    [mc setToRecipients:toRecipents];
     
-    // Present mail view controller on screen
-    [self presentViewController:mc animated:YES completion:NULL];
+    if ([MFMailComposeViewController canSendMail] && mc) {
+        mc.mailComposeDelegate = self;
+        [mc setSubject:emailTitle];
+        [mc setMessageBody:messageBody isHTML:NO];
+        [mc setToRecipients:toRecipents];
+        
+        // Present mail view controller on screen
+        [self presentViewController:mc animated:YES completion:NULL];
+    } else {
+        [self showMessage:@"Your device doesn't support Email."];
+    }
+    
+    
 }
 
 - (void)sendSMS:(UIButton *)sender {
@@ -339,7 +349,7 @@ enum DubbSmsCellTag {
     }
     
     NSArray *recipents = @[contactPhoneNumber[@"phoneNumber"]];
-    NSString *message = [NSString stringWithFormat:@"Hi,  Check out my listing %@. You can download dubb app at http://www.dubb.com/app", self.slugUrlString];
+    NSString *message = [NSString stringWithFormat:@"Checkout my gig %@ dubb.com/app", self.slugUrlString];
     
     MFMessageComposeViewController *messageController = [[MFMessageComposeViewController alloc] init];
     messageController.messageComposeDelegate = self;

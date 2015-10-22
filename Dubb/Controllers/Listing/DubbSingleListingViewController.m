@@ -141,8 +141,8 @@ enum DubbSingleListingViewTag {
     
     NSString *listingTitle = listingInfo[@"name"];
     DubbActivityProvider *activityProvider = [[DubbActivityProvider alloc] initWithListingTitle:listingTitle];
-    
-    NSArray *objectsToShare = @[activityProvider, listingTitle];
+    NSURL *slugUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.dubb.com/%@/%@", listingInfo[@"user"][@"username"], listingInfo[@"latest_slug"]]];
+    NSArray *objectsToShare = @[activityProvider, listingTitle, slugUrl];
     
     
     UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
@@ -183,7 +183,7 @@ enum DubbSingleListingViewTag {
     MFMailComposeViewController *mail = [[MFMailComposeViewController alloc] init];
     mail.mailComposeDelegate = self;
     [mail setSubject:postTitle];
-    [mail setMessageBody:[NSString stringWithFormat:@"I'm reporting the content on this listing - \"%@\"", postTitle] isHTML:NO];
+    [mail setMessageBody:[NSString stringWithFormat:@"I'm reporting the content on this gig - \"%@\"", postTitle] isHTML:NO];
     [mail setToRecipients:@[@"tools@dubb.co"]];
     [self presentViewController:mail animated:YES completion:NULL];
 
@@ -220,11 +220,11 @@ enum DubbSingleListingViewTag {
         id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
         
         [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Browsing"     // Event category (required)
-                                                              action:@"View Listing By Id"  // Event action (required)
-                                                               label:@"View Listing By Id"          // Event label
+                                                              action:@"View Gig By Id"  // Event action (required)
+                                                               label:@"View Gig By Id"          // Event label
                                                                value:nil] build]];    // Event value
         if ([result[@"response"] isKindOfClass:[NSNull class]]) {
-            [self showMessage:@"Invalid listing"];
+            [self showMessage:@"Invalid Gig"];
             [self.navigationController popViewControllerAnimated:YES];
             return;
         }
@@ -243,7 +243,7 @@ enum DubbSingleListingViewTag {
         sellerInfo = listingInfo[@"user"];
         
         if ([sellerInfo isKindOfClass:[NSNull class]]) {
-            [self showMessage:@"Invalid Listing"];
+            [self showMessage:@"Invalid Gig"];
             [self.navigationController popViewControllerAnimated:YES];
             return;
         }
