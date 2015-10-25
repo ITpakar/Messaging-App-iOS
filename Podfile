@@ -13,5 +13,9 @@ pod 'uservoice-iphone-sdk'
 pod 'PayPal-iOS-SDK'
 pod 'UIActivityIndicator-for-SDWebImage'
 pod 'Cloudinary'
+pod 'Fabric'
+pod 'TwitterKit'
+pod 'TwitterCore'
+pod 'Crashlytics'
 end
 

@@ -14,8 +14,8 @@
 #import "FHSTwitterEngine.h"
 #import "DubbCreateListingConfirmationShareViewController.h"
 #import "DubbCreateListingConfirmationViewController.h"
-
-
+#import <Twitter.h>
+#import <TwitterKit/TwitterKit.h>
 #define commonShareText(listingTitle)  [NSString stringWithFormat:@"Checkout this gig %@. Download app at http://www.dubb.com/app", listingTitle]
 #define disablingReasonText  @"For your Post to go live, we require that you share this through at least one of the of the channels listed on this page"
 
@@ -76,13 +76,16 @@
 }
 - (IBAction)twitterSwitchValueChanged:(id)sender {
     if (self.twitterSwitch.isOn) {
-        UIViewController *loginController = [[FHSTwitterEngine sharedEngine]loginControllerWithCompletionHandler:^(BOOL success) {
-            
-            [self.twitterSwitch setOn:success];
-            
-        }];
         
-        [self presentViewController:loginController animated:YES completion:nil];
+        [[Twitter sharedInstance] logInWithCompletion:^(TWTRSession *session, NSError *error) {
+            if (session) {
+                NSLog(@"signed in as %@", [session userName]);
+                [self.backend updateUser:[User currentUser].userID Parameters:@{@"twitter_token":session.authToken} CompletionHandler:nil];
+            } else {
+                NSLog(@"error: %@", [error localizedDescription]);
+                self.twitterSwitch.on = NO;
+            }
+        }];
     }
     
 }
@@ -91,8 +94,7 @@
     
     if (self.facebookSwitch.isOn) {
         [self performPublishAction:^{
-            
-            
+            [self.backend updateUser:[User currentUser].userID Parameters:@{@"facebook_token":FBSession.activeSession.accessTokenData.accessToken} CompletionHandler:nil];;
         }];
     }
 
@@ -138,20 +140,45 @@
 - (IBAction)postButtonTapped:(id)sender {
     
     if (self.twitterSwitch.isOn) {
-        [[FHSTwitterEngine sharedEngine] postTweet:[NSString stringWithFormat:@"%@", self.shareTextView.text]];
+        NSString *userID = [Twitter sharedInstance].sessionStore.session.userID;
+        TWTRAPIClient *client = [[TWTRAPIClient alloc] initWithUserID:userID];
+        NSString *statusesShowEndpoint = @"https://api.twitter.com/1.1/statuses/update.json";
+        NSDictionary *params = @{@"status" : self.shareTextView.text};
+        NSError *clientError;
+        
+        NSURLRequest *request = [[[Twitter sharedInstance] APIClient] URLRequestWithMethod:@"POST" URL:statusesShowEndpoint parameters:params error:&clientError];
+        
+        if (request) {
+            [client sendTwitterRequest:request completion:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+                if (data) {
+                    // handle the response data e.g.
+                    NSError *jsonError;
+                    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
+                    NSLog(@"Response: %@", json);
+                }
+                else {
+                    NSLog(@"Error: %@", connectionError);
+                }
+            }];
+        }
+        else {
+            NSLog(@"Error: %@", clientError);
+        }
     }
     if (self.facebookSwitch.isOn) {
+        self.mainImageURL = [[self prepareImageUrl:self.mainImageURL size:CGSizeMake(650, 430)] absoluteString];
         NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                       @"", @"name",
-                                       @"", @"caption",
+                                       self.slugUrlString, @"link",
                                        [NSString stringWithFormat:@"%@", self.shareTextView.text], @"message",
                                        nil];
         
+        [self showProgress:@"Uploading Photo"];
         // Make the request
         [FBRequestConnection startWithGraphPath:@"/me/feed"
                                      parameters:params
                                      HTTPMethod:@"POST"
                               completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+                                  [self hideProgress];
                                   if (!error) {
                                       // Loading message
                                       NSLog(@"result: %@", result);

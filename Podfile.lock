@@ -1,6 +1,10 @@
 PODS:
   - AXRatingView (1.0.3)
   - Cloudinary (1.0.13)
+  - Crashlytics (3.3.4)
+  - Fabric (1.5.5):
+    - Fabric/Base (= 1.5.5)
+  - Fabric/Base (1.5.5)
   - IQKeyboardManager (3.2.3)
   - NewRelicAgent (4.186.1)
   - PayPal-iOS-SDK (2.12.3)
@@ -9,6 +13,8 @@ PODS:
     - SDWebImage/Core (= 3.7.2)
   - SDWebImage/Core (3.7.2)
   - SVPullToRefresh (0.4.1)
+  - TwitterCore (1.12.0)
+  - TwitterKit (1.12.0)
   - UIActivityIndicator-for-SDWebImage (1.2):
     - SDWebImage (~> 3.7)
   - uservoice-iphone-sdk (3.2.3)
@@ -16,24 +22,32 @@ PODS:
 DEPENDENCIES:
   - AXRatingView
   - Cloudinary
+  - Crashlytics
+  - Fabric
   - IQKeyboardManager
   - NewRelicAgent
   - PayPal-iOS-SDK
   - QuickBlox
   - SDWebImage (~> 3.7)
   - SVPullToRefresh
+  - TwitterCore
+  - TwitterKit
   - UIActivityIndicator-for-SDWebImage
   - uservoice-iphone-sdk
 
 SPEC CHECKSUMS:
   AXRatingView: ccaadc1bbda99a4b7e1d556059482d2b933a9f4e
   Cloudinary: cd8a4af5a9ac72fc7c3e3a19b9393a35f9e900e6
+  Crashlytics: 41c082440d2e14da444186fff65e79c0b4b35d4c
+  Fabric: 190bf1a6eb65f7500de1347d027d2e59a7e53db1
   IQKeyboardManager: 6ca5c54e3776eb54af4c7caf515833f3cd761d59
   NewRelicAgent: 5cd52dafe03e74c5066073a00fd500df9d966e7e
   PayPal-iOS-SDK: a8c20ae0555d8fbd01ae6bbb098db147d906fc4d
   QuickBlox: f3a8cd60af97ee673ef589d2c884713633aefa31
   SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
   SVPullToRefresh: ba2e718695a43253d8bea6852d2960097dc15d8c
+  TwitterCore: a1feadb793512962003ed2bad23e846c8daa4efd
+  TwitterKit: c27e7b997cd82d5c626fcfd8b1dead1e15dac7ca
   UIActivityIndicator-for-SDWebImage: 7bf7ebbf0ed1747dedc0d6e949c4603a6d0f9e0c
   uservoice-iphone-sdk: 349d9ef36d3c43939d28390b9e86bb32b65fe983
 

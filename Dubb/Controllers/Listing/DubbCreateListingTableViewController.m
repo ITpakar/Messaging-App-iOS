@@ -54,6 +54,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     UITextField *prevFocusedTextField;
     UIToolbar *addonToolbar;
     NSString *slugUrlString;
+    NSString *mainImageUrlString;
 }
 @property (strong, nonatomic) IBOutlet UILabel *navigationTitleLabel;
 @property (strong, nonatomic) IBOutlet TLTagsControl *tagsControl;
@@ -269,6 +270,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     [self.tagsControl reloadTagSubviews];
     
     slugUrlString = [NSString stringWithFormat:@"http://www.dubb.com/%@/%@", self.listingDetail[@"user"][@"username"], self.listingDetail[@"latest_slug"]];
+    mainImageUrlString = originalImageArray[0][@"url"];
 }
 
 - (void)getPricingLimits {
@@ -550,6 +552,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     }
     
     NSMutableArray *imageURLs = [self uploadImages];
+    mainImageUrlString = imageURLs[0];
     NSArray *tagsArray = self.tagsControl.tags;
     radius = self.radiusTextField.text;
     
@@ -1553,6 +1556,7 @@ typedef void (^completion_t)(id result);
         viewController.categoryDescription = [NSString stringWithFormat:@"%@ / %@", self.categoryTextField.text, self.subCategoryTextField.text];
         viewController.baseServicePrice = [self.baseServicePriceTextField.text integerValue];
         viewController.slugUrlString = slugUrlString;
+        viewController.mainImageURL = mainImageUrlString;
         
 //        viewController.listingTitle = @"test post";
 //        viewController.listingLocation = selectedLocation;

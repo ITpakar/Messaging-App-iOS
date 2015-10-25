@@ -21,7 +21,9 @@
 #import <CoreLocation/CLGeocoder.h>
 #import <CoreLocation/CLPlacemark.h>
 #import "ACTReporter.h"
-
+#import <Fabric/Fabric.h>
+#import <TwitterKit/TwitterKit.h>
+#import <Crashlytics/Crashlytics.h>
 
 @interface AppDelegate () {
     CLLocationManager *locationManager;
@@ -60,6 +62,8 @@
         [QBApplication sharedApplication].productionEnvironmentForPushesEnabled = YES;    
     #endif
     
+    [Fabric with:@[[Twitter class], [Crashlytics class]]];
+
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
     
     NSDictionary *remoteNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
