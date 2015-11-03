@@ -14,7 +14,6 @@
 #import "FHSTwitterEngine.h"
 #import "DubbCreateListingConfirmationShareViewController.h"
 #import "DubbCreateListingConfirmationViewController.h"
-#import <Twitter.h>
 #import <TwitterKit/TwitterKit.h>
 #define commonShareText(listingTitle)  [NSString stringWithFormat:@"Checkout this gig %@. Download app at http://www.dubb.com/app", listingTitle]
 #define disablingReasonText  @"For your Post to go live, we require that you share this through at least one of the of the channels listed on this page"

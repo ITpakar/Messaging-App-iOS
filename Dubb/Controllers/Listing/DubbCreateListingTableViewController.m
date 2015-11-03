@@ -54,7 +54,6 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     UITextField *prevFocusedTextField;
     UIToolbar *addonToolbar;
     NSString *slugUrlString;
-    NSString *mainImageUrlString;
 }
 @property (strong, nonatomic) IBOutlet UILabel *navigationTitleLabel;
 @property (strong, nonatomic) IBOutlet TLTagsControl *tagsControl;
@@ -270,7 +269,6 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     [self.tagsControl reloadTagSubviews];
     
     slugUrlString = [NSString stringWithFormat:@"http://www.dubb.com/%@/%@", self.listingDetail[@"user"][@"username"], self.listingDetail[@"latest_slug"]];
-    mainImageUrlString = originalImageArray[0][@"url"];
 }
 
 - (void)getPricingLimits {
@@ -407,26 +405,102 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
 #pragma mark - UIImagePickerControllerDelegate methods
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
-    
     NSURL *videoURL = info[UIImagePickerControllerMediaURL];
+    
+    NSNumber *start = [info objectForKey:@"_UIImagePickerControllerVideoEditingStart"];
+    NSNumber *end = [info objectForKey:@"_UIImagePickerControllerVideoEditingEnd"];
+    
     if (videoURL) {
-        NSString *videoWebURL = [self uploadVideo:videoURL];
-
-        UIImage *thumbnailImage = [self thumbnailImageFromURL:videoURL];
-        NSString *thumbnailURL = [self uploadImage:thumbnailImage Folder:@"Preview"];
-        [self.listingVideos addObject:@{@"uploaded": @NO, @"url":videoWebURL, @"videoURL":videoURL, @"image":thumbnailImage, @"preview":thumbnailURL}];
-        [self setupVideosScrollView];
+        if (picker.sourceType == UIImagePickerControllerSourceTypePhotoLibrary || (!start && !end)) {
+            [self processVideoWithURL:videoURL];
+        } else {
+            
+            
+            
+            // if start and end are nil then clipping was not used.
+            // You should use the entire video.
+            
+            int startMilliseconds = ([start doubleValue] * 1000);
+            int endMilliseconds = ([end doubleValue] * 1000);
+            
+            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+            NSString *documentsDirectory = [paths objectAtIndex:0];
+            
+            NSFileManager *manager = [NSFileManager defaultManager];
+            
+            NSString *outputURL = [documentsDirectory stringByAppendingPathComponent:@"output"] ;
+            [manager createDirectoryAtPath:outputURL withIntermediateDirectories:YES attributes:nil error:nil];
+            
+            outputURL = [outputURL stringByAppendingPathComponent:@"output.mp4"];
+            // Remove Existing File
+            [manager removeItemAtPath:outputURL error:nil];
+            
+            
+            AVURLAsset *videoAsset = [AVURLAsset URLAssetWithURL:videoURL options:nil];
+            
+            
+            AVAssetExportSession *exportSession = [[AVAssetExportSession alloc] initWithAsset:videoAsset presetName:AVAssetExportPresetHighestQuality];
+            exportSession.outputURL = [NSURL fileURLWithPath:outputURL];
+            exportSession.outputFileType = AVFileTypeQuickTimeMovie;
+            CMTimeRange timeRange = CMTimeRangeMake(CMTimeMake(startMilliseconds, 1000), CMTimeMake(endMilliseconds - startMilliseconds, 1000));
+            exportSession.timeRange = timeRange;
+            
+            [exportSession exportAsynchronouslyWithCompletionHandler:^{
+                switch (exportSession.status) {
+                    case AVAssetExportSessionStatusCompleted:
+                        // Custom method to process the Exported Video
+                        [self processVideoWithURL:exportSession.outputURL];
+                        break;
+                    case AVAssetExportSessionStatusFailed:
+                        //
+                        NSLog(@"Failed:%@",exportSession.error);
+                        break;
+                    case AVAssetExportSessionStatusCancelled:
+                        //
+                        NSLog(@"Canceled:%@",exportSession.error);
+                        break;
+                    default:
+                        break;
+                }
+            }];
+        }
+        
     } else {
         NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
         if ([mediaType isEqualToString:@"public.image"]){
             UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-            [self.listingImages addObject:@{@"uploaded": @NO, @"image":image}];
-            [self setupImagesScrollView];
+            [self processImage:image];
         }
     }
     
-    [picker dismissViewControllerAnimated:YES completion:NULL];
+    [picker dismissViewControllerAnimated:YES completion:nil];
     
+}
+
+#pragma mark - Process Image/Video Helpers
+
+-(void)processVideoWithURL:(NSURL *) videoURL {
+
+    NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:videoURL.path error:nil];
+    double fileSizeInMB = [[attributes objectForKey:NSFileSize] integerValue] / 1024.0f / 1024.0f;
+
+    
+    if (fileSizeInMB >= 50) {
+        [self showMessage:@"Please select  a smaller video with less than 50mb in size"];
+        return;
+    }
+    NSString *videoWebURL = [self uploadVideo:videoURL];
+    
+    UIImage *thumbnailImage = [self thumbnailImageFromURL:videoURL];
+    NSString *thumbnailURL = [self uploadImage:thumbnailImage Folder:@"Preview"];
+    [self.listingVideos addObject:@{@"uploaded": @NO, @"url":videoWebURL, @"videoURL":videoURL, @"image":thumbnailImage, @"preview":thumbnailURL}];
+    [self setupVideosScrollView];
+    
+}
+
+-(void)processImage:(UIImage *)image {
+    [self.listingImages addObject:@{@"uploaded": @NO, @"image":image}];
+    [self setupImagesScrollView];
 }
 
 #pragma mark - IQDropDownTextField delegate
@@ -552,7 +626,6 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     }
     
     NSMutableArray *imageURLs = [self uploadImages];
-    mainImageUrlString = imageURLs[0];
     NSArray *tagsArray = self.tagsControl.tags;
     radius = self.radiusTextField.text;
     
@@ -870,11 +943,9 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
 }
 
 - (NSString *) uploadVideo:(NSURL *)videoURL{
-    [self showProgress:@"Uploading the video..."];
     NSString *fileName = [NSString stringWithFormat:@"Video/%@", [[NSUUID UUID] UUIDString]];
     NSString *videoURLString = [NSString stringWithFormat:@"cloudinary://%@", fileName];
     [self uploadFileWithFileName:fileName SourcePath:nil FileURL:videoURL Type:@"video"];
-    [self hideProgress];
     return videoURLString;
 }
 
@@ -930,17 +1001,24 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
         fullPath = fileURL;
     }
 
+    [self showProgress:@"Uploading Video..."];
     [self.backend getUploadSignature:fileName CompletionHandler: ^(NSDictionary *result) {
         if(result) {
             CLUploader* mobileUploader = [[CLUploader alloc] init:self.cloudinary delegate:self];
             NSMutableDictionary* options = result[@"response"];
-            [options setValue:@YES forKey:@"sync"];
+            //[options setValue:@YES forKey:@"sync"];
 
             if (type) {
                 [options setValue:type forKey:@"resource_type"];
             }
 
-            [mobileUploader upload:fullPath.path options:options];
+            [mobileUploader upload:fullPath.path options:options withCompletion:^(NSDictionary *successResult, NSString *errorResult, NSInteger code, id context) {
+                
+                [self hideProgress];
+            } andProgress:^(NSInteger bytesWritten, NSInteger totalBytesWritten, NSInteger totalBytesExpectedToWrite, id context) {
+                
+                
+            }];
         }
     }];
 }
@@ -1556,7 +1634,6 @@ typedef void (^completion_t)(id result);
         viewController.categoryDescription = [NSString stringWithFormat:@"%@ / %@", self.categoryTextField.text, self.subCategoryTextField.text];
         viewController.baseServicePrice = [self.baseServicePriceTextField.text integerValue];
         viewController.slugUrlString = slugUrlString;
-        viewController.mainImageURL = mainImageUrlString;
         
 //        viewController.listingTitle = @"test post";
 //        viewController.listingLocation = selectedLocation;

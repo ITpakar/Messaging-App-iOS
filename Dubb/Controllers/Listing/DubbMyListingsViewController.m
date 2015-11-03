@@ -34,6 +34,14 @@ enum DubbListingCellTag {
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+
+
+    if (listingDetails.count > 0) {
+        listingDetails = [NSArray array];
+        [self.tableView reloadData];
+    }
+
+    [self.tableView reloadData];
     
     [self.backend getAllMyListingsWithCompletionHandler:^(NSDictionary *result) {
         

@@ -87,8 +87,7 @@
     }
     videoController = [[MPMoviePlayerController alloc] init];
     
-    [self setupSearch];
-    [self setupListingTableView];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -98,6 +97,9 @@
                                              selector:@selector(videoPlayBackDidFinish:)
                                                  name:MPMoviePlayerPlaybackDidFinishNotification
                                                object:videoController];
+    
+    [self setupSearch];
+    [self setupListingTableView];
     isDownloading = NO;
 }
 

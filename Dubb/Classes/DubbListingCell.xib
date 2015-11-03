@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9046" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9035"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -19,16 +19,19 @@
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oyo-FP-yJq" userLabel="Listing Image View">
                                 <rect key="frame" x="0.0" y="0.0" width="304" height="191"/>
+                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="191" id="cRA-2C-uaL"/>
                                 </constraints>
                             </imageView>
                             <view hidden="YES" clipsSubviews="YES" tag="115" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YY4-gX-CEe" customClass="AXRatingView">
                                 <rect key="frame" x="25" y="97" width="78" height="15"/>
+                                <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4xf-qi-QVs">
                                 <rect key="frame" x="25" y="115" width="271" height="45"/>
+                                <animations/>
                                 <string key="text">Lorem ipsum service in 
 San Francisco</string>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
@@ -37,6 +40,7 @@ San Francisco</string>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HOME &gt; CUSINE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yKL-Vn-qhC">
                                 <rect key="frame" x="25" y="161" width="271" height="21"/>
+                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="t0E-IZ-Axe"/>
                                 </constraints>
@@ -46,18 +50,21 @@ San Francisco</string>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" tag="120" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Los Angels, California" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="08I-yd-A6e">
                                 <rect key="frame" x="63" y="221" width="163" height="21"/>
+                                <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.58431372550000005" green="0.58431372550000005" blue="0.58431372550000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" tag="119" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Phillippe Lopez" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EvY-wN-PQj">
                                 <rect key="frame" x="63" y="203" width="105" height="21"/>
+                                <animations/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                 <color key="textColor" red="0.1450980392" green="0.1450980392" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" tag="118" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="placeholder_image.png" translatesAutoresizingMaskIntoConstraints="NO" id="ZoM-UR-4tR">
                                 <rect key="frame" x="20" y="205" width="32" height="32"/>
+                                <animations/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -70,6 +77,7 @@ San Francisco</string>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="divisor.png" translatesAutoresizingMaskIntoConstraints="NO" id="DIP-2n-UEJ">
                                 <rect key="frame" x="249" y="200" width="1" height="45"/>
+                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="1" id="P0S-vH-qcx"/>
                                     <constraint firstAttribute="height" constant="45" id="WEb-2z-Mkg"/>
@@ -77,12 +85,14 @@ San Francisco</string>
                             </imageView>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" tag="116" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="(1)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R8F-r0-0No">
                                 <rect key="frame" x="92" y="97" width="36" height="15"/>
+                                <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eju-mn-Bn1" customClass="MCPercentageDoughnutView">
                                 <rect key="frame" x="122" y="56" width="60" height="60"/>
+                                <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
                                 <constraints>
@@ -95,12 +105,14 @@ San Francisco</string>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="0 mi" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="akF-MB-d5K">
                                 <rect key="frame" x="259" y="8" width="34" height="21"/>
+                                <animations/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$68" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NZn-ld-ClQ">
                                 <rect key="frame" x="250" y="200" width="54" height="45"/>
+                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="3gX-Kx-AGl"/>
                                     <constraint firstAttribute="width" constant="54" id="OjF-yq-DJp"/>
@@ -109,6 +121,7 @@ San Francisco</string>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="4xf-qi-QVs" firstAttribute="leading" secondItem="mRJ-dh-u2H" secondAttribute="leading" constant="25" id="4sw-Rs-NNE"/>
@@ -141,6 +154,7 @@ San Francisco</string>
                         </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
+                <animations/>
                 <constraints>
                     <constraint firstItem="mRJ-dh-u2H" firstAttribute="top" secondItem="lSl-x4-7sI" secondAttribute="top" id="0pS-yc-5hM"/>
                     <constraint firstAttribute="trailing" secondItem="mRJ-dh-u2H" secondAttribute="trailing" constant="8" id="40M-Ke-Sxt"/>
@@ -148,6 +162,7 @@ San Francisco</string>
                     <constraint firstItem="mRJ-dh-u2H" firstAttribute="leading" secondItem="lSl-x4-7sI" secondAttribute="leading" constant="8" id="WXm-7j-eGT"/>
                 </constraints>
             </tableViewCellContentView>
+            <animations/>
             <connections>
                 <outlet property="categoryLabel" destination="yKL-Vn-qhC" id="FLU-gv-Mb8"/>
                 <outlet property="containerView" destination="mRJ-dh-u2H" id="f2l-Zh-3B1"/>
