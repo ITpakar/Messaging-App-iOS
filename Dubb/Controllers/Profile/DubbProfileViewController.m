@@ -282,7 +282,7 @@
         if(result) {
             CLUploader* mobileUploader = [[CLUploader alloc] init:self.cloudinary delegate:nil];
             NSMutableDictionary* options = result[@"response"];
-            [options setValue:@YES forKey:@"sync"];
+            //[options setValue:@YES forKey:@"sync"];
 
             if (type) {
                 [options setValue:type forKey:@"resource_type"];
