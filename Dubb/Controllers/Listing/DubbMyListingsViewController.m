@@ -95,7 +95,7 @@ enum DubbListingCellTag {
     
     NSDictionary *listingDetail = listingDetails[indexPath.row];
     
-    [profileImageView sd_setImageWithURL:[self prepareImageUrl:listingDetail[@"main_image"][@"url"]]];
+    [profileImageView sd_setImageWithURL:[self prepareImageUrl:listingDetail[@"main_image"][@"url"] withWith:100 withHeight:100 withGravity:nil]];
     titleLabel.text = [NSString stringWithFormat:@"%@%@",[[listingDetail[@"name"] substringToIndex:1] uppercaseString], [listingDetail[@"name"] substringFromIndex:1]];
     categoryLabel.text = [NSString stringWithFormat:@"%@ > %@", listingDetail[@"category"][@"name"], listingDetail[@"subcategory"][@"name"]];
     NSDate *date = [NSDate dateFromString:listingDetail[@"created_at"]];

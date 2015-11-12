@@ -499,7 +499,9 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
 }
 
 -(void)processImage:(UIImage *)image {
-    [self.listingImages addObject:@{@"uploaded": @NO, @"image":image}];
+    
+    NSString *imageWebURL = [self uploadImage:image];
+    [self.listingImages addObject:@{@"uploaded": @NO, @"url":imageWebURL, @"image":image}];
     [self setupImagesScrollView];
 }
 
@@ -625,7 +627,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
         }
     }
     
-    NSMutableArray *imageURLs = [self uploadImages];
+    //NSMutableArray *imageURLs = [self uploadImages];
     NSArray *tagsArray = self.tagsControl.tags;
     radius = self.radiusTextField.text;
     
@@ -693,9 +695,9 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
             }
         }
         
-        for (NSString *newImageURL in imageURLs) {
-            
-            [assetArrayForUpdate addObject:@{@"url":newImageURL, @"type":@"image"}];
+        for (NSDictionary *newImageObject in self.listingImages) {
+            if ([newImageObject[@"uploaded"] isEqualToNumber:@NO])
+                [assetArrayForUpdate addObject:@{@"url":newImageObject[@"url"], @"type":@"image"}];
             
         }
         
@@ -752,6 +754,13 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     } else {
         
         [addonArray insertObject:@{@"description":self.baseServiceDescriptionTextView.text, @"price":self.baseServicePriceTextField.text} atIndex:0];
+        NSMutableArray *imageURLs = [NSMutableArray array];
+        for (NSDictionary *newImageObject in self.listingImages) {
+            if ([newImageObject[@"uploaded"] isEqualToNumber:@NO])
+                [imageURLs addObject:newImageObject[@"url"]];
+            
+        }
+
         NSMutableArray *imagesWithoutMainImage = [imageURLs mutableCopy];
         NSMutableArray *videosWithoutMainVideo = [NSMutableArray array];
         for (NSDictionary *videoObject in self.listingVideos) {
@@ -792,7 +801,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
                                              
                                              
                                              if ([result[@"response"] objectForKey:@"slug"]) {
-                                                 slugUrlString = [NSString stringWithFormat:@"http://www.dubb.com/listing/%@", result[@"response"][@"slug"]];
+                                                 slugUrlString = [NSString stringWithFormat:@"http://www.dubb.com/%@/%@", result[@"response"][@"user"][@"username"], result[@"response"][@"slug"]];
                                              } else {
                                                  slugUrlString = [NSString stringWithFormat:@"http://www.dubb.com/listing/%@", result[@"response"][@"id"]];
                                              }
@@ -1000,8 +1009,12 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     } else {
         fullPath = fileURL;
     }
-
-    [self showProgress:@"Uploading Video..."];
+    
+    if (type) {
+        [self showProgress:@"Uploading Video..."];
+    } else {
+        [self showProgress:@"Uploading Image..."];
+    }
     [self.backend getUploadSignature:fileName CompletionHandler: ^(NSDictionary *result) {
         if(result) {
             CLUploader* mobileUploader = [[CLUploader alloc] init:self.cloudinary delegate:self];

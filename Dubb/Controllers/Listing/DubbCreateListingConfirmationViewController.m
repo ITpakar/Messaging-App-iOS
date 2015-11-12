@@ -93,7 +93,11 @@
     
     if (self.facebookSwitch.isOn) {
         [self performPublishAction:^{
-            [self.backend updateUser:[User currentUser].userID Parameters:@{@"facebook_token":FBSession.activeSession.accessTokenData.accessToken} CompletionHandler:nil];;
+            NSString *facebookToken = FBSession.activeSession.accessTokenData.accessToken;
+            if (facebookToken) {
+                [self.backend updateUser:[User currentUser].userID Parameters:@{@"facebook_token":facebookToken} CompletionHandler:nil];
+            }
+
         }];
     }
 
@@ -134,7 +138,7 @@
     
 }
 - (IBAction)backButtonTapped:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 - (IBAction)postButtonTapped:(id)sender {
     
