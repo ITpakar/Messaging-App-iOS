@@ -537,6 +537,10 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     
 }
 - (IBAction)invitePeopleButtonTapped:(id)sender {
+    if (self.listingImages.count == 0) {
+        [self showMessage:@"Listing Images are not fully loaded Please wait for some more minutes and retry."];
+        return;
+    }
     [self performSegueWithIdentifier:@"displayCreateListingConfirmationSegue" sender:nil];
 }
 
@@ -1220,6 +1224,9 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     switch (indexPath.section) {
         case TableViewSectionMain: {
             //this is where it broke
+            if (self.localSearchQueries.count == 0) {
+                return;
+            }
             NSDictionary *searchResult = [self.localSearchQueries objectAtIndex:indexPath.row];
             
             if ([searchResult isKindOfClass:[NSDictionary class]]) {

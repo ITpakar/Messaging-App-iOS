@@ -490,6 +490,9 @@
     } else if (tableView == locationTableView){
         cell = [self setupLocationList:indexPath.row];
     } else {
+        if (listings.count == 0) {
+            return cell;
+        }
         NSDictionary *item = listings[indexPath.row];
         NSString *cellIdentifier = [NSString stringWithFormat:@"listing%@", item[@"id"]];
         cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
