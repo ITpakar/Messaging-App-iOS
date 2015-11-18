@@ -84,4 +84,5 @@ CompletionHandler:(void (^)(NSDictionary *result))handler;
       CompletionHandler:(void (^)(NSDictionary *result, NSData *data, NSError *error))handler;
 -(void) getAllOrdersForUserType:(NSString *)userType CompletionHandler:(void (^)(NSDictionary *result))handler;
 -(void) getAllMyListingsWithCompletionHandler:(void (^)(NSDictionary *result))handler;
+-(void) getAllReviewsForListing:(NSString *)listingID AtPage:(NSString*)page CompletionHandler:(void (^)(NSDictionary *result))handler;
 @end

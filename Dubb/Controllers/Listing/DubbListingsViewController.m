@@ -491,7 +491,7 @@
         cell = [self setupLocationList:indexPath.row];
     } else {
         if (listings.count == 0) {
-            return cell;
+            return [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"DubbListingCellDefault"];
         }
         NSDictionary *item = listings[indexPath.row];
         NSString *cellIdentifier = [NSString stringWithFormat:@"listing%@", item[@"id"]];

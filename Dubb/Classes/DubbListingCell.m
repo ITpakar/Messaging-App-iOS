@@ -23,6 +23,7 @@
     IBOutlet UIImageView*    listingImageView;
     IBOutlet UILabel*        categoryLabel;
     IBOutlet UIButton*       btnOrder;
+    IBOutlet UILabel *       reviewNumberLabel;
     IBOutlet AXRatingView *starRatingControl;
     IBOutlet UILabel *priceLabel;
     IBOutlet MCPercentageDoughnutView *downloadProgressView;
@@ -85,6 +86,14 @@
                 } else {
                     [profileImageView sd_setImageWithURL:[self.baseVC prepareImageUrl:_listing[@"owner_image_url"] withWith:200 withHeight:200 withGravity:@"face"]];
                 }
+            }
+            
+            if (([_listing objectForKey:@"avg_rating"] && ![_listing[@"avg_rating"] isKindOfClass:[NSNull class]]) && ([_listing objectForKey:@"num_rating"] && ![_listing[@"num_rating"] isKindOfClass:[NSNull class]])) {
+                starRatingControl.value = [_listing[@"avg_rating"] floatValue];
+                reviewNumberLabel.text = [NSString stringWithFormat:@"(%@)", _listing[@"num_rating"]];
+            } else {
+                starRatingControl.value = 0;
+                reviewNumberLabel.text = @"(0)";
             }
             
             titleLabel.text = [NSString stringWithFormat:@"%@%@",[[listing[@"name"] substringToIndex:1] uppercaseString], [listing[@"name"] substringFromIndex:1]];

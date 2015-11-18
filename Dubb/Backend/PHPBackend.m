@@ -234,4 +234,15 @@ static PHPBackend   *sharedConnection;
     }];
 }
 
+-(void) getAllReviewsForListing:(NSString *)listingID AtPage:(NSString*)page CompletionHandler:(void (^)(NSDictionary *result))handler{
+    NSString *apiPath = [NSString stringWithFormat:@"%@%@/%@/basicreviews", APIURL, @"listing", listingID];
+    
+    NSDictionary *params = @{@"page":page, @"limit":@"5"};
+    
+    [self accessAPI:apiPath Parameters:params CompletionHandler:^(NSDictionary *result, NSData *data, NSError *error) {
+        handler(result);
+    }];
+}
+
+
 @end

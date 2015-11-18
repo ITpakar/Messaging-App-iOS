@@ -1889,6 +1889,7 @@
 				DC675A3A1AE0013800E5CBDA /* ShellScript */,
 				D7F123BF504F4E0E014A8177 /* Embed Pods Frameworks */,
 				0DE648211BDEF82400815D3C /* ShellScript */,
+				0D92E5DC1BFC20ED00D12914 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -2128,6 +2129,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0D92E5DC1BFC20ED00D12914 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "";
+		};
 		0DE648211BDEF82400815D3C /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

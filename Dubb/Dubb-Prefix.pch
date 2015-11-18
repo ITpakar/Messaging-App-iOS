@@ -44,9 +44,9 @@
 #define DEFAULTS_DEVICE_TOKEN_DATA @"default device token data"
 #define googleLocationServiceKey @"AIzaSyBqO1R2q7YGqnEAegFiA4vbHo7oLn8IqV0"
 
-//#define APIURL                  @"http://devd.dubb.co/v1/"
+#define APIURL                  @"http://devd.dubb.co/v1/"
 //#define APIURL                  @"https://api01-dubb-co-d9hg85ewhstw.runscope.net/v1/"
-#define APIURL                  @"https://api01.dubb.co/v1/"
+//#define APIURL                  @"https://api01.dubb.co/v1/"
 //#define APIURL                  @"http://devd-dubb-co-d9hg85ewhstw.runscope.net/v1/"
 #define kNotificationDidReceiveNewMessage        @"kNotificationDidReceiveNewMessage"
 

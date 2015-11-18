@@ -251,7 +251,8 @@
 }
 
 - (IBAction)onBack:(id)sender {
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    
+    [self.navigationController setViewControllers:@[[self.storyboard instantiateViewControllerWithIdentifier:@"homeViewController"]] animated:NO];
 }
 
 - (IBAction)onCategory:(id)sender {

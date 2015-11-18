@@ -30,7 +30,7 @@
 {
     NSMutableArray *purchasedAddOns;
     NSMutableArray *addOns;
-    NSArray *reviews;
+    NSMutableArray *reviews;
     ListingTopView *topView;
     NSDictionary *baseService;
     NSMutableArray *expansionFlags;
@@ -41,13 +41,20 @@
     CAGradientLayer *maskLayer;
     NSInteger numberOfLinesForHeaderCellDescriptionLabel;
     NSInteger numberOfLinesForReviewContentDescriptionLabel;
+    UIButton *moreButton;
+    UIActivityIndicatorView *moreReviewsActivityIndicator;
     BOOL isAskingQuestion;
     BOOL isDownloading;
+    BOOL isLastReviewPage;
+    int  currentReviewPage;
+    
+    
 }
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UILabel *totalPriceLabel;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (strong, nonatomic) IBOutlet UIView *gradientView;
+
 
 @end
 
@@ -79,7 +86,7 @@ enum DubbSingleListingViewTag {
     kDubbSingleListingSectionSellerIntroductionDescriptionLabelTag,
     kDubbSingleListingSectionSellerIntroductionAskQuestionButtonTag,
     kDubbSingleListingSectionReviewsRatingControlTag,
-    kDubbSingleListingSectionReviewsScoreLabelTag,
+    kDubbSingleListingSectionReviewsNumberLabelTag,
     kDubbSingleListingSectionReviewsOverallScoreButtonTag,
     kDubbSingleListingSectionReviewsProfileImageViewTag,
     kDubbSingleListingSectionReviewsUserNameLabelTag,
@@ -194,7 +201,7 @@ enum DubbSingleListingViewTag {
     [super viewDidLoad];
     
     addOns = [NSMutableArray array];
-    reviews = [NSArray array];
+    reviews = [NSMutableArray array];
     purchasedAddOns = [NSMutableArray array];
     [self.view setFrame:self.navigationController.view.bounds];
     
@@ -210,9 +217,12 @@ enum DubbSingleListingViewTag {
     //[self addScrollingGradientToView:topView];
     
     isAskingQuestion = NO;
+    isLastReviewPage = NO;
     
     __weak DubbSingleListingViewController * weakSelf = self;
     [self.activityIndicator startAnimating];
+    
+    [self loadReviews:YES];
     [self.backend getListingWithID:self.listingID CompletionHandler:^(NSDictionary *result) {
         [self.activityIndicator stopAnimating];
         
@@ -273,6 +283,14 @@ enum DubbSingleListingViewTag {
     extraQuantityCellIndexPaths = [NSMutableArray array];
     
     videoController = [[MPMoviePlayerController alloc] init];
+    
+    moreButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    
+    [moreButton addTarget:self action:@selector(loadMoreReviewsButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    moreButton.backgroundColor= [UIColor clearColor];
+    [moreButton setImage:[UIImage imageNamed:@"DownArrow"] forState:UIControlStateNormal];
+    
+    moreReviewsActivityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     
 }
 
@@ -532,7 +550,7 @@ static bool liked = NO;
             }
             return (addOns.count == 0) ? 0 : addOns.count + expandedRowCount + 1;
         case kDubbSingleListingSectionReviews:
-            return 2; //(reviews.count == 0) ? 0 : reviews.count + 1;
+            return (reviews.count == 0) ? 0 : reviews.count + 1;
         default:
             return 1;
     }
@@ -893,14 +911,22 @@ static bool liked = NO;
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     AXRatingView *starRatingControl = (AXRatingView *)[cell viewWithTag:kDubbSingleListingSectionReviewsRatingControlTag];
+    UILabel *reviewNumberLabel = (UILabel *)[cell viewWithTag:kDubbSingleListingSectionReviewsNumberLabelTag];
     
     starRatingControl.backgroundColor = [UIColor clearColor];
     starRatingControl.markImage = [UIImage imageNamed:@"star"];
     starRatingControl.stepInterval = 1;
-    starRatingControl.value = 5;
     [starRatingControl setBaseColor:[UIColor lightGrayColor]];
     [starRatingControl setHighlightColor:[UIColor colorWithRed:1.0f green:162.0f/255.0 blue:0 alpha:1.0f]];
     [starRatingControl setUserInteractionEnabled:NO];
+    
+    if (([listingInfo objectForKey:@"avg_rating"] && ![listingInfo[@"avg_rating"] isKindOfClass:[NSNull class]]) && ([listingInfo objectForKey:@"num_rating"] && ![listingInfo[@"num_rating"] isKindOfClass:[NSNull class]])) {
+        starRatingControl.value = [listingInfo[@"avg_rating"] floatValue];
+        reviewNumberLabel.text = [NSString stringWithFormat:@"(%@)", listingInfo[@"num_rating"]];
+    } else {
+        starRatingControl.value = 0;
+        reviewNumberLabel.text = @"(0)";
+    }
 
     return cell;
     
@@ -911,13 +937,22 @@ static bool liked = NO;
     static NSString *CellIdentifier = @"reviewsSectionContentCell";
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
+    if (indexPath.row == reviews.count && !isLastReviewPage) {
+        moreButton.frame = CGRectMake(cell.frame.size.width / 2 - 15, cell.frame.size.height - 30, 30, 30);
+        [cell.contentView addSubview:moreButton];
+    }
+    
+    NSDictionary *review = reviews[indexPath.row - 1];
+    
     AXRatingView *starRatingControl = (AXRatingView *)[cell viewWithTag:kDubbSingleListingSectionReviewsContentRatingControlTag];
     UIImageView *profileImageView = (UIImageView *)[cell viewWithTag:kDubbSingleListingSectionReviewsProfileImageViewTag];
+    UILabel *userNameLabel = (UILabel *)[cell viewWithTag:kDubbSingleListingSectionReviewsUserNameLabelTag];
+    UILabel *locationLabel = (UILabel *)[cell viewWithTag:kDubbSingleListingSectionSellerIntroductionLocationLabelTag];
     
     starRatingControl.backgroundColor = [UIColor clearColor];
     starRatingControl.markImage = [UIImage imageNamed:@"star"];
     starRatingControl.stepInterval = 1;
-    starRatingControl.value = 5;
+    starRatingControl.value = [review[@"rating"] floatValue];
     [starRatingControl setBaseColor:[UIColor lightGrayColor]];
     [starRatingControl setHighlightColor:[UIColor colorWithRed:1.0f green:162.0f/255.0 blue:0 alpha:1.0f]];
     [starRatingControl setUserInteractionEnabled:NO];
@@ -928,6 +963,8 @@ static bool liked = NO;
     profileImageView.layer.borderWidth = borderWidth;
     profileImageView.layer.cornerRadius = 27;
     profileImageView.clipsToBounds = YES;
+    if (![review[@"reviewer"][@"image"] isKindOfClass:[NSNull class]])
+        [profileImageView sd_setImageWithURL:[self prepareImageUrl:review[@"reviewer"][@"image"][@"url"]]];
     TTTAttributedLabel *descriptionLabel = (TTTAttributedLabel *)[cell viewWithTag:kDubbSingleListingSectionReviewsDescriptionLabelTag];
     descriptionLabel.userInteractionEnabled = YES;
     descriptionLabel.lineHeightMultiple = 1.2;
@@ -941,8 +978,43 @@ static bool liked = NO;
                                                     NSLinkAttributeName : [NSURL URLWithString:@"review"]
                                                     }];
     descriptionLabel.attributedTruncationToken = finalString;
+    descriptionLabel.text = review[@"comment"];
+    
+    userNameLabel.text = [NSString stringWithFormat:@"%@ %@", review[@"reviewer"][@"first"], review[@"reviewer"][@"last"]];
+    
+    if (![review[@"reviewer"][@"lat"] isEqualToString:@"0"] && ![review[@"reviewer"][@"longitude"] isEqualToString:@"0"]) {
+        CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+        CLLocation *location = [[CLLocation alloc] initWithLatitude:[review[@"reviewer"][@"lat"] doubleValue] longitude:[review[@"reviewer"][@"longitude"] doubleValue]];
+        
+        [geocoder reverseGeocodeLocation:location completionHandler: ^ (NSArray  *placemarks, NSError *error) {
+            
+            CLPlacemark *placemark = [placemarks firstObject];
+            if(placemark) {
+                
+                NSString *city = [placemark.addressDictionary objectForKey:(NSString*)kABPersonAddressCityKey];
+                NSString *state = [placemark.addressDictionary objectForKey:(NSString*)kABPersonAddressStateKey];
+                
+                locationLabel.text = [NSString stringWithFormat:@"%@, %@", city, state];
+                
+            }
+        }];
+    }
+
     return cell;
     
+}
+
+- (void)loadMoreReviewsButtonTapped:(UIButton *)button {
+    
+
+    [moreReviewsActivityIndicator removeFromSuperview];
+    moreReviewsActivityIndicator.frame = CGRectMake(button.frame.origin.x, button.frame.origin.y, 30, 30);
+    CGPoint buttonPosition = [button convertPoint:CGPointZero toView:self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:buttonPosition];
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    [cell.contentView addSubview: moreReviewsActivityIndicator];
+    [button removeFromSuperview];
+    [self loadReviews:NO];
 }
 
 #pragma mark - KASlideShow delegate
@@ -1194,6 +1266,48 @@ static bool liked = NO;
     return contentLabel.frame.size.height;
     
 }
+
+-(void) loadReviews : (BOOL) refresh{
+    
+    if( refresh ){
+        [self showProgress:@""];
+        currentReviewPage = 1;
+        [self.backend getAllReviewsForListing:self.listingID AtPage:[NSString stringWithFormat:@"%d", currentReviewPage] CompletionHandler:^(NSDictionary *result) {
+            [self hideProgress];
+            //[listingsTableView.pullToRefreshView stopAnimating];
+            if( ![result[@"error"] boolValue] ){
+                reviews = [NSMutableArray arrayWithArray:result[@"response"]];
+                [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:kDubbSingleListingSectionReviews] withRowAnimation:UITableViewRowAnimationAutomatic];
+                if (![result[@"paginator"][@"next_page"] isKindOfClass:[NSNull class]]) {
+                    currentReviewPage = (int)[result[@"paginator"][@"next_page"] integerValue];
+                } else {
+                    isLastReviewPage = YES;
+                }
+                
+            }
+        }];
+        
+    } else {
+        
+        [moreReviewsActivityIndicator startAnimating];
+        [self.backend getAllReviewsForListing:self.listingID AtPage:[NSString stringWithFormat:@"%d", currentReviewPage] CompletionHandler:^(NSDictionary *result) {
+            [moreReviewsActivityIndicator stopAnimating];
+            if( ![result[@"error"] boolValue] ){
+                if( [result[@"response"] count] > 0 ){
+                    [reviews addObjectsFromArray:[NSMutableArray arrayWithArray:result[@"response"]]];
+                    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:kDubbSingleListingSectionReviews] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    if (![result[@"paginator"][@"next_page"] isKindOfClass:[NSNull class]]) {
+                        currentReviewPage = (int)[result[@"paginator"][@"next_page"] integerValue];
+                    } else {
+                        isLastReviewPage = YES;
+                    }
+                }
+            }
+        }];
+    }
+    
+}
+
 /*
 #pragma mark - Navigation
 
