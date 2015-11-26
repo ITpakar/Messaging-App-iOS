@@ -2458,7 +2458,7 @@
 			baseConfigurationReference = 3FC747553FC9F4473463E4B0 /* Pods-Dubb.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Venk Tatineni (L996VHMYTF)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Venk Tatineni (L996VHMYTF)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_BITCODE = NO;
@@ -2483,7 +2483,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.dubb.dubbfreelancer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5d6215be-002b-4018-9fa5-3ad0532aa0a4";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -2516,7 +2516,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.dubb.dubbfreelancer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8c0a2b71-30ed-4e0c-83ea-fe1d859f1041";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

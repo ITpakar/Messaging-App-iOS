@@ -64,6 +64,11 @@ enum DubbSmsCellTag {
     self.previewContainerView.layer.borderWidth = 1.0f;
     self.previewContainerView.layer.borderColor = [UIColor colorWithRed:229.0f/255.0f green:229.0f/255.0f blue:229.0f/255.0f alpha:1.0f].CGColor;
     
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     _arrContactPhoneNumbers = [[NSMutableArray alloc] init];
     _arrContactEmails = [[NSMutableArray alloc] init];
     [self obtainContactsInfo];

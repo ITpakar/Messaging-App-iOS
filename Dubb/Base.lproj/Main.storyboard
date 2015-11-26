@@ -971,7 +971,7 @@ Dubb!</string>
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Agree to the" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UGs-oP-yKW">
-                                                        <rect key="frame" x="67" y="345" width="99" height="18"/>
+                                                        <rect key="frame" x="65" y="345" width="108" height="18"/>
                                                         <animations/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1045,7 +1045,7 @@ Dubb!</string>
                                                         </connections>
                                                     </textField>
                                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nBy-z9-biz" customClass="M13Checkbox">
-                                                        <rect key="frame" x="38" y="230" width="160" height="20"/>
+                                                        <rect key="frame" x="38" y="230" width="209" height="20"/>
                                                         <animations/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </view>
@@ -1089,7 +1089,7 @@ Dubb!</string>
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="and" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fiD-fo-93y">
-                                                        <rect key="frame" x="66" y="362" width="36" height="20"/>
+                                                        <rect key="frame" x="68" y="362" width="36" height="20"/>
                                                         <animations/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1107,30 +1107,8 @@ Dubb!</string>
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
-                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9JJ-qh-JFA">
-                                                        <rect key="frame" x="101" y="366" width="64" height="16"/>
-                                                        <animations/>
-                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                                        <state key="normal" title="Privacy">
-                                                            <color key="titleColor" red="0.0" green="0.8803710938" blue="0.051284325899999997" alpha="1" colorSpace="calibratedRGB"/>
-                                                        </state>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
-                                                                <size key="value" width="1" height="1"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
-                                                                <integer key="value" value="3"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
-                                                                <integer key="value" value="1"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                        </userDefinedRuntimeAttributes>
-                                                        <connections>
-                                                            <action selector="privacyButtonTapped:" destination="Dad-qT-83G" eventType="touchUpInside" id="jRN-O2-XXI"/>
-                                                        </connections>
-                                                    </button>
                                                     <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wSf-yI-Af3">
-                                                        <rect key="frame" x="168" y="343" width="132" height="24"/>
+                                                        <rect key="frame" x="174" y="343" width="144" height="24"/>
                                                         <animations/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                         <state key="normal" title="Terms of Service">
@@ -1149,6 +1127,28 @@ Dubb!</string>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="termsOfServiceButtonTapped:" destination="Dad-qT-83G" eventType="touchUpInside" id="TB6-W0-0f7"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9JJ-qh-JFA">
+                                                        <rect key="frame" x="103" y="365" width="64" height="16"/>
+                                                        <animations/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                        <state key="normal" title="Privacy">
+                                                            <color key="titleColor" red="0.0" green="0.8803710938" blue="0.051284325899999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
+                                                                <size key="value" width="1" height="1"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
+                                                                <integer key="value" value="3"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                                                                <integer key="value" value="1"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="privacyButtonTapped:" destination="Dad-qT-83G" eventType="touchUpInside" id="jRN-O2-XXI"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -1696,6 +1696,9 @@ Dubb!</string>
                                     <constraint firstAttribute="centerX" secondItem="xMD-nV-Q5t" secondAttribute="centerX" id="oox-ih-yna"/>
                                     <constraint firstItem="xMD-nV-Q5t" firstAttribute="top" secondItem="NbQ-Ci-W8W" secondAttribute="top" constant="27" id="ulG-df-5Qu"/>
                                 </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="Brw-bA-e2x" appends="YES" id="WTg-Yg-zXe"/>
+                                </connections>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="250" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="9qx-DV-Wj0">
                                 <rect key="frame" x="0.0" y="75" width="600" height="525"/>
@@ -1791,6 +1794,7 @@ Dubb!</string>
                     <navigationItem key="navigationItem" id="9l2-Bf-YBw"/>
                     <connections>
                         <outlet property="btnMenuBar" destination="lbh-zS-vld" id="k2o-a4-Bm7"/>
+                        <outlet property="btnNewListing" destination="UfO-IX-HAE" id="2Ts-gC-odX"/>
                         <outlet property="btnRightMenuBar" destination="QNy-go-PEr" id="wGI-k8-vz5"/>
                         <outlet property="introductionView" destination="h3H-GX-aQg" id="X8c-D6-cJP"/>
                         <outlet property="listingsTableView" destination="9qx-DV-Wj0" id="vbz-vF-lCX"/>
@@ -1816,6 +1820,11 @@ Dubb!</string>
                         <outlet property="searchResultsDelegate" destination="1ku-cf-tzo" id="OCm-Me-Jf2"/>
                     </connections>
                 </searchDisplayController>
+                <tapGestureRecognizer id="Brw-bA-e2x">
+                    <connections>
+                        <action selector="didTapElsewhereInSearchView:" destination="1ku-cf-tzo" id="sBO-0f-nLq"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="941" y="617"/>
         </scene>
@@ -5001,11 +5010,11 @@ Dubb!</string>
                         <viewControllerLayoutGuide type="bottom" id="bNd-iF-w4a"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="TdN-1H-Sgo">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="700"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="800"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="mK1-eb-UxF">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="656"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="756"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -5399,11 +5408,11 @@ Dubb!</string>
                                         </tableViewCellContentView>
                                         <animations/>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="reviewsSectionContentCell" rowHeight="133" id="zuJ-8s-A4o" userLabel="Reviews Section Content Cell">
-                                        <rect key="frame" x="0.0" y="597" width="320" height="133"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="reviewsSectionContentCell" rowHeight="138" id="zuJ-8s-A4o" userLabel="Reviews Section Content Cell">
+                                        <rect key="frame" x="0.0" y="597" width="320" height="138"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zuJ-8s-A4o" id="h7e-sU-zHM">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="133"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="138"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="120" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Los Angels, California" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qU5-nG-CTg">
@@ -5445,10 +5454,22 @@ Dubb!</string>
                                                         <constraint firstAttribute="height" constant="1" id="j7q-0B-oeX"/>
                                                     </constraints>
                                                 </view>
-                                                <label opaque="NO" tag="122" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Using Dubb was a great experience. I was able to connect with a very talented local freelancer and get a great price" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eN1-54-eYc" customClass="TTTAttributedLabel">
-                                                    <rect key="frame" x="13" y="60" width="289" height="65"/>
+                                                <view hidden="YES" tag="125" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="def-JZ-DJK" userLabel="Separator">
+                                                    <rect key="frame" x="13" y="137" width="294" height="1"/>
                                                     <animations/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                    <color key="backgroundColor" white="0.66666666669999997" alpha="0.26000000000000001" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="1" id="zwz-JJ-quK"/>
+                                                    </constraints>
+                                                </view>
+                                                <label opaque="NO" tag="122" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eN1-54-eYc" customClass="TTTAttributedLabel">
+                                                    <rect key="frame" x="16" y="60" width="286" height="58"/>
+                                                    <animations/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="58" id="zCB-D2-XGk"/>
+                                                    </constraints>
+                                                    <string key="text">Using Dubb was a great experience. I was able to connect with a very talented local freelancer and get a great price dfgdfgfdgdfgsdf;lgk;ldfjgdfklgjlkdfjglkjdfglkjdflgkjdflkgjlkdfjglkdfjg</string>
+                                                    <fontDescription key="fontDescription" type="italicSystem" pointSize="11"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -5458,10 +5479,12 @@ Dubb!</string>
                                                 <constraint firstAttribute="trailing" secondItem="0fq-NN-UiT" secondAttribute="trailing" constant="76" id="40v-xL-JDk"/>
                                                 <constraint firstAttribute="trailing" secondItem="eN1-54-eYc" secondAttribute="trailing" constant="18" id="9Q4-wC-rdq"/>
                                                 <constraint firstItem="eNv-bk-vfs" firstAttribute="leading" secondItem="h7e-sU-zHM" secondAttribute="leading" constant="13" id="9gy-x6-Bdv"/>
-                                                <constraint firstAttribute="bottom" secondItem="eN1-54-eYc" secondAttribute="bottom" constant="8" id="Adx-Yq-snb"/>
+                                                <constraint firstItem="def-JZ-DJK" firstAttribute="top" secondItem="eN1-54-eYc" secondAttribute="bottom" constant="19" id="CoQ-iF-slx"/>
                                                 <constraint firstAttribute="trailing" secondItem="eNv-bk-vfs" secondAttribute="trailing" constant="13" id="Gid-2r-M4K"/>
+                                                <constraint firstItem="def-JZ-DJK" firstAttribute="leading" secondItem="h7e-sU-zHM" secondAttribute="leading" constant="13" id="Htc-Mb-X0V"/>
+                                                <constraint firstAttribute="trailing" secondItem="def-JZ-DJK" secondAttribute="trailing" constant="13" id="NQd-eZ-yA5"/>
                                                 <constraint firstItem="0fq-NN-UiT" firstAttribute="top" secondItem="h7e-sU-zHM" secondAttribute="topMargin" constant="15" id="OFi-bZ-l0h"/>
-                                                <constraint firstItem="eN1-54-eYc" firstAttribute="leading" secondItem="h7e-sU-zHM" secondAttribute="leading" constant="13" id="Y2M-Vx-gAn"/>
+                                                <constraint firstItem="eN1-54-eYc" firstAttribute="leading" secondItem="h7e-sU-zHM" secondAttribute="leading" constant="16" id="Y2M-Vx-gAn"/>
                                                 <constraint firstItem="eN1-54-eYc" firstAttribute="top" secondItem="9hf-sw-blC" secondAttribute="bottom" constant="3" id="YT6-tK-h8V"/>
                                                 <constraint firstItem="9hf-sw-blC" firstAttribute="top" secondItem="h7e-sU-zHM" secondAttribute="top" constant="25" id="c6V-qi-Nny"/>
                                                 <constraint firstItem="eNv-bk-vfs" firstAttribute="top" secondItem="h7e-sU-zHM" secondAttribute="top" id="mMS-R3-U06"/>
@@ -5482,7 +5505,7 @@ Dubb!</string>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yEi-Cm-zZE" userLabel="Book Now Button Container">
-                                <rect key="frame" x="0.0" y="656" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="756" width="320" height="44"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="usn-bk-AdY">
                                         <rect key="frame" x="97" y="11" width="127" height="23"/>
@@ -5533,7 +5556,7 @@ Dubb!</string>
                                 </connections>
                             </view>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Ow0-Qz-Vg5">
-                                <rect key="frame" x="142" y="332" width="37" height="37"/>
+                                <rect key="frame" x="142" y="382" width="37" height="37"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="37" id="TIY-z6-Ogd"/>
@@ -5608,7 +5631,7 @@ Dubb!</string>
                     </navigationItem>
                     <nil key="simulatedTopBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="320" height="700"/>
+                    <size key="freeformSize" width="320" height="800"/>
                     <connections>
                         <outlet property="activityIndicator" destination="Ow0-Qz-Vg5" id="IJV-TG-m0f"/>
                         <outlet property="gradientView" destination="Cpd-mG-dUc" id="x0b-c8-uUq"/>
@@ -8558,6 +8581,6 @@ Please note that our services may not be used anonymously. This is the only way 
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="tXi-ss-sf3"/>
-        <segue reference="gEa-1e-Z8q"/>
+        <segue reference="Edg-Ct-xA3"/>
     </inferredMetricsTieBreakers>
 </document>

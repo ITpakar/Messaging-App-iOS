@@ -26,6 +26,7 @@
     
     __weak IBOutlet UIButton *btnMenuBar;
     __weak IBOutlet UIButton *btnRightMenuBar;
+    __weak IBOutlet UIButton *btnNewListing;
     
     __weak IBOutlet UITextField *searchBar;
     __weak IBOutlet NSLayoutConstraint *searchBarConstraint;
@@ -86,7 +87,9 @@
         
     }
     videoController = [[MPMoviePlayerController alloc] init];
-    
+    [self setupSearch];
+    [self setupListingTableView];
+    isDownloading = NO;
     
 }
 
@@ -98,9 +101,7 @@
                                                  name:MPMoviePlayerPlaybackDidFinishNotification
                                                object:videoController];
     
-    [self setupSearch];
-    [self setupListingTableView];
-    isDownloading = NO;
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -240,6 +241,8 @@
         [searchResultTableView removeFromSuperview];
     if( locationTableView.superview)
         [locationTableView removeFromSuperview];
+    [searchBar setText:@""];
+    [locationSearchBar setText:@""];
 }
 
 #pragma mark SearchBar Delegate
@@ -252,30 +255,11 @@
     }
     
     if( [locationSearchBar.text isEqualToString:@""] ) locationSearchBar.text = @"Current Location";
-    if( locationTableView.superview )
-        [locationTableView removeFromSuperview];
+    
     
     if( ![searchBar.text isEqualToString:@""] ) return YES;
-    locationSearchBarHeightConstraint.constant = 32.0f;
-    searchBarConstraint.constant = - btnRightMenuBar.bounds.size.width;
-    searchBarTopConstraint.constant = 60;
-    searchBarLeftConstraint.constant = -30.0f;
-    searchContainerViewConstraint.constant = 140;
     
-    [overlayView setFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height - 64)];
-    [self.view addSubview:overlayView];
-    
-    [UIView animateWithDuration:0.3f animations:^{
-        titleLabel.hidden = NO;
-        [self.view layoutIfNeeded];
-        [btnRightMenuBar setSelected:YES];
-        [btnRightMenuBar setImage:[UIImage imageNamed:@"btn_search.png"] forState:UIControlStateNormal];
-        [overlayView setFrame:CGRectMake(0, 140, self.view.bounds.size.width, self.view.bounds.size.height - 140)];
-    } completion:^(BOOL finished) {
-        
-        overlayView.alpha = 1.0f;
-    }];
-    
+    [self expandSearchView];
     return YES;
 }
 
@@ -287,26 +271,64 @@
 
     if( ![searchBar.text isEqualToString:@""] || locationTableView.superview != nil ) return YES;
 
+    [self collapseSearchView];
+    
+    return YES;
+}
+- (IBAction)didTapElsewhereInSearchView:(id)sender {
+    [self collapseSearchView];
+
+}
+
+- (void)expandSearchView {
+    if( locationTableView.superview )
+        [locationTableView removeFromSuperview];
+    
+    locationSearchBarHeightConstraint.constant = 32.0f;
+    searchBarConstraint.constant = - btnRightMenuBar.bounds.size.width;
+    searchBarTopConstraint.constant = 60;
+    searchBarLeftConstraint.constant = 30.0f;
+    searchContainerViewConstraint.constant = 140;
+    
+    [overlayView setFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height - 64)];
+    [self.view addSubview:overlayView];
+    
+    [UIView animateWithDuration:0.3f animations:^{
+        titleLabel.hidden = NO;
+        [self.view layoutIfNeeded];
+        [btnRightMenuBar setHidden:YES];
+        [btnNewListing setHidden:YES];
+        [overlayView setFrame:CGRectMake(0, 140, self.view.bounds.size.width, self.view.bounds.size.height - 140)];
+    } completion:^(BOOL finished) {
+        
+        overlayView.alpha = 1.0f;
+    }];
+
+}
+
+- (void)collapseSearchView {
     locationSearchBarHeightConstraint.constant = 0;
     searchBarConstraint.constant = 12;
     searchBarLeftConstraint.constant = 12;
     searchBarTopConstraint.constant = 25;
     searchContainerViewConstraint.constant = 64;
     
+    [self cancelSearching];
+    
     [UIView animateWithDuration:0.3f animations:^{
         [self.view layoutIfNeeded];
         [overlayView setFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height - 64)];
         overlayView.alpha = 0.0;
         titleLabel.hidden = YES;
-        [btnRightMenuBar setSelected:NO];
-        [btnRightMenuBar setImage:[UIImage imageNamed:@"btn_category.png"] forState:UIControlStateNormal];
+        [btnRightMenuBar setHidden:NO];
+        [btnNewListing setHidden:NO];
     } completion:^(BOOL finished) {
         [overlayView removeFromSuperview];
         overlayView.alpha = 1.0f;
     }];
     
-    
-    return YES;
+    [self.view endEditing:YES];
+
 }
 
 - (BOOL) textFieldShouldReturn:(UITextField *)textField {
