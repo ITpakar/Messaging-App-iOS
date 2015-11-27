@@ -114,7 +114,7 @@
 
 - (void)showAlertForLogIn {
     
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Warning"
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@""
                                                                              message:@"Please Sign In/Sign Up first to access this feature."
                                                                       preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *logInAction = [UIAlertAction

@@ -1017,6 +1017,8 @@ static bool liked = NO;
                 
             }
         }];
+    } else {
+        locationLabel.text = @"";
     }
 
     return cell;
