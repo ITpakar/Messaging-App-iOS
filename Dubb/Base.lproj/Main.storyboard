@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="9mC-Dp-d8L">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="9mC-Dp-d8L">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -2984,7 +2984,22 @@ Dubb!</string>
                                                             <color key="value" red="0.76078431372549016" green="0.76078431372549016" blue="0.76078431372549016" alpha="1" colorSpace="calibratedRGB"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="didChangeEditing:" destination="Q8W-cI-c9P" eventType="editingChanged" id="65l-3L-B0N"/>
+                                                        <outlet property="delegate" destination="Q8W-cI-c9P" id="n0M-vs-Cl1"/>
+                                                    </connections>
                                                 </textField>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="110" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Yk-vW-Odp">
+                                                    <rect key="frame" x="572" y="32" width="20" height="13"/>
+                                                    <animations/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="13" id="Mjp-B0-HJ2"/>
+                                                        <constraint firstAttribute="width" constant="20" id="PFs-aJ-CgF"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <animations/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2993,9 +3008,11 @@ Dubb!</string>
                                                 <constraint firstItem="tPw-Pe-Y71" firstAttribute="top" secondItem="XpB-Nz-Grl" secondAttribute="bottom" constant="7" id="FTc-5t-CLk"/>
                                                 <constraint firstItem="tPw-Pe-Y71" firstAttribute="leading" secondItem="UOl-4K-8Yl" secondAttribute="leading" constant="12" id="Rax-KN-ThK"/>
                                                 <constraint firstItem="XpB-Nz-Grl" firstAttribute="leading" secondItem="UOl-4K-8Yl" secondAttribute="leading" id="XW2-q6-9X1"/>
+                                                <constraint firstItem="4Yk-vW-Odp" firstAttribute="top" secondItem="tPw-Pe-Y71" secondAttribute="bottom" constant="-6" id="Yd0-5R-4Ws"/>
                                                 <constraint firstAttribute="height" constant="45" id="ddE-Kb-aJZ"/>
                                                 <constraint firstAttribute="bottom" secondItem="tPw-Pe-Y71" secondAttribute="bottom" constant="7" id="e6b-UD-Kmd"/>
                                                 <constraint firstAttribute="trailing" secondItem="tPw-Pe-Y71" secondAttribute="trailing" constant="12" id="k5g-3E-TDZ"/>
+                                                <constraint firstAttribute="trailing" secondItem="4Yk-vW-Odp" secondAttribute="trailing" constant="8" id="qdO-We-zMR"/>
                                                 <constraint firstAttribute="trailing" secondItem="XpB-Nz-Grl" secondAttribute="trailing" id="wPo-jD-oXG"/>
                                             </constraints>
                                         </view>
@@ -3321,11 +3338,11 @@ Dubb!</string>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="144" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4YG-Ir-jj0">
-                                            <rect key="frame" x="572" y="549" width="20" height="13"/>
+                                            <rect key="frame" x="562" y="549" width="30" height="13"/>
                                             <animations/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="13" id="AQu-zo-eD2"/>
-                                                <constraint firstAttribute="width" constant="20" id="H1D-zq-RPK"/>
+                                                <constraint firstAttribute="width" constant="30" id="H1D-zq-RPK"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -3826,6 +3843,7 @@ Dubb!</string>
                     <size key="freeformSize" width="600" height="1500"/>
                     <connections>
                         <outlet property="availableCharacterNumberLabel" destination="4YG-Ir-jj0" id="gOJ-iO-1bS"/>
+                        <outlet property="availableCharacterNumberLabelForTitle" destination="4Yk-vW-Odp" id="BcP-fm-1pt"/>
                         <outlet property="baseServiceDescriptionTextView" destination="GzP-nT-6In" id="v8g-xB-b80"/>
                         <outlet property="baseServicePriceTextField" destination="l57-Ef-lzF" id="frr-u2-g1j"/>
                         <outlet property="categoryTextField" destination="vX2-Mj-ueu" id="2H8-gH-sOK"/>

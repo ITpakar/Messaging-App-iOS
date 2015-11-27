@@ -24,8 +24,9 @@
 #import "DubbCreateListingTableViewController.h"
 
 NSString *const apiKey = @"AIzaSyBqO1R2q7YGqnEAegFiA4vbHo7oLn8IqV0";
-#define MAX_CHARACTER_NUMBER_BASE  510
+#define MAX_CHARACTER_NUMBER_BASE  1020
 #define MAX_CHARACTER_NUMBER_ADDON 100
+#define MAX_CHARACTER_NUMBER_TITLE 110
 typedef NS_ENUM(NSUInteger, TableViewSection){
     TableViewSectionCurrentLocation,
     TableViewSectionMain,
@@ -72,6 +73,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
 @property (strong, nonatomic) IBOutlet UITextField *baseServicePriceTextField;
 @property (strong, nonatomic) IBOutlet UILabel *availableCharacterNumberLabel;
 @property (strong, nonatomic) IBOutlet UILabel *availableCharacterNumberLabelForAddon;
+@property (strong, nonatomic) IBOutlet UILabel *availableCharacterNumberLabelForTitle;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UITableView *locationSearchTableView;
 @property (strong, nonatomic) GKImagePicker *picker;
@@ -192,6 +194,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     [self setupImagesScrollView];
     [self setupVideosScrollView];
     [self.availableCharacterNumberLabel setText:[NSString stringWithFormat:@"%ld", MAX_CHARACTER_NUMBER_BASE - [self.baseServiceDescriptionTextView.text length]]];
+    [self.availableCharacterNumberLabelForTitle setText:[NSString stringWithFormat:@"%ld", MAX_CHARACTER_NUMBER_TITLE - [self.titleTextField.text length]]];
     
 }
 
@@ -1294,7 +1297,10 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     NSUInteger newLength = [textView.text length] + [text length] - range.length;
     return (newLength > MAX_CHARACTER_NUMBER_BASE) ? NO : YES;
 }
-
+// Change Event for Title Text Field
+- (IBAction)didChangeEditing:(UITextField *)sender {
+    [self.availableCharacterNumberLabelForTitle setText:[NSString stringWithFormat:@"%ld", MAX_CHARACTER_NUMBER_TITLE - [sender.text length]]];
+}
 #pragma mark - UITextField Delegate
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)text {
     if(range.length + range.location > textField.text.length)
@@ -1321,6 +1327,12 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
         NSLog(@"%ld", MAX_CHARACTER_NUMBER_ADDON - [replacedText length]);
         [self.availableCharacterNumberLabelForAddon setText:[NSString stringWithFormat:@"%ld", MAX_CHARACTER_NUMBER_ADDON - [replacedText length]]];
         [self textFieldValueDidChange:textField WithText:replacedText];
+    } else if (textField == self.titleTextField) {
+        if ([replacedText length] > MAX_CHARACTER_NUMBER_TITLE) {
+            return NO;
+        } else {
+            return YES;
+        }
     }
     
     NSUInteger newLength = [textField.text length] + [text length] - range.length;

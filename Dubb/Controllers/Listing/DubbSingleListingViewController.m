@@ -1001,25 +1001,26 @@ static bool liked = NO;
     
     userNameLabel.text = [NSString stringWithFormat:@"%@ %@", review[@"reviewer"][@"first"], review[@"reviewer"][@"last"]];
     
+    CLLocation *location;
     if (![review[@"reviewer"][@"lat"] isEqualToString:@"0"] && ![review[@"reviewer"][@"longitude"] isEqualToString:@"0"]) {
-        CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-        CLLocation *location = [[CLLocation alloc] initWithLatitude:[review[@"reviewer"][@"lat"] doubleValue] longitude:[review[@"reviewer"][@"longitude"] doubleValue]];
-        
-        [geocoder reverseGeocodeLocation:location completionHandler: ^ (NSArray  *placemarks, NSError *error) {
-            
-            CLPlacemark *placemark = [placemarks firstObject];
-            if(placemark) {
-                
-                NSString *city = [placemark.addressDictionary objectForKey:(NSString*)kABPersonAddressCityKey];
-                NSString *state = [placemark.addressDictionary objectForKey:(NSString*)kABPersonAddressStateKey];
-                
-                locationLabel.text = [NSString stringWithFormat:@"%@, %@", city, state];
-                
-            }
-        }];
+        location = [[CLLocation alloc] initWithLatitude:[review[@"reviewer"][@"lat"] doubleValue] longitude:[review[@"reviewer"][@"longitude"] doubleValue]];
     } else {
-        locationLabel.text = @"";
+        location = [[CLLocation alloc] initWithLatitude:[listingInfo[@"lat"] doubleValue] longitude:[listingInfo[@"longitude"] doubleValue]];
     }
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    [geocoder reverseGeocodeLocation:location completionHandler: ^ (NSArray  *placemarks, NSError *error) {
+        
+        CLPlacemark *placemark = [placemarks firstObject];
+        if(placemark) {
+            
+            NSString *city = [placemark.addressDictionary objectForKey:(NSString*)kABPersonAddressCityKey];
+            NSString *state = [placemark.addressDictionary objectForKey:(NSString*)kABPersonAddressStateKey];
+            
+            locationLabel.text = [NSString stringWithFormat:@"%@, %@", city, state];
+            
+        }
+    }];
+
 
     return cell;
     
