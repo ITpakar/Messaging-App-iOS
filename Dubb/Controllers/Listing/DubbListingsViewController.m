@@ -55,6 +55,7 @@
     NSString *suggestionKeyword;
     NSString *locationKeyword;
     
+    AFHTTPRequestOperation *operation;
     
     CLGeocoder* geocoder;
     
@@ -110,6 +111,10 @@
     [videoController stop];
     [videoController.view removeFromSuperview];
     videoController = nil;
+    if (operation) {
+        [operation cancel];
+        operation = nil;
+    }
     if (currentCell) {
         [currentCell setDownloadProgress:0];
         currentCell = nil;
@@ -145,7 +150,7 @@
 - (void)downloadVideo:(NSURL *)url {
 
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *path = [[paths objectAtIndex:0] stringByAppendingPathComponent:[url pathComponents].lastObject];
@@ -164,8 +169,8 @@
         isDownloading = NO;
         NSLog(@"Successfully downloaded file to %@", path);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        UIAlertView * alert=[[UIAlertView alloc]initWithTitle:@"Error" message:[NSString stringWithFormat:@"%@",error] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil ];
-        [alert show];
+//        UIAlertView * alert=[[UIAlertView alloc]initWithTitle:@"Error" message:[NSString stringWithFormat:@"%@",error] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil ];
+//        [alert show];
         isDownloading = NO;
     }];
 

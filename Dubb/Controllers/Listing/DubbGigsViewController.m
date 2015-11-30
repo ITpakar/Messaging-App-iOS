@@ -20,6 +20,7 @@
     __weak IBOutlet UILabel *titleLabel;
     __weak IBOutlet UITableView *gigsTableView;
     NSMutableArray *listings;
+    AFHTTPRequestOperation *operation;
     
     BOOL isDownloading;
 }
@@ -55,6 +56,12 @@
     [videoController stop];
     [videoController.view removeFromSuperview];
     videoController = nil;
+    
+    if(operation) {
+        [operation cancel];
+        operation = nil;
+    }
+
     if (currentCell) {
         [currentCell setDownloadProgress:0];
         currentCell = nil;
@@ -73,7 +80,7 @@
     }
     DubbListingCell *cell = notification.userInfo[@"cell"];
     currentCell = cell;
-    [self downloadVideo:[NSURL URLWithString:cell.listing[@"main_video"]]];
+    [self downloadVideo:[self prepareVideoUrl:cell.listing[@"main_video"]]];
     
 }
 - (void)videoPlayBackDidFinish:(NSNotification *)notification {
@@ -88,7 +95,7 @@
 - (void)downloadVideo:(NSURL *)url {
     
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *path = [[paths objectAtIndex:0] stringByAppendingPathComponent:[url pathComponents].lastObject];
@@ -104,6 +111,7 @@
 //            currentCell = nil;
 //        }
 //    } else {
+    
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (currentCell) {
             videoController = [[MPMoviePlayerController alloc] init];
@@ -117,8 +125,10 @@
         }
         NSLog(@"Successfully downloaded file to %@", path);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        UIAlertView * alert=[[UIAlertView alloc]initWithTitle:@"Error" message:[NSString stringWithFormat:@"%@",error] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil ];
-        [alert show];
+        if (!operation.isCancelled) {
+            UIAlertView * alert=[[UIAlertView alloc]initWithTitle:@"Error" message:[NSString stringWithFormat:@"%@",error] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil ];
+            [alert show];
+        }
         isDownloading = NO;
     }];
     
@@ -130,6 +140,8 @@
         if (currentCell) {
             
             [currentCell setDownloadProgress:progress];
+        } else {
+            
         }
         
         // self.progressView.progress = progress;
