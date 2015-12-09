@@ -196,6 +196,55 @@
     return [NSURL URLWithString:imageUrlString];
 }
 
+- (void) uploadImage:(UIImage *)image CompletionHandler:(void (^)(NSString *urlString)) handler {
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSData *data = UIImageJPEGRepresentation(image, 0.7);
+    NSString *fileName = [NSString stringWithFormat:@"%@", [[NSUUID UUID] UUIDString]];
+    NSString *tempFilePath = [NSTemporaryDirectory() stringByAppendingPathComponent:fileName];
+    
+    [fileManager createFileAtPath:tempFilePath contents:data attributes:nil];
+    [self uploadFileWithFileName:fileName SourcePath:tempFilePath FileURL:nil Type:nil CompletionHandler:^(NSString *urlString) {
+        handler(urlString);
+    }];
+}
+
+
+- (void)uploadFileWithFileName:(NSString *)fileName SourcePath:(NSString *)sourcePath FileURL:(NSURL *)fileURL Type:(NSString*) type CompletionHandler:(void (^)(NSString *urlString)) handler  {
+    NSURL *fullPath;
+    if (sourcePath) {
+        fullPath = [NSURL fileURLWithPath:sourcePath
+                              isDirectory:NO];
+    } else {
+        fullPath = fileURL;
+    }
+    
+    if (type) {
+        [self showProgress:@"Uploading Video..."];
+    } else {
+        [self showProgress:@"Uploading Image..."];
+    }
+    [self.backend getUploadSignatureWithCompletionHandler: ^(NSDictionary *result) {
+        if(result) {
+            CLUploader* mobileUploader = [[CLUploader alloc] init:self.cloudinary delegate:self];
+            NSMutableDictionary* options = result[@"response"];
+            //[options setValue:@YES forKey:@"sync"];
+            
+            if (type) {
+                [options setValue:type forKey:@"resource_type"];
+            }
+            
+            [mobileUploader upload:fullPath.path options:options withCompletion:^(NSDictionary *successResult, NSString *errorResult, NSInteger code, id context) {
+                NSString *cloudinaryURL = [NSString stringWithFormat:@"cloudinary://%@", successResult[@"public_id"]];
+                handler(cloudinaryURL);
+                [self hideProgress];
+            } andProgress:^(NSInteger bytesWritten, NSInteger totalBytesWritten, NSInteger totalBytesExpectedToWrite, id context) {
+                
+                
+            }];
+        }
+    }];
+}
+
 #pragma mark -
 #pragma mark - MBProgressHUD
 - (void) showProgress:(NSString *)message

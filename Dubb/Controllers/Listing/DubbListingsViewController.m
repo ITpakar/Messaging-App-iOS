@@ -92,6 +92,7 @@
     [self setupListingTableView];
     isDownloading = NO;
     
+    NSLog(@"%@", [self prepareImageUrl:@"cloudinary://p0kodivs2oa9olstirc5"]);
 }
 
 - (void)viewWillAppear:(BOOL)animated {

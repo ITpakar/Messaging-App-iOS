@@ -348,6 +348,11 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
 }
 - (void) addVideoButtonClicked:(NSNotification *)notif {
     
+    if (self.listingVideos.count > 0) {
+        [self showMessage:@"Sorry. Only one video allowed per gig"];
+        return;
+    }
+    
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Where do you want to get video?"
                                                              delegate:self
                                                     cancelButtonTitle:@"Cancel"
@@ -492,20 +497,32 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
         [self showMessage:@"Please select  a smaller video with less than 50mb in size"];
         return;
     }
-    NSString *videoWebURL = [self uploadVideo:videoURL];
     
-    UIImage *thumbnailImage = [self thumbnailImageFromURL:videoURL];
-    NSString *thumbnailURL = [self uploadImage:thumbnailImage Folder:@"Preview"];
-    [self.listingVideos addObject:@{@"uploaded": @NO, @"url":videoWebURL, @"videoURL":videoURL, @"image":thumbnailImage, @"preview":thumbnailURL}];
-    [self setupVideosScrollView];
+    [self uploadVideo:videoURL CompletionHandler:^(NSString *urlString) {
+        NSString *videoWebURL = urlString;
+        UIImage *thumbnailImage = [self thumbnailImageFromURL:videoURL];
+        [self uploadImage:thumbnailImage CompletionHandler:^(NSString *urlString) {
+            
+            NSString *thumbnailURL = urlString;
+            [self.listingVideos addObject:@{@"uploaded": @NO, @"url":videoWebURL, @"videoURL":videoURL, @"image":thumbnailImage, @"preview":thumbnailURL}];
+            [self setupVideosScrollView];
+        }];
+
+        
+    }];
+    
+    
     
 }
 
 -(void)processImage:(UIImage *)image {
     
-    NSString *imageWebURL = [self uploadImage:image];
-    [self.listingImages addObject:@{@"uploaded": @NO, @"url":imageWebURL, @"image":image}];
-    [self setupImagesScrollView];
+    [self uploadImage:image CompletionHandler:^(NSString *urlString) {
+        NSString *imageWebURL = urlString;
+        [self.listingImages addObject:@{@"uploaded": @NO, @"url":imageWebURL, @"image":image}];
+        [self setupImagesScrollView];
+    }];
+
 }
 
 #pragma mark - IQDropDownTextField delegate
@@ -936,110 +953,12 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     self.videosCountLabel.text = [NSString stringWithFormat:@"%ld VIDEOS", self.listingVideos.count];
 }
 
-- (NSMutableArray *) uploadImages{
-    
-    NSMutableArray *imageURLs = [NSMutableArray array];
-    
-    for (NSDictionary *listingImage in self.listingImages) {
-        if ([listingImage[@"uploaded"] boolValue]) {
-            continue;
-        }
-        UIImage *image = listingImage[@"image"];
-        [imageURLs addObject:[self uploadImage:image]];
-//        NSData *data = UIImageJPEGRepresentation(image, 0.7);
-//        NSString *fileName = [NSString stringWithFormat:@"%@.jpg", [[NSUUID UUID] UUIDString]];
-//        NSString *tempFilePath = [NSTemporaryDirectory() stringByAppendingPathComponent:fileName];
-//        
-//        [fileManager createFileAtPath:tempFilePath contents:data attributes:nil];
-//        [imageURLs addObject:[NSString stringWithFormat:@"http://asset.dubb.com/completed/%@", fileName]];
-//        [self uploadFileWithFileName:fileName SourcePath:tempFilePath FileURL:nil];
-    }
-    
-    return imageURLs;
-}
 
-- (NSString *) uploadVideo:(NSURL *)videoURL{
+- (void) uploadVideo:(NSURL *)videoURL CompletionHandler:(void (^)(NSString *urlString)) handler {
+    
     NSString *fileName = [NSString stringWithFormat:@"Video/%@", [[NSUUID UUID] UUIDString]];
-    NSString *videoURLString = [NSString stringWithFormat:@"cloudinary://%@", fileName];
-    [self uploadFileWithFileName:fileName SourcePath:nil FileURL:videoURL Type:@"video"];
-    return videoURLString;
-}
-
-- (NSString *) uploadImage:(UIImage *)image {
-    return [self uploadImage:image Folder:@"Listing"];
-}
-
-- (NSString *) uploadImage:(UIImage *)image Folder:(NSString*)folder {
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSData *data = UIImageJPEGRepresentation(image, 0.7);
-    NSString *fileName = [NSString stringWithFormat:@"%@", [[NSUUID UUID] UUIDString]];
-    NSString *tempFilePath = [NSTemporaryDirectory() stringByAppendingPathComponent:fileName];
-    
-    fileName = [NSString stringWithFormat:@"%@/%@", folder, fileName];
-
-    [fileManager createFileAtPath:tempFilePath contents:data attributes:nil];
-    NSString *imageURLString = [NSString stringWithFormat:@"cloudinary://%@", fileName];
-    [self uploadFileWithFileName:fileName SourcePath:tempFilePath FileURL:nil];
-    return imageURLString;
-}
-
-- (NSString *) uploadVideo1:(NSURL *)videoURL{
-    
-    [self showProgress:@"Uploading the video..."];
-    NSString *fileName = [NSString stringWithFormat:@"%@.%@", [[NSUUID UUID] UUIDString], videoURL.pathExtension];
-    NSString *videoURLString = [NSString stringWithFormat:@"http://asset.dubb.com/completed/%@", fileName];
-    [self uploadFileWithFileName:fileName SourcePath:nil FileURL:videoURL];
-    return videoURLString;
-}
-
-- (NSString *) uploadImage1:(UIImage *)image{
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSData *data = UIImageJPEGRepresentation(image, 0.7);
-    NSString *fileName = [NSString stringWithFormat:@"%@.jpg", [[NSUUID UUID] UUIDString]];
-    NSString *tempFilePath = [NSTemporaryDirectory() stringByAppendingPathComponent:fileName];
-    
-    [fileManager createFileAtPath:tempFilePath contents:data attributes:nil];
-    NSString *imageURLString = [NSString stringWithFormat:@"http://asset.dubb.com/completed/%@", fileName];
-    [self uploadFileWithFileName:fileName SourcePath:tempFilePath FileURL:nil];
-    return imageURLString;
-}
-
-- (void)uploadFileWithFileName:(NSString *)fileName SourcePath:(NSString *)sourcePath FileURL:(NSURL *)fileURL {
-    [self uploadFileWithFileName:fileName SourcePath:sourcePath FileURL:fileURL Type:nil];
-}
-
-- (void)uploadFileWithFileName:(NSString *)fileName SourcePath:(NSString *)sourcePath FileURL:(NSURL *)fileURL Type:(NSString*) type {
-    NSURL *fullPath;
-    if (sourcePath) {
-        fullPath = [NSURL fileURLWithPath:sourcePath
-                              isDirectory:NO];
-    } else {
-        fullPath = fileURL;
-    }
-    
-    if (type) {
-        [self showProgress:@"Uploading Video..."];
-    } else {
-        [self showProgress:@"Uploading Image..."];
-    }
-    [self.backend getUploadSignature:fileName CompletionHandler: ^(NSDictionary *result) {
-        if(result) {
-            CLUploader* mobileUploader = [[CLUploader alloc] init:self.cloudinary delegate:self];
-            NSMutableDictionary* options = result[@"response"];
-            //[options setValue:@YES forKey:@"sync"];
-
-            if (type) {
-                [options setValue:type forKey:@"resource_type"];
-            }
-
-            [mobileUploader upload:fullPath.path options:options withCompletion:^(NSDictionary *successResult, NSString *errorResult, NSInteger code, id context) {
-                
-                [self hideProgress];
-            } andProgress:^(NSInteger bytesWritten, NSInteger totalBytesWritten, NSInteger totalBytesExpectedToWrite, id context) {
-                
-                
-            }];
-        }
+    [self uploadFileWithFileName:fileName SourcePath:nil FileURL:videoURL Type:@"video" CompletionHandler:^(NSString *urlString) {
+        handler(urlString);
     }];
 }
 

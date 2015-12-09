@@ -135,10 +135,19 @@
     }
     
     if (chosenImage) {
-        NSString *imageURL = [self uploadImage];
-        params[@"image"] = imageURL;
-        [self uploadImageToQuickblox];
+        [self uploadImage:chosenImage CompletionHandler:^(NSString *urlString) {
+            params[@"image"] = urlString;
+            [self uploadImageToQuickblox];
+            [self saveProfileWithParams:params];
+        }];
+        
+    } else {
+        [self saveProfileWithParams:params];
     }
+    
+}
+
+- (void) saveProfileWithParams:(NSDictionary *)params {
     [self showProgress:@"Saving profile changes"];
     [self.backend updateUser:[User currentUser].userID Parameters:params CompletionHandler:^(NSDictionary *result) {
         if (result) {
@@ -146,6 +155,7 @@
         }
         [self hideProgress];
     }];
+
 }
 
 - (IBAction)signOutButtonTapped:(id)sender {
@@ -248,93 +258,6 @@
         
     }
     
-    
-}
-
-- (NSString *) uploadImage{
-    
-    NSString *imageURL;
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    
-    UIImage *image = chosenImage;
-        
-    NSData *data = UIImageJPEGRepresentation(image, 0.7);
-    NSString *fileName = [NSString stringWithFormat:@"%@", [[NSUUID UUID] UUIDString]];
-    NSString *tempFilePath = [NSTemporaryDirectory() stringByAppendingPathComponent:fileName];
-    fileName = [NSString stringWithFormat:@"Avatar/%@", fileName];
-    [fileManager createFileAtPath:tempFilePath contents:data attributes:nil];
-    imageURL = [NSString stringWithFormat:@"cloudinary://%@", fileName];
-    [self uploadFileWithFileName:fileName SourcePath:tempFilePath];
-
-    
-    return imageURL;
-}
-
-- (void)uploadFileWithFileName:(NSString *)fileName SourcePath:(NSString *)sourcePath {
-    [self uploadFileWithFileName:fileName SourcePath:sourcePath Type:nil];
-}
-
-- (void)uploadFileWithFileName:(NSString *)fileName SourcePath:(NSString *)sourcePath Type:(NSString*) type {
-    NSURL *fullPath;
-    fullPath = [NSURL fileURLWithPath:sourcePath isDirectory:NO];
-
-    [self.backend getUploadSignature:fileName CompletionHandler: ^(NSDictionary *result) {
-        if(result) {
-            CLUploader* mobileUploader = [[CLUploader alloc] init:self.cloudinary delegate:nil];
-            NSMutableDictionary* options = result[@"response"];
-            //[options setValue:@YES forKey:@"sync"];
-
-            if (type) {
-                [options setValue:type forKey:@"resource_type"];
-            }
-
-            [mobileUploader upload:fullPath.path options:options];
-        }
-    }];
-}
-
-- (void)uploadFileWithFileName1:(NSString *)fileName SourcePath:(NSString *)sourcePath {
-    
-    NSURL *fullPath = [NSURL fileURLWithPath:sourcePath
-                                 isDirectory:NO];
-    AWSS3TransferManager *transferManager = [AWSS3TransferManager defaultS3TransferManager];
-    
-    AWSS3TransferManagerUploadRequest *uploadRequest = [AWSS3TransferManagerUploadRequest new];
-    uploadRequest.bucket = @"listing-image-uploads";
-    uploadRequest.key = [NSString stringWithFormat:@"completed/%@", fileName];
-    uploadRequest.body = fullPath;
-    uploadRequest.contentType = @"image/jpeg";
-    
-    [[transferManager upload:uploadRequest] continueWithExecutor:[BFExecutor mainThreadExecutor] withBlock:^id(BFTask *task) {
-        if (task.error) {
-            if ([task.error.domain isEqualToString:AWSS3TransferManagerErrorDomain]) {
-                switch (task.error.code) {
-                    case AWSS3TransferManagerErrorCancelled:
-                    case AWSS3TransferManagerErrorPaused:
-                        NSLog(@"Fail %@", task.error);
-                        break;
-                        
-                    default:
-                        NSLog(@"Error: %@", task.error);
-                        break;
-                }
-            } else {
-                // Unknown error.
-                NSLog(@"Error: %@", task.error);
-            }
-            
-            //Uploading image fails
-            
-        }
-        
-        if (task.result) {
-            
-            // The file uploaded successfully.
-            
-            NSLog(@"Success: %@", task.result);
-        }
-        return nil;
-    }];
     
 }
 

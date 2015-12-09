@@ -27,6 +27,8 @@
 - (NSURL*)prepareImageUrl:(NSString*)url size:(CGSize) size gravity:(NSString*)gravity;
 - (NSURL*)prepareImageUrl:(NSString*)url size:(CGSize) size;
 - (NSURL*)prepareImageUrl:(NSString*)url withWith:(int)width withHeight:(int)height withGravity:(NSString*)gravity;
+- (void) uploadImage:(UIImage *)image CompletionHandler:(void (^)(NSString *urlString)) handler;
+- (void)uploadFileWithFileName:(NSString *)fileName SourcePath:(NSString *)sourcePath FileURL:(NSURL *)fileURL Type:(NSString*) type CompletionHandler:(void (^)(NSString *urlString)) handler;
 //MB Progres
 - (void)showProgress:(NSString *)message;
 - (void)hideProgress;

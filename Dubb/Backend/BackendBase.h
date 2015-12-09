@@ -44,7 +44,7 @@ CompletionHandler:(void (^)(NSDictionary *result))handler;
 
 -(void) updateListing : (NSString*) listingID Parameters : (NSDictionary*) params CompletionHandler:(void (^)(NSDictionary *result))handler;
 
--(void) getUploadSignature:(NSString *)fileName CompletionHandler:(void (^)(NSDictionary *result)) handler;
+-(void) getUploadSignatureWithCompletionHandler:(void (^)(NSDictionary *result)) handler;
 
 -(void) checkValidityOfUsernameOrEmail:(NSString *)userNameOrEmail CompletionHandler:(void (^)(NSDictionary *result))handler;
 

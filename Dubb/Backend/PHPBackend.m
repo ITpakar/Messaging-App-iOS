@@ -164,8 +164,8 @@ static PHPBackend   *sharedConnection;
     }];
 }
 
--(void) getUploadSignature:(NSString *)fileName CompletionHandler:(void (^)(NSDictionary *result)) handler{
-    NSString *apiPath = [NSString stringWithFormat:@"%@signature/upload?public_id=%@", APIURL, fileName];
+-(void) getUploadSignatureWithCompletionHandler:(void (^)(NSDictionary *result)) handler{
+    NSString *apiPath = [NSString stringWithFormat:@"%@signature/upload", APIURL];
     [self accessAPI:apiPath Parameters:nil CompletionHandler:^(NSDictionary *result, NSData *data, NSError *error) {
         if (handler) {
             handler(result);
