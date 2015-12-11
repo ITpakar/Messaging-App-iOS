@@ -228,7 +228,7 @@
             }
             
         } else {
-            [self showMessage:@"Registering a user fails"];
+            [self showMessage:@"Signup failed, please reach us through support.dubb.com."];
             [self hideProgress];
         }
     }];
@@ -276,7 +276,7 @@
                 [self registerUserToQuickBlox];
             }
         } else {
-            [self showMessage:@"Registering a user fails"];
+            [self showMessage:@"Signup failed, please reach us through support.dubb.com."];
             [self hideProgress];
         }
     }];

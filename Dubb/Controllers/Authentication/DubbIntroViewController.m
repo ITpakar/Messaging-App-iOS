@@ -88,13 +88,13 @@
 -(void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.avplayer play];
+    //[self.avplayer play];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 }
 
 -(void) viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    [self.avplayer pause];
+    //[self.avplayer pause];
 }
 
 -(void) scrollViewDidScroll:(UIScrollView *)scrollView

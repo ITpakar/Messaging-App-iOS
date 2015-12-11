@@ -205,7 +205,6 @@ typedef NS_ENUM(NSUInteger, TableViewSection){
     NSArray *addonArray = self.listingDetail[@"addon"];
     NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"sequence" ascending:YES];
     addonArray = [addonArray sortedArrayUsingDescriptors:[NSArray arrayWithObject:descriptor]];
-    self.invitePeopleButton.hidden = NO;
     self.navigationTitleLabel.text = @"Edit Gig";
     
     self.titleTextField.text = self.listingDetail[@"name"];
