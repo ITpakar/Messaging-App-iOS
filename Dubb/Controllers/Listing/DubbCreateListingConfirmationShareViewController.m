@@ -124,8 +124,10 @@ enum DubbSmsCellTag {
     
     if (ABPersonHasImageData(person)) {
         NSData *contactImageData = (__bridge NSData *)ABPersonCopyImageDataWithFormat(person, kABPersonImageFormatThumbnail);
-        
-        [contactInfoDict setObject:[UIImage imageWithData:contactImageData] forKey:@"image"];
+        if (contactImageData) {
+            [contactInfoDict setObject:[UIImage imageWithData:contactImageData] forKey:@"image"];
+        }
+
     }
     
     if (![contactInfoDict[@"phoneNumber"] isEqualToString:@""]) {
@@ -318,7 +320,9 @@ enum DubbSmsCellTag {
 
 - (void)sendEmail:(UIButton *)sender {
     NSLog(@"Sending Email...");
-    
+    if (![_arrContactEmails objectAtIndex:sender.tag]) {
+        return;
+    }
     NSMutableDictionary *contactEmail = _arrContactEmails[sender.tag];
     NSString *emailTitle = @"Checkout my Gig on Dubb";
     // Email Content
@@ -345,7 +349,9 @@ enum DubbSmsCellTag {
 
 - (void)sendSMS:(UIButton *)sender {
     NSLog(@"Sending SMS...");
-    
+    if (![_arrContactPhoneNumbers objectAtIndex:sender.tag]) {
+        return;
+    }
     NSMutableDictionary *contactPhoneNumber = _arrContactPhoneNumbers[sender.tag];
     if(![MFMessageComposeViewController canSendText]) {
         UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Your device doesn't support SMS!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
