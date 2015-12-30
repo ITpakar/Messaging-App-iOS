@@ -10,6 +10,7 @@
 #import <MessageUI/MessageUI.h>
 #import "DubbActivityProvider.h"
 #import "DubbCreateListingConfirmationShareViewController.h"
+#import "DubbShareCell.h"
 #import "UIView+Toast.h"
 #define commonShareText(listingTitle)  [NSString stringWithFormat:@"I just bought this cool service '%@' on - Dubb Mobile Marketplace for Creative Freelancers - http://www.dubb.com/app", listingTitle]
 @interface DubbCreateListingConfirmationShareViewController () <MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate, UISearchBarDelegate>
@@ -207,8 +208,6 @@ enum DubbSmsCellTag {
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
     pasteboard.string = self.slugUrlString;
     [self.view makeToast:@"link copied to clipboard!" duration:4.0 position:CSToastPositionCenter];
-    
-
 }
 
 -(void)obtainContactsInfo{
@@ -235,7 +234,7 @@ enum DubbSmsCellTag {
         // The user has previously denied access
         // Send an alert telling user to change privacy setting in settings app
     }
-    }
+}
 
 - (void)addContactsToAddressBook {
     ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, NULL);
@@ -283,15 +282,15 @@ enum DubbSmsCellTag {
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell;
+    DubbShareCell *cell;
     
     if (tableView == self.emailTableView) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"EmailCell"];
         
-        UIImageView *profileImageView = (UIImageView *)[cell viewWithTag:kDubbEmailCellProfileImageViewTag];
-        UILabel *nameLabel = (UILabel *)[cell viewWithTag:kDubbEmailCellNameLabelTag];
-        UILabel *emailLabel = (UILabel *)[cell viewWithTag:kDubbEmailCellEmailLabelTag];
-        UIButton *sendButton = (UIButton *)[cell viewWithTag:kDubbEmailCellSendButtonTag];
+        UIImageView *profileImageView = cell.profileImageView; //(UIImageView *)[cell viewWithTag:kDubbEmailCellProfileImageViewTag];
+        UILabel *nameLabel = cell.nameLabel;//(UILabel *)[cell viewWithTag:kDubbEmailCellNameLabelTag];
+        UILabel *emailLabel = cell.detailLabel;//(UILabel *)[cell viewWithTag:kDubbEmailCellEmailLabelTag];
+        UIButton *sendButton = cell.sendButton;//(UIButton *)[cell viewWithTag:kDubbEmailCellSendButtonTag];
         
         NSMutableDictionary *contactEmail = _arrContactEmails[indexPath.row];
         profileImageView.image = contactEmail[@"image"];
@@ -302,10 +301,10 @@ enum DubbSmsCellTag {
         [sendButton addTarget:self action:@selector(sendEmail:) forControlEvents:UIControlEventTouchUpInside];
     } else {
         cell = [tableView dequeueReusableCellWithIdentifier:@"SMSCell"];
-        UIImageView *profileImageView = (UIImageView *)[cell viewWithTag:kDubbSmsCellProfileImageViewTag];
-        UILabel *nameLabel = (UILabel *)[cell viewWithTag:kDubbSmsCellNameLabelTag];
-        UILabel *phoneNumberLabel = (UILabel *)[cell viewWithTag:kDubbSmsCellPhoneNumberLabelTag];
-        UIButton *sendButton = (UIButton *)[cell viewWithTag:kDubbSmsCellSendButtonTag];
+        UIImageView *profileImageView = cell.profileImageView; //(UIImageView *)[cell viewWithTag:kDubbEmailCellProfileImageViewTag];
+        UILabel *nameLabel = cell.nameLabel;//(UILabel *)[cell viewWithTag:kDubbEmailCellNameLabelTag];
+        UILabel *phoneNumberLabel = cell.detailLabel;//(UILabel *)[cell viewWithTag:kDubbEmailCellEmailLabelTag];
+        UIButton *sendButton = cell.sendButton;//(UIButton *)[cell viewWithTag:kDubbEmailCellSendButtonTag];
         
         NSMutableDictionary *contactEmail = _arrContactPhoneNumbers[indexPath.row];
         profileImageView.image = contactEmail[@"image"];

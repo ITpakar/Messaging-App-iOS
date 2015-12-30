@@ -117,6 +117,7 @@
 		0D3626F01B0C2C18002A7814 /* flag@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D3626EE1B0C2C18002A7814 /* flag@2x.png */; };
 		0D3626F51B0C377E002A7814 /* iRate.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0D3626F21B0C377E002A7814 /* iRate.bundle */; };
 		0D3626F61B0C377E002A7814 /* iRate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D3626F41B0C377E002A7814 /* iRate.m */; };
+		0D4084691C33264D006CC00C /* DubbShareCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D4084681C33264D006CC00C /* DubbShareCell.m */; };
 		0D5653A41B1FE04A00444999 /* NSDate+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D5653A31B1FE04A00444999 /* NSDate+Helper.m */; };
 		0D5653A81B24494500444999 /* DubbMyListingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D5653A71B24494500444999 /* DubbMyListingsViewController.m */; };
 		0D5ABFEF1B4224F400D20241 /* export_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D5ABFED1B4224F400D20241 /* export_button.png */; };
@@ -491,6 +492,8 @@
 		0D3626F21B0C377E002A7814 /* iRate.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = iRate.bundle; sourceTree = "<group>"; };
 		0D3626F31B0C377E002A7814 /* iRate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iRate.h; sourceTree = "<group>"; };
 		0D3626F41B0C377E002A7814 /* iRate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iRate.m; sourceTree = "<group>"; };
+		0D4084671C33264D006CC00C /* DubbShareCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DubbShareCell.h; sourceTree = "<group>"; };
+		0D4084681C33264D006CC00C /* DubbShareCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DubbShareCell.m; sourceTree = "<group>"; };
 		0D5653A21B1FE04A00444999 /* NSDate+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Helper.h"; sourceTree = "<group>"; };
 		0D5653A31B1FE04A00444999 /* NSDate+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Helper.m"; sourceTree = "<group>"; };
 		0D5653A61B24494500444999 /* DubbMyListingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DubbMyListingsViewController.h; path = Listing/DubbMyListingsViewController.h; sourceTree = "<group>"; };
@@ -1870,6 +1873,8 @@
 				0DAC05D91B317757007D4234 /* DubbExtraQuantityCell.xib */,
 				0D19E6411BD7215F00DE883B /* DubbMyListingCell.h */,
 				0D19E6421BD7215F00DE883B /* DubbMyListingCell.m */,
+				0D4084671C33264D006CC00C /* DubbShareCell.h */,
+				0D4084681C33264D006CC00C /* DubbShareCell.m */,
 			);
 			name = Listings;
 			sourceTree = "<group>";
@@ -2280,6 +2285,7 @@
 				7C09A5AD1AB1F50700218127 /* BackendBase.m in Sources */,
 				0D12C5951B6610310048C0F3 /* CALayer+XibConfiguration.m in Sources */,
 				7C4A0AB71AC1D2AC007DA690 /* UsersPaginator.m in Sources */,
+				0D4084691C33264D006CC00C /* DubbShareCell.m in Sources */,
 				0D344D841B026A480069D816 /* DubbGigQuantityCell.m in Sources */,
 				0D1FA5951ACA183C00079C79 /* AFHTTPRequestOperation.m in Sources */,
 				0D1FA6521ACA183C00079C79 /* IQDropDownTextField.m in Sources */,
