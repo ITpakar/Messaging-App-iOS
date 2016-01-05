@@ -500,7 +500,10 @@
     
     // Reload table
     [messageTableView reloadData];
-    [self scrollBottomOfTableView:YES];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self scrollBottomOfTableView:YES];
+    });
+
     
     [QBChat markMessagesAsRead:nil dialogID:self.dialog.ID delegate:nil];
     [self updateRecipientStatus];
@@ -541,8 +544,12 @@
             
             [messageTableView reloadData];
             
-            if( pageNo == 0)
-                [self scrollBottomOfTableView:NO];
+            if( pageNo == 0) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self scrollBottomOfTableView:NO];
+                });
+
+            }
             else {
                 if( loadedSections < sectionTitles.count )
                     [messageTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:sectionTitles.count - loadedSections]
@@ -674,7 +681,9 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     }
     
     [messageTableView reloadData];
-    [self scrollBottomOfTableView:YES];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self scrollBottomOfTableView:YES];
+    });
 }
 
 
