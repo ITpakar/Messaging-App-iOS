@@ -184,7 +184,33 @@
     if( currentUser.latitude.intValue + currentUser.longitude.intValue != 0 )
         [self registerUserToDubb:params];
     else
-        [self showMessage:@"Please enable location services at phone settings."];
+        [self showAlertForInvalidSettingsWithMessage:@"Please enable location services at phone settings."];
+}
+
+-(void) showAlertForInvalidSettingsWithMessage:(NSString *)message {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@""
+                                                                             message:message
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okAction = [UIAlertAction
+                               actionWithTitle:NSLocalizedString(@"OK", @"OK action")
+                               style:UIAlertActionStyleDefault
+                               handler:^(UIAlertAction *action)
+                               {
+                                   NSURL* settingsURL = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+                                   [[UIApplication sharedApplication] openURL:settingsURL];
+                               }];
+    
+    UIAlertAction *cancelAction = [UIAlertAction
+                                   actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel action")
+                                   style:UIAlertActionStyleDefault
+                                   handler:^(UIAlertAction *action)
+                                   {
+                                       NSLog(@"Cancel action");
+                                   }];
+    
+    [alertController addAction:okAction];
+    [alertController addAction:cancelAction];
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 -(int) registerUserToDubb : (NSDictionary*) params
