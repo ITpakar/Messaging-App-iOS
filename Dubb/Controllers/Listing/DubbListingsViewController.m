@@ -73,29 +73,45 @@
 
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     nameLabel.text =  [NSString stringWithFormat:@"Dear %@,", [User currentUser].firstName];
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"SHOWN_INTRODUCTION"]) {
+        
         introductionView.hidden = NO;
         shadowView.hidden = NO;
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"SHOWN_INTRODUCTION"];
         [[NSUserDefaults standardUserDefaults] synchronize];
-        
     } else {
+        
         shadowView.hidden = YES;
         introductionView.hidden = YES;
         
+        if ([[UIApplication sharedApplication] respondsToSelector:@selector(currentUserNotificationSettings)]){ // Check it's iOS 8 and above
+            UIUserNotificationSettings *grantedSettings = [[UIApplication sharedApplication] currentUserNotificationSettings];
+            
+            if (grantedSettings.types == UIUserNotificationTypeNone) {
+                // Show alert, if user has disapproved the use of push notification.
+                [self showAlertForInvalidSettingsWithMessage:@"Enabling push notifications makes sure you get messages from customers ,when you are offline. and help your business on Dubb. Please click OK to enable them."];
+            }
+        }
+        
+        // Show alert, if user has denied the use of location service.
+        if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied) {
+            
+            [self showAlertForInvalidSettingsWithMessage:@"Dubb requires location services to be enabled to work right. Please enable it by clicking OK."];
+        }
     }
     videoController = [[MPMoviePlayerController alloc] init];
     [self setupSearch];
     [self setupListingTableView];
     isDownloading = NO;
     
-    NSLog(@"%@", [self prepareImageUrl:@"cloudinary://p0kodivs2oa9olstirc5"]);
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    
     [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playButtonTapped:) name:kNotificationDidTapPlayButton object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -103,10 +119,10 @@
                                                  name:MPMoviePlayerPlaybackDidFinishNotification
                                                object:videoController];
     
-    
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+    
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [videoController stop];
@@ -135,7 +151,6 @@
     DubbListingCell *cell = notification.userInfo[@"cell"];
     currentCell = cell;
     [self downloadVideo:[self prepareVideoUrl:cell.listing[@"main_video"]]];
-
 }
 - (void)videoPlayBackDidFinish:(NSNotification *)notification {
     
@@ -146,7 +161,6 @@
     currentCell = nil;
     
     NSLog(@"Finished playback");
-    
 }
 - (void)downloadVideo:(NSURL *)url {
 
@@ -223,6 +237,7 @@
 }
 
 -(void) setupListingTableView{
+    
     [listingsTableView addPullToRefreshWithActionHandler:^{
         [self loadListings : YES];
     }];
@@ -238,10 +253,12 @@
 
 //Remove search results and overlay view
 -(void) cancelSearch{
+    
     [searchBar endEditing:YES];
 }
 
 -(void) cancelSearching{
+    
     [suggestionLists removeAllObjects];
     if( searchResultTableView.superview)
         [searchResultTableView removeFromSuperview];
@@ -632,8 +649,33 @@
     return cell;
 }
 
+-(void) showAlertForInvalidSettingsWithMessage:(NSString *)message {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@""
+                                                                             message:message
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okAction = [UIAlertAction
+                               actionWithTitle:NSLocalizedString(@"OK", @"OK action")
+                               style:UIAlertActionStyleDefault
+                               handler:^(UIAlertAction *action)
+                               {
+                                   NSURL* settingsURL = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+                                   [[UIApplication sharedApplication] openURL:settingsURL];
+                               }];
+    
+    UIAlertAction *cancelAction = [UIAlertAction
+                                   actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel action")
+                                   style:UIAlertActionStyleDefault
+                                   handler:^(UIAlertAction *action)
+                                   {
+                                       NSLog(@"Cancel action");
+                                   }];
+    
+    [alertController addAction:okAction];
+    [alertController addAction:cancelAction];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
 
-#pragma mark - 
+#pragma mark -
 #pragma mark - Navigation
 
 -(void) onBack {

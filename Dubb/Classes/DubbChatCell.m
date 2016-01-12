@@ -214,12 +214,13 @@
         static NSDateFormatter *dateFormatter;
         if( dateFormatter == nil ){
             dateFormatter = [[NSDateFormatter alloc] init];
-            [dateFormatter setTimeZone:[NSTimeZone systemTimeZone]];
+            [dateFormatter setTimeZone:[NSTimeZone localTimeZone]];
             [dateFormatter setDateFormat: @"hh:mm a"];
         }
         
         lblTime.text = [dateFormatter stringFromDate:self.message.datetime];
-        
+        NSLog(@"%@", self.message.datetime);
+        NSLog(@"%@", lblTime.text);
         [self.contentView addSubview:lblTime];
     }
     return self;

@@ -117,6 +117,7 @@
 		0D3626F01B0C2C18002A7814 /* flag@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D3626EE1B0C2C18002A7814 /* flag@2x.png */; };
 		0D3626F51B0C377E002A7814 /* iRate.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0D3626F21B0C377E002A7814 /* iRate.bundle */; };
 		0D3626F61B0C377E002A7814 /* iRate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D3626F41B0C377E002A7814 /* iRate.m */; };
+		0D3D54B51C44FD5C004CC0CF /* ATAppUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D3D54B41C44FD5C004CC0CF /* ATAppUpdater.m */; };
 		0D4084691C33264D006CC00C /* DubbShareCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D4084681C33264D006CC00C /* DubbShareCell.m */; };
 		0D5653A41B1FE04A00444999 /* NSDate+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D5653A31B1FE04A00444999 /* NSDate+Helper.m */; };
 		0D5653A81B24494500444999 /* DubbMyListingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D5653A71B24494500444999 /* DubbMyListingsViewController.m */; };
@@ -492,6 +493,8 @@
 		0D3626F21B0C377E002A7814 /* iRate.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = iRate.bundle; sourceTree = "<group>"; };
 		0D3626F31B0C377E002A7814 /* iRate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iRate.h; sourceTree = "<group>"; };
 		0D3626F41B0C377E002A7814 /* iRate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iRate.m; sourceTree = "<group>"; };
+		0D3D54B31C44FD5C004CC0CF /* ATAppUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATAppUpdater.h; sourceTree = "<group>"; };
+		0D3D54B41C44FD5C004CC0CF /* ATAppUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATAppUpdater.m; sourceTree = "<group>"; };
 		0D4084671C33264D006CC00C /* DubbShareCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DubbShareCell.h; sourceTree = "<group>"; };
 		0D4084681C33264D006CC00C /* DubbShareCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DubbShareCell.m; sourceTree = "<group>"; };
 		0D5653A21B1FE04A00444999 /* NSDate+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Helper.h"; sourceTree = "<group>"; };
@@ -1088,6 +1091,15 @@
 				0D3626F41B0C377E002A7814 /* iRate.m */,
 			);
 			path = iRate;
+			sourceTree = "<group>";
+		};
+		0D3D54B21C44FD5C004CC0CF /* ATAppUpdater */ = {
+			isa = PBXGroup;
+			children = (
+				0D3D54B31C44FD5C004CC0CF /* ATAppUpdater.h */,
+				0D3D54B41C44FD5C004CC0CF /* ATAppUpdater.m */,
+			);
+			path = ATAppUpdater;
 			sourceTree = "<group>";
 		};
 		0D5653A51B1FE05300444999 /* NSDate+Helper */ = {
@@ -1739,6 +1751,7 @@
 		7CA773CF1AB1C35300F6D631 /* ExFrameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0D3D54B21C44FD5C004CC0CF /* ATAppUpdater */,
 				0D1748A01BB0927D004B501D /* GoogleConversionTrackingSDK */,
 				0D6105581BABF970003CF85A /* Toast */,
 				0D90ECB41B84F58C00EBFF4E /* MCPercentageDoughnut */,
@@ -2269,6 +2282,7 @@
 				0D90ECC11B84F58C00EBFF4E /* MCNewCustomLayer.m in Sources */,
 				7CBE24321AD6B8D700DA0A12 /* DubbImageBrowser.m in Sources */,
 				7C09A6161AB31C7F00218127 /* DubbReceiverTableViewCell.m in Sources */,
+				0D3D54B51C44FD5C004CC0CF /* ATAppUpdater.m in Sources */,
 				7C81E24C1AC1FFF3007F49E3 /* DubbChatCell.m in Sources */,
 				0D90ECC31B84F58C00EBFF4E /* MCPercentageDoughnutView.m in Sources */,
 				0D90ECC41B84F58C00EBFF4E /* MCSliceLayer.m in Sources */,

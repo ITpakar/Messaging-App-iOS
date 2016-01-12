@@ -24,6 +24,7 @@
 #import <Fabric/Fabric.h>
 #import <TwitterKit/TwitterKit.h>
 #import <Crashlytics/Crashlytics.h>
+#import "ATAppUpdater.h"
 
 @interface AppDelegate () {
     CLLocationManager *locationManager;
@@ -93,6 +94,8 @@
          (UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert)];
     }
     
+    // Show Alert when there's an update on AppStore
+    [[ATAppUpdater sharedUpdater] showUpdateWithConfirmation];
     return YES;
 }
 - (void)applicationDidBecomeActive:(UIApplication *)application

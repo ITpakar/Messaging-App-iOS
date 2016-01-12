@@ -238,8 +238,7 @@ enum DubbSingleListingViewTag {
                                                                label:@"View Gig By Id"          // Event label
                                                                value:nil] build]];    // Event value
         if ([result[@"response"] isKindOfClass:[NSNull class]]) {
-            [self showMessage:@"Invalid Gig"];
-            [self.navigationController popViewControllerAnimated:YES];
+            [self processInvalidGig];
             return;
         }
         listingInfo = result[@"response"];
@@ -248,6 +247,10 @@ enum DubbSingleListingViewTag {
             [images addObjectsFromArray:listingInfo[@"videos"]];
         }
         [images addObjectsFromArray:listingInfo[@"images"]];
+        if (images.count == 0) {
+            [self processInvalidGig];
+            return;
+        }
         addOns = [listingInfo[@"addon"] mutableCopy];
         for (int i = 0; i < addOns.count; i++) {
             
@@ -257,8 +260,7 @@ enum DubbSingleListingViewTag {
         sellerInfo = listingInfo[@"user"];
         
         if ([sellerInfo isKindOfClass:[NSNull class]]) {
-            [self showMessage:@"Invalid Gig"];
-            [self.navigationController popViewControllerAnimated:YES];
+            [self processInvalidGig];
             return;
         }
         
@@ -1338,6 +1340,11 @@ static bool liked = NO;
         }];
     }
     
+}
+
+-(void) processInvalidGig {
+    [self showMessage:@"Invalid Gig"];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 /*
