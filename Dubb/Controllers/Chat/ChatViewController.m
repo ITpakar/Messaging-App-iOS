@@ -69,7 +69,8 @@
     
     dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat: @"MMM dd, yyyy EEEE"];
-    [dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:[User currentUser].timeZone*60*60]];
+    //[dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:[User currentUser].timeZone*60*60]];
+    [dateFormatter setTimeZone:[NSTimeZone localTimeZone]];
     
     messageContainerView.layer.borderColor = [[UIColor grayColor] CGColor];
     messageContainerView.layer.borderWidth = 1.0f;
