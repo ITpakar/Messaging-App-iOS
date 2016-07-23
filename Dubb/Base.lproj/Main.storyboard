@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="9mC-Dp-d8L">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="9mC-Dp-d8L">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -1182,6 +1182,7 @@ Dubb!</string>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="alreadyMemberLabel" destination="4vs-s7-Qxl" id="VDf-uv-TEH"/>
+                        <outlet property="asd" destination="QBx-A6-clF" id="Wvc-2j-56y"/>
                         <outlet property="chkboxTogglePasswordSecureEntry" destination="nBy-z9-biz" id="R90-vX-qrU"/>
                         <outlet property="chkboxToggleTermsOfService" destination="ROS-kX-fX1" id="2u6-GV-13K"/>
                         <outlet property="signInButton" destination="FiI-4l-Uwc" id="vI4-1w-s69"/>
@@ -4682,7 +4683,7 @@ Dubb!</string>
                         <rect key="frame" x="0.0" y="0.0" width="320" height="800"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="mK1-eb-UxF">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="mK1-eb-UxF">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="756"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -4890,13 +4891,6 @@ Dubb!</string>
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                 </button>
-                                                <imageView userInteractionEnabled="NO" tag="108" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder_image.png" translatesAutoresizingMaskIntoConstraints="NO" id="Ev6-GP-lDK">
-                                                    <rect key="frame" x="13" y="59" width="62" height="62"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="62" id="Ldf-G3-5Qc"/>
-                                                        <constraint firstAttribute="width" constant="62" id="PZ9-JC-EM3"/>
-                                                    </constraints>
-                                                </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="THE SELLER" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j3P-YN-KMc">
                                                     <rect key="frame" x="13" y="8" width="76" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="11"/>
@@ -4946,6 +4940,13 @@ Dubb!</string>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" tag="108" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder_image.png" translatesAutoresizingMaskIntoConstraints="NO" id="Ev6-GP-lDK">
+                                                    <rect key="frame" x="13" y="59" width="62" height="62"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="62" id="Ldf-G3-5Qc"/>
+                                                        <constraint firstAttribute="width" constant="62" id="PZ9-JC-EM3"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="2c8-FX-YUO" firstAttribute="top" secondItem="2Bu-Dx-28G" secondAttribute="top" constant="8" id="1C7-5b-fLD"/>
@@ -7634,12 +7635,6 @@ Please note that our services may not be used anonymously. This is the only way 
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="adX-Br-1H9" userLabel="Preview Container View">
                                         <rect key="frame" x="8" y="8" width="304" height="60"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="abr-oy-KDE">
-                                                <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="60" id="Onf-iP-FCV"/>
-                                                </constraints>
-                                            </imageView>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="divisor.png" translatesAutoresizingMaskIntoConstraints="NO" id="i1u-Sg-OiV">
                                                 <rect key="frame" x="249" y="7" width="1" height="45"/>
                                                 <constraints>
@@ -7676,6 +7671,12 @@ Please note that our services may not be used anonymously. This is the only way 
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="abr-oy-KDE">
+                                                <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="60" id="Onf-iP-FCV"/>
+                                                </constraints>
+                                            </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -8009,7 +8010,7 @@ Please note that our services may not be used anonymously. This is the only way 
         <image name="uparrow_button.png" width="60" height="60"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="gEa-1e-Z8q"/>
-        <segue reference="sD5-vZ-Na8"/>
+        <segue reference="Edg-Ct-xA3"/>
+        <segue reference="tXi-ss-sf3"/>
     </inferredMetricsTieBreakers>
 </document>
